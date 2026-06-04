@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HinduEDU — Hindu Philosophy & History</title>
+<meta name="description" content="Rigorous, readable explorations of Hindu philosophy and history — built for anyone who wants to actually understand it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root {
+  --navy:       #1A3A6A;
+  --navy-deep:  #0F2448;
+  --copper:     #B87333;
+  --copper-d:   #8A5520;
+  --ivory:      #F8F6F2;
+  --ivory-2:    #F0EDE6;
+  --ink:        #14100C;
+  --ink-2:      #3A3028;
+  --mid:        #7A7060;
+  --rule:       #14100C;
+  --rule-light: #D8D4CC;
+
+  --font-d: 'DM Serif Display', Georgia, serif;
+  --font-b: 'DM Sans', system-ui, sans-serif;
+}
+
+/* ═══════════════════════════════════════
+   RESET
+═══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-b);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+nav {
+  border-bottom: 2px solid var(--rule);
+  padding: 0 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+  position: sticky; top: 0; z-index: 100;
+  background: var(--ivory);
+}
+.nav-logo {
+  font-family: var(--font-d);
+  font-size: 1.2rem; letter-spacing: .02em;
+  color: var(--ink);
+}
+.nav-links {
+  display: flex; align-items: center; height: 100%;
+}
+.nav-link {
+  font-size: .65rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--mid);
+  padding: 0 1.1rem; height: 100%;
+  display: flex; align-items: center;
+  border-left: 1px solid var(--rule-light);
+  cursor: pointer; transition: color .15s;
+}
+.nav-link:last-child { border-right: 1px solid var(--rule-light); }
+.nav-link:hover { color: var(--navy); }
+.nav-link.on { color: var(--navy); }
+.nav-cta {
+  font-size: .65rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase;
+  background: var(--navy); color: var(--ivory);
+  padding: .42rem 1.1rem;
+}
+
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero {
+  padding: 0 3rem;
+  border-bottom: 2px solid var(--rule);
+}
+
+/* Dateline bar */
+.hero-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--rule-light);
+  padding: .85rem 0;
+}
+.hero-bar-left {
+  font-size: .6rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--copper);
+}
+.hero-bar-right {
+  font-size: .6rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--mid);
+}
+
+/* Big headline block */
+.hero-headline {
+  padding: 2.5rem 0 0;
+  overflow: hidden;
+}
+.hero-hl {
+  font-family: var(--font-d);
+  font-size: clamp(5.5rem, 14vw, 11rem);
+  line-height: .88; letter-spacing: -.02em;
+  font-weight: 400;
+  color: var(--ink);
+}
+.hero-hl .outline {
+  -webkit-text-stroke: 2px var(--ink);
+  color: transparent;
+}
+.hero-hl .italic { font-style: italic; }
+.hero-hl .navy { color: var(--navy); }
+.hero-hl .copper { color: var(--copper); }
+.hero-hl .italic.navy { font-style: italic; color: var(--navy); }
+
+/* Three-column sub-row */
+.hero-sub-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid var(--rule-light);
+  margin-top: 2rem;
+}
+.hero-sub-cell {
+  padding: 1.6rem 2rem 1.8rem 0;
+  border-right: 1px solid var(--rule-light);
+}
+.hero-sub-cell:last-child { border-right: none; padding-left: 2rem; padding-right: 0; }
+.hero-sub-cell:nth-child(2) { padding: 1.6rem 2rem 1.8rem 2rem; }
+.hero-sub-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--navy);
+  margin-bottom: .55rem;
+}
+.hero-sub-text {
+  font-size: .9rem; font-weight: 300;
+  color: var(--ink-2); line-height: 1.7;
+}
+.hero-sub-btn {
+  display: inline-block; margin-top: 1.1rem;
+  font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase;
+  background: var(--navy); color: var(--ivory);
+  padding: .5rem 1.1rem;
+  transition: background .15s;
+}
+.hero-sub-btn:hover { background: var(--navy-deep); }
+
+
+/* ═══════════════════════════════════════
+   CHAPTER STRIPS
+═══════════════════════════════════════ */
+.chapters-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .65rem 3rem;
+  border-bottom: 1px solid var(--rule-light);
+  background: var(--ivory-2);
+}
+.chapters-head-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--mid);
+}
+
+.strip {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  align-items: center; gap: 0;
+  border-bottom: 1px solid var(--rule-light);
+  cursor: pointer;
+  transition: background .15s;
+  min-height: 96px;
+  text-decoration: none; color: inherit;
+}
+.strip:hover { background: var(--ivory-2); }
+.strip:hover .strip-arrow { transform: translateX(5px); }
+
+/* Left: number column */
+.strip-num-col {
+  padding: 1.8rem 2rem 1.8rem 3rem;
+  border-right: 1px solid var(--rule-light);
+  height: 100%;
+  display: flex; align-items: center;
+}
+.strip-num {
+  font-family: var(--font-d);
+  font-size: 2.8rem; font-weight: 400; line-height: 1;
+  color: rgba(26,58,106,.15);
+}
+
+/* Middle: content */
+.strip-content {
+  padding: 1.8rem 2.5rem;
+  display: flex; flex-direction: column; gap: .45rem;
+}
+.strip-type {
+  font-size: .58rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.strip-type.essay { color: var(--navy); }
+.strip-type.explorer { color: var(--copper); }
+.strip-type.timeline { color: var(--navy); }
+
+.strip-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.3rem, 2.5vw, 1.65rem);
+  line-height: 1.15; color: var(--ink);
+}
+.strip-title em { font-style: italic; color: var(--navy); }
+.strip-title .copper-em { font-style: italic; color: var(--copper); }
+
+.strip-desc {
+  font-size: .84rem; font-weight: 300;
+  color: var(--mid); line-height: 1.6;
+  max-width: 560px;
+}
+
+.strip-tags {
+  display: flex; flex-wrap: wrap; gap: .35rem;
+  margin-top: .3rem;
+}
+.stag {
+  font-size: .58rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: .22rem .6rem;
+  border: 1px solid var(--rule-light);
+  color: var(--mid);
+}
+.stag.navy { border-color: rgba(26,58,106,.3); color: var(--navy); }
+.stag.copper { border-color: rgba(184,115,51,.3); color: var(--copper-d); }
+
+/* Right: meta + arrow */
+.strip-meta-col {
+  padding: 1.8rem 3rem 1.8rem 2rem;
+  border-left: 1px solid var(--rule-light);
+  height: 100%;
+  display: flex; flex-direction: column;
+  align-items: flex-end; justify-content: center;
+  gap: .5rem; min-width: 130px;
+}
+.strip-time {
+  font-size: .6rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--mid);
+}
+.strip-arrow {
+  font-size: .9rem; font-weight: 700;
+  color: var(--navy); transition: transform .18s;
+}
+
+
+/* ═══════════════════════════════════════
+   ABOUT STRIP (bottom band)
+═══════════════════════════════════════ */
+.about-band {
+  border-top: 2px solid var(--rule);
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.about-left {
+  padding: 3.5rem 3rem;
+  border-right: 1px solid var(--rule-light);
+}
+.about-right {
+  padding: 3.5rem 3rem;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.about-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--navy); margin-bottom: 1rem;
+}
+.about-hl {
+  font-family: var(--font-d);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  line-height: 1.1; color: var(--ink);
+  margin-bottom: 1.2rem;
+}
+.about-hl em { font-style: italic; color: var(--copper); }
+.about-body {
+  font-size: .9rem; font-weight: 300;
+  color: var(--ink-2); line-height: 1.75;
+  max-width: 420px;
+}
+.about-pillars {
+  display: flex; flex-direction: column; gap: 0;
+  border: 1px solid var(--rule-light);
+}
+.about-pillar {
+  padding: 1rem 1.4rem;
+  border-bottom: 1px solid var(--rule-light);
+  display: flex; align-items: flex-start; gap: 1rem;
+}
+.about-pillar:last-child { border-bottom: none; }
+.pillar-mark {
+  font-family: var(--font-d);
+  font-size: 1.4rem; line-height: 1; color: rgba(26,58,106,.2);
+  flex-shrink: 0; margin-top: .1rem;
+}
+.pillar-text strong {
+  font-size: .72rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--ink);
+  display: block; margin-bottom: .2rem;
+}
+.pillar-text span {
+  font-size: .8rem; color: var(--mid); font-weight: 300;
+}
+
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer {
+  border-top: 2px solid var(--rule);
+  padding: 0 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+}
+.footer-logo {
+  font-family: var(--font-d);
+  font-size: 1rem; color: var(--ink);
+}
+.footer-copy {
+  font-size: .6rem; font-weight: 500; letter-spacing: .08em;
+  color: var(--mid);
+}
+.footer-right {
+  font-size: .6rem; color: var(--mid); letter-spacing: .06em;
+}
+.footer-right a { color: var(--navy); }
+.footer-right a:hover { color: var(--navy-deep); }
+
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .hero { padding: 0 1.5rem; }
+  .hero-hl { font-size: clamp(3.8rem, 14vw, 7rem); }
+  .hero-sub-row { grid-template-columns: 1fr; }
+  .hero-sub-cell { border-right: none; border-bottom: 1px solid var(--rule-light); padding: 1.4rem 0; }
+  .hero-sub-cell:last-child { padding-left: 0; }
+  .hero-sub-cell:nth-child(2) { padding: 1.4rem 0; }
+  .strip { grid-template-columns: 70px 1fr; }
+  .strip-meta-col { display: none; }
+  .strip-num-col { padding: 1.5rem 1rem 1.5rem 1.5rem; }
+  .strip-content { padding: 1.5rem 1.5rem; }
+  .about-band { grid-template-columns: 1fr; }
+  .about-left { border-right: none; border-bottom: 1px solid var(--rule-light); padding: 2.5rem 1.5rem; }
+  .about-right { padding: 2.5rem 1.5rem; }
+  .chapters-head { padding: .65rem 1.5rem; }
+  footer { padding: 0 1.5rem; flex-wrap: wrap; height: auto; padding-top: 1rem; padding-bottom: 1rem; gap: .5rem; }
+}
+</style>
+
+<style id="sn-css">
+/* ═══ SITE-WIDE NAV ═══════════════════════════════════════════════ */
+.site-nav,.site-nav *{box-sizing:border-box}
+.site-nav{position:sticky;top:0;z-index:9999;padding:0;background:rgba(14,6,0,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,175,55,.14)}
+.sn-inner{max-width:1340px;margin:0 auto;padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.sn-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
+.sn-om{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:rgba(212,175,55,.4);line-height:1;user-select:none}
+.sn-brand{display:flex;flex-direction:column;line-height:1.15;gap:.02rem}
+.sn-brand-sup{font-family:'Inter',system-ui,sans-serif;font-size:.5rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(154,120,0,.6)}
+.sn-brand-name{font-family:'Playfair Display',Georgia,serif;font-size:.92rem;font-weight:700;font-style:italic;color:#F0E8D4}
+.sn-links{display:flex;align-items:center;gap:.1rem}
+.sn-link{font-family:'Inter',system-ui,sans-serif;font-size:.69rem;font-weight:600;letter-spacing:.02em;color:rgba(195,170,120,.62);padding:.36rem .7rem;border-radius:5px;cursor:pointer;text-decoration:none;white-space:nowrap;border:none;background:transparent;transition:color .16s,background .16s;display:flex;align-items:center;gap:.22rem}
+.sn-link:hover,.sn-link.sn-active{color:#D4AF37}
+.sn-link.sn-active{background:rgba(212,175,55,.08)}
+.sn-caret{font-size:.52rem;opacity:.45;transition:transform .2s}
+.sn-group{position:relative}
+.sn-group:hover>.sn-link .sn-caret,.sn-group:focus-within>.sn-link .sn-caret{transform:rotate(90deg);opacity:.75}
+.sn-drop{position:absolute;top:calc(100% + .35rem);left:50%;transform:translateX(-50%) translateY(-5px);opacity:0;pointer-events:none;transition:opacity .17s,transform .17s;z-index:10000}
+.sn-group:hover>.sn-drop,.sn-group:focus-within>.sn-drop{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.sn-drop-inner{background:#130700;border:1px solid rgba(212,175,55,.18);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.75);min-width:248px;padding:.35rem}
+.sdi{display:flex;align-items:center;gap:.72rem;padding:.54rem .68rem;border-radius:7px;text-decoration:none;transition:background .13s;color:inherit}
+.sdi:hover,.sdi.sn-active{background:rgba(212,175,55,.08)}
+.sdi-num{font-family:'Inter',system-ui,sans-serif;font-size:.58rem;font-weight:700;color:rgba(154,120,0,.45);width:16px;flex-shrink:0;text-align:center}
+.sdi-tag{font-family:'Inter',system-ui,sans-serif;font-size:.54rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:rgba(212,175,55,.1);color:rgba(212,175,55,.7);border:1px solid rgba(212,175,55,.18);border-radius:3px;padding:.08rem .36rem;flex-shrink:0;white-space:nowrap}
+.sdi-text{display:flex;flex-direction:column;gap:.03rem}
+.sdi-title{font-family:'Playfair Display',Georgia,serif;font-size:.83rem;font-weight:700;font-style:italic;color:#EDE5C8}
+.sdi-sub{font-family:'Inter',system-ui,sans-serif;font-size:.62rem;color:rgba(154,120,0,.55)}
+.sn-drop-div{height:1px;background:rgba(212,175,55,.1);margin:.3rem .4rem}
+.sn-ham{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:.45rem;flex-shrink:0}
+.sn-ham span{display:block;width:20px;height:1.5px;background:rgba(195,170,120,.72);border-radius:2px;transition:all .25s}
+.sn-ham.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.sn-ham.open span:nth-child(2){opacity:0;width:0}
+.sn-ham.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:860px){
+  .sn-ham{display:flex}
+  .sn-links{display:none;position:fixed;inset:56px 0 0;background:rgba(12,5,0,.99);flex-direction:column;align-items:stretch;padding:1rem;gap:.1rem;overflow-y:auto;z-index:9998;border-top:1px solid rgba(212,175,55,.1)}
+  .sn-links.mob-open{display:flex}
+  .sn-group>.sn-drop{position:static;opacity:1;pointer-events:all;transform:none;max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .sn-group.mob-open>.sn-drop{max-height:500px}
+  .sn-drop-inner{background:rgba(255,255,255,.03);border-color:rgba(212,175,55,.1);box-shadow:none;border-radius:8px;margin:.1rem 0 .1rem 1rem;padding:.2rem}
+  .sn-link{font-size:.8rem;padding:.62rem .85rem}
+  .sn-caret{margin-left:auto;font-size:.65rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="site-nav" id="site-nav">
+<div class="sn-inner">
+  <a class="sn-logo" href="index.html">
+    <span class="sn-om">ॐ</span>
+    <span class="sn-brand">
+      <span class="sn-brand-sup">Next Gen Education</span>
+      <span class="sn-brand-name">Hindu Studies</span>
+    </span>
+  </a>
+  <div class="sn-links" id="sn-links">
+    <a class="sn-link" href="index.html"   data-sn="index.html">Home</a>
+    <a class="sn-link" href="map.html"     data-sn="map.html">Start Here</a>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Essays <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="vedas.html"          data-sn="vedas.html"><span class="sdi-num">01</span><span class="sdi-text"><span class="sdi-title">The Vedas</span><span class="sdi-sub">Origins · Sanskrit · Upaniṣads</span></span></a>
+        <a class="sdi" href="darshanas.html"       data-sn="darshanas.html"><span class="sdi-num">02</span><span class="sdi-text"><span class="sdi-title">The Six Darśanas</span><span class="sdi-sub">Philosophy · Schools · Logic</span></span></a>
+        <a class="sdi" href="history.html"         data-sn="history.html"><span class="sdi-num">03</span><span class="sdi-text"><span class="sdi-title">A Historical Timeline</span><span class="sdi-sub">2600 BCE → 1400 CE</span></span></a>
+        <a class="sdi" href="veda-traditions.html" data-sn="veda-traditions.html"><span class="sdi-num">04</span><span class="sdi-text"><span class="sdi-title">What is Śāstra?</span><span class="sdi-sub">18 Traditions · 8 Categories</span></span></a>
+        <a class="sdi" href="vedic-sacrifice.html" data-sn="vedic-sacrifice.html"><span class="sdi-num">05</span><span class="sdi-text"><span class="sdi-title">The Sacred Fire</span><span class="sdi-sub">Yajña · Ritual · Agni</span></span></a>
+      </div></div>
+    </div>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Karma <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="karma.html"          data-sn="karma.html"><span class="sdi-tag">Essay</span><span class="sdi-text"><span class="sdi-title">Karma</span><span class="sdi-sub">Visual essay · All techniques</span></span></a>
+        <div class="sn-drop-div"></div>
+        <a class="sdi" href="karma-full.html"     data-sn="karma-full.html"><span class="sdi-tag">Exam</span><span class="sdi-text"><span class="sdi-title">Karma + Exam Mode</span><span class="sdi-sub">Board-specific overlay</span></span></a>
+        <a class="sdi" href="karma-revision.html" data-sn="karma-revision.html"><span class="sdi-tag">Study</span><span class="sdi-text"><span class="sdi-title">A Level Revision</span><span class="sdi-sub">OCR · AQA · Edexcel · WJEC</span></span></a>
+      </div></div>
+    </div>
+    <a class="sn-link" href="overview.html" data-sn="overview.html">Overview</a>
+  </div>
+  <button class="sn-ham" id="sn-ham" aria-label="Menu" onclick="snHam()"><span></span><span></span><span></span></button>
+</div>
+</nav>
+
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+
+  <div class="hero-bar">
+    <span class="hero-bar-left">Hindu Philosophy & History</span>
+    <span class="hero-bar-right">Five chapters · Interactive · Free</span>
+  </div>
+
+  <div class="hero-headline">
+    <div class="hero-hl">
+      <span class="navy">3,000</span> <span class="outline">years.</span><br>
+      <span class="italic copper">Six</span> schools.<br>
+      One <span class="italic navy">tradition.</span>
+    </div>
+  </div>
+
+  <div class="hero-sub-row">
+    <div class="hero-sub-cell">
+      <div class="hero-sub-label">What this is</div>
+      <div class="hero-sub-text">Rigorous, readable explorations of Hindu philosophy and history — built for anyone who wants to actually understand it, not just encounter it.</div>
+    </div>
+    <div class="hero-sub-cell">
+      <div class="hero-sub-label">Where to begin</div>
+      <div class="hero-sub-text">Start with the Vedas — the foundational texts from which all schools of Hindu thought emerge. Everything else builds from there.</div>
+      <a class="hero-sub-btn" href="vedas.html">Read: The Vedas →</a>
+    </div>
+    <div class="hero-sub-cell">
+      <div class="hero-sub-label">What you'll find</div>
+      <div class="hero-sub-text">Four in-depth chapters: the Vedas, the six philosophical schools, an interactive 3,000-year timeline, and an explorer of 18 Hindu traditions and their scriptures.</div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ═══════════ CHAPTERS ═══════════ -->
+<div class="chapters-head">
+  <span class="chapters-head-label">Six chapters to explore</span>
+  <span class="chapters-head-label" style="color:var(--navy);">Scroll to browse ↓</span>
+</div>
+
+<a class="strip" href="map.html" style="background:linear-gradient(to right,#1A0E00 0%,#2C1800 100%);border-bottom-color:rgba(212,175,55,.2)">
+  <div class="strip-num-col">
+    <div class="strip-num" style="color:#D4AF37">00</div>
+  </div>
+  <div class="strip-content">
+    <span class="strip-type explorer" style="background:rgba(212,175,55,.15);color:#D4AF37;border-color:rgba(212,175,55,.3)">Start Here</span>
+    <div class="strip-title" style="color:#F5EDD6">The <em>Map</em> of Hinduism</div>
+    <div class="strip-desc" style="color:#9A8060">New to Hinduism? Take a 2-question quiz to find your entry point, then explore eight core concepts — Brahman, Ātman, Dharma, Karma, Mokṣa, Māyā, Yoga, Saṃsāra — on an interactive mandala.</div>
+    <div class="strip-tags">
+      <span class="stag copper" style="background:rgba(212,175,55,.12);color:#D4AF37;border-color:rgba(212,175,55,.25)">Guided Quiz</span>
+      <span class="stag copper" style="background:rgba(212,175,55,.12);color:#D4AF37;border-color:rgba(212,175,55,.25)">Concept Mandala</span>
+      <span class="stag copper" style="background:rgba(212,175,55,.12);color:#D4AF37;border-color:rgba(212,175,55,.25)">8 Concepts</span>
+      <span class="stag copper" style="background:rgba(212,175,55,.12);color:#D4AF37;border-color:rgba(212,175,55,.25)">Entry Point</span>
+    </div>
+  </div>
+  <div class="strip-meta-col">
+    <span class="strip-time" style="color:#9A7800">Interactive</span>
+    <span class="strip-arrow" style="color:#D4AF37">→</span>
+  </div>
+</a>
+
+<a class="strip" href="vedas.html">
+  <div class="strip-num-col">
+    <div class="strip-num">01</div>
+  </div>
+  <div class="strip-content">
+    <span class="strip-type essay">Interactive Essay</span>
+    <div class="strip-title">The <em>Vedas</em> & Upanishads</div>
+    <div class="strip-desc">From the Indus Valley to the Bhagavad-gītā — the origins, structure, gods, and living traditions of the world's oldest surviving body of religious literature.</div>
+    <div class="strip-tags">
+      <span class="stag navy">Origins</span>
+      <span class="stag navy">Oral Tradition</span>
+      <span class="stag navy">Sanskrit</span>
+      <span class="stag navy">Upaniṣads</span>
+      <span class="stag navy">Sacred Fire</span>
+    </div>
+  </div>
+  <div class="strip-meta-col">
+    <span class="strip-time">~25 min read</span>
+    <span class="strip-arrow">→</span>
+  </div>
+</a>
+
+<a class="strip" href="darshanas.html">
+  <div class="strip-num-col">
+    <div class="strip-num">02</div>
+  </div>
+  <div class="strip-content">
+    <span class="strip-type essay">Interactive Essay</span>
+    <div class="strip-title">The Six <em>Darśanas</em></div>
+    <div class="strip-desc">The six orthodox schools of Hindu philosophy — Sāṃkhya, Yoga, Nyāya, Vaiśeṣika, Mīmāṃsā, and Vedānta — and how they debate consciousness, reality, and liberation.</div>
+    <div class="strip-tags">
+      <span class="stag navy">Sāṃkhya</span>
+      <span class="stag navy">Yoga</span>
+      <span class="stag navy">Vedānta</span>
+      <span class="stag navy">Nyāya</span>
+      <span class="stag navy">Philosophy</span>
+    </div>
+  </div>
+  <div class="strip-meta-col">
+    <span class="strip-time">~30 min read</span>
+    <span class="strip-arrow">→</span>
+  </div>
+</a>
+
+<a class="strip" href="history.html">
+  <div class="strip-num-col">
+    <div class="strip-num">03</div>
+  </div>
+  <div class="strip-content">
+    <span class="strip-type timeline">Interactive Timeline</span>
+    <div class="strip-title">A <em>Historical</em> Timeline</div>
+    <div class="strip-desc">From the Indus Valley Civilisation in 2600 BCE to the Vijayanagara Empire in 1400 CE — 3,000 years of Hindu history mapped and narrated interactively.</div>
+    <div class="strip-tags">
+      <span class="stag navy">IVC</span>
+      <span class="stag navy">Vedic Age</span>
+      <span class="stag navy">Gupta Empire</span>
+      <span class="stag navy">Bhakti Movement</span>
+      <span class="stag navy">Medieval</span>
+    </div>
+  </div>
+  <div class="strip-meta-col">
+    <span class="strip-time">Interactive</span>
+    <span class="strip-arrow">→</span>
+  </div>
+</a>
+
+<a class="strip" href="veda-traditions.html">
+  <div class="strip-num-col">
+    <div class="strip-num">04</div>
+  </div>
+  <div class="strip-content">
+    <span class="strip-type explorer">Interactive Explorer</span>
+    <div class="strip-title">What is <span class="copper-em">Śāstra</span>?</div>
+    <div class="strip-desc">18 Hindu traditions, 8 scripture categories. Select a tradition — Gauḍīya, Śaiva Siddhānta, Liṅgāyat, Ārya Samāj — and see which texts it calls supreme, secondary, or explicitly rejects.</div>
+    <div class="strip-tags">
+      <span class="stag copper">Āgamas</span>
+      <span class="stag copper">Purāṇas</span>
+      <span class="stag copper">Tantras</span>
+      <span class="stag copper">18 Traditions</span>
+      <span class="stag copper">Canon</span>
+    </div>
+  </div>
+  <div class="strip-meta-col">
+    <span class="strip-time">Interactive</span>
+    <span class="strip-arrow">→</span>
+  </div>
+</a>
+
+
+<a class="strip" href="vedic-sacrifice.html">
+  <div class="strip-num-col">
+    <div class="strip-num">05</div>
+  </div>
+  <div class="strip-content">
+    <span class="strip-type explorer">Interactive Painting</span>
+    <div class="strip-title">The <span class="copper-em">Sacred Fire</span> Sacrifice</div>
+    <div class="strip-desc">A full-screen Mughal painting of a Vedic yajña — six clickable hotspots reveal the Vedas, mantra, ritual, cosmology, and a tradition still alive today.</div>
+    <div class="strip-tags">
+      <span class="stag copper">Yajña</span>
+      <span class="stag copper">Agni</span>
+      <span class="stag copper">Mantra</span>
+      <span class="stag copper">Ritual</span>
+      <span class="stag copper">Living Practice</span>
+    </div>
+  </div>
+  <div class="strip-meta-col">
+    <span class="strip-time">Interactive</span>
+    <span class="strip-arrow">→</span>
+  </div>
+</a>
+
+
+<!-- ═══════════ ABOUT BAND ═══════════ -->
+<div class="about-band">
+
+  <div class="about-left">
+    <div class="about-label">About this project</div>
+    <div class="about-hl">
+      Built for anyone who wants to think<br>
+      clearly about <em>Hindu thought</em>
+    </div>
+    <div class="about-body">
+      Whether you're a curious outsider, a diaspora Hindu reconnecting with your heritage, or a student of religion and philosophy — these essays assume you're serious. The tradition rewards that.
+      <br><br>
+      No listicles. No oversimplification. No "yoga and meditation" reduction. Just the ideas, honestly rendered.
+    </div>
+  </div>
+
+  <div class="about-right">
+    <div class="about-label">What makes this different</div>
+    <div class="about-pillars">
+      <div class="about-pillar">
+        <div class="pillar-mark">I</div>
+        <div class="pillar-text">
+          <strong>Rigorously sourced</strong>
+          <span>Primary texts and scholarly consensus — no pop-philosophy shortcuts or New Age reframes.</span>
+        </div>
+      </div>
+      <div class="about-pillar">
+        <div class="pillar-mark">II</div>
+        <div class="pillar-text">
+          <strong>Actually readable</strong>
+          <span>Written for a 17-year-old and a PhD student to both get something out of. Jargon earns its place or it's cut.</span>
+        </div>
+      </div>
+      <div class="about-pillar">
+        <div class="pillar-mark">III</div>
+        <div class="pillar-text">
+          <strong>Tradition-honoring</strong>
+          <span>Scholarly in method, respectful in spirit. The tradition is studied, not flattened.</span>
+        </div>
+      </div>
+      <div class="about-pillar">
+        <div class="pillar-mark">IV</div>
+        <div class="pillar-text">
+          <strong>Interactive by design</strong>
+          <span>Scrollytelling essays, clickable timelines, and explorers — because this content rewards engagement.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-logo">HinduEDU</div>
+  <div class="footer-copy">Hindu Philosophy & History · Free to explore</div>
+  <div class="footer-right">
+    Images via <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC-licensed & public domain)
+  </div>
+</footer>
+
+<script id="sn-js">
+(function(){var p=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('[data-sn]').forEach(function(e){if(e.getAttribute('data-sn')===p){e.classList.add('sn-active');var g=e.closest('.sn-group');if(g)g.querySelector('.sn-link').classList.add('sn-active');}});})();
+function snHam(){var l=document.getElementById('sn-links'),h=document.getElementById('sn-ham');l.classList.toggle('mob-open');h.classList.toggle('open');}
+document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.sn-group>.sn-link').forEach(function(t){t.addEventListener('click',function(){if(window.innerWidth<=860){t.closest('.sn-group').classList.toggle('mob-open');}});});});
+</script>
+</body>
+</html>

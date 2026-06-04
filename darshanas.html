@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Six Lenses — The Ṣaḍdarśana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+  /* ── THEME VARIABLES ──────────────────────────────────────── */
+  :root {
+    /* Dark (default) */
+    --bg:#F8F6F2; --bg-card:#F0EDE6; --bg-ch:#E8E5DE;
+    --text:#14100C; --muted:#7A7060; --faint:#3e3c3a; --border:#D8D4CC;
+    --bg-rgb:248,246,242;
+    --body-font:'DM Sans',sans-serif;
+    --accent:#1A3A6A; --accent-hover:#0F2448; --accent-rgb:26,58,106;
+    --gloss-bg:#F0EDE6; --gloss-border:#D8D4CC; --gloss-term:#1A3A6A;
+    --prose-text:#dedad0; --prose-muted:#a8a49a; --scene-prose:#c8c4b6;
+    --tab-active-bg:rgba(255,255,255,.06); --tab-active-border:rgba(255,255,255,.22);
+    --tint-bg:rgba(255,255,255,.03);
+    --shadow-card:0 8px 30px rgba(0,0,0,.3);
+    --btn-text:#F8F6F2;
+  }
+  [data-theme="parchment"] {
+    /* Parchment — warm aged paper */
+    --bg:#F5EDD6; --bg-card:#FBF8F0; --bg-ch:#EDE5CC;
+    --text:#2C1F08; --muted:#7A6340; --faint:#B89F70; --border:#DDD0B0;
+    --bg-rgb:245,237,214;
+    --accent:#9A7800; --accent-hover:#B8920A; --accent-rgb:154,120,0;
+    --gloss-bg:#FBF8F0; --gloss-border:#DDD0B0; --gloss-term:#9A7800;
+    --prose-text:#2C1F08; --prose-muted:#7A6340; --scene-prose:#7A6340;
+    --tab-active-bg:rgba(44,31,8,.06); --tab-active-border:rgba(44,31,8,.22);
+    --tint-bg:rgba(0,0,0,.025);
+    --shadow-card:0 4px 20px rgba(0,0,0,.1);
+    --btn-text:#FBF8F0;
+  }
+  [data-theme="studio"] {
+    /* Studio White — clean editorial */
+    --bg:#F2F2F0; --bg-card:#FFFFFF; --bg-ch:#EAEAE8;
+    --text:#111118; --muted:#555560; --faint:#AAAABB; --border:#DDDDE4;
+    --bg-rgb:242,242,240;
+    --accent:#8A6C00; --accent-hover:#A88400; --accent-rgb:138,108,0;
+    --gloss-bg:#FFFFFF; --gloss-border:#DDDDE4; --gloss-term:#8A6C00;
+    --prose-text:#111118; --prose-muted:#555560; --scene-prose:#555560;
+    --tab-active-bg:rgba(17,17,24,.05); --tab-active-border:rgba(17,17,24,.2);
+    --tint-bg:rgba(0,0,0,.02);
+    --shadow-card:0 4px 20px rgba(0,0,0,.08);
+    --btn-text:#FFFFFF;
+  }
+  [data-theme="ivory"] {
+    /* Warm Ivory — soft and inviting */
+    --bg:#FDF6EC; --bg-card:#FFFBF5; --bg-ch:#F0E8D8;
+    --text:#1E140A; --muted:#876B48; --faint:#C8A882; --border:#E8DECE;
+    --bg-rgb:253,246,236;
+    --accent:#9A7800; --accent-hover:#B8920A; --accent-rgb:154,120,0;
+    --gloss-bg:#FFFBF5; --gloss-border:#E8DECE; --gloss-term:#9A7800;
+    --prose-text:#1E140A; --prose-muted:#876B48; --scene-prose:#876B48;
+    --tab-active-bg:rgba(30,20,10,.05); --tab-active-border:rgba(30,20,10,.2);
+    --tint-bg:rgba(0,0,0,.02);
+    --shadow-card:0 4px 20px rgba(0,0,0,.08);
+    --btn-text:#FFFBF5;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--body-font);font-size:18px;line-height:1.75;-webkit-font-smoothing:antialiased}
+
+  /* ── QUIZ ──────────────────────────────────────────────── */
+  #quizSection{padding:4rem 2rem 3rem;max-width:700px;margin:0 auto}
+  .quiz-intro{text-align:center;padding:3rem 2rem 2.5rem;background:var(--bg-card);border:1px solid var(--border);border-radius:20px}
+  .quiz-eyebrow{font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem}
+  .quiz-intro h2{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;line-height:1.2;margin-bottom:.75rem}
+  .quiz-intro p{font-size:1rem;color:var(--muted);max-width:480px;margin:0 auto 1.75rem}
+  .btn-primary{font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.65rem 1.75rem;border-radius:100px;border:none;background:var(--accent);color:var(--btn-text);cursor:pointer;transition:all .2s}
+  .btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px)}
+  .quiz-skip{display:block;margin-top:1rem;font-family:'DM Sans',sans-serif;font-size:.72rem;color:var(--faint);letter-spacing:.06em;cursor:pointer;text-decoration:underline;background:none;border:none;width:100%}
+  .quiz-skip:hover{color:var(--muted)}
+
+  .quiz-card{display:none;animation:fadeUp .35s ease both}
+  .quiz-card.active{display:block}
+  .quiz-progress-wrap{margin-bottom:1.5rem}
+  .quiz-progress-label{font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:.5rem}
+  .quiz-progress-bar{height:2px;background:var(--border);border-radius:2px;overflow:hidden}
+  .quiz-progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease}
+  .quiz-q{font-family:'DM Serif Display',serif;font-size:1.3rem;font-weight:600;margin-bottom:1.5rem;line-height:1.4}
+  .quiz-options{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem}
+  .quiz-opt{padding:1rem 1.2rem;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;background:var(--bg-card);font-size:.97rem;line-height:1.5;text-align:left}
+  .quiz-opt:hover{border-color:var(--muted);background:var(--bg-ch)}
+  .quiz-opt.selected{border-color:var(--accent);background:rgba(var(--accent-rgb),.08);color:var(--text)}
+  .quiz-next{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.55rem 1.4rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;opacity:.4;pointer-events:none}
+  .quiz-next.enabled{opacity:1;pointer-events:auto;border-color:var(--accent);color:var(--accent)}
+  .quiz-next.enabled:hover{background:rgba(var(--accent-rgb),.1)}
+
+  #quizResult{display:none;animation:fadeUp .4s ease both}
+  .result-card{background:var(--bg-card);border-radius:20px;overflow:hidden;border:1px solid var(--border)}
+  .result-header{padding:2rem 2rem 1.5rem;text-align:center}
+  .result-eyebrow{font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+  .result-name{font-family:'DM Serif Display',serif;font-size:2.2rem;font-weight:700;margin-bottom:.4rem}
+  .result-sub{font-size:1rem;color:var(--muted);font-style:italic}
+  .result-body{padding:1.5rem 2rem 2rem;border-top:1px solid var(--border)}
+  .result-text{font-size:.97rem;line-height:1.85;color:var(--muted);margin-bottom:1.5rem}
+  .result-actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+  .btn-secondary{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.5rem 1.25rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+  .btn-secondary:hover{border-color:var(--muted);color:var(--text)}
+
+  /* ── SCENE ─────────────────────────────────────────────── */
+  .scene-wrap{position:relative;width:100%;overflow:hidden}
+  .scene-svg{width:100%;display:block;max-height:420px}
+  .scene-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 2rem 2.5rem;background:linear-gradient(to bottom,rgba(var(--bg-rgb),0) 0%,rgba(var(--bg-rgb),.15) 50%,rgba(var(--bg-rgb),.88) 85%,rgba(var(--bg-rgb),1) 100%);text-align:center}
+  .main-eyebrow{font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,220,80,.9);margin-bottom:.6rem}
+  .main-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1.1;text-shadow:0 2px 30px rgba(0,0,0,.6)}
+  .main-title em{font-style:italic;font-weight:400}
+  .main-sub{margin-top:.6rem;font-family:var(--body-font);font-size:clamp(1rem,2vw,1.25rem);color:rgba(255,255,255,.7);font-style:italic}
+
+  /* ── SCENE TEXT ─────────────────────────────────────────── */
+  .scene-prose{max-width:680px;margin:0 auto;padding:3rem 2rem 2rem;text-align:center}
+  .scene-prose p{font-size:1.15rem;color:var(--scene-prose);font-style:italic;line-height:1.95}
+  #sceneProse{transition:opacity .3s}
+  .scene-prose .instruction{margin-top:2rem;font-style:normal;font-family:'DM Sans',sans-serif;font-size:.78rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+
+  /* ── SCENARIO TABS ──────────────────────────────────────── */
+  .scenario-wrap{max-width:920px;margin:0 auto;padding:.5rem 2rem 2rem}
+  .scenario-label{font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:.85rem;text-align:center}
+  .scenario-tabs{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+  .s-tab{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.06em;padding:.45rem 1rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap}
+  .s-tab:hover{border-color:var(--muted);color:var(--text)}
+  .s-tab.active{background:rgba(var(--accent-rgb),.12);border-color:var(--accent);color:var(--accent)}
+
+  /* ── CONTROLS ───────────────────────────────────────────── */
+  .controls{display:flex;justify-content:center;gap:.75rem;padding:.5rem 2rem 2.5rem}
+  .ctrl-btn{font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.45rem 1.1rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+  .ctrl-btn:hover{border-color:var(--muted);color:var(--text)}
+
+  /* ── SECTION LABEL ──────────────────────────────────────── */
+  .section-label{text-align:center;font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);padding:0 2rem 1.25rem}
+
+  /* ── CARDS ──────────────────────────────────────────────── */
+  .cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:920px;margin:0 auto;padding:0 2rem 1.5rem}
+  @media(max-width:700px){.cards-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:440px){.cards-grid{grid-template-columns:1fr}}
+  .d-card{--cc:#888;border:1px solid var(--border);border-radius:14px;padding:1.35rem 1.35rem 1.1rem;cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .25s,background .25s;background:var(--bg-card);position:relative;overflow:hidden;user-select:none}
+  .d-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:var(--cc);opacity:.35;transition:opacity .3s}
+  .d-card:hover{background:var(--bg-ch);border-color:var(--cc);transform:translateY(-2px);box-shadow:var(--shadow-card)}
+  .d-card.active{background:color-mix(in srgb,var(--cc) 10%,var(--bg-card));border-color:var(--cc);box-shadow:0 0 35px color-mix(in srgb,var(--cc) 18%,transparent)}
+  .d-card.active::after{opacity:1}
+  .card-dot{position:absolute;top:1rem;right:1rem;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .25s}
+  .d-card.active .card-dot{background:var(--cc);border-color:var(--cc)}
+  .card-dot svg{opacity:0;transition:opacity .2s}
+  .d-card.active .card-dot svg{opacity:1}
+  .card-name{font-family:'DM Serif Display',serif;font-size:1.3rem;font-weight:600;color:var(--text);transition:color .25s;padding-right:1.5rem}
+  .d-card.active .card-name{color:var(--cc)}
+  .card-meta{font-family:'DM Sans',sans-serif;font-size:.68rem;color:var(--faint);letter-spacing:.04em;margin-top:.15rem}
+  .card-tagline{margin-top:.7rem;font-size:.92rem;color:var(--muted);font-style:italic;line-height:1.45}
+  .card-term{display:inline-block;margin-top:.65rem;font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px;background:color-mix(in srgb,var(--cc) 14%,transparent);color:var(--cc);border:1px solid color-mix(in srgb,var(--cc) 28%,transparent)}
+  .active-count{text-align:center;padding:.5rem 2rem 0;font-family:'DM Sans',sans-serif;font-size:.75rem;color:var(--faint);min-height:1.8rem}
+  .divider{max-width:920px;margin:2rem auto;height:1px;background:var(--border)}
+
+  /* ── PANELS ─────────────────────────────────────────────── */
+  .perspectives-wrap{max-width:1080px;margin:0 auto;padding:0 2rem 5rem;min-height:200px}
+  .empty-state{text-align:center;padding:4rem 2rem;color:var(--faint);font-style:italic;font-size:1.05rem;border:1px dashed var(--border);border-radius:16px}
+  .perspectives-grid{display:grid;gap:1.5rem}
+  .perspectives-grid.n1{grid-template-columns:1fr;max-width:680px;margin:0 auto}
+  .perspectives-grid.n2{grid-template-columns:repeat(2,1fr)}
+  .perspectives-grid.n3,.perspectives-grid.n5,.perspectives-grid.n6{grid-template-columns:repeat(3,1fr)}
+  .perspectives-grid.n4{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:960px){.perspectives-grid.n3,.perspectives-grid.n5,.perspectives-grid.n6{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:680px){.perspectives-grid{grid-template-columns:1fr!important}}
+  .p-panel{--pc:#888;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;animation:fadeUp .38s ease both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  .p-header{padding:1.4rem 1.6rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;background:color-mix(in srgb,var(--pc) 7%,var(--bg-card))}
+  .p-eyebrow{font-family:'DM Sans',sans-serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:.2rem}
+  .p-name{font-family:'DM Serif Display',serif;font-size:1.45rem;font-weight:600;color:var(--pc);line-height:1.15}
+  .p-founder{font-family:'DM Sans',sans-serif;font-size:.68rem;color:var(--faint);margin-top:.2rem}
+  .p-header-right{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;flex-shrink:0}
+  .p-term{font-family:'DM Serif Display',serif;font-size:1rem;font-style:italic;color:var(--pc)}
+  .p-term-gloss{font-family:'DM Sans',sans-serif;font-size:.65rem;color:var(--muted)}
+  .p-src-btn{font-family:'DM Sans',sans-serif;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .55rem;border-radius:4px;border:1px solid color-mix(in srgb,var(--pc) 30%,transparent);background:transparent;color:var(--pc);cursor:pointer;transition:all .2s;white-space:nowrap}
+  .p-src-btn:hover{background:color-mix(in srgb,var(--pc) 12%,transparent)}
+  .p-src-quote{display:none;margin:0 1.6rem;padding:.85rem 1rem;background:color-mix(in srgb,var(--pc) 7%,var(--bg));border-left:2px solid var(--pc);font-style:italic;font-size:.9rem;color:var(--muted);line-height:1.7;animation:fadeUp .25s ease both}
+  .p-src-quote.visible{display:block}
+  .p-src-attr{display:block;margin-top:.4rem;font-style:normal;font-family:'DM Sans',sans-serif;font-size:.62rem;letter-spacing:.06em;color:var(--faint)}
+  .p-body{padding:1.6rem}
+  .p-claim{font-family:'DM Serif Display',serif;font-size:1.1rem;font-style:italic;line-height:1.55;color:var(--prose-text);padding-left:1rem;border-left:2.5px solid var(--pc);margin-bottom:1.25rem}
+  .p-text{font-size:.97rem;line-height:1.85;color:var(--prose-muted);margin-bottom:1.2rem}
+  .p-response{background:color-mix(in srgb,var(--pc) 8%,var(--bg));border:1px solid color-mix(in srgb,var(--pc) 22%,transparent);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem}
+  .p-response-label{font-family:'DM Sans',sans-serif;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--pc);font-weight:600;margin-bottom:.35rem}
+  .p-response-text{font-size:.93rem;line-height:1.75;color:var(--muted)}
+  .p-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.75rem}
+  .p-tag{font-family:'DM Sans',sans-serif;font-size:.62rem;letter-spacing:.06em;padding:.18rem .55rem;border-radius:4px;background:color-mix(in srgb,var(--pc) 10%,transparent);color:var(--pc);border:1px solid color-mix(in srgb,var(--pc) 22%,transparent);cursor:pointer;transition:background .2s}
+  .p-tag:hover{background:color-mix(in srgb,var(--pc) 18%,transparent)}
+
+  /* ── MATRIX ─────────────────────────────────────────────── */
+  #matrixSection{max-width:1100px;margin:0 auto;padding:0 2rem 5rem}
+  .matrix-header{text-align:center;margin-bottom:2.5rem}
+  .matrix-header h2{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;margin-bottom:.5rem}
+  .matrix-header p{font-size:.97rem;color:var(--muted);max-width:520px;margin:0 auto}
+  .matrix-q-tabs{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2rem}
+  .mq-tab{font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.05em;padding:.4rem .9rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+  .mq-tab:hover{border-color:var(--muted);color:var(--text)}
+  .mq-tab.active{background:var(--tab-active-bg);border-color:var(--tab-active-border);color:var(--text)}
+  .matrix-grid{display:grid;gap:.75rem}
+  .matrix-row{--rc:#888;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s}
+  .matrix-row:hover{border-color:var(--rc)}
+  .matrix-row-header{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.4rem;cursor:pointer}
+  .matrix-row-accent{width:3px;height:32px;border-radius:2px;background:var(--rc);flex-shrink:0}
+  .matrix-row-name{font-family:'DM Serif Display',serif;font-size:1.1rem;font-weight:600;color:var(--rc)}
+  .matrix-row-preview{flex:1;font-size:.88rem;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-style:italic}
+  .matrix-chevron{margin-left:auto;color:var(--faint);transition:transform .25s;flex-shrink:0}
+  .matrix-row.open .matrix-chevron{transform:rotate(180deg)}
+  .matrix-row-body{display:none;padding:0 1.4rem 1.3rem 1.4rem;animation:fadeUp .25s ease both}
+  .matrix-row.open .matrix-row-body{display:block}
+  .matrix-answer{font-size:.97rem;line-height:1.85;color:var(--prose-muted)}
+  .matrix-answer strong{color:var(--text)}
+
+  /* ── DEBATE ─────────────────────────────────────────────── */
+  #debateSection{max-width:1000px;margin:0 auto;padding:0 2rem 5rem}
+  .debate-header{text-align:center;margin-bottom:2.5rem}
+  .debate-header h2{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;margin-bottom:.5rem}
+  .debate-header p{font-size:.97rem;color:var(--muted);max-width:520px;margin:0 auto}
+  .debate-tabs{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2rem}
+  .dt-tab{font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.05em;padding:.4rem .9rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+  .dt-tab:hover{border-color:var(--muted);color:var(--text)}
+  .dt-tab.active{background:var(--tab-active-bg);border-color:var(--tab-active-border);color:var(--text)}
+  .debate-panel{display:none;animation:fadeUp .35s ease both}
+  .debate-panel.visible{display:block}
+  .debate-topic{text-align:center;font-family:'DM Serif Display',serif;font-size:1rem;font-style:italic;color:var(--muted);margin-bottom:1.75rem;padding:.75rem 1.5rem;border:1px solid var(--border);border-radius:8px;display:inline-block;width:100%}
+  .debate-exchange{display:flex;flex-direction:column;gap:1rem}
+  .debate-turn{border-radius:12px;padding:1.4rem;border:1px solid var(--border)}
+  .debate-turn.left{border-left:3px solid var(--d-left)}
+  .debate-turn.right{border-left:3px solid var(--d-right)}
+  .debate-speaker{font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+  .debate-turn.left .debate-speaker{color:var(--d-left)}
+  .debate-turn.right .debate-speaker{color:var(--d-right)}
+  .debate-turn p{font-size:.97rem;line-height:1.82;color:var(--prose-muted)}
+  .debate-tension{margin-top:1.5rem;padding:1rem 1.25rem;background:var(--tint-bg);border-radius:10px;border:1px dashed var(--border)}
+  .debate-tension-label{font-family:'DM Sans',sans-serif;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:.4rem}
+  .debate-tension p{font-size:.93rem;color:var(--muted);font-style:italic}
+
+  /* ── GLOSSARY TOOLTIP ───────────────────────────────────── */
+  .skt{color:inherit;border-bottom:1px dotted var(--muted);cursor:help;transition:color .15s}
+  .skt:hover{color:var(--text)}
+  #glossTip{position:fixed;z-index:9999;max-width:280px;background:var(--gloss-bg);border:1px solid var(--gloss-border);border-radius:10px;padding:.85rem 1rem;box-shadow:0 8px 32px rgba(0,0,0,.25);pointer-events:none;display:none;animation:tipIn .18s ease}
+  @keyframes tipIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+  .gloss-term{font-family:'DM Serif Display',serif;font-size:1rem;font-style:italic;color:var(--gloss-term);margin-bottom:.3rem}
+  .gloss-lit{font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-bottom:.3rem}
+  .gloss-def{font-size:.88rem;color:var(--muted);line-height:1.6}
+
+  /* ── VENN ───────────────────────────────────────────────── */
+  #vennSection{max-width:1100px;margin:0 auto;padding:0 2rem 5rem}
+  .venn-header{text-align:center;margin-bottom:2rem}
+  .venn-header h2{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;margin-bottom:.5rem}
+  .venn-header p{font-size:.97rem;color:var(--muted);max-width:560px;margin:0 auto}
+  .venn-layout{display:grid;grid-template-columns:1fr 360px;gap:2rem;align-items:start}
+  @media(max-width:900px){.venn-layout{grid-template-columns:1fr}}
+  .venn-svg-wrap{position:relative}
+  #vennSvg{width:100%;height:auto;display:block;cursor:crosshair}
+  .venn-label-name{font-family:'DM Serif Display',serif;font-size:14px;font-weight:600;pointer-events:none}
+  .venn-label-term{font-family:'DM Sans',sans-serif;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;pointer-events:none;opacity:.7}
+  .venn-center-label{font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;fill:var(--muted);pointer-events:none;text-anchor:middle;opacity:.5}
+  .venn-info{position:sticky;top:2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;min-height:320px;overflow:hidden;transition:border-color .3s}
+  .venn-info-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:320px;padding:2rem;text-align:center}
+  .venn-info-empty p{font-size:.95rem;color:var(--faint);font-style:italic;line-height:1.7}
+  .venn-info-empty .hint{margin-top:1rem;font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  .venn-info-content{display:none;animation:fadeUp .25s ease both}
+  .venn-info-content.visible{display:block}
+  .venn-info-top{padding:1.4rem 1.5rem 1.2rem;border-bottom:1px solid var(--border)}
+  .venn-info-badge{display:inline-flex;gap:.35rem;margin-bottom:.6rem;flex-wrap:wrap}
+  .venn-school-chip{font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px;font-weight:500}
+  .venn-info-title{font-family:'DM Serif Display',serif;font-size:1.25rem;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:.3rem}
+  .venn-info-sub{font-size:.9rem;color:var(--muted);font-style:italic}
+  .venn-info-body{padding:1.3rem 1.5rem 1.5rem}
+  .venn-points{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+  .venn-points li{display:flex;gap:.75rem;align-items:flex-start;font-size:.94rem;line-height:1.7;color:var(--prose-muted)}
+  .venn-points li::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:.55rem}
+  .venn-legend{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1.5rem}
+  .venn-legend-item{display:flex;align-items:center;gap:.4rem;font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.05em;color:var(--muted)}
+  .venn-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .venn-hint{text-align:center;font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:1rem}
+
+  /* ── COMPARE TOOL ───────────────────────────────────────── */
+  .compare-tool{margin-top:3rem;padding:2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:16px}
+  .compare-tool-label{font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:1rem;text-align:center}
+  .compare-chips{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1.5rem}
+  .cmp-chip{font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.05em;padding:.4rem .95rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+  .cmp-chip.active{color:var(--btn-text);border-color:transparent;font-weight:600}
+  .cmp-chip:hover:not(.active){border-color:var(--muted);color:var(--text)}
+  .compare-clear{display:block;margin:.25rem auto 0;font-family:'DM Sans',sans-serif;font-size:.68rem;color:var(--faint);background:none;border:none;cursor:pointer;letter-spacing:.06em;text-decoration:underline}
+  .compare-clear:hover{color:var(--muted)}
+  .cmp-result{min-height:140px;transition:opacity .2s}
+  .cmp-empty{text-align:center;padding:2.5rem 1rem;color:var(--faint);font-style:italic;font-size:.97rem}
+  .cmp-panel{animation:fadeUp .3s ease both}
+  .cmp-header{margin-bottom:1.25rem}
+  .cmp-badge{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.6rem}
+  .cmp-school-chip{font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px;font-weight:500}
+  .cmp-title{font-family:'DM Serif Display',serif;font-size:1.2rem;font-weight:600;color:var(--text);margin-bottom:.2rem}
+  .cmp-sub{font-size:.9rem;color:var(--muted);font-style:italic}
+  .cmp-points{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-top:1.1rem}
+  .cmp-points li{display:flex;gap:.7rem;align-items:flex-start;font-size:.95rem;line-height:1.75;color:var(--prose-muted)}
+  .cmp-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:.58rem}
+  .cmp-contrast{margin-top:1.25rem;padding:.9rem 1.1rem;background:var(--tint-bg);border:1px dashed var(--border);border-radius:8px;font-size:.9rem;color:var(--muted);font-style:italic;line-height:1.7}
+  .cmp-contrast strong{color:var(--text);font-style:normal}
+
+  /* ── FOOTER ─────────────────────────────────────────────── */
+  footer{border-top:1px solid var(--border);padding:3.5rem 2rem;max-width:680px;margin:0 auto;text-align:center}
+  footer h3{font-family:'DM Serif Display',serif;font-size:1.15rem;font-weight:600;color:var(--text);margin-bottom:.75rem}
+  footer p{font-size:.95rem;color:var(--muted);line-height:1.8}
+  .ochs-note{margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:.72rem;color:var(--faint);letter-spacing:.05em;line-height:1.7}
+  </style>
+
+<style id="sn-css">
+/* ═══ SITE-WIDE NAV ═══════════════════════════════════════════════ */
+.site-nav,.site-nav *{box-sizing:border-box}
+.site-nav{position:sticky;top:0;z-index:9999;padding:0;background:rgba(14,6,0,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,175,55,.14)}
+.sn-inner{max-width:1340px;margin:0 auto;padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.sn-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
+.sn-om{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:rgba(212,175,55,.4);line-height:1;user-select:none}
+.sn-brand{display:flex;flex-direction:column;line-height:1.15;gap:.02rem}
+.sn-brand-sup{font-family:'Inter',system-ui,sans-serif;font-size:.5rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(154,120,0,.6)}
+.sn-brand-name{font-family:'Playfair Display',Georgia,serif;font-size:.92rem;font-weight:700;font-style:italic;color:#F0E8D4}
+.sn-links{display:flex;align-items:center;gap:.1rem}
+.sn-link{font-family:'Inter',system-ui,sans-serif;font-size:.69rem;font-weight:600;letter-spacing:.02em;color:rgba(195,170,120,.62);padding:.36rem .7rem;border-radius:5px;cursor:pointer;text-decoration:none;white-space:nowrap;border:none;background:transparent;transition:color .16s,background .16s;display:flex;align-items:center;gap:.22rem}
+.sn-link:hover,.sn-link.sn-active{color:#D4AF37}
+.sn-link.sn-active{background:rgba(212,175,55,.08)}
+.sn-caret{font-size:.52rem;opacity:.45;transition:transform .2s}
+.sn-group{position:relative}
+.sn-group:hover>.sn-link .sn-caret,.sn-group:focus-within>.sn-link .sn-caret{transform:rotate(90deg);opacity:.75}
+.sn-drop{position:absolute;top:calc(100% + .35rem);left:50%;transform:translateX(-50%) translateY(-5px);opacity:0;pointer-events:none;transition:opacity .17s,transform .17s;z-index:10000}
+.sn-group:hover>.sn-drop,.sn-group:focus-within>.sn-drop{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.sn-drop-inner{background:#130700;border:1px solid rgba(212,175,55,.18);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.75);min-width:248px;padding:.35rem}
+.sdi{display:flex;align-items:center;gap:.72rem;padding:.54rem .68rem;border-radius:7px;text-decoration:none;transition:background .13s;color:inherit}
+.sdi:hover,.sdi.sn-active{background:rgba(212,175,55,.08)}
+.sdi-num{font-family:'Inter',system-ui,sans-serif;font-size:.58rem;font-weight:700;color:rgba(154,120,0,.45);width:16px;flex-shrink:0;text-align:center}
+.sdi-tag{font-family:'Inter',system-ui,sans-serif;font-size:.54rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:rgba(212,175,55,.1);color:rgba(212,175,55,.7);border:1px solid rgba(212,175,55,.18);border-radius:3px;padding:.08rem .36rem;flex-shrink:0;white-space:nowrap}
+.sdi-text{display:flex;flex-direction:column;gap:.03rem}
+.sdi-title{font-family:'Playfair Display',Georgia,serif;font-size:.83rem;font-weight:700;font-style:italic;color:#EDE5C8}
+.sdi-sub{font-family:'Inter',system-ui,sans-serif;font-size:.62rem;color:rgba(154,120,0,.55)}
+.sn-drop-div{height:1px;background:rgba(212,175,55,.1);margin:.3rem .4rem}
+.sn-ham{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:.45rem;flex-shrink:0}
+.sn-ham span{display:block;width:20px;height:1.5px;background:rgba(195,170,120,.72);border-radius:2px;transition:all .25s}
+.sn-ham.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.sn-ham.open span:nth-child(2){opacity:0;width:0}
+.sn-ham.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:860px){
+  .sn-ham{display:flex}
+  .sn-links{display:none;position:fixed;inset:56px 0 0;background:rgba(12,5,0,.99);flex-direction:column;align-items:stretch;padding:1rem;gap:.1rem;overflow-y:auto;z-index:9998;border-top:1px solid rgba(212,175,55,.1)}
+  .sn-links.mob-open{display:flex}
+  .sn-group>.sn-drop{position:static;opacity:1;pointer-events:all;transform:none;max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .sn-group.mob-open>.sn-drop{max-height:500px}
+  .sn-drop-inner{background:rgba(255,255,255,.03);border-color:rgba(212,175,55,.1);box-shadow:none;border-radius:8px;margin:.1rem 0 .1rem 1rem;padding:.2rem}
+  .sn-link{font-size:.8rem;padding:.62rem .85rem}
+  .sn-caret{margin-left:auto;font-size:.65rem}
+}
+</style>
+</head>
+<body>
+<nav class="site-nav" id="site-nav">
+<div class="sn-inner">
+  <a class="sn-logo" href="index.html">
+    <span class="sn-om">ॐ</span>
+    <span class="sn-brand">
+      <span class="sn-brand-sup">Next Gen Education</span>
+      <span class="sn-brand-name">Hindu Studies</span>
+    </span>
+  </a>
+  <div class="sn-links" id="sn-links">
+    <a class="sn-link" href="index.html"   data-sn="index.html">Home</a>
+    <a class="sn-link" href="map.html"     data-sn="map.html">Start Here</a>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Essays <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="vedas.html"          data-sn="vedas.html"><span class="sdi-num">01</span><span class="sdi-text"><span class="sdi-title">The Vedas</span><span class="sdi-sub">Origins · Sanskrit · Upaniṣads</span></span></a>
+        <a class="sdi" href="darshanas.html"       data-sn="darshanas.html"><span class="sdi-num">02</span><span class="sdi-text"><span class="sdi-title">The Six Darśanas</span><span class="sdi-sub">Philosophy · Schools · Logic</span></span></a>
+        <a class="sdi" href="history.html"         data-sn="history.html"><span class="sdi-num">03</span><span class="sdi-text"><span class="sdi-title">A Historical Timeline</span><span class="sdi-sub">2600 BCE → 1400 CE</span></span></a>
+        <a class="sdi" href="veda-traditions.html" data-sn="veda-traditions.html"><span class="sdi-num">04</span><span class="sdi-text"><span class="sdi-title">What is Śāstra?</span><span class="sdi-sub">18 Traditions · 8 Categories</span></span></a>
+        <a class="sdi" href="vedic-sacrifice.html" data-sn="vedic-sacrifice.html"><span class="sdi-num">05</span><span class="sdi-text"><span class="sdi-title">The Sacred Fire</span><span class="sdi-sub">Yajña · Ritual · Agni</span></span></a>
+      </div></div>
+    </div>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Karma <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="karma.html"          data-sn="karma.html"><span class="sdi-tag">Essay</span><span class="sdi-text"><span class="sdi-title">Karma</span><span class="sdi-sub">Visual essay · All techniques</span></span></a>
+        <div class="sn-drop-div"></div>
+        <a class="sdi" href="karma-full.html"     data-sn="karma-full.html"><span class="sdi-tag">Exam</span><span class="sdi-text"><span class="sdi-title">Karma + Exam Mode</span><span class="sdi-sub">Board-specific overlay</span></span></a>
+        <a class="sdi" href="karma-revision.html" data-sn="karma-revision.html"><span class="sdi-tag">Study</span><span class="sdi-text"><span class="sdi-title">A Level Revision</span><span class="sdi-sub">OCR · AQA · Edexcel · WJEC</span></span></a>
+      </div></div>
+    </div>
+    <a class="sn-link" href="overview.html" data-sn="overview.html">Overview</a>
+  </div>
+  <button class="sn-ham" id="sn-ham" aria-label="Menu" onclick="snHam()"><span></span><span></span><span></span></button>
+</div>
+</nav>
+
+<!-- ═══ QUIZ ═════════════════════════════════════════════════ -->
+<section id="quizSection">
+  <div id="quizIntro" class="quiz-intro">
+    <p class="quiz-eyebrow">Oxford Centre for Hindu Studies</p>
+    <h2>Find your philosophical home</h2>
+    <p>Five questions about how you see the world. We'll identify which of the six classical darśanas most closely matches your default way of thinking — before you've even read about them.</p>
+    <button class="btn-primary" onclick="startQuiz()">Begin</button>
+    <button class="quiz-skip" onclick="skipQuiz()">Skip and explore directly ↓</button>
+  </div>
+
+  <div id="quizCards" style="display:none">
+    <div class="quiz-progress-wrap">
+      <div class="quiz-progress-label" id="progressLabel">Question 1 of 5</div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progressFill" style="width:20%"></div></div>
+    </div>
+    <div id="questionCards"></div>
+    <button class="quiz-next" id="quizNextBtn" onclick="nextQuestion()">Next →</button>
+  </div>
+
+  <div id="quizResult"></div>
+</section>
+
+<!-- ═══ SCENE ═════════════════════════════════════════════════ -->
+<div id="mainContent">
+<div class="scene-wrap">
+  <svg viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg" class="scene-svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#080614"/>
+        <stop offset="35%" stop-color="#160a2e"/>
+        <stop offset="68%" stop-color="#50153a"/>
+        <stop offset="88%" stop-color="#a83a18"/>
+        <stop offset="100%" stop-color="#cc5510"/>
+      </linearGradient>
+      <radialGradient id="hglow" cx="50%" cy="100%" r="45%">
+        <stop offset="0%" stop-color="#e07020" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#e07020" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="moonglow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#f8edcc" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#f8edcc" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="1200" height="420" fill="url(#sky)"/>
+    <rect width="1200" height="420" fill="url(#hglow)"/>
+    <circle cx="95" cy="38" r="1.4" fill="white" opacity=".75"/><circle cx="210" cy="22" r="1" fill="white" opacity=".55"/><circle cx="310" cy="58" r="1.4" fill="white" opacity=".65"/><circle cx="380" cy="18" r=".9" fill="white" opacity=".5"/><circle cx="465" cy="72" r="1.2" fill="white" opacity=".6"/><circle cx="540" cy="30" r="1" fill="white" opacity=".45"/><circle cx="650" cy="15" r="1.4" fill="white" opacity=".7"/><circle cx="740" cy="50" r="1" fill="white" opacity=".55"/><circle cx="850" cy="28" r="1.3" fill="white" opacity=".65"/><circle cx="1080" cy="20" r="1.4" fill="white" opacity=".7"/>
+    <circle cx="960" cy="72" r="52" fill="url(#moonglow)"/>
+    <circle cx="960" cy="72" r="24" fill="#f5e8c0" opacity=".92"/>
+    <circle cx="972" cy="65" r="21" fill="#2a0d3a"/>
+    <path d="M0,310 Q120,255 280,275 Q440,295 580,255 Q720,215 900,248 Q1040,268 1200,252 L1200,420 L0,420 Z" fill="#0e0818" opacity=".9"/>
+    <path d="M0,345 Q180,305 360,322 Q520,338 680,308 Q840,278 1020,300 Q1110,312 1200,298 L1200,420 L0,420 Z" fill="#090612"/>
+    <rect y="375" width="1200" height="45" fill="#060410"/>
+    <g transform="translate(582,318)">
+      <ellipse cx="18" cy="-58" rx="13" ry="14" fill="#060410" transform="rotate(8,18,-58)"/>
+      <rect x="14" y="-46" width="9" height="10" rx="2" fill="#060410"/>
+      <path d="M10,-38 C7,-20 5,-4 7,8 C14,14 30,14 36,8 C38,-4 36,-20 32,-38 Z" fill="#060410"/>
+      <path d="M7,8 C2,14 -14,24 -18,32 C-10,38 0,38 8,32 C12,24 11,14 9,8 Z" fill="#060410"/>
+      <path d="M34,8 C40,14 52,22 56,32 C48,38 38,38 32,32 C28,24 30,14 32,8 Z" fill="#060410"/>
+      <ellipse cx="-8" cy="33" rx="7" ry="4" fill="#060410"/>
+      <ellipse cx="47" cy="33" rx="7" ry="4" fill="#060410"/>
+    </g>
+  </svg>
+  <div class="scene-overlay">
+    <p class="main-eyebrow">Oxford Centre for Hindu Studies</p>
+    <h1 class="main-title">The Six Philosophical <em>Darśanas</em></h1>
+    <p class="main-sub">How the six classical schools of Hindu philosophy interpret a single human moment</p>
+  </div>
+</div>
+
+<!-- ═══ SCENE PROSE ═══════════════════════════════════════════ -->
+<div class="scene-prose">
+  <p id="sceneProse"></p>
+  <p class="instruction">Select a scenario · Toggle a darśana to see how it interprets this moment</p>
+</div>
+
+<!-- ═══ SCENARIO TABS ═════════════════════════════════════════ -->
+<div class="scenario-wrap">
+  <p class="scenario-label">Choose a moment to interpret</p>
+  <div class="scenario-tabs" id="scenarioTabs"></div>
+</div>
+
+<!-- ═══ CONTROLS + CARDS ══════════════════════════════════════ -->
+<div class="controls">
+  <button class="ctrl-btn" onclick="showAll()">Show all six</button>
+  <button class="ctrl-btn" onclick="clearAll()">Clear all</button>
+</div>
+<p class="section-label">The Ṣaḍdarśana — Six Classical Schools</p>
+<div class="cards-grid" id="cardsGrid"></div>
+<p class="active-count" id="activeCount"></p>
+<div class="divider"></div>
+
+<!-- ═══ PERSPECTIVES ══════════════════════════════════════════ -->
+<div class="perspectives-wrap" id="perspectivesWrap">
+  <div class="empty-state">Toggle a darśana above to see its interpretation</div>
+</div>
+
+<!-- ═══ MATRIX ════════════════════════════════════════════════ -->
+<div class="divider"></div>
+<section id="matrixSection">
+  <div class="matrix-header">
+    <p class="section-label" style="padding:0 0 .5rem">Comparative Study</p>
+    <h2>The Five Questions</h2>
+    <p>Every A-level student of Hinduism needs to answer these five questions across all six schools. Select a question — then expand each darśana to compare.</p>
+  </div>
+  <div class="matrix-q-tabs" id="matrixTabs"></div>
+  <div class="matrix-grid" id="matrixGrid"></div>
+</section>
+
+<!-- ═══ DEBATE ════════════════════════════════════════════════ -->
+<div class="divider" style="margin-top:3rem"></div>
+<section id="debateSection">
+  <div class="debate-header">
+    <p class="section-label" style="padding:0 0 .5rem">Classical Dialogue</p>
+    <h2>The Schools in Debate</h2>
+    <p>Indian philosophy developed through structured argument — each school responding to the others. Select a pairing to see the exchange.</p>
+  </div>
+  <div class="debate-tabs" id="debateTabs"></div>
+  <div id="debateDisplay"></div>
+</section>
+
+<!-- ═══ VENN ════════════════════════════════════════════════ -->
+<div class="divider" style="margin-top:3rem"></div>
+<section id="vennSection">
+  <div class="venn-header">
+    <p class="section-label" style="padding:0 0 .5rem">Comparative Diagram</p>
+    <h2>Where the Schools Meet and Diverge</h2>
+    <p>Six circles — one per darśana — arranged so that the three natural school-pairs overlap. Hover anywhere on the diagram to explore what makes each school unique, and what they share.</p>
+  </div>
+
+  <div class="venn-legend" id="vennLegend"></div>
+
+  <div class="venn-layout">
+    <div class="venn-svg-wrap">
+      <svg id="vennSvg" viewBox="0 0 800 640" xmlns="http://www.w3.org/2000/svg"></svg>
+      <p class="venn-hint">Hover over circles and overlaps · Adjacent pairs overlap — see all 15 combinations below</p>
+
+  <!-- COMPARE TOOL -->
+  <div class="compare-tool">
+    <p class="compare-tool-label">Compare any combination — select one or more schools</p>
+    <div class="compare-chips" id="compareChips"></div>
+    <button class="compare-clear" onclick="clearCompare()">Clear selection</button>
+    <div class="cmp-result" id="cmpResult">
+      <p class="cmp-empty">Select a school above to explore its unique ground, or two or more to see what they share and where they diverge.</p>
+    </div>
+  </div>
+    </div>
+    <div class="venn-info" id="vennInfo">
+      <div class="venn-info-empty">
+        <p>Move your cursor over any part of the diagram — a circle's unique area, an overlap between two schools, or the centre.</p>
+        <p class="hint">Each region reveals insight</p>
+      </div>
+      <div class="venn-info-content" id="vennContent"></div>
+    </div>
+  </div>
+</section>
+</div><!-- #mainContent -->
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+<footer>
+  <h3>About the Ṣaḍdarśana</h3>
+  <p>The six orthodox (<em>āstika</em>) schools of Hindu philosophy each accept the authority of the Vedas, yet arrive at strikingly different accounts of the self, reality, knowledge, and liberation. Studied together, they form a map of the possible answers to the deepest human questions.</p>
+  <a href="history.html" style="display:inline-block;margin-top:1.75rem;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.6rem 1.5rem;border-radius:100px;background:var(--accent);color:var(--btn-text);text-decoration:none;transition:background .2s" onmouseover="this.style.background='var(--accent-hover)'" onmouseout="this.style.background='var(--accent)'">How the Schools Developed →</a>
+  <div class="ochs-note" style="margin-top:2.5rem">Oxford Centre for Hindu Studies &nbsp;·&nbsp; A-Level Hinduism Resources &nbsp;·&nbsp; Interactive prototype</div>
+</footer>
+
+<!-- ═══ GLOSSARY TOOLTIP ═══════════════════════════════════ -->
+<div id="glossTip"><div class="gloss-term" id="gtTerm"></div><div class="gloss-lit" id="gtLit"></div><div class="gloss-def" id="gtDef"></div></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   GLOSSARY DATA
+═══════════════════════════════════════════════════════════ */
+const GLOSS = {
+  atman:       {term:'Ātman',      lit:'The self',                   def:'The individual self or soul; the innermost being. In Advaita Vedānta, identical with Brahman.'},
+  brahman:     {term:'Brahman',    lit:'The ultimate',               def:'The absolute, ultimate reality; the ground of all existence. Impersonal in Advaita, personal in theistic schools.'},
+  dukkha:      {term:'Duḥkha',    lit:'Suffering / unsatisfactoriness', def:'All forms of suffering, dissatisfaction, and pain. The condition that motivates the philosophical quest.'},
+  dharma:      {term:'Dharma',    lit:'Right order / duty',          def:'Right action, duty, and moral order; the natural law underlying existence. Central to Mīmāṃsā.'},
+  moksha:      {term:'Mokṣa',     lit:'Liberation',                  def:'Liberation from the cycle of death and rebirth (saṃsāra). The highest aim in most darśanas.'},
+  pramana:     {term:'Pramāṇa',   lit:'Measure / valid means',       def:'A valid means of knowledge — perception, inference, comparison, and testimony are the main four.'},
+  avidya:      {term:'Avidyā',    lit:'Non-knowledge',               def:'Ignorance; specifically, ignorance of one\'s true nature. The root cause of suffering in Vedānta.'},
+  maya:        {term:'Māyā',      lit:'Appearance / measure',        def:'The apparent multiplicity of the world; the power that veils ultimate truth. Not mere illusion, but inexplicable appearance.'},
+  purusha:     {term:'Puruṣa',    lit:'The person / the witness',    def:'Pure consciousness in Sāṃkhya — the unchanging, witnessing self, eternally free, never an agent.'},
+  prakriti:    {term:'Prakṛti',   lit:'Primary matter / nature',     def:'The dynamic ground of physical and mental reality in Sāṃkhya. Everything except Puruṣa flows from it.'},
+  viveka:      {term:'Viveka',    lit:'Discrimination / discernment', def:'The discriminative knowledge that separates Puruṣa from Prakṛti; the key to liberation in Sāṃkhya.'},
+  citta:       {term:'Citta',     lit:'Mind-field',                  def:'The totality of mind, including memory, ego, and intellect. Yoga aims at the cessation of its fluctuations.'},
+  vritti:      {term:'Vṛtti',     lit:'Fluctuation / whirlpool',     def:'A modification or fluctuation of the mind-field (citta). Yoga\'s goal is their cessation (nirodha).'},
+  klesha:      {term:'Kleśa',     lit:'Affliction / poison',         def:'A root cause of suffering. Patañjali names five: ignorance, ego, attachment, aversion, clinging to life.'},
+  apurva:      {term:'Apūrva',    lit:'The unprecedented',           def:'The unseen potency generated by correct ritual action. A key concept in Mīmāṃsā philosophy.'},
+  karma:       {term:'Karma',     lit:'Action',                      def:'Action; the causal law linking actions to their consequences across time and lives.'},
+  guna:        {term:'Guṇa',      lit:'Quality / strand',            def:'A quality or attribute. In Sāṃkhya, the three strands of Prakṛti: sattva (clarity), rajas (activity), tamas (inertia).'},
+  padartha:    {term:'Padārtha',  lit:'The meaning of a word / category', def:'A fundamental category of being in Vaiśeṣika ontology: substance, quality, action, universal, particular, inherence.'},
+  mithyajnana: {term:'Mithyājñāna', lit:'False knowledge',           def:'Erroneous cognition — the mistaken belief about the nature of the self. Root of suffering in Nyāya.'},
+  apavarga:    {term:'Apavarga',  lit:'The turning away',            def:'Liberation in Nyāya: the complete, permanent cessation of suffering and rebirth through right knowledge.'},
+  ahankara:    {term:'Ahaṃkāra', lit:'I-maker',                     def:'The ego-principle; the faculty that produces the sense "I am the agent/experiencer". A product of Prakṛti in Sāṃkhya.'},
+  samyoga:     {term:'Saṃyoga',   lit:'Conjunction',                 def:'The false union of Puruṣa and Prakṛti — the root of bondage in Sāṃkhya-Yoga.'},
+  pratyahara:  {term:'Pratyāhāra', lit:'Withdrawal',                 def:'The fifth limb of Patañjali\'s yoga: withdrawal of the senses from their objects.'},
+  jiva:        {term:'Jīva',      lit:'The living one',              def:'The individual soul; the embodied self as it appears in the phenomenal world.'},
+  kaivalya:    {term:'Kaivalya',  lit:'Aloneness / isolation',       def:'Liberation in Sāṃkhya and Yoga: Puruṣa standing alone, free from identification with Prakṛti.'}
+};
+
+/* ═══════════════════════════════════════════════════════════
+   QUIZ DATA
+═══════════════════════════════════════════════════════════ */
+const QUIZ_QS = [
+  {
+    q: 'When something painful happens, what is your first instinct?',
+    opts: [
+      {text:'Try to understand <em>why</em> it happened — you need the logic of it', d:'nyaya'},
+      {text:'Remind yourself it\'s temporary — this quality will pass', d:'vaisheshika'},
+      {text:'Instinctively step back and watch the feeling from a distance', d:'samkhya'},
+      {text:'Slow your breathing and try not to be swept away', d:'yoga'},
+      {text:'Ask what needs to be done — action feels like the answer', d:'mimamsa'},
+      {text:'Question whether the "you" being hurt is really who you are', d:'vedanta'}
+    ]
+  },
+  {
+    q: 'What does freedom mean to you?',
+    opts: [
+      {text:'Knowing the truth about things through careful, honest thinking', d:'nyaya'},
+      {text:'The self stripped of everything accidental — pure and essential', d:'vaisheshika'},
+      {text:'Consciousness recognising it was never really entangled', d:'samkhya'},
+      {text:'A mind so still it no longer disturbs itself', d:'yoga'},
+      {text:'Acting rightly, without needing to see the outcome', d:'mimamsa'},
+      {text:'Waking up to what you already, always were', d:'vedanta'}
+    ]
+  },
+  {
+    q: 'You feel most like yourself when...',
+    opts: [
+      {text:'Thinking clearly — following an argument to its conclusion', d:'nyaya'},
+      {text:'Seeing the world precisely — its categories, distinctions, structure', d:'vaisheshika'},
+      {text:'Watching life unfold without needing to be at its centre', d:'samkhya'},
+      {text:'In practice — moving, breathing, training the attention', d:'yoga'},
+      {text:'Carrying your responsibilities — knowing what is asked of you', d:'mimamsa'},
+      {text:'In moments of stillness when the sense of "I" becomes very quiet', d:'vedanta'}
+    ]
+  },
+  {
+    q: 'What seems most true about suffering?',
+    opts: [
+      {text:'It comes from believing things that aren\'t actually true', d:'nyaya'},
+      {text:'It\'s a quality that sticks to us — but isn\'t us', d:'vaisheshika'},
+      {text:'It belongs to the mind and body, not to the deepest self', d:'samkhya'},
+      {text:'It arises when the mind won\'t settle — and ends when the mind does', d:'yoga'},
+      {text:'It often follows from not doing what we should', d:'mimamsa'},
+      {text:'It\'s the pain of believing we\'re separate from something we never left', d:'vedanta'}
+    ]
+  },
+  {
+    q: 'When you look at the world, what do you tend to see?',
+    opts: [
+      {text:'A place that makes sense if you think carefully enough', d:'nyaya'},
+      {text:'A structured reality of things with distinct natures and relationships', d:'vaisheshika'},
+      {text:'A great unfolding watched by something that never moves', d:'samkhya'},
+      {text:'A field of fluctuations — mind, matter, energy — that can be stilled', d:'yoga'},
+      {text:'A web of duties and actions whose consequences are real', d:'mimamsa'},
+      {text:'A single presence appearing as many — one thing wearing countless faces', d:'vedanta'}
+    ]
+  }
+];
+
+/* ═══════════════════════════════════════════════════════════
+   SCENARIO DATA
+═══════════════════════════════════════════════════════════ */
+const SCENARIOS = [
+  {id:'grief',    label:'Grief',          prose:'It is dusk. A person sits alone, overwhelmed by grief — the weight of loss pressing through them like deep water. They do not know what to do with the pain, or where it comes from, or who they are now that it is here.'},
+  {id:'dilemma',  label:'Moral dilemma',  prose:'A close friend asks a question whose honest answer will cause them real pain. You could tell the truth, or protect them with a partial lie. The moment hangs in the air, waiting.'},
+  {id:'joy',      label:'Deep joy',       prose:'It arrives without warning — a moment of profound happiness, complete in itself, needing nothing. No cause seems quite sufficient. The feeling is larger than its occasion.'},
+  {id:'death',    label:'Before death',   prose:'The breath is slowing. The body is failing, and you know it. The life behind you recedes; what lies ahead is unknown. This is the final moment of clear awareness.'},
+  {id:'injustice',label:'Witnessing injustice', prose:'You see it clearly: a person being wronged, treated with cruelty and contempt. You have the power to intervene — or to look away. The moment demands a response.'}
+];
+
+/* ═══════════════════════════════════════════════════════════
+   DARSHANA DATA
+═══════════════════════════════════════════════════════════ */
+const DARSHANAS = [
+  {
+    id:'nyaya', name:'Nyāya', color:'#5b8dd9',
+    founder:'Gautama Akṣapāda', text:'Nyāya Sūtra',
+    keyTerm:'Pramāṇa', keyTermGloss:'valid means of knowledge',
+    tagline:'The path of logic and right reasoning',
+    source:{quote:'"From false knowledge arises attachment; from attachment, activity; from activity, fault; from fault, suffering. On their successive removal in reverse order, there is liberation."', attr:'Nyāya Sūtra 1.1.2, trans. Ganganatha Jha'},
+    scenarios:{
+      grief:{
+        claim:'Grief is the fruit of false knowledge. What you believe you have lost, you never truly possessed; what you believe yourself to be is not the self that suffers.',
+        body:'The Naiyāyika sits beside you and asks: <em>what do you know, and how do you know it?</em> The Nyāya school holds that all <span class="skt" data-g="dukkha">duḥkha</span> arises from <span class="skt" data-g="mithyajnana">mithyājñāna</span> — the mistaken identification of the self with the body, mind, and relationships that come and go. Through careful application of the four <span class="skt" data-g="pramana">pramāṇas</span> — perception, inference, comparison, testimony — one comes to know the <span class="skt" data-g="atman">ātman</span> as it truly is: eternal and entirely distinct from loss. Crucially, this is not mystical revelation but reasoned conclusion.',
+        response:'Examine each belief driving the grief. Is the claim "I have lost something essential" based on valid knowledge? Through careful reasoning, the ātman is known as untouched by loss.'
+      },
+      dilemma:{
+        claim:'The question is not how the truth will land — it is whether it is true. False knowledge, however well-intentioned, compounds error.',
+        body:'The Naiyāyika applies the <span class="skt" data-g="pramana">pramāṇas</span>: is the truth in question something validly known? If so, honest testimony (<em>śabda</em>) serves the other person\'s capacity to know reality correctly. A lie, however kind, introduces <span class="skt" data-g="mithyajnana">mithyājñāna</span> into another mind. You cannot build lasting wellbeing on a false foundation — and respect for the other\'s rational nature demands the truth.',
+        response:'Tell the truth carefully, not carelessly. The Nyāya commitment is to valid knowledge, not blunt disclosure. How truth is spoken matters — but that it is spoken matters more.'
+      },
+      joy:{
+        claim:'Joy is real — but so is its impermanence. Is this happiness based on something that can be taken away? If so, it is borrowed, not owned.',
+        body:'Nyāya does not deny the reality of positive experience — <em>sukha</em> (pleasure) is as real a quality as pain. But the school\'s concern with right knowledge extends here: if happiness depends on conditions, it is as epistemically suspect as grief. The Naiyāyika uses even this joyful moment as data: does it feel like a surfacing of something unconditioned? That pointing may be a glimpse of what genuine liberation — <span class="skt" data-g="apavarga">apavarga</span> — would be like.',
+        response:'Enjoy the joy. Then ask: what is its source? If it is caused by something outside you, it will end with that something. The path is toward joy that depends on nothing external.'
+      },
+      death:{
+        claim:'The self is a real, eternal substance — it cannot be lost. What is ending is the compound, not the one who knows.',
+        body:'Nyāya holds the <span class="skt" data-g="atman">ātman</span> to be an eternal substance established through inference. At death, what ceases is the particular configuration of body, senses, and mind — not the self itself. The Naiyāyika who has reasoned rightly and cultivated relationship with <em>Īśvara</em> approaches death with the confidence that <span class="skt" data-g="apavarga">apavarga</span> — liberation as the ending of rebirth — awaits.',
+        response:'Trust the inference: the self has never been the body that is failing. What was always the knower cannot be what is being lost.'
+      },
+      injustice:{
+        claim:'Valid knowledge carries obligation. You have perceived injustice clearly — and that perception creates a duty to act.',
+        body:'Is what you have seen genuine <em>pratyakṣa</em> — direct, valid perception? If so, the inference is clear: injustice is occurring. The Naiyāyika argues that to see truly and not act would be a kind of willed <span class="skt" data-g="mithyajnana">mithyājñāna</span>. Nyāya believes in a rational moral order sustained by <em>Īśvara</em> — and injustice violates that order.',
+        response:'First, establish that you have seen what you think you have seen — accurately, without projection. Then act on the valid knowledge. Seeing truly carries its own obligation.'
+      }
+    },
+    tags:['Pramāṇa','Mithyājñāna','Ātman','Īśvara','Apavarga']
+  },
+  {
+    id:'vaisheshika', name:'Vaiśeṣika', color:'#3daa78',
+    founder:'Kaṇāda', text:'Vaiśeṣika Sūtra',
+    keyTerm:'Padārtha', keyTermGloss:'category of being',
+    tagline:'A precise map of reality and the self within it',
+    source:{quote:'"The self is known from desire, aversion, effort, pleasure, pain, and knowledge — these are its signs."', attr:'Vaiśeṣika Sūtra 3.2.4, on ātman inferred from its qualities'},
+    scenarios:{
+      grief:{
+        claim:'You are not your grief. Suffering is a quality that adheres to the self — it is not the self. Strip away what is accidental, and what remains is untouched.',
+        body:'The Vaiśeṣika philosopher arrives with a precise map of reality: all that exists falls into fundamental categories (<span class="skt" data-g="padartha">padārthas</span>). The self (<span class="skt" data-g="atman">ātman</span>) is a real substance, but <span class="skt" data-g="dukkha">duḥkha</span> is merely a <span class="skt" data-g="guna">guṇa</span> — a quality that adheres temporarily when the self is entangled with the mind. Just as wetness adheres to and then leaves a stone, grief adheres to and then leaves the self. In liberation, the self sheds all qualities and returns to pure substancehood.',
+        response:'Make the Vaiśeṣika distinction: you are the substance; grief is a quality. What remains when the quality is stripped away? That remainder is your actual nature.'
+      },
+      dilemma:{
+        claim:'Both truth and lie are actions that generate consequence. Ask not which feels better — ask what kind of action this is, precisely.',
+        body:'Vaiśeṣika is primarily ontological, but actions (<em>karman</em>) are among its <span class="skt" data-g="padartha">padārthas</span> — categories of being. An action is what it is; a lie is a lie regardless of motive. The school resists the utilitarian framing that outcome determines rightness. What kind of action are you about to perform? What qualities inhere in it? These prior questions matter.',
+        response:'Be precise before choosing: not "which outcome do I prefer?" but "what kind of action is this?" Precision resists both convenient rationalisation and thoughtless harm.'
+      },
+      joy:{
+        claim:'Pleasure is a real quality of the self — but like all qualities, it is not permanent. The self exists independently of what adheres to it.',
+        body:'Vaiśeṣika regards <em>sukha</em> as a genuine <span class="skt" data-g="guna">guṇa</span> — as real as pain. But qualities and substances remain distinct. The <span class="skt" data-g="atman">ātman</span> is not constituted by its joy — joy adheres to it temporarily. In liberation, both pleasure and pain cease. This is not emotional blunting; it is precision about where you end and your moods begin.',
+        response:'Feel the joy fully — it is real. But practise the Vaiśeṣika distinction: this quality is adhering to you; it is not you. When it passes, the substance remains.'
+      },
+      death:{
+        claim:'The self exists independently of its qualities. Strip away sensation, thought, identity — the substance persists, undamaged.',
+        body:'Death, in Vaiśeṣika, is the progressive dissolution of <span class="skt" data-g="guna">guṇas</span> from the <span class="skt" data-g="atman">ātman</span>: sensation ceasing, thought ceasing, memory ceasing. But the substance endures. In full liberation, the self reaches a state of pure substancehood — no longer qualified by pleasure, pain, or consciousness. What appears as dying is qualities departing.',
+        response:'Notice what is ceasing: qualities, one by one. Notice what does not cease — the bare fact of being. That which cannot be stripped away is what you are.'
+      },
+      injustice:{
+        claim:'The categories of reality include action — and some actions belong to you as agent. What action is yours to perform here?',
+        body:'Vaiśeṣika insists on precise perception and categorisation. In witnessing injustice: what is the structure of the situation? Who are the substances, what qualities and actions are in play, and what action (<em>karman</em>) properly belongs to you as agent? The school resists convenient vagueness — both inaction-by-overwhelm and action-by-impulse.',
+        response:'Be precise about what you are witnessing and what action is genuinely yours to take. The Vaiśeṣika resists both paralysis and impulsive reaction.'
+      }
+    },
+    tags:['Padārtha','Guṇa','Ātman','Manas','Mokṣa']
+  },
+  {
+    id:'samkhya', name:'Sāṃkhya', color:'#9b6dd4',
+    founder:'Kapila · Īśvarakṛṣṇa', text:'Sāṃkhya Kārikā',
+    keyTerm:'Viveka', keyTermGloss:'discriminative knowledge',
+    tagline:'Pure consciousness witnesses — it never suffers',
+    source:{quote:'"As a dancer, having displayed herself to the audience, desists from the dance, so does Prakṛti desist, having revealed herself to Puruṣa."', attr:'Sāṃkhya Kārikā 59, trans. Larson'},
+    scenarios:{
+      grief:{
+        claim:'You are the witness, not the wounded. The one who grieves is Prakṛti — matter, mind, ego. The one who watches, unchanged, is Puruṣa — and Puruṣa has never suffered.',
+        body:'Sāṃkhya offers the most radical reframing: <em>you are not who you think you are.</em> There is a fundamental dualism between <span class="skt" data-g="purusha">Puruṣa</span> — pure unchanging witness — and <span class="skt" data-g="prakriti">Prakṛti</span> — primal matter, source of everything that moves, feels, thinks. Grief belongs entirely to Prakṛti. Puruṣa, through proximity, has come to identify with Prakṛti\'s pain — this false <span class="skt" data-g="samyoga">saṃyoga</span> is the root of bondage. The dawn of <span class="skt" data-g="viveka">viveka</span> reveals: "I am the witness. This grief is Prakṛti\'s. I am watching it — not living it."',
+        response:'Practise witness-consciousness. Observe the grief as if from the bank of a river. Ask: who is watching? Trace back past emotion, ego, mind — the one who watches has never been touched.'
+      },
+      dilemma:{
+        claim:'The anguish of the dilemma belongs to Prakṛti. The discriminated self — Puruṣa — has no stake in either outcome. But this does not mean inaction.',
+        body:'Sāṃkhya does not offer a direct ethics, but it diagnoses the source of moral anguish: the fear about consequences arises because <span class="skt" data-g="purusha">Puruṣa</span> is identified with <span class="skt" data-g="ahankara">ahaṃkāra</span> — the ego that wants to manage outcomes. Acting from the discriminated self — from <span class="skt" data-g="viveka">viveka</span>-clarity rather than ego-entanglement — is different in quality from both paralysed detachment and reactive compulsion.',
+        response:'Notice the anxiety driving the question. Ask whose anxiety it is. Act — but from clarity rather than from the contracted self trying to manage outcomes.'
+      },
+      joy:{
+        claim:'This pleasure is Prakṛti\'s gift — and Prakṛti\'s subtle trap. Joy is real; but Puruṣa, the true self, neither rejoices nor suffers.',
+        body:'<span class="skt" data-g="guna">Guṇas</span> shift: a moment of deep joy is a moment when <em>sattva</em> predominates in <span class="skt" data-g="prakriti">Prakṛti</span>. It is closer to liberation than suffering — but it is still Prakṛti. <span class="skt" data-g="purusha">Puruṣa</span> does not feel it; it witnesses it. The mistake is believing "I am joyful" rather than "there is joy appearing in Prakṛti, which I witness." Attachment to joy becomes the next suffering.',
+        response:'Notice the joy fully. Then hold it lightly. Ask: who is watching this happiness? That watcher is what you actually are — and it neither gains nor loses.'
+      },
+      death:{
+        claim:'Prakṛti assembled this form; Prakṛti is dissolving it. Puruṣa was never born and will never die. It was always the witness.',
+        body:'Death is the dissolution of a particular manifestation of <span class="skt" data-g="prakriti">Prakṛti</span>. <span class="skt" data-g="purusha">Puruṣa</span> did not come into existence at birth and does not end at death. The liberation available in this moment is the most radical possible: recognise, with absolute clarity, that you were never what is ending.',
+        response:'One last <span class="skt" data-g="viveka">viveka</span>: I am not this. Not the fading breath, not the retreating senses. I am the one who has watched all of it — and watching does not die.'
+      },
+      injustice:{
+        claim:'Injustice belongs to Prakṛti — and must be met by action. Discriminative knowledge does not mean withdrawal from the world.',
+        body:'Sāṃkhya\'s emphasis on <span class="skt" data-g="purusha">Puruṣa</span>\'s detachment can seem like a counsel of passive withdrawal — but it is not. Acting from <span class="skt" data-g="viveka">viveka</span>-clarity (rather than from ego-entanglement or <em>rajas</em>-driven reaction) is different from both paralysis and impulsive outrage. You act fully — but without the toxicity that comes from believing your self is at stake.',
+        response:'Do not use Sāṃkhya as an excuse for non-action. Act — but act from clarity. The discriminated consciousness can respond decisively without being consumed.'
+      }
+    },
+    tags:['Viveka-khyāti','Puruṣa','Prakṛti','Saṃyoga','Ahaṃkāra']
+  },
+  {
+    id:'yoga', name:'Yoga', color:'#e0883a',
+    founder:'Patañjali', text:'Yoga Sūtra',
+    keyTerm:'Kleśa', keyTermGloss:'affliction, root of suffering',
+    tagline:'Still the mind, and suffering loses its ground',
+    source:{quote:'"<em>Heyaṃ duḥkham anāgatam.</em> Pain that has not yet come is to be avoided."', attr:'Yoga Sūtra 2.16, trans. Woods — the entire practice in one sentence'},
+    scenarios:{
+      grief:{
+        claim:'Grief is not an enemy to defeat but a fluctuation to witness. Still the mind — and the self beneath the storm is already at peace.',
+        body:'Patañjali identifies five <span class="skt" data-g="klesha">kleśas</span> — root afflictions — at the source of all suffering: <span class="skt" data-g="avidya">avidyā</span>, ego (<em>asmitā</em>), attachment (<em>rāga</em>), aversion (<em>dveṣa</em>), and clinging to life. The person in grief is caught in <em>rāga</em> (attachment to what was) and <em>dveṣa</em> (aversion to what is). The Yogin\'s response is not suppression: observe the <span class="skt" data-g="vritti">vṛttis</span> without identification. The <em>yogaś-<span class="skt" data-g="citta">citta</span>-<span class="skt" data-g="vritti">vṛtti</span>-nirodhaḥ</em> is already pointing toward what lies beneath.',
+        response:'Do not fight the grief. Sit. Breathe. Practise <span class="skt" data-g="pratyahara">pratyāhāra</span>. Watch the fluctuations without becoming them. Stillness is not something to reach — it is what remains when the vṛttis settle.'
+      },
+      dilemma:{
+        claim:'The dilemma is a knot of kleśas. Quiet the mind enough to see clearly, and the right action becomes less obscure.',
+        body:'Patañjali\'s ethical foundation (the <em>yamas</em>) includes <em>satya</em> — truthfulness — alongside <em>ahiṃsā</em> (non-harm). When they appear to conflict, ahiṃsā takes precedence. More practically: the dilemma feels impossible partly because the <span class="skt" data-g="citta">citta</span> is clouded by <em>rāga</em> (wanting to protect) and <em>dveṣa</em> (aversion to being the cause of pain). Still the mind, and the right action tends to become apparent.',
+        response:'Pause. Breathe. Apply <span class="skt" data-g="pratyahara">pratyāhāra</span> to the emotional charge around both options. From a quieter place, ask: what does <em>satya</em> within <em>ahiṃsā</em> actually require here?'
+      },
+      joy:{
+        claim:'This is sattva arising — the mind at its clearest. It is closer to your true nature than turbulent states. Stay with it, but do not cling.',
+        body:'A spontaneous moment of joy may be a foretaste of the deep states of <em>samādhi</em> — a brief settling of the <span class="skt" data-g="klesha">kleśas</span>, a quieting of habitual <span class="skt" data-g="vritti">vṛttis</span>. But Patañjali is careful: even pleasant vṛttis are still vṛttis. The joy is not to be suppressed — but neither should it generate <em>rāga</em> that becomes its own suffering when the mood shifts.',
+        response:'Receive the joy as practice. Notice the quality of mind right now. Can you maintain awareness within it — witnessing rather than grasping? This is pratyāhāra in its subtler form.'
+      },
+      death:{
+        claim:'The mind\'s fluctuations are ending. What is revealed when they fully cease is not nothing — it is the stillness you have been practising for.',
+        body:'Death is, in one sense, the ultimate <span class="skt" data-g="pratyahara">pratyāhāra</span>: a complete withdrawal from the senses. For the practised Yogin, this is familiar territory — the deepest states of <em>samādhi</em> approach this same dissolution. If <em>abhiniveśa</em> (the <span class="skt" data-g="klesha">kleśa</span> of clinging to life) can be released here, liberation becomes available.',
+        response:'You have practised releasing the vṛttis. Do it now, completely. Let the breath go without grasping. What remains when the fluctuations finally still is what you were always practising to find.'
+      },
+      injustice:{
+        claim:'Ahiṃsā demands intervention; equanimity determines how you intervene. These are not in conflict.',
+        body:'Patañjali\'s first <em>yama</em> — <em>ahiṃsā</em> — extends to witnessing: allowing harm to continue when you can prevent it is a form of participation. But equanimity (<em>upekṣā</em> toward the wicked, as Patañjali prescribes) is not indifference — it is the steadiness that allows effective action without the reactive anger that often compounds harm.',
+        response:'Act from the settled mind, not the agitated one. The intervention will be more effective, and less likely to generate new harm, when it comes from clarity rather than from dveṣa.'
+      }
+    },
+    tags:['Citta-vṛtti-nirodhaḥ','Kleśa','Vṛtti','Avidyā','Pratyāhāra']
+  },
+  {
+    id:'mimamsa', name:'Mīmāṃsā', color:'#cc4444',
+    founder:'Jaimini · Kumārila Bhaṭṭa', text:'Mīmāṃsā Sūtra',
+    keyTerm:'Apūrva', keyTermGloss:'unseen potency of right action',
+    tagline:'Seek not an explanation — seek the duty that awaits',
+    source:{quote:'"<em>Athāto dharmajijñāsā.</em> Now, therefore, an inquiry into dharma."', attr:'Mīmāṃsā Sūtra 1.1.1 — the opening sutra: action and duty are the beginning and end of inquiry'},
+    scenarios:{
+      grief:{
+        claim:'Do not seek an explanation for your suffering. Seek the duty that awaits you. Right action is its own answer — and its own healing.',
+        body:'The Mīmāṃsaka arrives and says something unexpected: <em>let us speak less of what you feel and more of what you must do.</em> The school is above all a school of action — the correct performance of Vedic <span class="skt" data-g="dharma">dharma</span>. Suffering has a partial explanation in <em>adharma</em> — neglected duties, improper ritual conduct. But the point is not diagnosis; it is response. Each correct action generates <span class="skt" data-g="apurva">apūrva</span> — an unseen potency that shapes the self\'s trajectory over time.',
+        response:'Return to duty. What rite, what obligation, what dharmic action is yours to perform today? The Mīmāṃsaka holds that correct action generates its own invisible force — trust the doing.'
+      },
+      dilemma:{
+        claim:'This is not a philosophical puzzle — it is a question of dharma. What does your ordained role require? That settles it.',
+        body:'The Mīmāṃsaka cuts through the anguish: what does your dharmic position require? The answer changes depending on who you are to this person — parent, teacher, friend, stranger — and what the injunctions governing those relationships prescribe. There is no abstract "better outcome" calculation; there is only the question of what your station demands. The school is sceptical of elaborate ethical reasoning that conveniently justifies what we wanted to do.',
+        response:'Stop calculating consequences and locate your dharmic position. What does your role in this person\'s life actually require of you? Perform it — even when it is hard.'
+      },
+      joy:{
+        claim:'Good. Now what duty is before you? Joy is fuel — use it in the service of your obligations.',
+        body:'The Mīmāṃsaka is somewhat impatient with extended analysis of private experience. Joy, like suffering, is real but not the primary concern. What matters is action — <span class="skt" data-g="karma">karma</span> — and right action is not disrupted by good feeling. A moment of joy is an opportunity: vitality and clarity can be channelled into the performance of obligations that, in darker moments, feel heavier.',
+        response:'Good. Now what duty is before you? Joy is energy. The rites, the obligations, the relationships that need tending — all are easier when the mind is light. Use it.'
+      },
+      death:{
+        claim:'The question is not what comes after — it is whether you have performed your duties. A life of right action generates apūrva that outlasts the body.',
+        body:'Mīmāṃsā is an unusual companion at the deathbed — it is concerned with action, not with metaphysics of what follows. But this is also its consolation: every duty honestly discharged, every rite correctly performed, generated <span class="skt" data-g="apurva">apūrva</span> — invisible potency that the school believes persists and shapes what follows. The question at death is not "have I understood enough?" but "have I acted rightly enough?"',
+        response:'Have you performed your dharma? That is the account that matters. What was done rightly cannot be undone. Trust the potency of right action to carry forward what needs to carry forward.'
+      },
+      injustice:{
+        claim:'Act. What your role requires is not obscure. The Mīmāṃsā tradition has a word for the person who watches and does nothing when action was possible.',
+        body:'The Mīmāṃsaka is at their strongest here. Witnessing injustice when you have the power to intervene and choosing not to is <em>adharma</em> — a failure of duty. The school has little patience for the bystander\'s rationalisation. The <span class="skt" data-g="apurva">apūrva</span> of right action — of intervention at cost — outlasts the moment.',
+        response:'Act. Your role requires this. The Mīmāṃsā tradition has a word for the person who watches and does nothing when action was possible: <em>adharmin</em>. Do not be that.'
+      }
+    },
+    tags:['Dharma','Apūrva','Karman','Vidhi','Adharma']
+  },
+  {
+    id:'vedanta', name:'Vedānta', color:'#d4af37',
+    founder:'Bādarāyaṇa · Śaṅkarācārya', text:'Brahma Sūtra · Upaniṣads',
+    keyTerm:'Māyā', keyTermGloss:'the appearance of separation',
+    tagline:'Find the griever — and you will find Brahman',
+    source:{quote:'"All this is, indeed, Brahman. This ātman is Brahman."', attr:'Māṇḍūkya Upaniṣad 2 — the Advaitin\'s most compressed declaration'},
+    scenarios:{
+      grief:{
+        claim:'There is no one here to suffer. Find the one who grieves — trace them all the way back — and you will find Brahman, infinite and undivided, looking at itself through a temporary form.',
+        body:'The Advaitin holds that <span class="skt" data-g="brahman">Brahman</span> alone is real, the world of apparent multiplicity is <span class="skt" data-g="maya">māyā</span>, and the individual self is not separate from Brahman but <em>is</em> Brahman — <span class="skt" data-g="atman">ātman</span> is Brahman. What is grief? It is the pain of apparent separation — and the appearing of separation is itself <span class="skt" data-g="avidya">avidyā</span>. You grieve because you believe you are bounded and can lose things. Vedānta does not deny the phenomenal reality of grief. But it asks: <em>who is aware of the grief? Who notices the loss?</em> Pull on that thread — and you will not find a limited person.',
+        response:'Do not analyse the grief — investigate the griever. Ask: "Who am I that suffers?" Trace the sense of "I" back past thought, past emotion. What remains is not a person who has lost — it is the awareness in which loss appears.'
+      },
+      dilemma:{
+        claim:'The one who would be hurt and the one who would be protected are both Brahman. Act from that seeing — not from the fear that forgets it.',
+        body:'Advaita does not counsel passivity. Both outcomes exist within <span class="skt" data-g="brahman">Brahman</span>; both the pain of truth and the falseness of the lie are appearances within a single field. The Advaitin acts from the recognition that the other is not a stranger but Brahman in a form that is suffering. Your action is Brahman responding to itself. This produces, often, the same answer as the Yogin\'s — but for a different reason: from the recognition of non-separation rather than from ethical rule.',
+        response:'Before choosing, investigate the chooser. From the standpoint of non-separation, how does the dilemma appear? Act from that seeing — not from the contracted self managing outcomes.'
+      },
+      joy:{
+        claim:'This is a gap in the clouds. What you are feeling is not caused by the circumstance — it is your own nature surfacing briefly through it.',
+        body:'Advaita has a precise analysis: <em>ānanda</em> (bliss) is not a quality the self acquires but its very nature — <em>sat-cit-ānanda</em>. In a moment of deep joy, the usual obscuring activity of the mind briefly subsides — and what is felt is not joy "caused" by something external, but the <span class="skt" data-g="atman">ātman</span>\'s own nature shining through. The external circumstance was not the cause — it was the occasion for a veil to temporarily lift.',
+        response:'Do not look outward for the source of this joy. Turn toward it. Ask: what is feeling this? The awareness that is joyful — can you find its edges? That borderlessness is who you are.'
+      },
+      death:{
+        claim:'There is no one here to die. Find the one who is dying — trace them to their source — and you will find that the source does not end.',
+        body:'Death dissolves the apparent individual — the <span class="skt" data-g="jiva">jīva</span>, the appearance of a bounded consciousness. <span class="skt" data-g="brahman">Brahman</span> — what you are at the deepest level — does not die because it was never born. The Advaitin does not deny the dying process on its empirical level. But at the level of absolute truth, there is only Brahman — self-luminous, without beginning or end, resting in itself.',
+        response:'Let the "I" that is afraid of dying be investigated one last time. Who is aware of the dying? That awareness — open, borderless, untouched — is not ending. It is the ground on which ending appears.'
+      },
+      injustice:{
+        claim:'The one suffering injustice is Brahman. So are you. And so is the one committing it. Act from that seeing — without hatred that forgets what is actually here.',
+        body:'Advaita does not counsel passivity — some of its greatest figures were sharp social critics. But it reframes the agent\'s relationship to the situation: you intervene because the one harmed is not separate from you — Brahman appearing in a suffering form. And the perpetrator, also <span class="skt" data-g="brahman">Brahman</span>, also acting from <span class="skt" data-g="avidya">avidyā</span>. This does not neutralise the need to act; it changes the quality of action: without hatred, without ego-righteousness, from the clarity of non-separation. It is, paradoxically, more powerful.',
+        response:'Act — from the recognition that what suffers is not separate from you. And act without hatred for the perpetrator, understanding their action too arises from the root of avidyā. This is not weakness; it is clarity.'
+      }
+    },
+    tags:['Māyā','Avidyā','Ātman','Brahman','Jīva','Advaita']
+  }
+];
+
+/* ═══════════════════════════════════════════════════════════
+   MATRIX DATA
+═══════════════════════════════════════════════════════════ */
+const MATRIX_QS = [
+  {id:'self',      label:'What is the self?'},
+  {id:'lib',       label:'What is liberation?'},
+  {id:'knowledge', label:'What is valid knowledge?'},
+  {id:'god',       label:'Is there a God?'},
+  {id:'suffering', label:'What causes suffering?'}
+];
+const MATRIX = {
+  nyaya:{
+    self:'<strong>Ātman</strong> — a real, eternal substance (dravya), distinct from body and mind, established through inference from qualities like desire, aversion, and will. One self per person, persisting across lives.',
+    lib:'<strong>Apavarga</strong> — the complete, permanent cessation of all suffering and rebirth. Not a positive state of bliss but the absence of pain. Achieved through right knowledge validated by the pramāṇas.',
+    knowledge:'<strong>Four pramāṇas:</strong> (1) pratyakṣa — direct perception; (2) anumāna — inference; (3) upamāna — comparison; (4) śabda — reliable verbal testimony. Nyāya\'s foundational contribution to Indian epistemology.',
+    god:'<strong>Yes.</strong> Īśvara is a real, omniscient person, established through inference as the efficient cause of the ordered universe. God\'s existence is provable through rational argument.',
+    suffering:'<strong>Mithyājñāna</strong> — false knowledge; specifically, the mistaken identification of the self with body, mind, and relationships. All grief flows from this root error in cognition.'
+  },
+  vaisheshika:{
+    self:'<strong>Ātman</strong> — one of nine eternal substances (earth, water, fire, air, ether, time, space, mind, self). Each person has a distinct, individual ātman. Substrate of consciousness and all psychological qualities.',
+    lib:'<strong>Mokṣa</strong> — the self\'s return to a quality-less state: free of pleasure, pain, and consciousness itself. Not annihilation but pure substancehood. An unusual conception compared to other schools.',
+    knowledge:'Primarily <strong>perception and inference</strong>, developed alongside Nyāya as its companion school. Vaiśeṣika\'s contribution is primarily ontological rather than epistemological.',
+    god:'<strong>Yes</strong>, though less developed than Nyāya. Īśvara is the ordering principle that coordinates the arrangement of atoms. Later Vaiśeṣika integrated closer to Nyāya\'s theism.',
+    suffering:'The <strong>saṃyoga</strong> (conjunction) of the self with the body and mind, producing the accidental adhesion of suffering as a quality. Liberation breaks this conjunction permanently.'
+  },
+  samkhya:{
+    self:'<strong>Puruṣa</strong> — pure, unchanging witness consciousness. Plural (one per sentient being), inactive, eternally free. Completely distinct from Prakṛti. It witnesses but never acts or experiences.',
+    lib:'<strong>Kaivalya</strong> — the isolation or aloneness of Puruṣa once viveka-khyāti (discriminative knowledge) dawns. Not achieved — recognised. Puruṣa was always free; it merely forgot.',
+    knowledge:'<strong>Three pramāṇas:</strong> perception, inference, and reliable testimony. Notably, viveka itself is not a pramāṇa but the fruit of correct application of knowledge — the culminating insight.',
+    god:'<strong>No.</strong> Classical Sāṃkhya is explicitly atheistic. Puruṣas are plural and ungoverned by any supreme being. Liberation requires no God — only discriminative insight between Puruṣa and Prakṛti.',
+    suffering:'<strong>Saṃyoga</strong> — the false conjunction of Puruṣa with Prakṛti, producing the mistaken belief "I am the mind/body/agent/sufferer." Puruṣa, in truth, has never been bound.'
+  },
+  yoga:{
+    self:'<strong>Puruṣa</strong> (follows Sāṃkhya metaphysics), but Yoga emphasises the citta — the mind-field — as the proximate obstacle. The self is the awareness behind the fluctuations, not the fluctuations themselves.',
+    lib:'<strong>Kaivalya</strong> — the liberation of Puruṣa, achieved through the systematic eightfold path: yama, niyama, āsana, prāṇāyāma, pratyāhāra, dhāraṇā, dhyāna, samādhi.',
+    knowledge:'<strong>Three pramāṇas</strong> (perception, inference, testimony) as one of the five types of vṛtti (mental fluctuation). Correct knowledge must be cultivated without allowing it to bind. Direct realisation (samādhi) transcends ordinary knowing.',
+    god:'<strong>Yes.</strong> Patañjali introduces Īśvara as a "special Puruṣa" — untouched by affliction, karma, or latent impressions. Devotion to Īśvara (īśvara-praṇidhāna) is a practical path to samādhi.',
+    suffering:'<strong>The five kleśas:</strong> (1) avidyā — ignorance; (2) asmitā — ego-identification; (3) rāga — attachment; (4) dveṣa — aversion; (5) abhiniveśa — clinging to life. Avidyā is the root; the others grow from it.'
+  },
+  mimamsa:{
+    self:'<strong>Eternal agent of action</strong> — the "I" who performs rites and bears their fruits across lives. Unlike Sāṃkhya/Vedānta, Mīmāṃsā emphasises the self as <em>doer</em> rather than witness.',
+    lib:'The <strong>highest good</strong> (niḥśreyasa) achieved through flawless Vedic action. Some early Mīmāṃsakas do not prioritise personal liberation at all, focusing instead on svarga (heaven) and cosmic order.',
+    knowledge:'<strong>Six pramāṇas</strong>, the most extensive list: perception, inference, comparison, testimony, plus <em>arthāpatti</em> (postulation — inferring a fact to explain another) and <em>anupalabdhi</em> (non-perception of absence).',
+    god:'<strong>No.</strong> Early Mīmāṃsā rejects Īśvara. The Vedas are <em>apauruṣeya</em> — authorless, eternal, self-validating. They need no divine author and were not composed by any person, human or divine.',
+    suffering:'<strong>Adharma</strong> — the failure to perform ordained Vedic and social duties, and the commission of prohibited acts. The cosmos is sustained by correct action; its neglect has consequences.'
+  },
+  vedanta:{
+    self:'<strong>Ātman = Brahman</strong> (Advaita Śaṅkara); the self is related to but distinct from Brahman (Rāmānuja\'s Viśiṣṭādvaita); the self is eternally distinct from God (Madhva\'s Dvaita). The most contested question across Vedāntic schools.',
+    lib:'<strong>Mokṣa</strong> as recognition (Advaita: realising ātman = Brahman); or loving union with Īśvara (Rāmānuja); or eternal service in Viṣṇu\'s realm (Madhva). Vedānta offers the richest variety of liberation models.',
+    knowledge:'The three classical pramāṇas, but <strong>śruti</strong> (Vedic revelation, especially the Upaniṣads) is supreme. Direct realisation (aparokṣānubhūti) ultimately transcends ordinary knowledge — liberation is not merely intellectual.',
+    god:'<strong>Yes</strong>, but interpreted differently: impersonal Brahman as absolute reality (Advaita); personal Brahman/Viṣṇu as supreme (Rāmānuja, Madhva). The nature of God is Vedānta\'s deepest internal debate.',
+    suffering:'<strong>Avidyā</strong> — fundamental ignorance of the identity of ātman and Brahman. The root misapprehension that generates the apparent separate self and all that flows from it: desire, fear, grief, rebirth.'
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   DEBATE DATA
+═══════════════════════════════════════════════════════════ */
+const DEBATES = [
+  {
+    id:'nyaya-vedanta',
+    label:'Nyāya vs Vedānta',
+    leftId:'nyaya', rightId:'vedanta',
+    topic:'Is the ultimate truth reachable by reason — or does reason reach its own limit?',
+    exchanges:[
+      {side:'left',  speaker:'Nyāya',   text:'The self — the ātman — is a real substance, establishable through inference. From the presence of desire, aversion, and memory, we infer a substrate that persists. Logic reaches the self. It reaches God. It reaches liberation. What cannot be known by the pramāṇas has no claim on us.'},
+      {side:'right', speaker:'Vedānta', text:'You say the self is knowable by inference — but inference requires a knower prior to it. Who is it that performs the inference? If the ātman can be known as an <em>object</em>, it is not the ultimate subject. The Upaniṣads declare: the eye cannot see it; the mind cannot grasp it. Brahman is not an object of knowledge — it is knowledge itself.'},
+      {side:'left',  speaker:'Nyāya',   text:'But without inference, how do you establish anything — including Brahman? Your "direct realisation" requires a mind, a process of inquiry, a methodology. You cannot escape epistemology by declaring epistemology irrelevant. Even your śruti must be understood, interpreted, applied. That is the work of reason.'},
+      {side:'right', speaker:'Vedānta', text:'Agreed that reason purifies the mind and removes obstacles. But it is a raft, not a destination. Once the river is crossed, the raft is left behind. The pramāṇas function within the domain of subject-object duality. But what you are seeking is prior to that duality — and cannot be grasped by it. The final step is not a logical conclusion but a shift in what you take yourself to be.'}
+    ],
+    tension:'Whether the ultimate can be approached through rational inquiry — or whether reason necessarily reaches a horizon it cannot cross, and something else must take over.'
+  },
+  {
+    id:'samkhya-yoga',
+    label:'Sāṃkhya vs Yoga',
+    leftId:'samkhya', rightId:'yoga',
+    topic:'Is a personal God necessary for liberation — and does philosophy need practice?',
+    exchanges:[
+      {side:'left',  speaker:'Sāṃkhya', text:'Liberation is achieved through viveka-khyāti alone — discriminative knowledge that distinguishes Puruṣa from Prakṛti. No God, no devotion, no external intervention. If Puruṣa is pure consciousness, eternally free, it needs no supreme being to liberate it. Pure philosophical understanding is sufficient.'},
+      {side:'right', speaker:'Yoga',    text:'We share your metaphysics entirely — Puruṣa, Prakṛti, the twenty-five tattvas. But Patañjali adds a practical question: how does viveka actually dawn? Bare discrimination, without a systematic methodology for quieting the citta and without orientation toward Īśvara, tends to remain an intellectual position rather than a lived realisation. The eight limbs are not ornamental.'},
+      {side:'left',  speaker:'Sāṃkhya', text:'But what is this Īśvara you introduce? You say he is a "special Puruṣa," untouched by karma and affliction. But if all Puruṣas are by nature free, Īśvara merely demonstrates what is already the case — he is not a cause of liberation. And devotion to a being identical to what you already are seems philosophically confused.'},
+      {side:'right', speaker:'Yoga',    text:'Īśvara is not a cause in the mechanical sense — but an orientation. The citta that has an object of complete devotion settles more readily than one that merely reasons. You are right that it is not a logical necessity. But philosophy that ignores the psychology of practice produces meditators who cannot sit still for twenty minutes. The path matters, not only the destination.'}
+    ],
+    tension:'Whether philosophical understanding alone can achieve liberation, or whether structured practice and devotional orientation are necessary supplements — and what role God plays in a system that insists consciousness is already free.'
+  },
+  {
+    id:'mimamsa-vedanta',
+    label:'Mīmāṃsā vs Vedānta',
+    leftId:'mimamsa', rightId:'vedanta',
+    topic:'Does the Veda teach us to act, or to know? Can karma lead to liberation?',
+    exchanges:[
+      {side:'left',  speaker:'Mīmāṃsā', text:'The Vedas are primarily injunctive — they prescribe action. The karma-kāṇḍa, the action portion, is the Veda\'s primary teaching. Ritual action performed correctly generates apūrva, accumulates dharma, and leads to the highest good. Knowledge alone, without action, is inert — it cannot transform the self or the cosmos.'},
+      {side:'right', speaker:'Vedānta', text:'The Upaniṣads — the very end of the Vedas, the vedānta — are concerned with knowledge of Brahman, not with ritual. Śaṅkara argued that action, by definition, operates in the realm of multiplicity and finitude. It cannot produce liberation, which is not a new state achieved but the recognition of what always was. Action purifies the mind — but liberation is jñāna.'},
+      {side:'left',  speaker:'Mīmāṃsā', text:'But who purifies the mind? Action does. And without a purified mind, your "knowledge" is just learned words. Moreover — Brahman, if actionless, cannot be a means. Only what is enjoined can be prescribed. You cannot command realisation. Your jñāna-path is practically empty: tell someone to "realise Brahman" and see how far they get without the ritual scaffolding that purifies them first.'},
+      {side:'right', speaker:'Vedānta', text:'We agree that action purifies. Karma-yoga — the yoga of selfless action — is explicitly endorsed in the Gītā. The disagreement is about the final step: action can take you to the door, but it cannot open it, because the "you" who acts is precisely what liberation sees through. At the door, action ceases. What is required then is not more doing, but a fundamental shift in the one who has been doing.'}
+    ],
+    tension:'Whether the Vedas are fundamentally a manual for action (Mīmāṃsā) or a revelation of knowledge (Vedānta) — and whether karma can itself lead to liberation or merely prepare the ground for the knowledge that does.'
+  }
+];
+
+/* ═══════════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════════ */
+let currentScenario = 'grief';
+const active = new Set();
+let currentMatrixQ = 'self';
+let currentDebate = 'nyaya-vedanta';
+let quizAnswers = {};
+let quizStep = 0;
+
+/* ═══════════════════════════════════════════════════════════
+   BOOT
+═══════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  renderSceneTabs();
+  renderCards();
+  updateSceneProse();
+  renderMatrix();
+  renderDebate();
+  initGlossary();
+  document.getElementById('mainContent').style.display = 'none';
+});
+
+/* ═══════════════════════════════════════════════════════════
+   QUIZ ENGINE
+═══════════════════════════════════════════════════════════ */
+function startQuiz(){
+  document.getElementById('quizIntro').style.display='none';
+  document.getElementById('quizCards').style.display='block';
+  renderQuestion(0);
+}
+function skipQuiz(){
+  document.getElementById('quizSection').style.display='none';
+  document.getElementById('mainContent').style.display='block';
+  document.getElementById('mainContent').scrollIntoView({behavior:'smooth'});
+}
+function renderQuestion(i){
+  quizStep=i;
+  const q=QUIZ_QS[i];
+  const pct=((i+1)/QUIZ_QS.length*100).toFixed(0);
+  document.getElementById('progressLabel').textContent=`Question ${i+1} of ${QUIZ_QS.length}`;
+  document.getElementById('progressFill').style.width=pct+'%';
+  const btn=document.getElementById('quizNextBtn');
+  btn.classList.remove('enabled');
+
+  const container=document.getElementById('questionCards');
+  container.innerHTML=`
+    <div class="quiz-card active">
+      <div class="quiz-q">${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((o,idx)=>`
+          <div class="quiz-opt" data-d="${o.d}" data-idx="${idx}" onclick="selectOpt(this,'${o.d}',${i})">
+            ${o.text}
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+function selectOpt(el, dId, qIdx){
+  el.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  quizAnswers[qIdx]=dId;
+  const btn=document.getElementById('quizNextBtn');
+  btn.classList.add('enabled');
+  btn.textContent = quizStep < QUIZ_QS.length-1 ? 'Next →' : 'See my result →';
+}
+function nextQuestion(){
+  if(quizStep < QUIZ_QS.length-1){
+    renderQuestion(quizStep+1);
+  } else {
+    showResult();
+  }
+}
+function showResult(){
+  const counts={};
+  DARSHANAS.forEach(d=>counts[d.id]=0);
+  Object.values(quizAnswers).forEach(d=>{ if(counts[d]!==undefined) counts[d]++; });
+  const max=Math.max(...Object.values(counts));
+  const winners=DARSHANAS.filter(d=>counts[d.id]===max);
+  const winner=winners[0];
+  const tied=winners.length>1;
+
+  document.getElementById('quizCards').style.display='none';
+  const res=document.getElementById('quizResult');
+  res.style.display='block';
+  res.innerHTML=`
+    <div class="result-card" style="--rc:${winner.color}">
+      <div class="result-header" style="border-bottom:3px solid ${winner.color}20">
+        <div class="result-eyebrow">${tied?'Your primary alignment (tied)':'Your default darśana'}</div>
+        <div class="result-name" style="color:${winner.color}">${winner.name}</div>
+        <div class="result-sub">${winner.tagline}</div>
+      </div>
+      <div class="result-body">
+        <p class="result-text">
+          ${tied ? `Your answers were spread across multiple schools — primarily ${winners.map(w=>w.name).join(' and ')}. This reflects genuine philosophical openness, or perhaps a synthesis of different intuitions. ` : ''}
+          Your instincts align most closely with <strong style="color:${winner.color}">${winner.name}</strong> — founded by ${winner.founder}, whose root text is the <em>${winner.text}</em>.
+          The <em>${winner.keyTerm}</em> — ${winner.keyTermGloss} — is at the heart of this school's approach to understanding the world.
+        </p>
+        <div class="result-actions">
+          <button class="btn-primary" onclick="exploreFromResult('${winner.id}')">Explore ${winner.name} first</button>
+          <button class="btn-secondary" onclick="exploreAllFromResult()">Explore all six</button>
+          <button class="btn-secondary" onclick="retakeQuiz()">Retake quiz</button>
+        </div>
+      </div>
+    </div>`;
+}
+function exploreFromResult(id){
+  document.getElementById('quizSection').style.display='none';
+  document.getElementById('mainContent').style.display='block';
+  active.clear();
+  active.add(id);
+  updateCards();
+  renderPerspectives();
+  document.getElementById('mainContent').scrollIntoView({behavior:'smooth'});
+}
+function exploreAllFromResult(){
+  document.getElementById('quizSection').style.display='none';
+  document.getElementById('mainContent').style.display='block';
+  showAll();
+  document.getElementById('mainContent').scrollIntoView({behavior:'smooth'});
+}
+function retakeQuiz(){
+  quizAnswers={};quizStep=0;
+  document.getElementById('quizResult').style.display='none';
+  document.getElementById('quizIntro').style.display='block';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCENARIO ENGINE
+═══════════════════════════════════════════════════════════ */
+function renderSceneTabs(){
+  const wrap=document.getElementById('scenarioTabs');
+  wrap.innerHTML=SCENARIOS.map(s=>`
+    <button class="s-tab ${s.id===currentScenario?'active':''}" onclick="switchScenario('${s.id}')">${s.label}</button>`).join('');
+}
+function switchScenario(id){
+  currentScenario=id;
+  updateSceneProse();
+  document.querySelectorAll('.s-tab').forEach(t=>t.classList.toggle('active',t.textContent===SCENARIOS.find(s=>s.id===id).label));
+  renderPerspectives();
+}
+function updateSceneProse(){
+  const s=SCENARIOS.find(s=>s.id===currentScenario);
+  const el=document.getElementById('sceneProse');
+  el.style.opacity='0';
+  setTimeout(()=>{el.innerHTML=s.prose;el.style.opacity='1';},200);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOGGLE ENGINE
+═══════════════════════════════════════════════════════════ */
+function renderCards(){
+  document.getElementById('cardsGrid').innerHTML=DARSHANAS.map(d=>`
+    <div class="d-card ${active.has(d.id)?'active':''}" id="card-${d.id}" style="--cc:${d.color}"
+         onclick="toggle('${d.id}')" role="button" aria-pressed="${active.has(d.id)}" tabindex="0">
+      <div class="card-dot">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+          <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="card-name">${d.name}</div>
+      <div class="card-meta">${d.founder} · <em>${d.text}</em></div>
+      <div class="card-tagline">${d.tagline}</div>
+      <div class="card-term">${d.keyTerm}</div>
+    </div>`).join('');
+  document.querySelectorAll('.d-card').forEach(c=>{
+    c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();c.click();}});
+  });
+}
+function toggle(id){
+  active.has(id)?active.delete(id):active.add(id);
+  updateCards();renderPerspectives();
+}
+function showAll(){DARSHANAS.forEach(d=>active.add(d.id));updateCards();renderPerspectives();}
+function clearAll(){active.clear();updateCards();renderPerspectives();}
+function updateCards(){
+  DARSHANAS.forEach(d=>{
+    const el=document.getElementById('card-'+d.id);
+    if(!el)return;
+    el.classList.toggle('active',active.has(d.id));
+    el.setAttribute('aria-pressed',active.has(d.id));
+  });
+  updateCount();
+}
+function updateCount(){
+  const n=active.size;
+  const el=document.getElementById('activeCount');
+  if(n===0){el.textContent='';return;}
+  const names=DARSHANAS.filter(d=>active.has(d.id)).map(d=>d.name);
+  el.textContent=n===6?'Viewing all six darśanas':'Viewing: '+names.join('  ·  ');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PERSPECTIVES ENGINE
+═══════════════════════════════════════════════════════════ */
+function renderPerspectives(){
+  updateCount();
+  const wrap=document.getElementById('perspectivesWrap');
+  const sel=DARSHANAS.filter(d=>active.has(d.id));
+  if(!sel.length){
+    wrap.innerHTML='<div class="empty-state">Toggle a darśana above to see its interpretation</div>';
+    return;
+  }
+  wrap.innerHTML=`<div class="perspectives-grid n${sel.length}">${sel.map(renderPanel).join('')}</div>`;
+  initGlossary();
+}
+function renderPanel(d){
+  const sc=d.scenarios[currentScenario];
+  return `
+  <div class="p-panel" style="--pc:${d.color}">
+    <div class="p-header">
+      <div>
+        <div class="p-eyebrow">Through the lens of</div>
+        <div class="p-name">${d.name}</div>
+        <div class="p-founder">${d.founder} · <em>${d.text}</em></div>
+      </div>
+      <div class="p-header-right">
+        <div>
+          <div class="p-term">${d.keyTerm}</div>
+          <div class="p-term-gloss">${d.keyTermGloss}</div>
+        </div>
+        <button class="p-src-btn" onclick="toggleSource(this)">Source ↓</button>
+      </div>
+    </div>
+    <div class="p-src-quote">
+      "${d.source.quote}"
+      <span class="p-src-attr">${d.source.attr}</span>
+    </div>
+    <div class="p-body">
+      <div class="p-claim">${sc.claim}</div>
+      <div class="p-text">${sc.body}</div>
+      <div class="p-response">
+        <div class="p-response-label">In practice</div>
+        <div class="p-response-text">${sc.response}</div>
+      </div>
+      <div class="p-tags">${d.tags.map(t=>`<span class="p-tag">${t}</span>`).join('')}</div>
+    </div>
+  </div>`;
+}
+function toggleSource(btn){
+  const quote=btn.closest('.p-panel').querySelector('.p-src-quote');
+  const open=quote.classList.toggle('visible');
+  btn.textContent=open?'Source ↑':'Source ↓';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MATRIX ENGINE
+═══════════════════════════════════════════════════════════ */
+function renderMatrix(){
+  const tabs=document.getElementById('matrixTabs');
+  tabs.innerHTML=MATRIX_QS.map(q=>`
+    <button class="mq-tab ${q.id===currentMatrixQ?'active':''}" onclick="switchMatrixQ('${q.id}')">${q.label}</button>`).join('');
+  renderMatrixGrid();
+}
+function switchMatrixQ(id){
+  currentMatrixQ=id;
+  document.querySelectorAll('.mq-tab').forEach(t=>t.classList.toggle('active',t.textContent===MATRIX_QS.find(q=>q.id===id).label));
+  renderMatrixGrid();
+}
+function renderMatrixGrid(){
+  const grid=document.getElementById('matrixGrid');
+  grid.innerHTML=DARSHANAS.map(d=>{
+    const ans=MATRIX[d.id][currentMatrixQ]||'';
+    const preview=ans.replace(/<[^>]+>/g,'').substring(0,80)+'…';
+    return `
+    <div class="matrix-row" style="--rc:${d.color}" id="mr-${d.id}">
+      <div class="matrix-row-header" onclick="toggleMatrix('${d.id}')">
+        <div class="matrix-row-accent"></div>
+        <div class="matrix-row-name">${d.name}</div>
+        <div class="matrix-row-preview">${preview}</div>
+        <svg class="matrix-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="matrix-row-body">
+        <div class="matrix-answer">${ans}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleMatrix(id){
+  const row=document.getElementById('mr-'+id);
+  row.classList.toggle('open');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DEBATE ENGINE
+═══════════════════════════════════════════════════════════ */
+function renderDebate(){
+  const tabs=document.getElementById('debateTabs');
+  tabs.innerHTML=DEBATES.map(db=>`
+    <button class="dt-tab ${db.id===currentDebate?'active':''}" onclick="switchDebate('${db.id}')">${db.label}</button>`).join('');
+  renderDebatePanel();
+}
+function switchDebate(id){
+  currentDebate=id;
+  document.querySelectorAll('.dt-tab').forEach(t=>{
+    const db=DEBATES.find(d=>d.id===id);
+    t.classList.toggle('active',t.textContent===db.label);
+  });
+  renderDebatePanel();
+}
+function renderDebatePanel(){
+  const db=DEBATES.find(d=>d.id===currentDebate);
+  if(!db)return;
+  const left=DARSHANAS.find(d=>d.id===db.leftId);
+  const right=DARSHANAS.find(d=>d.id===db.rightId);
+  const display=document.getElementById('debateDisplay');
+  display.innerHTML=`
+    <div class="debate-panel visible" style="--d-left:${left.color};--d-right:${right.color}">
+      <div class="debate-topic">${db.topic}</div>
+      <div class="debate-exchange">
+        ${db.exchanges.map(ex=>`
+          <div class="debate-turn ${ex.side}">
+            <div class="debate-speaker">${ex.speaker}</div>
+            <p>${ex.text}</p>
+          </div>`).join('')}
+      </div>
+      <div class="debate-tension">
+        <div class="debate-tension-label">The unresolved tension</div>
+        <p>${db.tension}</p>
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GLOSSARY ENGINE
+═══════════════════════════════════════════════════════════ */
+function initGlossary(){
+  const tip=document.getElementById('glossTip');
+  document.querySelectorAll('.skt[data-g]').forEach(el=>{
+    el.addEventListener('mouseenter',e=>{
+      const g=GLOSS[el.dataset.g];
+      if(!g)return;
+      document.getElementById('gtTerm').textContent=g.term;
+      document.getElementById('gtLit').textContent=g.lit;
+      document.getElementById('gtDef').textContent=g.def;
+      tip.style.display='block';
+      positionTip(e);
+    });
+    el.addEventListener('mousemove',positionTip);
+    el.addEventListener('mouseleave',()=>tip.style.display='none');
+  });
+}
+function positionTip(e){
+  const tip=document.getElementById('glossTip');
+  const vw=window.innerWidth, vh=window.innerHeight;
+  const tw=tip.offsetWidth||280, th=tip.offsetHeight||100;
+  let x=e.clientX+14, y=e.clientY-th-10;
+  if(x+tw>vw-10) x=e.clientX-tw-14;
+  if(y<10) y=e.clientY+20;
+  tip.style.left=x+'px';tip.style.top=y+'px';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VENN DIAGRAM
+═══════════════════════════════════════════════════════════ */
+const VC=[
+  {id:'nyaya',       name:'Nyāya',     term:'Pramāṇa',  cx:575,cy:320,r:120,color:'#5b8dd9'},
+  {id:'vaisheshika', name:'Vaiśeṣika', term:'Padārtha', cx:488,cy:168,r:120,color:'#3daa78'},
+  {id:'samkhya',     name:'Sāṃkhya',   term:'Viveka',   cx:313,cy:168,r:120,color:'#9b6dd4'},
+  {id:'yoga',        name:'Yoga',      term:'Kleśa',    cx:225,cy:320,r:120,color:'#e0883a'},
+  {id:'mimamsa',     name:'Mīmāṃsā',  term:'Apūrva',   cx:313,cy:472,r:120,color:'#cc4444'},
+  {id:'vedanta',     name:'Vedānta',   term:'Māyā',     cx:488,cy:472,r:120,color:'#d4af37'}
+];
+
+const VDATA={
+  nyaya:{
+    title:'Nyāya alone',subtitle:'The unique ground of the school of logic',
+    schools:['nyaya'],
+    points:[
+      'The five-member syllogism — Indian philosophy\'s most fully developed theory of formal inference',
+      'God\'s existence established through rational argument alone — among the earliest systematic theistic proofs',
+      'Sixteen categories of philosophical debate, including fallacy, quibble, and futile reply (<em>jāti</em>)',
+      'Liberation achieved through knowledge validated by the pramāṇas — not practice, action, or ritual'
+    ]
+  },
+  vaisheshika:{
+    title:'Vaiśeṣika alone',subtitle:'The unique ground of the school of categories',
+    schools:['vaisheshika'],
+    points:[
+      'Atomic theory (<em>paramāṇu</em>) — the universe built from eternal, indestructible atoms that combine under God\'s direction',
+      'Liberation as a <em>quality-less</em> state — the self freed even of consciousness, pleasure, and pain',
+      'Nine ultimate substances: earth, water, fire, air, ether, time, space, mind, and self',
+      'The most precise ontological catalogue in classical Indian thought — a philosophy of distinctions'
+    ]
+  },
+  samkhya:{
+    title:'Sāṃkhya alone',subtitle:'The unique ground of the school of enumeration',
+    schools:['samkhya'],
+    points:[
+      'The only explicitly <em>atheist</em> school among the six — liberation requires no God whatsoever',
+      'Plural Puruṣas — many independent, eternal consciousnesses, not one universal awareness',
+      'The 25 tattvas — the complete map of Prakṛti\'s evolution from primal matter to gross elements',
+      'Prakṛti both <em>causes</em> the universe and <em>serves</em> Puruṣa\'s liberation — matter exists for consciousness'
+    ]
+  },
+  yoga:{
+    title:'Yoga alone',subtitle:'The unique ground of the school of practice',
+    schools:['yoga'],
+    points:[
+      'The only school with a complete, systematic eight-limbed methodology (<em>aṣṭāṅga yoga</em>)',
+      'Prāṇāyāma — control of breath as a direct instrument for transforming consciousness',
+      'The most detailed taxonomy of meditative absorption: the many stages and types of <em>samādhi</em>',
+      'Saṃskāras — the deep impressions left by past actions, the seeds of future karma and character'
+    ]
+  },
+  mimamsa:{
+    title:'Mīmāṃsā alone',subtitle:'The unique ground of the school of Vedic inquiry',
+    schools:['mimamsa'],
+    points:[
+      'The Vedas are entirely authorless and eternal — they need no divine composer, human or divine',
+      '<em>Apūrva</em> — the unseen potency generated by correct ritual action, a concept found in no other school',
+      'Six pramāṇas — the most expansive theory of valid knowledge in classical Indian thought',
+      'Philosophy of language: Vedic words have eternal, unchanging relationships to the things they denote'
+    ]
+  },
+  vedanta:{
+    title:'Vedānta alone',subtitle:'The unique ground of the school of the Upaniṣads',
+    schools:['vedanta'],
+    points:[
+      '<em>Ātman = Brahman</em> (Advaita) — the most radical metaphysical identification in Indian thought',
+      'Māyā as a technical concept — the inexplicable appearance of multiplicity within the undivided real',
+      'Three levels of reality: absolute truth, conventional reality, and mere appearance (like a dream)',
+      'The widest internal diversity — Advaita, Viśiṣṭādvaita, and Dvaita are three radically different philosophies'
+    ]
+  },
+  'nyaya+vaisheshika':{
+    title:'The Realist Alliance',subtitle:'Where Nyāya and Vaiśeṣika converge',
+    schools:['nyaya','vaisheshika'],
+    points:[
+      'Both treat the ātman as a real, individual, eternal substance — not an illusion or mere process',
+      'Both accept a real external world — perception gives genuine knowledge of things as they actually are',
+      'Both establish God\'s existence through rational inference — the ordered cosmos requires an intelligent cause',
+      'Together they form the "Nyāya-Vaiśeṣika" compound school — the dominant realist tradition in Indian thought'
+    ]
+  },
+  'samkhya+vaisheshika':{
+    title:'The Ontologists',subtitle:'Where Vaiśeṣika and Sāṃkhya converge',
+    schools:['vaisheshika','samkhya'],
+    points:[
+      'Both provide meticulous analyses of the material world\'s ultimate constituents — atoms vs. evolutes of Prakṛti',
+      'Both treat liberation as a <em>return to simplicity</em> — self free of qualities, or Puruṣa standing alone',
+      'Both are pluralist: many individual selves or Puruṣas, not one universal self',
+      'Both carefully distinguish the self from the material world it temporarily inhabits'
+    ]
+  },
+  'samkhya+yoga':{
+    title:'The Shared Metaphysics',subtitle:'Where Sāṃkhya and Yoga converge',
+    schools:['samkhya','yoga'],
+    points:[
+      'Identical foundational ontology: Puruṣa (pure consciousness) and Prakṛti (primal matter) — the bedrock dualism',
+      'The same liberation goal: <em>kaivalya</em> — the aloneness of Puruṣa, finally free from identification with Prakṛti',
+      'The same detailed map of the mind: mahat/buddhi → ahaṃkāra → manas, all products of Prakṛti\'s evolution',
+      'Yoga is sometimes described as "Sāṃkhya with a systematic practice added" — same map, different emphasis'
+    ]
+  },
+  'mimamsa+yoga':{
+    title:'Traditions of Discipline',subtitle:'Where Yoga and Mīmāṃsā converge',
+    schools:['yoga','mimamsa'],
+    points:[
+      'Both insist that genuine transformation requires sustained, embodied discipline — thinking alone is insufficient',
+      'Both treat the self as a real agent who acts, practises, and bears genuine moral responsibility',
+      'Both provide detailed accounts of practice: eight yogic limbs vs. the taxonomy of Vedic ritual obligations',
+      'Both hold that disciplined action repeated over time fundamentally changes what a person is capable of'
+    ]
+  },
+  'mimamsa+vedanta':{
+    title:'The Vedic Interpreters',subtitle:'Where Mīmāṃsā and Vedānta converge',
+    schools:['mimamsa','vedanta'],
+    points:[
+      'Both are schools of <em>mīmāṃsā</em> (Vedic inquiry) — Vedānta is Uttara-Mīmāṃsā, the "later inquiry into the Veda"',
+      'Both hold that Vedic testimony (<em>śabda</em>) is the highest means of knowing what cannot be perceived',
+      'Both accept that karma — action accumulated across lifetimes — shapes the self\'s trajectory toward liberation',
+      'Their great debate — karma vs. jñāna as the path — is one of classical India\'s most enduring arguments'
+    ]
+  },
+  'nyaya+vedanta':{
+    title:'Knowledge and the Divine',subtitle:'Where Vedānta and Nyāya converge',
+    schools:['vedanta','nyaya'],
+    points:[
+      'Both accept a real God — though Vedānta\'s Brahman is infinitely more radical than Nyāya\'s Īśvara',
+      'Both treat the self as genuinely real and as the proper subject and locus of liberation',
+      'Both engage seriously with epistemology — asking rigorously how knowledge is possible and what it can reach',
+      'Both hold that philosophical inquiry itself is spiritually transformative — understanding changes what you are'
+    ]
+  },
+  all:{
+    title:'The Common Ground',subtitle:'What all six darśanas share',
+    schools:['nyaya','vaisheshika','samkhya','yoga','mimamsa','vedanta'],
+    points:[
+      'All six accept Vedic authority — they are the <em>āstika</em> (orthodox) schools, defined by this shared allegiance',
+      'All six hold that the ātman — the individual self — is real and persists across lives and deaths',
+      'All six agree that liberation (<em>mokṣa</em>) from the cycle of suffering and rebirth is the highest human goal',
+      'All six believe that philosophical inquiry is itself transformative — clear understanding is never merely academic'
+    ]
+  }
+};
+
+function initVenn(){
+  const svg=document.getElementById('vennSvg');
+  if(!svg)return;
+  buildVennSvg(svg);
+  buildVennLegend();
+  svg.addEventListener('mousemove',e=>{
+    const p=svgPt(svg,e);
+    handleVennHover(p.x,p.y);
+  });
+  svg.addEventListener('mouseleave',()=>{
+    resetVennHL();
+    showVennEmpty();
+  });
+}
+
+function svgPt(svg,evt){
+  const pt=svg.createSVGPoint();
+  pt.x=evt.clientX;pt.y=evt.clientY;
+  return pt.matrixTransform(svg.getScreenCTM().inverse());
+}
+
+function buildVennSvg(svg){
+  const ns='http://www.w3.org/2000/svg';
+  // Circles
+  VC.forEach(c=>{
+    const el=document.createElementNS(ns,'circle');
+    el.setAttribute('id','vc-'+c.id);
+    el.setAttribute('cx',c.cx);el.setAttribute('cy',c.cy);el.setAttribute('r',c.r);
+    el.setAttribute('fill',c.color);el.setAttribute('fill-opacity','0.08');
+    el.setAttribute('stroke',c.color);el.setAttribute('stroke-opacity','0.45');
+    el.setAttribute('stroke-width','1.5');
+    el.style.transition='fill-opacity .2s,stroke-opacity .2s';
+    svg.appendChild(el);
+  });
+  // Center ring
+  const cr=document.createElementNS(ns,'circle');
+  cr.setAttribute('id','vc-center-ring');cr.setAttribute('cx',400);cr.setAttribute('cy',320);cr.setAttribute('r',22);
+  cr.setAttribute('fill','rgba(255,255,255,0.02)');
+  cr.setAttribute('stroke','rgba(255,255,255,0.18)');
+  cr.setAttribute('stroke-width','1');cr.setAttribute('stroke-dasharray','3,3');
+  cr.style.transition='stroke .2s';
+  svg.appendChild(cr);
+  // Labels
+  VC.forEach(c=>{
+    const g=document.createElementNS(ns,'g');g.style.pointerEvents='none';
+    const n=document.createElementNS(ns,'text');
+    n.setAttribute('x',c.cx);n.setAttribute('y',c.cy-6);n.setAttribute('text-anchor','middle');
+    n.setAttribute('fill',c.color);n.setAttribute('class','venn-label-name');n.textContent=c.name;
+    const t=document.createElementNS(ns,'text');
+    t.setAttribute('x',c.cx);t.setAttribute('y',c.cy+14);t.setAttribute('text-anchor','middle');
+    t.setAttribute('fill',c.color);t.setAttribute('class','venn-label-term');t.textContent=c.term;
+    g.appendChild(n);g.appendChild(t);svg.appendChild(g);
+  });
+  // Center label
+  const cl=document.createElementNS(ns,'text');
+  cl.setAttribute('x',400);cl.setAttribute('y',324);cl.setAttribute('class','venn-center-label');
+  cl.textContent='ALL SIX';svg.appendChild(cl);
+}
+
+function buildVennLegend(){
+  const el=document.getElementById('vennLegend');
+  if(!el)return;
+  el.innerHTML=VC.map(c=>`
+    <div class="venn-legend-item">
+      <div class="venn-legend-dot" style="background:${c.color}"></div>
+      <span>${c.name}</span>
+    </div>`).join('');
+}
+
+function handleVennHover(x,y){
+  const dcx=x-400,dcy=y-320;
+  if(Math.sqrt(dcx*dcx+dcy*dcy)<=22){
+    resetVennHL();
+    document.getElementById('vc-center-ring').setAttribute('stroke','rgba(255,255,255,0.7)');
+    showVennContent('all');return;
+  }
+  document.getElementById('vc-center-ring').setAttribute('stroke','rgba(255,255,255,0.18)');
+  const hit=VC.filter(c=>{const dx=x-c.cx,dy=y-c.cy;return Math.sqrt(dx*dx+dy*dy)<=c.r;});
+  if(!hit.length){resetVennHL();showVennEmpty();return;}
+  const ids=hit.map(c=>c.id);
+  VC.forEach(c=>{
+    const el=document.getElementById('vc-'+c.id);if(!el)return;
+    if(ids.includes(c.id)){el.setAttribute('fill-opacity','0.22');el.setAttribute('stroke-opacity','0.95');}
+    else{el.setAttribute('fill-opacity','0.03');el.setAttribute('stroke-opacity','0.15');}
+  });
+  const key=hit.length===1?hit[0].id:hit.map(c=>c.id).sort().join('+');
+  showVennContent(key);
+}
+
+function resetVennHL(){
+  VC.forEach(c=>{
+    const el=document.getElementById('vc-'+c.id);if(!el)return;
+    el.setAttribute('fill-opacity','0.08');el.setAttribute('stroke-opacity','0.45');
+  });
+  const cr=document.getElementById('vc-center-ring');
+  if(cr)cr.setAttribute('stroke','rgba(255,255,255,0.18)');
+}
+
+function showVennEmpty(){
+  const empty=document.querySelector('.venn-info-empty');
+  const content=document.getElementById('vennContent');
+  if(empty)empty.style.display='flex';
+  if(content)content.classList.remove('visible');
+  document.getElementById('vennInfo').style.borderColor='';
+}
+
+function showVennContent(key){
+  const data=VDATA[key];if(!data)return;
+  const empty=document.querySelector('.venn-info-empty');
+  if(empty)empty.style.display='none';
+  const content=document.getElementById('vennContent');
+  const firstColor=VC.find(c=>c.id===data.schools[0])?.color||'rgba(255,255,255,0.2)';
+  document.getElementById('vennInfo').style.borderColor=data.schools.length===1?firstColor:'rgba(255,255,255,0.2)';
+  content.innerHTML=`
+    <div class="venn-info-top">
+      <div class="venn-info-badge">
+        ${data.schools.map(id=>{const c=VC.find(v=>v.id===id);
+          return `<span class="venn-school-chip" style="background:${c.color}22;color:${c.color};border:1px solid ${c.color}40">${c.name}</span>`;
+        }).join('')}
+      </div>
+      <div class="venn-info-title">${data.title}</div>
+      <div class="venn-info-sub">${data.subtitle}</div>
+    </div>
+    <div class="venn-info-body">
+      <ul class="venn-points">
+        ${data.points.map(p=>`
+          <li>
+            <span class="vdot" style="background:${firstColor};width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:.58rem;display:inline-block"></span>
+            <span>${p}</span>
+          </li>`).join('')}
+      </ul>
+    </div>`;
+  content.classList.remove('visible');
+  void content.offsetWidth;
+  content.classList.add('visible');
+}
+
+// Init venn when DOM ready (append to existing DOMContentLoaded)
+document.addEventListener('DOMContentLoaded', initVenn);
+
+/* ═══════════════════════════════════════════════════════════
+   ALL 15 PAIRINGS — 9 non-adjacent additions to VDATA
+═══════════════════════════════════════════════════════════ */
+Object.assign(VDATA, {
+  'nyaya+samkhya':{
+    title:'The Epistemological Realists',subtitle:'Where Nyāya and Sāṃkhya converge',
+    schools:['nyaya','samkhya'],
+    points:[
+      'Both hold the ātman to be a real, individual self — not a construction, process, or illusion',
+      'Both build careful theories of valid knowledge: Nyāya\'s four pramāṇas, Sāṃkhya\'s three',
+      'Both treat liberation as the self\'s disengagement from what it is not — a return to its proper nature',
+      'Both approach philosophy analytically, mapping the structure of reality before prescribing a path'
+    ],
+    contrast:'Their sharpest difference: Nyāya proves <strong>God\'s existence</strong> through inference and makes it central to liberation; Sāṃkhya is explicitly <strong>atheist</strong> — liberation requires no supreme being, only discriminative insight.'
+  },
+  'nyaya+yoga':{
+    title:'Knowledge and Discipline',subtitle:'Where Nyāya and Yoga converge',
+    schools:['nyaya','yoga'],
+    points:[
+      'Both accept Īśvara as a real, significant God — and hold that right relation to God aids liberation',
+      'Both treat the self as genuinely knowable — through inference (Nyāya) or meditative realisation (Yoga)',
+      'Both have rigorous, systematic methodologies: the pramāṇas and the eight-limbed path',
+      'Both hold that philosophical clarity and practical discipline are complementary, not competing'
+    ],
+    contrast:'Their difference is of emphasis: Nyāya places <strong>rational inference</strong> at the centre of the path; Yoga places <strong>stilling the mind</strong>. For Nyāya, you think your way to truth; for Yoga, you practise your way to the stillness in which truth is revealed.'
+  },
+  'mimamsa+nyaya':{
+    title:'The Analytical Traditions',subtitle:'Where Nyāya and Mīmāṃsā converge',
+    schools:['nyaya','mimamsa'],
+    points:[
+      'Both developed the most elaborate theories of language and verbal testimony (<em>śabda</em>) in classical Indian philosophy',
+      'Both treat the world as real, structured, and reliably knowable — no veil of illusion distorts perception',
+      'Both accept karma as causally real and the individual self as a genuine, persisting agent',
+      'Both are among the most analytically rigorous schools — systematic, careful, and suspicious of vague mysticism'
+    ],
+    contrast:'Their fundamental divergence: Nyāya accepts <strong>God as the world\'s creator</strong> and inference as the means of knowing him; Mīmāṃsā <strong>rejects Īśvara entirely</strong> — the Vedas are authorless, self-validating, and need no divine source.'
+  },
+  'vaisheshika+yoga':{
+    title:'Taxonomy of World and Mind',subtitle:'Where Vaiśeṣika and Yoga converge',
+    schools:['vaisheshika','yoga'],
+    points:[
+      'Both produce precise taxonomies — Vaiśeṣika of the external world\'s categories, Yoga of the internal mental world',
+      'Both treat the mind (<em>manas</em>) as a distinct instrument, separate from and not identical to the self',
+      'Both see liberation partly as the self becoming free of what has accumulated around it',
+      'Both pair naturally with companion schools (Nyāya, Sāṃkhya) that supply the broader epistemological framework'
+    ],
+    contrast:'Vaiśeṣika\'s liberation produces a <strong>quality-less self</strong> — free even of consciousness; Yoga\'s liberation (<em>kaivalya</em>) produces <strong>Puruṣa standing alone</strong> as pure witnessing awareness. The first empties the self; the second reveals it.'
+  },
+  'mimamsa+vaisheshika':{
+    title:'Precision Without Mysticism',subtitle:'Where Vaiśeṣika and Mīmāṃsā converge',
+    schools:['vaisheshika','mimamsa'],
+    points:[
+      'Both are among the least mystically inclined of the six — their concern is precision, not transcendence',
+      'Both treat the empirical world as genuinely real, ordered, and worth analysing in careful detail',
+      'Both accept karma as a genuine causal mechanism operating through real agents in a real world',
+      'Both resist the dissolution of distinctions — categories, agents, and actions remain real and irreducible'
+    ],
+    contrast:'Their key divergence is on God: Vaiśeṣika accepts <strong>Īśvara as the coordinator of atoms</strong>; early Mīmāṃsā <strong>rejects any divine creator</strong> — the Vedas need no author and the world needs no governor beyond dharma itself.'
+  },
+  'vaisheshika+vedanta':{
+    title:'Substance and Its Ground',subtitle:'Where Vaiśeṣika and Vedānta converge',
+    schools:['vaisheshika','vedanta'],
+    points:[
+      'Both accept the ātman as a real, persisting entity — not a construction, a stream of moments, or an illusion',
+      'Both treat liberation as the self returning to what it always essentially was',
+      'Both accept God or Brahman as a real, fundamental aspect of reality',
+      'Both engage seriously with the question of what ultimately exists — their ontologies are ambitious and precise'
+    ],
+    contrast:'Their disagreement reveals the full range of Indian metaphysics: Vaiśeṣika\'s liberated self is a <strong>quality-less individual substance</strong>, permanently distinct from all others; Vedānta\'s (Advaita) liberated self recognises it <strong>is Brahman</strong> — the very distinction between selves dissolves.'
+  },
+  'mimamsa+samkhya':{
+    title:'Action and the Real World',subtitle:'Where Sāṃkhya and Mīmāṃsā converge',
+    schools:['samkhya','mimamsa'],
+    points:[
+      'Both accept karma as fully real and operative — actions have genuine consequences across lifetimes',
+      'Both take the phenomenal world seriously as a domain of real activity, real selves, and real consequences',
+      'Both reject the Advaita position that individual selves are ultimately unreal or that all is one',
+      'Both hold that the self is real, persistent, and genuinely involved in the world it inhabits'
+    ],
+    contrast:'Their sharpest tension: Sāṃkhya holds that liberation is achieved through <strong>knowledge alone</strong> — discriminating Puruṣa from Prakṛti; Mīmāṃsā holds that liberation (to the extent it matters) comes through <strong>correct action</strong> — right ritual and fulfilled duty.'
+  },
+  'samkhya+vedanta':{
+    title:'The Philosophy of Consciousness',subtitle:'Where Sāṃkhya and Vedānta converge',
+    schools:['samkhya','vedanta'],
+    points:[
+      'Both identify consciousness as the key to liberation — not ritual performance, inference, or external practice alone',
+      'Both hold that what liberates the self is a fundamental shift in how it understands its own nature',
+      'Both provide a sophisticated analysis of the relationship between self and the material or apparent world',
+      'Both are "knowledge-path" schools at their core — <em>jñāna</em> is the operative word in both traditions'
+    ],
+    contrast:'Their crucial disagreement: Sāṃkhya posits <strong>many independent Puruṣas</strong> — each consciousness is eternally distinct; Vedānta (Advaita) insists there is only <strong>one Brahman</strong> — individual selves are appearances within a single undivided awareness. One liberates many; the other reveals there was only ever one.'
+  },
+  'vedanta+yoga':{
+    title:'Realisation and the Divine',subtitle:'Where Yoga and Vedānta converge',
+    schools:['yoga','vedanta'],
+    points:[
+      'Both accept Īśvara as real and significant — devotion to God is a living dimension of both traditions',
+      'Both emphasise <em>direct realisation</em> over inferential knowledge or external ritual performance',
+      'Both hold that liberation is not an acquired state but the removal of what obscured what was always there',
+      'Both have given rise to rich devotional traditions — the yoga of the Gītā bridges them most explicitly'
+    ],
+    contrast:'Their difference is subtle but deep: Yoga\'s liberation is <strong>Puruṣa standing free</strong> — consciousness isolated from matter, still distinct; Vedānta\'s (Advaita) liberation is the recognition that the apparent individual <strong>is Brahman</strong> — not just free, but revealed as the whole.'
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════
+   SCHOOL ATTRIBUTES — for 3+ school combinations
+═══════════════════════════════════════════════════════════ */
+const SATTR = {
+  nyaya:       {god:1, realSelf:1, pluralSelf:1, realWorld:1, karma:1, jnana:1, practice:0, action:0, theism:1,  atheism:0},
+  vaisheshika: {god:1, realSelf:1, pluralSelf:1, realWorld:1, karma:1, jnana:1, practice:0, action:0, theism:1,  atheism:0},
+  samkhya:     {god:0, realSelf:1, pluralSelf:1, realWorld:1, karma:1, jnana:1, practice:0, action:0, theism:0,  atheism:1},
+  yoga:        {god:1, realSelf:1, pluralSelf:1, realWorld:1, karma:1, jnana:0, practice:1, action:0, theism:1,  atheism:0},
+  mimamsa:     {god:0, realSelf:1, pluralSelf:1, realWorld:1, karma:1, jnana:0, practice:0, action:1, theism:0,  atheism:1},
+  vedanta:     {god:1, realSelf:1, pluralSelf:0, realWorld:0, karma:1, jnana:1, practice:0, action:0, theism:1,  atheism:0}
+};
+const ALABEL = {
+  god:        'All accept a real God or supreme being',
+  realSelf:   'All hold the ātman (self) to be genuinely real and persistent across lives',
+  pluralSelf: 'All treat individual selves as genuinely distinct — not facets of one universal consciousness',
+  realWorld:  'All treat the external world as genuinely real, not illusory',
+  karma:      'All accept karma as a real causal law linking actions to consequences across lifetimes',
+  jnana:      'All identify knowledge or understanding as central or sufficient for liberation',
+  practice:   'All identify sustained practice or discipline as central to the path',
+  action:     'All identify correct action or fulfilled duty as central to liberation',
+  theism:     'All are theistic — God or Brahman is real and significant for the path',
+  atheism:    'All are non-theistic — liberation requires no God, only right knowledge or action'
+};
+const ADIFF = {
+  god:        'Some accept God, others reject any supreme being',
+  realSelf:   'They agree the self is real — but differ radically on what it ultimately is',
+  pluralSelf: 'They diverge on whether individual selves are ultimately distinct or facets of one reality',
+  realWorld:  'They diverge on the world\'s ultimate status — some call it real, others call it appearance',
+  karma:      'All share this — karma is the one truly universal agreement across all six schools',
+  jnana:      'They diverge on the path — some emphasise knowledge, others practice or action',
+  practice:   'They diverge on the path — some emphasise practice, others knowledge or action',
+  action:     'They diverge on the path — some emphasise action, others knowledge or inner realisation',
+  theism:     'They diverge on God — some accept a personal divine, others reject any supreme being',
+  atheism:    'They diverge on God — some reject any supreme being, others make God central'
+};
+
+/* ═══════════════════════════════════════════════════════════
+   COMPARE TOOL ENGINE
+═══════════════════════════════════════════════════════════ */
+const cmpActive = new Set();
+
+function initCompare() {
+  const wrap = document.getElementById('compareChips');
+  if (!wrap) return;
+  wrap.innerHTML = VC.map(c => `
+    <button class="cmp-chip" id="cmp-${c.id}" style="--cc:${c.color}"
+            onclick="toggleCompare('${c.id}')">${c.name}</button>`).join('');
+}
+
+function toggleCompare(id) {
+  cmpActive.has(id) ? cmpActive.delete(id) : cmpActive.add(id);
+  VC.forEach(c => {
+    const el = document.getElementById('cmp-' + c.id);
+    if (!el) return;
+    if (cmpActive.has(c.id)) {
+      el.classList.add('active');
+      el.style.background = c.color;
+      el.style.borderColor = c.color;
+    } else {
+      el.classList.remove('active');
+      el.style.background = '';
+      el.style.borderColor = '';
+    }
+  });
+  renderCompare();
+}
+
+function clearCompare() {
+  cmpActive.clear();
+  VC.forEach(c => {
+    const el = document.getElementById('cmp-' + c.id);
+    if (!el) return;
+    el.classList.remove('active');
+    el.style.background = '';
+    el.style.borderColor = '';
+  });
+  document.getElementById('cmpResult').innerHTML =
+    '<p class="cmp-empty">Select a school above to explore its unique ground, or two or more to see what they share and where they diverge.</p>';
+}
+
+function renderCompare() {
+  const result = document.getElementById('cmpResult');
+  const sel = VC.filter(c => cmpActive.has(c.id));
+  if (!sel.length) {
+    result.innerHTML = '<p class="cmp-empty">Select a school above to explore its unique ground, or two or more to see what they share and where they diverge.</p>';
+    return;
+  }
+
+  // 1 or 2 schools — use pre-written VDATA
+  if (sel.length <= 2) {
+    const key = sel.length === 1 ? sel[0].id : sel.map(c => c.id).sort().join('+');
+    const data = VDATA[key];
+    if (!data) { result.innerHTML = '<p class="cmp-empty">No content for this combination yet.</p>'; return; }
+    const firstColor = VC.find(c => c.id === data.schools[0])?.color || '#888';
+    result.innerHTML = `
+      <div class="cmp-panel">
+        <div class="cmp-header">
+          <div class="cmp-badge">
+            ${data.schools.map(id => { const c = VC.find(v => v.id === id);
+              return `<span class="cmp-school-chip" style="background:${c.color}22;color:${c.color};border:1px solid ${c.color}40">${c.name}</span>`;
+            }).join('')}
+          </div>
+          <div class="cmp-title">${data.title}</div>
+          <div class="cmp-sub">${data.subtitle}</div>
+        </div>
+        <ul class="cmp-points">
+          ${data.points.map(p => `
+            <li><span class="cmp-dot" style="background:${firstColor}"></span><span>${p}</span></li>`).join('')}
+        </ul>
+        ${data.contrast ? `<div class="cmp-contrast">${data.contrast}</div>` : ''}
+      </div>`;
+    return;
+  }
+
+  // 3+ schools — attribute intersection
+  const ids = sel.map(c => c.id);
+  const shared = Object.keys(ALABEL).filter(attr => ids.every(id => SATTR[id][attr]));
+  const contested = Object.keys(ALABEL).filter(attr => {
+    const vals = ids.map(id => SATTR[id][attr]);
+    return vals.some(v => v) && !vals.every(v => v);
+  });
+
+  const badges = sel.map(c =>
+    `<span class="cmp-school-chip" style="background:${c.color}22;color:${c.color};border:1px solid ${c.color}40">${c.name}</span>`).join('');
+
+  const sharedHtml = shared.length
+    ? `<ul class="cmp-points">${shared.map(a =>
+        `<li><span class="cmp-dot" style="background:#d4af37"></span><span>${ALABEL[a]}</span></li>`).join('')}</ul>`
+    : `<p style="color:var(--faint);font-style:italic;font-size:.93rem">These schools share remarkably little at the level of doctrine — their combination reveals the full breadth of classical Indian philosophy.</p>`;
+
+  const contestedHtml = contested.length
+    ? `<div class="cmp-contrast"><strong>Where they diverge:</strong> ${contested.map(a => ADIFF[a]).join('; ')}.</div>`
+    : '';
+
+  result.innerHTML = `
+    <div class="cmp-panel">
+      <div class="cmp-header">
+        <div class="cmp-badge">${badges}</div>
+        <div class="cmp-title">What these ${sel.length} schools share</div>
+        <div class="cmp-sub">Points of genuine convergence across this combination</div>
+      </div>
+      ${sharedHtml}
+      ${contestedHtml}
+    </div>`;
+}
+
+document.addEventListener('DOMContentLoaded', initCompare);
+
+/* ── THEME SWITCHER ─────────────────────────────────────────── */
+const THEMES = [
+  { id:'dark',      label:'Dark',      desc:'Original night sky',    swatch:'#0c0b14' },
+  { id:'parchment', label:'Parchment', desc:'Warm aged paper',        swatch:'#F5EDD6' },
+  { id:'studio',    label:'Studio',    desc:'Clean editorial white',  swatch:'#F2F2F0' },
+  { id:'ivory',     label:'Ivory',     desc:'Soft warm ivory',        swatch:'#FDF6EC' }
+];
+
+// Light-mode darśana colors (richer, readable on cream backgrounds)
+const LIGHT_COLORS = {
+  nyaya:       '#1A58B0',
+  vaisheshika: '#157A42',
+  samkhya:     '#5C28B0',
+  yoga:        '#B85C08',
+  mimamsa:     '#A82020',
+  vedanta:     '#7A6000'
+};
+const DARK_COLORS = {
+  nyaya:       '#5b8dd9',
+  vaisheshika: '#3daa78',
+  samkhya:     '#9b6dd4',
+  yoga:        '#e0883a',
+  mimamsa:     '#cc4444',
+  vedanta:     '#d4af37'
+};
+
+let activeTheme = 'dark';
+
+function applyTheme(t) {
+  activeTheme = t;
+  const html = document.documentElement;
+  if (t === 'dark') {
+    html.removeAttribute('data-theme');
+  } else {
+    html.setAttribute('data-theme', t);
+  }
+  // Update darśana colors for readability
+  const isLight = t !== 'dark';
+  const colorMap = isLight ? LIGHT_COLORS : DARK_COLORS;
+  DARSHANAS.forEach(d => { d.color = colorMap[d.id] || d.color; });
+  VC.forEach(v => { v.color = colorMap[v.id] || v.color; });
+  // Re-render all dynamic sections
+  renderCards();
+  renderPerspectives();
+  renderMatrix();
+  renderDebate();
+  const vsvg = document.getElementById('vennSvg');
+  if(vsvg){ buildVennSvg(vsvg); buildVennLegend(); }
+  renderCompare();
+  // Update switcher button states
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.theme === t);
+  });
+}
+
+function buildThemeSwitcher() {
+  const wrap = document.createElement('div');
+  wrap.id = 'themeSwitcher';
+  wrap.innerHTML = `
+    <div class="ts-label">Theme</div>
+    ${THEMES.map(th => `
+      <button class="theme-btn${th.id === activeTheme ? ' active' : ''}"
+              data-theme="${th.id}"
+              title="${th.desc}"
+              onclick="applyTheme('${th.id}')">
+        <span class="ts-swatch" style="background:${th.swatch};border:1.5px solid ${th.id==='dark'?'#555':'rgba(0,0,0,.18)'}"></span>
+        <span class="ts-name">${th.label}</span>
+        <span class="ts-tick">✓</span>
+      </button>`).join('')}
+  `;
+  document.body.appendChild(wrap);
+}
+
+// ── Selected theme: Parchment ───────────────────────────────
+const DEFAULT_THEME = 'parchment';
+
+document.addEventListener('DOMContentLoaded', () => {
+  buildThemeSwitcher();
+  // Restore user's saved preference, otherwise use Parchment
+  const saved = (() => { try { return localStorage.getItem('ochs-theme'); } catch(e) { return null; } })();
+  applyTheme(saved || DEFAULT_THEME);
+});
+
+// Persist theme choice across sessions
+const _origApply = applyTheme;
+applyTheme = function(t) {
+  _origApply(t);
+  try { localStorage.setItem('ochs-theme', t); } catch(e) {}
+};
+</script>
+
+<!-- ═══ THEME SWITCHER STYLES ════════════════════════════════ -->
+<style>
+#themeSwitcher{
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:10000;
+  display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:14px;padding:.85rem 1rem;
+  box-shadow:0 8px 32px rgba(0,0,0,.18);
+}
+.ts-label{
+  font-family:'DM Sans',sans-serif;font-size:.6rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:.15rem;
+  text-align:right;
+}
+.theme-btn{
+  display:flex;align-items:center;gap:.55rem;
+  background:transparent;border:1px solid transparent;
+  border-radius:8px;padding:.35rem .6rem;cursor:pointer;
+  transition:all .2s;width:100%;
+}
+.theme-btn:hover{background:var(--bg-ch);border-color:var(--border)}
+.theme-btn.active{background:var(--bg-ch);border-color:var(--border)}
+.theme-btn.active .ts-name{color:var(--text);font-weight:600}
+.theme-btn.active .ts-tick{opacity:1}
+.ts-swatch{
+  width:14px;height:14px;border-radius:50%;flex-shrink:0;display:block;
+}
+.ts-tick{
+  margin-left:auto;opacity:0;font-size:.7rem;color:var(--accent);
+  transition:opacity .2s;
+}
+.ts-name{
+  font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.03em;
+  color:var(--muted);white-space:nowrap;
+}
+@media(max-width:600px){
+  #themeSwitcher{bottom:.75rem;right:.75rem;padding:.65rem .8rem}
+}
+</style>
+<script id="sn-js">
+(function(){var p=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('[data-sn]').forEach(function(e){if(e.getAttribute('data-sn')===p){e.classList.add('sn-active');var g=e.closest('.sn-group');if(g)g.querySelector('.sn-link').classList.add('sn-active');}});})();
+function snHam(){var l=document.getElementById('sn-links'),h=document.getElementById('sn-ham');l.classList.toggle('mob-open');h.classList.toggle('open');}
+document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.sn-group>.sn-link').forEach(function(t){t.addEventListener('click',function(){if(window.innerWidth<=860){t.closest('.sn-group').classList.toggle('mob-open');}});});});
+</script>
+</body>
+</html>

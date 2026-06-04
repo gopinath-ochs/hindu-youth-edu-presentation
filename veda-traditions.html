@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sacred Canon — How Hindu Traditions Define Scripture</title>
+<meta name="description" content="An interactive map of how 18 Hindu traditions define their scriptural canon — from the Vedas to Āgamas, Tantras, Purāṇas, and vernacular saints' poetry.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F8F6F2;color:#14100C;font-family:'DM Sans',sans-serif;line-height:1.6}
+.sk{font-family:'DM Serif Display',serif;font-style:italic}
+
+/* ── Hero ───────────────────────────────────────────────────── */
+.hero{background:#1A3A6A;padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(154,120,0,.13) 0%,transparent 65%);pointer-events:none}
+.hero-eye{font-family:'DM Sans',sans-serif;font-size:.67rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#7A7060;margin-bottom:.6rem}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:400;color:#F8F6F2;line-height:1.18;margin-bottom:.75rem}
+.hero h1 em{color:#B87333;font-style:italic}
+.hero p{font-size:.95rem;color:#9A8060;max-width:560px;margin:0 auto 1.1rem;line-height:1.78}
+.hero-note{display:inline-block;background:rgba(154,120,0,.11);border:1px solid rgba(154,120,0,.26);border-radius:6px;padding:.5rem .95rem;font-family:'DM Sans',sans-serif;font-size:.78rem;color:#C8A050;max-width:580px;line-height:1.6}
+.hero-note strong{color:#B87333}
+
+/* ── Canon deck (sticky) ────────────────────────────────────── */
+.canon-deck{position:sticky;top:0;z-index:50;background:#F0EDE6;border-bottom:2px solid #D8D4CC;padding:.7rem 1rem .65rem;box-shadow:0 4px 18px rgba(0,0,0,.1)}
+.canon-deck-inner{max-width:1200px;margin:0 auto}
+.canon-row{display:grid;gap:.5rem;margin-bottom:.45rem}
+.canon-row:last-child{margin-bottom:0}
+.canon-row.row1{grid-template-columns:repeat(4,1fr)}
+.canon-row.row2{grid-template-columns:repeat(4,1fr)}
+.canon-row-label{font-family:'DM Sans',sans-serif;font-size:.55rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#9A8060;margin-bottom:.2rem}
+
+/* Individual category card */
+.ccat{border-radius:6px;padding:.5rem .65rem .6rem;border:2px solid transparent;background:#F8F6F2;transition:border-color .3s,background .3s,box-shadow .3s,opacity .3s;position:relative}
+.ccat::before{content:'';display:block;height:2px;border-radius:2px;margin-bottom:.38rem}
+.ccat-name{font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;color:#14100C;line-height:1.2;margin-bottom:.06rem}
+.ccat-sub{font-family:'DM Sans',sans-serif;font-size:.56rem;color:#9A8060;line-height:1.3;margin-bottom:.32rem}
+.ccat-badge{display:inline-flex;align-items:center;gap:.22rem;padding:.14rem .42rem;border-radius:3px;font-family:'DM Sans',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:#F0EDE6;color:#7A7060;transition:all .3s;white-space:nowrap}
+.ccat-badge .dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+/* Category colour bars */
+.ccat[data-cat="samhita"]   ::before{background:#B85000}
+.ccat[data-cat="upanishads"]::before{background:#7B4FBF}
+.ccat[data-cat="itihasa"]   ::before{background:#2B6CB0}
+.ccat[data-cat="puranas"]   ::before{background:#276749}
+.ccat[data-cat="agamas"]    ::before{background:#8A5010}
+.ccat[data-cat="tantras"]   ::before{background:#901050}
+.ccat[data-cat="vernacular"]::before{background:#C86010}
+.ccat[data-cat="sampradaya"]::before{background:#4A5A6A}
+
+/* Status themes */
+.ccat[data-status="supreme"]  {border-color:#1A3A6A;background:#FFFBEE;box-shadow:0 0 0 3px rgba(154,120,0,.12)}
+.ccat[data-status="supreme"]  .ccat-badge{background:#1A3A6A;color:#fff}
+.ccat[data-status="primary"]  {border-color:#276749;background:#F2FAF5}
+.ccat[data-status="primary"]  .ccat-badge{background:#276749;color:#fff}
+.ccat[data-status="accepted"] {border-color:#3A7A8A;background:#F0F8FA}
+.ccat[data-status="accepted"] .ccat-badge{background:#3A7A8A;color:#fff}
+.ccat[data-status="secondary"]{border-color:#8090A0;background:#F7F8FA;opacity:.75}
+.ccat[data-status="secondary"].ccat-badge{background:#8090A0;color:#fff}
+.ccat[data-status="secondary"].ccat-badge{background:#8090A0;color:#fff}
+.ccat[data-status="secondary"] .ccat-badge{background:#8090A0;color:#fff}
+.ccat[data-status="rejected"] {border-color:#8B1A1A;background:#FDF2F2;opacity:.7}
+.ccat[data-status="rejected"]  .ccat-badge{background:#8B1A1A;color:#fff}
+.ccat[data-status="none"]     {border-color:#D8D4CC;background:#F8F6F2;opacity:.42}
+.ccat[data-status="none"]      .ccat-badge{background:#D8D4CC;color:#9A8060}
+
+/* ── Legend ─────────────────────────────────────────────────── */
+.legend{background:#F0EDE6;border-bottom:1px solid #D8D4CC;padding:.75rem 1rem}
+.legend-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.3rem .65rem;align-items:center}
+.legend-title{font-family:'DM Sans',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#1A3A6A;margin-right:.2rem}
+.leg{display:flex;align-items:center;gap:.28rem;font-family:'DM Sans',sans-serif;font-size:.71rem;color:#5A4030}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ── Main layout ─────────────────────────────────────────────── */
+.main{max-width:1200px;margin:0 auto;padding:2rem 1rem 5rem;display:grid;grid-template-columns:280px 1fr;gap:1.8rem;align-items:start}
+
+/* ── Tradition selector ──────────────────────────────────────── */
+.trad-panel h3{font-family:'DM Sans',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#1A3A6A;margin-bottom:.6rem}
+.trad-group{margin-bottom:1rem}
+.trad-group-label{display:flex;align-items:center;gap:.4rem;font-family:'DM Sans',sans-serif;font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5A4030;margin-bottom:.32rem}
+.trad-group-bar{height:2px;width:18px;border-radius:2px;flex-shrink:0}
+.trad-list{display:flex;flex-direction:column;gap:.24rem}
+.trad-btn{display:flex;align-items:center;gap:.55rem;padding:.48rem .7rem;background:#F8F6F2;border:1px solid #D8D4CC;border-radius:6px;cursor:pointer;transition:all .16s;text-align:left;border-left:4px solid transparent;width:100%}
+.trad-btn:hover{background:#F0EDE6}
+.trad-btn.active{border-left-color:var(--tc,#1A3A6A);background:#F8F6F2}
+.trad-icon{width:24px;height:24px;border-radius:50%;background:var(--tc,#1A3A6A);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;color:#fff;font-family:'DM Serif Display',serif;font-style:italic;font-weight:700}
+.trad-name{font-family:'DM Serif Display',serif;font-size:.9rem;font-weight:700;color:#14100C;line-height:1.2}
+.trad-sub{font-family:'DM Sans',sans-serif;font-size:.57rem;color:#7A7060;line-height:1.3}
+
+/* ── Info panel ─────────────────────────────────────────────── */
+.info-panel{min-height:400px}
+.info-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:360px;text-align:center;color:#9A8060}
+.info-empty .om{font-size:3rem;opacity:.15;margin-bottom:.8rem}
+.info-empty p{font-size:.88rem;line-height:1.72;max-width:300px}
+.info-card{animation:fadeIn .26s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+.info-head{margin-bottom:1rem;padding-bottom:.9rem;border-bottom:1px solid #D8D4CC}
+.info-name{font-family:'DM Serif Display',serif;font-size:1.8rem;font-weight:700;color:#14100C;line-height:1.15}
+.info-sub{font-family:'DM Sans',sans-serif;font-size:.74rem;color:#1A3A6A;font-weight:600;letter-spacing:.07em;margin-top:.15rem}
+.info-meta{display:flex;flex-wrap:wrap;gap:.3rem .75rem;margin-top:.55rem}
+.info-meta span{font-family:'DM Sans',sans-serif;font-size:.72rem;color:#7A7060}
+.info-meta strong{color:#14100C}
+
+/* Canon mini-grid in info panel */
+.info-cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.42rem;margin:1rem 0 1.2rem}
+.iccat{border-radius:6px;padding:.55rem .55rem .65rem;border:1px solid #D8D4CC;background:#F8F6F2;transition:all .3s}
+.iccat-name{font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:700;color:#14100C;margin-bottom:.26rem;line-height:1.2}
+.iccat-badge{font-family:'DM Sans',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:.14rem .38rem;border-radius:3px;display:inline-block}
+.iccat[data-status="supreme"]  {border-color:#1A3A6A;background:#FFFBEE} .iccat[data-status="supreme"]  .iccat-badge{background:#1A3A6A;color:#fff}
+.iccat[data-status="primary"]  {border-color:#276749;background:#F2FAF5} .iccat[data-status="primary"]  .iccat-badge{background:#276749;color:#fff}
+.iccat[data-status="accepted"] {border-color:#3A7A8A;background:#F0F8FA} .iccat[data-status="accepted"] .iccat-badge{background:#3A7A8A;color:#fff}
+.iccat[data-status="secondary"]{border-color:#C8BCA8;background:#F9F6F0} .iccat[data-status="secondary"].iccat-badge{background:#A09080;color:#fff}
+.iccat[data-status="rejected"] {border-color:#8B1A1A;background:#FDF2F2} .iccat[data-status="rejected"] .iccat-badge{background:#8B1A1A;color:#fff}
+.iccat[data-status="none"]                                                 .iccat-badge{background:#D8D4CC;color:#9A8060}
+
+.info-desc{font-size:.92rem;color:#3A2A10;line-height:1.8;margin-bottom:1rem}
+.info-note{background:#F0EDE6;border-left:3px solid #1A3A6A;border-radius:0 6px 6px 0;padding:.6rem .9rem;font-family:'DM Sans',sans-serif;font-size:.79rem;color:#5A4020;line-height:1.65;margin-bottom:1rem;font-style:italic}
+.info-also-title{font-family:'DM Sans',sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1A3A6A;margin-bottom:.38rem}
+.also-tags{display:flex;flex-wrap:wrap;gap:.28rem}
+.also-tag{padding:.22rem .58rem;background:#F8F6F2;border:1px solid #D8D4CC;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:.72rem;color:#5A4030}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media(max-width:860px){
+  .main{grid-template-columns:1fr;padding:1.5rem .8rem 4rem}
+  .canon-row{grid-template-columns:repeat(2,1fr)}
+  .info-cgrid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:500px){
+  .canon-row{grid-template-columns:1fr 1fr}
+  .ccat-sub{display:none}
+}
+</style>
+
+<style id="sn-css">
+/* ═══ SITE-WIDE NAV ═══════════════════════════════════════════════ */
+.site-nav,.site-nav *{box-sizing:border-box}
+.site-nav{position:sticky;top:0;z-index:9999;padding:0;background:rgba(14,6,0,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,175,55,.14)}
+.sn-inner{max-width:1340px;margin:0 auto;padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.sn-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
+.sn-om{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:rgba(212,175,55,.4);line-height:1;user-select:none}
+.sn-brand{display:flex;flex-direction:column;line-height:1.15;gap:.02rem}
+.sn-brand-sup{font-family:'Inter',system-ui,sans-serif;font-size:.5rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(154,120,0,.6)}
+.sn-brand-name{font-family:'Playfair Display',Georgia,serif;font-size:.92rem;font-weight:700;font-style:italic;color:#F0E8D4}
+.sn-links{display:flex;align-items:center;gap:.1rem}
+.sn-link{font-family:'Inter',system-ui,sans-serif;font-size:.69rem;font-weight:600;letter-spacing:.02em;color:rgba(195,170,120,.62);padding:.36rem .7rem;border-radius:5px;cursor:pointer;text-decoration:none;white-space:nowrap;border:none;background:transparent;transition:color .16s,background .16s;display:flex;align-items:center;gap:.22rem}
+.sn-link:hover,.sn-link.sn-active{color:#D4AF37}
+.sn-link.sn-active{background:rgba(212,175,55,.08)}
+.sn-caret{font-size:.52rem;opacity:.45;transition:transform .2s}
+.sn-group{position:relative}
+.sn-group:hover>.sn-link .sn-caret,.sn-group:focus-within>.sn-link .sn-caret{transform:rotate(90deg);opacity:.75}
+.sn-drop{position:absolute;top:calc(100% + .35rem);left:50%;transform:translateX(-50%) translateY(-5px);opacity:0;pointer-events:none;transition:opacity .17s,transform .17s;z-index:10000}
+.sn-group:hover>.sn-drop,.sn-group:focus-within>.sn-drop{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.sn-drop-inner{background:#130700;border:1px solid rgba(212,175,55,.18);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.75);min-width:248px;padding:.35rem}
+.sdi{display:flex;align-items:center;gap:.72rem;padding:.54rem .68rem;border-radius:7px;text-decoration:none;transition:background .13s;color:inherit}
+.sdi:hover,.sdi.sn-active{background:rgba(212,175,55,.08)}
+.sdi-num{font-family:'Inter',system-ui,sans-serif;font-size:.58rem;font-weight:700;color:rgba(154,120,0,.45);width:16px;flex-shrink:0;text-align:center}
+.sdi-tag{font-family:'Inter',system-ui,sans-serif;font-size:.54rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:rgba(212,175,55,.1);color:rgba(212,175,55,.7);border:1px solid rgba(212,175,55,.18);border-radius:3px;padding:.08rem .36rem;flex-shrink:0;white-space:nowrap}
+.sdi-text{display:flex;flex-direction:column;gap:.03rem}
+.sdi-title{font-family:'Playfair Display',Georgia,serif;font-size:.83rem;font-weight:700;font-style:italic;color:#EDE5C8}
+.sdi-sub{font-family:'Inter',system-ui,sans-serif;font-size:.62rem;color:rgba(154,120,0,.55)}
+.sn-drop-div{height:1px;background:rgba(212,175,55,.1);margin:.3rem .4rem}
+.sn-ham{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:.45rem;flex-shrink:0}
+.sn-ham span{display:block;width:20px;height:1.5px;background:rgba(195,170,120,.72);border-radius:2px;transition:all .25s}
+.sn-ham.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.sn-ham.open span:nth-child(2){opacity:0;width:0}
+.sn-ham.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:860px){
+  .sn-ham{display:flex}
+  .sn-links{display:none;position:fixed;inset:56px 0 0;background:rgba(12,5,0,.99);flex-direction:column;align-items:stretch;padding:1rem;gap:.1rem;overflow-y:auto;z-index:9998;border-top:1px solid rgba(212,175,55,.1)}
+  .sn-links.mob-open{display:flex}
+  .sn-group>.sn-drop{position:static;opacity:1;pointer-events:all;transform:none;max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .sn-group.mob-open>.sn-drop{max-height:500px}
+  .sn-drop-inner{background:rgba(255,255,255,.03);border-color:rgba(212,175,55,.1);box-shadow:none;border-radius:8px;margin:.1rem 0 .1rem 1rem;padding:.2rem}
+  .sn-link{font-size:.8rem;padding:.62rem .85rem}
+  .sn-caret{margin-left:auto;font-size:.65rem}
+}
+</style>
+</head>
+<body>
+<nav class="site-nav" id="site-nav">
+<div class="sn-inner">
+  <a class="sn-logo" href="index.html">
+    <span class="sn-om">ॐ</span>
+    <span class="sn-brand">
+      <span class="sn-brand-sup">Next Gen Education</span>
+      <span class="sn-brand-name">Hindu Studies</span>
+    </span>
+  </a>
+  <div class="sn-links" id="sn-links">
+    <a class="sn-link" href="index.html"   data-sn="index.html">Home</a>
+    <a class="sn-link" href="map.html"     data-sn="map.html">Start Here</a>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Essays <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="vedas.html"          data-sn="vedas.html"><span class="sdi-num">01</span><span class="sdi-text"><span class="sdi-title">The Vedas</span><span class="sdi-sub">Origins · Sanskrit · Upaniṣads</span></span></a>
+        <a class="sdi" href="darshanas.html"       data-sn="darshanas.html"><span class="sdi-num">02</span><span class="sdi-text"><span class="sdi-title">The Six Darśanas</span><span class="sdi-sub">Philosophy · Schools · Logic</span></span></a>
+        <a class="sdi" href="history.html"         data-sn="history.html"><span class="sdi-num">03</span><span class="sdi-text"><span class="sdi-title">A Historical Timeline</span><span class="sdi-sub">2600 BCE → 1400 CE</span></span></a>
+        <a class="sdi" href="veda-traditions.html" data-sn="veda-traditions.html"><span class="sdi-num">04</span><span class="sdi-text"><span class="sdi-title">What is Śāstra?</span><span class="sdi-sub">18 Traditions · 8 Categories</span></span></a>
+        <a class="sdi" href="vedic-sacrifice.html" data-sn="vedic-sacrifice.html"><span class="sdi-num">05</span><span class="sdi-text"><span class="sdi-title">The Sacred Fire</span><span class="sdi-sub">Yajña · Ritual · Agni</span></span></a>
+      </div></div>
+    </div>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Karma <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="karma.html"          data-sn="karma.html"><span class="sdi-tag">Essay</span><span class="sdi-text"><span class="sdi-title">Karma</span><span class="sdi-sub">Visual essay · All techniques</span></span></a>
+        <div class="sn-drop-div"></div>
+        <a class="sdi" href="karma-full.html"     data-sn="karma-full.html"><span class="sdi-tag">Exam</span><span class="sdi-text"><span class="sdi-title">Karma + Exam Mode</span><span class="sdi-sub">Board-specific overlay</span></span></a>
+        <a class="sdi" href="karma-revision.html" data-sn="karma-revision.html"><span class="sdi-tag">Study</span><span class="sdi-text"><span class="sdi-title">A Level Revision</span><span class="sdi-sub">OCR · AQA · Edexcel · WJEC</span></span></a>
+      </div></div>
+    </div>
+    <a class="sn-link" href="overview.html" data-sn="overview.html">Overview</a>
+  </div>
+  <button class="sn-ham" id="sn-ham" aria-label="Menu" onclick="snHam()"><span></span><span></span><span></span></button>
+</div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-eye">Interactive · 18 Traditions · 8 Scripture Categories</div>
+  <h1>What is <em>Śāstra</em>?</h1>
+  <p>Every Hindu tradition inherits the same vast archive of texts — but each chooses a different centre of gravity. One school's supreme revelation is another's secondary supplement. Select a tradition to see how it defines its own sacred canon.</p>
+  <div class="hero-note"><strong>Śruti vs. Smṛti vs. Āgama:</strong> Classical tradition distinguishes "heard" revelation (Vedas), "remembered" tradition (Purāṇas, Itihāsa), and "received" texts (Āgamas, Tantras). In practice, most traditions elevate at least one non-Vedic text to the status of supreme authority.</div>
+</div>
+
+<!-- ── Canon deck (sticky) ── -->
+<div class="canon-deck">
+  <div class="canon-deck-inner">
+    <div class="canon-row-label">Revelation &amp; Philosophy</div>
+    <div class="canon-row row1" id="deck-row1">
+      <div class="ccat" data-cat="samhita"    data-status="none"><div class="ccat-name">Vedic Saṃhitās</div><div class="ccat-sub">Ṛg · Sāma · Yajur · Atharva</div><div class="ccat-badge"><span class="dot"></span><span class="slbl">—</span></div></div>
+      <div class="ccat" data-cat="upanishads" data-status="none"><div class="ccat-name">Upaniṣads</div><div class="ccat-sub">Vedānta — philosophical layer</div><div class="ccat-badge"><span class="dot"></span><span class="slbl">—</span></div></div>
+      <div class="ccat" data-cat="agamas"     data-status="none"><div class="ccat-name">Āgamas</div><div class="ccat-sub">Śaiva · Pāñcarātra · Vaikhanasa</div><div class="ccat-badge"><span class="dot"></span><span class="slbl">—</span></div></div>
+      <div class="ccat" data-cat="tantras"    data-status="none"><div class="ccat-name">Tantras</div><div class="ccat-sub">Bhairava · Śrī Vidyā · Kaula</div><div class="ccat-badge"><span class="dot"></span><span class="slbl">—</span></div></div>
+    </div>
+    <div class="canon-row-label" style="margin-top:.4rem">Narrative, Regional &amp; Institutional</div>
+    <div class="canon-row row2" id="deck-row2">
+      <div class="ccat" data-cat="itihasa"    data-status="none"><div class="ccat-name">Itihāsa</div><div class="ccat-sub">Mahābhārata · Rāmāyaṇa</div><div class="ccat-badge"><span class="dot"></span><span class="slbl">—</span></div></div>
+      <div class="ccat" data-cat="puranas"    data-status="none"><div class="ccat-name">Purāṇas</div><div class="ccat-sub">18 Mahāpurāṇas</div><div class="ccat-badge"><span class="dot"></span><span class="slbl">—</span></div></div>
+      <div class="ccat" data-cat="vernacular" data-status="none"><div class="ccat-name">Vernacular</div><div class="ccat-sub">Tamil · Kannada · Bengali</div><div class="ccat-badge"><span class="dot"></span><span class="slbl">—</span></div></div>
+      <div class="ccat" data-cat="sampradaya" data-status="none"><div class="ccat-name">Sampradāya</div><div class="ccat-sub">Tradition-specific works</div><div class="ccat-badge"><span class="dot"></span><span class="slbl">—</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Legend ── -->
+<div class="legend">
+  <div class="legend-inner">
+    <span class="legend-title">Authority key:</span>
+    <span class="leg"><span class="leg-dot" style="background:#1A3A6A"></span>Supreme — highest authority</span>
+    <span class="leg"><span class="leg-dot" style="background:#276749"></span>Primary — core canon</span>
+    <span class="leg"><span class="leg-dot" style="background:#3A7A8A"></span>Accepted — valid but subordinate</span>
+    <span class="leg"><span class="leg-dot" style="background:#8090A0"></span>Secondary — peripheral</span>
+    <span class="leg"><span class="leg-dot" style="background:#8B1A1A"></span>Rejected — explicitly denied authority</span>
+  </div>
+</div>
+
+<!-- ── Main ── -->
+<div class="main">
+  <div class="trad-panel">
+    <h3>Select a tradition</h3>
+    <div id="trad-groups"></div>
+  </div>
+  <div class="info-panel" id="info-panel">
+    <div class="info-empty">
+      <div class="om">ॐ</div>
+      <p>Select a tradition to see how it maps authority across all eight categories of Hindu scripture — and where it draws the boundaries of its canon.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Status labels ─────────────────────────────────────────────
+const SL = {
+  supreme:  '★ Supreme',
+  primary:  'Primary',
+  accepted: 'Accepted',
+  secondary:'Secondary',
+  rejected: 'Rejected',
+  none:     '—',
+};
+
+// ── Scripture categories ──────────────────────────────────────
+const CATS = [
+  {id:'samhita',    name:'Vedic Saṃhitās'},
+  {id:'upanishads', name:'Upaniṣads'},
+  {id:'agamas',     name:'Āgamas'},
+  {id:'tantras',    name:'Tantras'},
+  {id:'itihasa',    name:'Itihāsa'},
+  {id:'puranas',    name:'Purāṇas'},
+  {id:'vernacular', name:'Vernacular'},
+  {id:'sampradaya', name:'Sampradāya'},
+];
+
+// ── Tradition groups ──────────────────────────────────────────
+const GROUPS = [
+  {label:'Vaishnavism',        color:'#2B6CB0'},
+  {label:'Shaivism',           color:'#C85000'},
+  {label:'Shaktism',           color:'#C0408A'},
+  {label:'Vedānta & Orthodox', color:'#1A3A6A'},
+  {label:'Reform Movements',   color:'#5D6D7E'},
+];
+
+// ── All 18 traditions ─────────────────────────────────────────
+// canon keys: samhita · upanishads · agamas · tantras · itihasa · puranas · vernacular · sampradaya
+const TRADITIONS = [
+
+  // ════ VAISHNAVISM ════════════════════════════════════════════
+
+  { group:'Vaishnavism', id:'sri-vaishnava', icon:'श्री', color:'#2B6CB0',
+    name:'Śrī Vaiṣṇavism', sub:'Viśiṣṭādvaita · Rāmānuja',
+    founder:'Rāmānujācārya (1017–1137 CE)', region:'Tamil Nadu, Karnataka; Śrīraṅgam',
+    canon:{samhita:'primary',upanishads:'primary',agamas:'primary',tantras:'none',itihasa:'primary',puranas:'primary',vernacular:'supreme',sampradaya:'primary'},
+    also:['Divya Prabandham (4,000 Tamil hymns) = "Tamil Veda"','Pāñcarātra Āgamas govern all temple ritual','Brahmasūtras — Śrī Bhāṣya of Rāmānuja'],
+    desc:'All four Sanskrit Vedas are accepted, and Rāmānuja wrote a major commentary on the Brahmasūtras. But the most distinctive feature is the elevation of the Divya Prabandham — 4,000 Tamil devotional verses by the twelve Āḻvārs — to equal or higher status as a "fifth Veda." Tamil and Sanskrit are recited side by side in temple worship. Temple ritual itself is entirely governed by the Pāñcarātra Āgamas, making Sri Vaishnavism simultaneously Vaidika, Āgamic, and vernacular in its scriptural orientation.',
+    note:'"Ubhaya Vedānta" — the doctrine of two Vedas: Sanskrit and Tamil. At Śrīraṅgam, Viṣṇu hears both. This dual authority is unique in all of Hinduism.',
+  },
+
+  { group:'Vaishnavism', id:'dvaita', icon:'द्वै', color:'#276749',
+    name:'Dvaita Vedānta', sub:'Madhva · Tattvavāda',
+    founder:'Madhvācārya (1238–1317 CE)', region:'Karnataka; Udupi Kṛṣṇa temple',
+    canon:{samhita:'primary',upanishads:'supreme',agamas:'secondary',tantras:'none',itihasa:'primary',puranas:'primary',sampradaya:'primary',vernacular:'none'},
+    also:['Brahmasūtras — Madhva\'s own Bhāṣya','Mahābhārata Tātparya Nirṇaya (Madhva\'s epic commentary)','Bhāgavata Purāṇa'],
+    desc:'Among the most orthodox of all Vedāntic schools. All four Vedas and the Upaniṣads are authoritative — Madhva wrote commentaries on every major Upaniṣad. His Dvaita philosophy holds God, souls, and matter as eternally distinct, and the Vedas properly interpreted confirm this. He also argued the Ṛg Veda contains a hidden layer (gūḍhārtha) throughout that praises Viṣṇu as supreme. Āgamas are acknowledged but Vedic text dominates in theology.',
+    note:'ISKCON traces its initiatic lineage through the Brahma-Madhva-Gauḍīya chain, making Madhva a doctrinal ancestor of the global Hare Krishna movement.',
+  },
+
+  { group:'Vaishnavism', id:'gaudiya', icon:'गौ', color:'#E8922A',
+    name:'Gauḍīya Vaiṣṇavism', sub:'Caitanya · Bengal · ISKCON',
+    founder:'Śrī Caitanya Mahāprabhu (1486–1534 CE)', region:'Bengal, Vṛndāvan; worldwide via ISKCON',
+    canon:{samhita:'accepted',upanishads:'accepted',agamas:'secondary',tantras:'none',itihasa:'accepted',puranas:'supreme',vernacular:'accepted',sampradaya:'primary'},
+    also:['Bhāgavata Purāṇa — "ripe fruit of the Vedic tree"','Caitanya Caritāmṛta (Kṛṣṇadāsa Kavirāja)','Sat Sandarbhas (Jīva Gosvāmī) — philosophical foundation'],
+    desc:'The Vedas are accepted as valid but the Bhāgavata Purāṇa is the apex of all scripture — the text that delivers what the Vedas merely promised. Jīva Gosvāmī argues in the Tattvasandarbha that the Bhāgavata is the self-commentary of Vyāsa on his own Vedānta-sūtras. The Vedas point toward ritual and knowledge; the Bhāgavata arrives at the final destination: pure love (prema-bhakti) for Rādhā-Kṛṣṇa. The Caitanya Caritāmṛta functions as the tradition\'s practical guide.',
+    note:'"Śrīmad Bhāgavataṃ purāṇam amalam" — the spotless Purāṇa. Vyāsa composed it last, after the Vedas and Mahābhārata, because those earlier texts had not fully satisfied him.',
+  },
+
+  { group:'Vaishnavism', id:'pushtimarg', icon:'पुष्', color:'#D4742A',
+    name:'Puṣṭimārg', sub:'Śuddhādvaita · Vallabhācārya',
+    founder:'Vallabhācārya (1479–1531 CE)', region:'Gujarat, Rajasthan; UK, USA, East Africa diaspora',
+    canon:{samhita:'accepted',upanishads:'accepted',agamas:'none',tantras:'none',itihasa:'accepted',puranas:'supreme',vernacular:'accepted',sampradaya:'primary'},
+    also:['Bhāgavata Purāṇa — especially Daśama Skandha (Kṛṣṇa\'s childhood)','Ṣoḍaśa Granthas — Vallabha\'s 16 foundational works','Subodhini — Vallabha\'s BP commentary'],
+    desc:'Like Gauḍīya, the Bhāgavata Purāṇa is supreme — but for different theological reasons. Vallabha\'s Śuddhādvaita ("pure non-dualism") holds the world as a real, joyful transformation of Kṛṣṇa. The Vedas are accepted but Kṛṣṇa\'s direct self-revelation in the Bhāgavata is the higher disclosure. Liberation is through pushti (divine nourishment/grace) alone — not through effort. The haveli sangīt (temple music tradition) and the Śrīnāthji shrine at Nāthdwāra represent one of Hinduism\'s most developed aesthetic traditions.',
+    note:'"Pushti" = divine grace/nourishment. Vallabha described his path as the most joyful — the devotee is sustained entirely by Kṛṣṇa\'s grace, like a child carried by its mother. Effort is irrelevant.',
+  },
+
+  { group:'Vaishnavism', id:'nimbarka', icon:'नि', color:'#7B9E4A',
+    name:'Nimbārka Sampradāya', sub:'Dvaitādvaita · Kumāra lineage',
+    founder:'Nimbārka (c. 12th–13th c. CE)', region:'Vṛndāvan–Mathurā; Rajasthan',
+    canon:{samhita:'primary',upanishads:'primary',agamas:'secondary',tantras:'none',itihasa:'primary',puranas:'primary',vernacular:'none',sampradaya:'primary'},
+    also:['Vedānta Pārijāta Saurabha (Nimbārka\'s Brahmasūtra commentary)','Bhagavad-gītā','Bhāgavata Purāṇa'],
+    desc:'The oldest of the four Vaiṣṇava sampradāyas by some accounts. Nimbārka was the first major philosopher to place Rādhā as co-equal object of worship alongside Kṛṣṇa — a theology Gauḍīya Vaiṣṇavism would later make globally famous. His Dvaitādvaita navigates between absolute identity and absolute difference: souls are simultaneously distinct from Brahman and identical to it. All Vedic texts are authoritative; the tradition maintains a quiet, unbroken presence in Vṛndāvan.',
+    note:'Nimbārka is said to have eaten his evening meal (prohibited after sunset) by the light of a margosa tree that miraculously held its glow at dusk — hence the name "Nimbārka" (sun of the nimbā tree).',
+  },
+
+  { group:'Vaishnavism', id:'swaminarayan', icon:'स्वा', color:'#E8A020',
+    name:'Swaminarayan / BAPS', sub:'Akṣara-Puruṣottama · Gujarat',
+    founder:'Sahajanand Swami (1781–1830 CE)', region:'Gujarat; 1,300+ temples globally',
+    canon:{samhita:'accepted',upanishads:'accepted',agamas:'none',tantras:'none',itihasa:'accepted',puranas:'accepted',vernacular:'none',sampradaya:'supreme'},
+    also:['Vachanāmṛt — Swaminarayan\'s own discourses (THE working scripture)','Śikṣāpatrī — ethical code in 212 verses','BAPS: Svāminī Vāto (Guṇatitānanda Swami)'],
+    desc:'Formally accepts all four Vedas and the Upaniṣads. In practice the Vachanāmṛt — a record of Swaminarayan\'s own discourses — carries highest authority. BAPS adds the Akṣara-Puruṣottama doctrine: God (Puruṣottama = Swaminarayan) is eternally present through a living Akṣara, a spiritually realised successor. The Akshardham temple complexes (Delhi, Robbinsville NJ) are among the world\'s largest Hindu monuments. With 5–20 million followers globally, BAPS is arguably the most institutionally powerful Hindu organisation outside India.',
+    note:'The living-guru doctrine gives BAPS a uniquely dynamic relationship to scripture: the current Akṣara (Mahant Swami Mahārāj) is a living extension of the sacred, not merely an interpreter of fixed texts.',
+  },
+
+  // ════ SHAIVISM ════════════════════════════════════════════════
+
+  { group:'Shaivism', id:'shaiva-siddhanta', icon:'शै', color:'#C85000',
+    name:'Śaiva Siddhānta', sub:'South Indian Śaivism',
+    founder:'Nayanmārs (6th–9th c.); Meykaṇṭar (13th c.)', region:'Tamil Nadu, Sri Lanka; Chidambaram',
+    canon:{samhita:'secondary',upanishads:'secondary',agamas:'supreme',tantras:'accepted',itihasa:'secondary',puranas:'accepted',vernacular:'primary',sampradaya:'primary'},
+    also:['28 Śaiva Āgamas — govern all temple ritual','Tirumurai — 12 books of Tamil Śaiva poetry','Meykaṇṭa Śāstras — philosophical systemisation'],
+    desc:'The Vedas are respected but explicitly subordinated. The 28 Śaiva Āgamas — revealed directly by Śiva — are the supreme authority; they govern every detail of temple worship still practiced across South India. The Vedas guide the bound soul toward merit; the Āgamas reveal the direct path to liberation through Śiva\'s grace. Alongside the Āgamas, the Tamil Tirumurai (especially the Tēvāram hymns and Tiruvācakam) carries deep devotional authority.',
+    note:'Āgamas and Vedas are held as parallel revelations here — but the Āgamas go further. A useful analogy: the Vedas are like a map, the Āgamas are like having Śiva as your personal guide.',
+  },
+
+  { group:'Shaivism', id:'kashmir-shaivism', icon:'क', color:'#5A8A9A',
+    name:'Kashmir Śaivism', sub:'Trika · Pratyabhijñā',
+    founder:'Vasugupta (c. 800 CE); Abhinavagupta (c. 975–1025 CE)', region:'Kashmir Valley; Kashmiri Pandit diaspora; globally influential',
+    canon:{samhita:'secondary',upanishads:'secondary',agamas:'accepted',tantras:'supreme',itihasa:'secondary',puranas:'secondary',vernacular:'none',sampradaya:'primary'},
+    also:['Śiva Sūtras of Vasugupta','Tantrāloka — Abhinavagupta\'s masterwork (37 chapters)','Mālinīvijayottara Tantra — primary scriptural authority','Pratyabhijñāhṛdayam (Kṣemarāja)'],
+    desc:'The Vedas are not rejected but occupy the lowest rung of an explicit hierarchy. Vedic ritual (āṇavopāya) helps those who haven\'t yet recognised their identity as Śiva. The Bhairava Tantras offer the direct path: pratyabhijñā — the sudden recognition that all of reality is the self-luminous play of consciousness. Abhinavagupta\'s Tantrāloka is one of the greatest philosophical syntheses ever composed, drawing on over 60 scriptural sources. The tradition was nearly lost after the Islamisation of Kashmir from the 14th century.',
+    note:'Kashmir Śaivism was preserved primarily through Swami Lakshmanjoo (1907–1991) and is now globally influential in academic philosophy and contemplative circles, despite having very few formal initiates remaining.',
+  },
+
+  { group:'Shaivism', id:'lingayat', icon:'लिं', color:'#8B1A1A',
+    name:'Liṅgāyat', sub:'Vīraśaiva · Basavanna\'s reform',
+    founder:'Basavanna (c. 1131–1167 CE)', region:'Karnataka — 17% of population; Maharashtra, Andhra Pradesh',
+    canon:{samhita:'rejected',upanishads:'rejected',agamas:'rejected',tantras:'rejected',itihasa:'rejected',puranas:'rejected',vernacular:'supreme',sampradaya:'primary'},
+    also:['Vachanas — spare devotional poems in Kannada by Basavanna, Akka Mahādevi, Allama Prabhu','Śūnya Sampādane — compilation of Vachana philosophy','Śat-Sthala — six stages of liberation'],
+    desc:'The most radical scriptural position of any large Hindu tradition. Liṅgāyatism explicitly rejects the Vedas, Upaniṣads, Āgamas, Purāṇas, and everything built on Sanskrit authority — caste hierarchy, Brahminical ritual, temple pilgrimage, and idol worship. Every Liṅgāyat wears a personal Iṣṭaliṅga (small Śiva liṅga) on the body at all times. Liberation comes through sacred work (kāyaka) and selfless service (dāsoha). Scripture is the Vachanas: spare, direct, searingly honest poems in Kannada.',
+    note:'Major political controversy: some Liṅgāyats argue theirs is a distinct religion entirely separate from Hinduism. Karnataka granted minority status in 2018; India\'s central government has not. The older Vīraśaiva tradition, which predates Basavanna, does accept the Vedas — the two names are politically contested.',
+  },
+
+  { group:'Shaivism', id:'nath', icon:'नाथ', color:'#4A6480',
+    name:'Nāth Sampradāya', sub:'Gorakhnāth · Haṭha Yoga',
+    founder:'Matsyendranātha (c. 9th c.); Gorakhnātha (c. 11th–12th c.)', region:'Uttar Pradesh, Rajasthan, Punjab, Nepal',
+    canon:{samhita:'secondary',upanishads:'secondary',agamas:'accepted',tantras:'primary',itihasa:'secondary',puranas:'secondary',vernacular:'accepted',sampradaya:'primary'},
+    also:['Gorakṣa Śataka — 100 verses of Gorakhnāth','Haṭha Yoga Pradīpikā (14th c., Svātmārāma)','Kaula Jñāna Nirṇaya (attr. Matsyendranātha)'],
+    desc:'Standing apart from both Vedic orthodoxy and mainstream Āgamic traditions, the Nāths developed the systematic science of Haṭha Yoga — the physical practices that eventually became modern global yoga. Śiva as Ādinath is supreme. Vedic ritual is implicitly superseded by internal yogic practice: the body is the temple, liberation comes through breath (prāṇāyāma), posture (āsana), and the awakening of kuṇḍalinī. The Gorakhpur Gorakhnāth temple — whose mahant, Yogi Adityanath, is Chief Minister of Uttar Pradesh — is one of India\'s most politically prominent Hindu institutions.',
+    note:'Almost all modern global yoga practice traces its physical techniques to the Nāth lineage. Gurū Nānak\'s famous debate with Nāth yogis (Siddha Goṣṭi in the Guru Granth Sahib) shows how culturally central this tradition once was across northern India.',
+  },
+
+  // ════ SHAKTISM ════════════════════════════════════════════════
+
+  { group:'Shaktism', id:'srividya', icon:'ललि', color:'#C0408A',
+    name:'Śrī Vidyā', sub:'Srikula · Lalitā Tripura Sundarī',
+    founder:'Ancient; Bhāskarārāya Makhin (1690–1785 CE) — key systematizer', region:'Kerala, Tamil Nadu, Karnataka, Andhra Pradesh; Nepal',
+    canon:{samhita:'secondary',upanishads:'accepted',agamas:'primary',tantras:'supreme',itihasa:'accepted',puranas:'primary',vernacular:'accepted',sampradaya:'primary'},
+    also:['Lalitā Sahasranāma (Brahmāṇḍa Purāṇa)','Soundarya Laharī (attr. Śaṅkara) — 100 verses in praise of the Goddess','Tantrarāja Tantra · Yoginī Hṛdaya · Nitya Ṣoḍaśikārṇava'],
+    desc:'The Tantric path of the goddess Lalitā Tripura Sundarī. The Śrī Yantra (Śrī Cakra) — a geometric mandala of interlocking triangles — is the primary icon of the cosmos. Among the Vedas, the Atharva resonates most (its charms and esoteric content align with Tantric practice), but the Śrī Vidyā Tantras are the supreme authority. Remarkably, many South Indian Brahmin scholars practice Śrī Vidyā alongside Advaita Vedānta — including, by tradition, Ādi Śaṅkara himself — creating a synthesis of non-dual philosophy and Tantric goddess worship.',
+    note:'The Mīnākṣī temple (Madurai), Kāmākṣī temple (Kanchipuram), and Lalitā temple (Prayagraj) are major Śrī Vidyā centres. The Soundarya Laharī is simultaneously a devotional hymn, a Tantric manual, and one of Sanskrit\'s most celebrated poems.',
+  },
+
+  { group:'Shaktism', id:'shakta', icon:'काली', color:'#901050',
+    name:'Śākta / Kalikula', sub:'Kālī tradition · Tantric Shaktism',
+    founder:'Ancient; Kṛṣṇānanda Āgamavāgīśa (16th–17th c.) — Bengal codifier', region:'West Bengal, Assam, Odisha, Nepal; Kālighat, Kāmākhyā',
+    canon:{samhita:'secondary',upanishads:'secondary',agamas:'accepted',tantras:'supreme',itihasa:'secondary',puranas:'primary',vernacular:'primary',sampradaya:'primary'},
+    also:['Devī Māhātmya (Caṇḍī Pāṭha) — central ritual text','Devī Bhāgavata Purāṇa','Mahānirvāṇa Tantra · Kālī Tantra','Tantrasāra of Kṛṣṇānanda'],
+    desc:'The fierce, time-devouring Goddess — Kālī, Tārā, Chhinnamastā — is the supreme reality. Liberation comes through confronting and transcending fear, death, and conventional limits. The Tantras (directly revealed by the Goddess) are the primary authority; the Devī Māhātmya from the Mārkaṇḍeya Purāṇa is the most universally recited ritual text. Bengali devotional poetry (Ramprasad Sen, Kamalakanta) gives the tradition a powerful vernacular voice. Many traditions describe a hierarchy: Vedas for the uninitiated; Tantras for the initiated.',
+    note:'Ramakrishna Paramahaṃsa, whose mystical experiences at Dakshineswar shaped Neo-Vedānta, was a devoted Kālī practitioner. The Kalikula tradition thus indirectly shaped how Hinduism presented itself to the modern West.',
+  },
+
+  // ════ VEDĀNTA & ORTHODOX ══════════════════════════════════════
+
+  { group:'Vedānta & Orthodox', id:'smarta', icon:'स्म', color:'#1A3A6A',
+    name:'Smārta', sub:'Orthodox Pañcāyatana · inclusive',
+    founder:'Consolidated by Ādi Śaṅkarācārya (c. 788–820 CE)', region:'Pan-Indian; strongest in South India',
+    canon:{samhita:'primary',upanishads:'primary',agamas:'accepted',tantras:'secondary',itihasa:'primary',puranas:'primary',vernacular:'accepted',sampradaya:'none'},
+    also:['Purāṇas (all major)','Dharmaśāstra (Manu, Yājñavalkya)','Itihāsa (Mahābhārata, Rāmāyaṇa)'],
+    desc:'The broadest and most inclusive position. Smārtas accept all four Vedas, the Upaniṣads, the Itihāsa, and the Purāṇas as authoritative — the name "smārta" means "grounded in smṛti (tradition)." They worship five deities (Viṣṇu, Śiva, Devī, Sūrya, Gaṇeśa) as equal manifestations of one Brahman. Āgamas are accepted for temple ritual. Most "secular" or "eclectic" Hindus are effectively Smārta in practice. This tradition\'s brahmin priestly communities have a cultural influence far beyond their numerical size.',
+    note:'Smartism is perhaps best understood as a meta-tradition — a framework for practicing any of the major Hindu paths without sectarian commitment to one.',
+  },
+
+  { group:'Vedānta & Orthodox', id:'advaita', icon:'अद्', color:'#7B4FBF',
+    name:'Advaita Vedānta', sub:'Non-dual philosophy · four Maṭhas',
+    founder:'Ādi Śaṅkarācārya (c. 788–820 CE)', region:'Four maṭhas: Śṛṅgeri · Purī · Jyotirmath · Dvārakā',
+    canon:{samhita:'accepted',upanishads:'supreme',agamas:'secondary',tantras:'secondary',itihasa:'primary',puranas:'secondary',vernacular:'accepted',sampradaya:'primary'},
+    also:['Prasthānatrayī: Upaniṣads + Brahmasūtras + Bhagavad-gītā','Śaṅkara\'s extensive bhāṣyas (commentaries) on all three','Vivekacūḍāmaṇi — Śaṅkara\'s practical guide'],
+    desc:'All four Vedas are accepted but the Upaniṣads are the apex — the jñāna-kāṇḍa (knowledge section) that reveals the ultimate truth beneath the ritual portions (karma-kāṇḍa). The Vedas are in two layers: ritual provisions (provisional, for those not ready) and philosophical revelation (ultimate). For Advaita, the Upaniṣads reveal what alone is real: Brahman = Ātman. Āgamas are accepted for those who need upāsana (devotional practice) as a stepping stone. Śaṅkara established four maṭhas across India, each associated with one of the four Vedas.',
+    note:'Śaṅkara established four cardinal maṭhas, assigning each to one Veda: Śṛṅgeri (Yajur), Purī (Ṛg), Jyotirmath (Atharva), Dvārakā (Sāma) — structurally acknowledging all four even within a tradition that elevates the Upaniṣads above them.',
+  },
+
+  { group:'Vedānta & Orthodox', id:'mimamsa', icon:'मी', color:'#4CAF82',
+    name:'Pūrva Mīmāṃsā', sub:'Vedic ritual exegesis',
+    founder:'Jaimini (c. 200 BCE); Kumārila Bhaṭṭa (7th c. CE)', region:'Pan-Indian classical; primarily academic today',
+    canon:{samhita:'supreme',upanishads:'secondary',agamas:'rejected',tantras:'rejected',itihasa:'secondary',puranas:'secondary',vernacular:'rejected',sampradaya:'primary'},
+    also:['Jaimini Sūtras (Mīmāṃsā Sūtras)','Śābara Bhāṣya — foundational commentary','Tantra Vārtika (Kumārila Bhaṭṭa)'],
+    desc:'The most Veda-centric school of all. Mīmāṃsā holds the Vedas to be eternal, authorless (apauruṣeya), and self-validating — the gold standard of all knowledge. Where Vedānta focuses on the Upaniṣads, Mīmāṃsā is exclusively concerned with the ritual portions: Saṃhitās and Brāhmaṇas. The central question: what does the Veda command, and how must it be executed? Āgamas and Tantras are rejected as human-composed. Upaniṣads, Purāṇas, and Itihāsa are accepted as smṛti (tradition) but carry no independent authority.',
+    note:'Mīmāṃsā\'s concept of apauruṣeyatva — the Vedas as eternal and authorless — became the foundational philosophical claim for all classical Hindu defences of Vedic authority. Every other school that accepts the Vedas implicitly stands on Mīmāṃsā\'s shoulders.',
+  },
+
+  // ════ REFORM MOVEMENTS ════════════════════════════════════════
+
+  { group:'Reform Movements', id:'arya-samaj', icon:'आर्', color:'#B87333',
+    name:'Ārya Samāj', sub:'Vedic reform · Dayānanda Sarasvatī',
+    founder:'Swami Dayānanda Sarasvatī (1824–1883 CE)', region:'Punjab, Haryana, UP; diaspora in Fiji, Mauritius, South Africa',
+    canon:{samhita:'supreme',upanishads:'rejected',agamas:'rejected',tantras:'rejected',itihasa:'rejected',puranas:'rejected',vernacular:'rejected',sampradaya:'primary'},
+    also:['Satyārtha Prakāś ("The Light of Truth") — Dayānanda\'s primary expository work'],
+    desc:'The most exclusively Vedic-text tradition in modern Hinduism — and the most exclusionary. Only the Saṃhitā layer of the four Vedas is accepted as eternal, authorless, and authoritative. Upaniṣads, Brāhmaṇas, Āraṇyakas, Purāṇas, Āgamas, Tantras, and all regional/vernacular texts are rejected as later human compositions that corrupted an originally pure, rational, monotheistic revelation. Dayānanda argued the Vedas were the source of all genuine science and religion. "Back to the Vedas" — but only to the hymns themselves.',
+    note:'The DAV (Dayānanda Anglo-Vedic) school network is one of India\'s largest private education systems. The movement was also a major force in Punjab\'s intellectual life and indirectly shaped Hindu nationalism.',
+  },
+
+  { group:'Reform Movements', id:'ramakrishna', icon:'रा', color:'#2E86AB',
+    name:'Ramakrishna Mission', sub:'Neo-Vedānta · Vivekānanda',
+    founder:'Ramakrishna Paramahaṃsa (1836–1886) + Swami Vivekānanda (1863–1902)', region:'West Bengal (Belur Math); 263 centres in 40 countries',
+    canon:{samhita:'accepted',upanishads:'primary',agamas:'accepted',tantras:'accepted',itihasa:'primary',puranas:'accepted',vernacular:'accepted',sampradaya:'primary'},
+    also:['Upaniṣads — primary philosophical authority','Bhagavad-gītā','The Gospel of Śrī Ramakrishna — unique personal scripture','Vivekānanda\'s Complete Works'],
+    desc:'Ramakrishna practiced Kālī Tantra, Vaiṣṇava bhakti, and had what he described as direct experiences of Christ and Allāh — declaring all religions lead to the same reality. Vivekānanda reframed this as "Neo-Vedānta": universal Advaita as a rational foundation for all religion. All scripture categories are accepted as valid paths; in practice the Upaniṣads and Bhagavad-gītā are primary. The Mission runs one of India\'s largest networks of schools, hospitals, and relief operations — "practical Vedānta."',
+    note:'"Each soul is potentially divine. The goal is to manifest this divinity within." — Vivekānanda\'s summary of Hinduism. His 1893 Chicago address is considered a turning point in the global perception of the tradition.',
+  },
+
+  { group:'Reform Movements', id:'brahmo', icon:'ब्र', color:'#5D6D7E',
+    name:'Brahmo Samāj', sub:'Rationalist reform · Ram Mohan Roy',
+    founder:'Raja Ram Mohan Roy (1772–1833 CE)', region:'Bengal; tiny but historically transformative',
+    canon:{samhita:'rejected',upanishads:'accepted',agamas:'rejected',tantras:'rejected',itihasa:'secondary',puranas:'rejected',vernacular:'accepted',sampradaya:'primary'},
+    also:['Upaniṣads — read critically as rational texts, not as infallible revelation','Roy\'s own translations and treatises'],
+    desc:'Founded in Calcutta in 1828, the Brahmo Samāj rejected virtually all traditional Hindu religious authority: no Vedic infallibility, no idol worship, no caste, no Purāṇas, no Āgamas. Ram Mohan Roy drew simultaneously on Upaniṣadic monotheism, Unitarian Christianity, and Enlightenment rationalism, arguing the Upaniṣads (read critically) point toward a universal rational religion. The movement never exceeded a few thousand formal members — but its influence on modern India is enormous: the abolition of sati (1829), widow remarriage, women\'s education, the Bengal Renaissance. The Tagore family were Brahmos.',
+    note:'Numerically tiny (~20,000 formal members today). Historically enormous. The Brahmo Samāj proves that a tradition\'s importance cannot be measured by its membership.',
+  },
+
+];
+
+// ── Build tradition selector ──────────────────────────────────
+const groupsEl = document.getElementById('trad-groups');
+const panelEl  = document.getElementById('info-panel');
+const ccats    = document.querySelectorAll('.ccat');
+
+GROUPS.forEach(g => {
+  const section = document.createElement('div');
+  section.className = 'trad-group';
+  section.innerHTML = `<div class="trad-group-label"><span class="trad-group-bar" style="background:${g.color}"></span>${g.label}</div>`;
+  const list = document.createElement('div');
+  list.className = 'trad-list';
+  TRADITIONS.filter(t => t.group === g.label).forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'trad-btn';
+    btn.dataset.id = t.id;
+    btn.style.setProperty('--tc', t.color);
+    btn.innerHTML = `<span class="trad-icon" style="background:${t.color}">${t.icon}</span>
+      <span><div class="trad-name">${t.name}</div><div class="trad-sub">${t.sub}</div></span>`;
+    btn.addEventListener('click', () => select(t, btn));
+    list.appendChild(btn);
+  });
+  section.appendChild(list);
+  groupsEl.appendChild(section);
+});
+
+// ── Update sticky canon deck ──────────────────────────────────
+function updateDeck(canon) {
+  ccats.forEach(el => {
+    const s = canon[el.dataset.cat] || 'none';
+    el.dataset.status = s;
+    el.querySelector('.slbl').textContent = SL[s] || '—';
+  });
+}
+
+// ── Render info panel ─────────────────────────────────────────
+function select(t, btn) {
+  document.querySelectorAll('.trad-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  updateDeck(t.canon);
+
+  // 8-category mini-grid
+  const gridHtml = CATS.map(c => {
+    const s = t.canon[c.id] || 'none';
+    return `<div class="iccat" data-status="${s}">
+      <div class="iccat-name">${c.name}</div>
+      <div class="iccat-badge">${SL[s]}</div>
+    </div>`;
+  }).join('');
+
+  const noteHtml  = t.note  ? `<div class="info-note">${t.note}</div>` : '';
+  const alsoHtml  = t.also && t.also.length
+    ? `<div class="info-also-title">Key authoritative texts</div>
+       <div class="also-tags">${t.also.map(a=>`<span class="also-tag">${a}</span>`).join('')}</div>`
+    : '';
+
+  panelEl.innerHTML = `<div class="info-card">
+    <div class="info-head">
+      <div class="info-name sk">${t.name}</div>
+      <div class="info-sub">${t.sub}</div>
+      <div class="info-meta">
+        <span><strong>Founded:</strong> ${t.founder}</span>
+        <span><strong>Region:</strong> ${t.region}</span>
+      </div>
+    </div>
+    <div class="info-cgrid">${gridHtml}</div>
+    <p class="info-desc">${t.desc}</p>
+    ${noteHtml}
+    ${alsoHtml}
+  </div>`;
+}
+</script>
+<script id="sn-js">
+(function(){var p=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('[data-sn]').forEach(function(e){if(e.getAttribute('data-sn')===p){e.classList.add('sn-active');var g=e.closest('.sn-group');if(g)g.querySelector('.sn-link').classList.add('sn-active');}});})();
+function snHam(){var l=document.getElementById('sn-links'),h=document.getElementById('sn-ham');l.classList.toggle('mob-open');h.classList.toggle('open');}
+document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.sn-group>.sn-link').forEach(function(t){t.addEventListener('click',function(){if(window.innerWidth<=860){t.closest('.sn-group').classList.toggle('mob-open');}});});});
+</script>
+</body>
+</html>

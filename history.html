@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="parchment">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How the Six Schools Came to Be — OCHS A-Level Hinduism</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET & BASE ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #F8F6F2;
+      color: #14100C;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── TYPOGRAPHY ────────────────────────────────────────────── */
+    h1, h2, h3 { font-family: 'DM Serif Display', serif; }
+    .label-font { font-family: 'DM Sans', sans-serif; }
+
+    /* ── HEADER ────────────────────────────────────────────────── */
+    .site-header {
+      background: #FBF8F0;
+      border-bottom: 1px solid #D8D4CC;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .header-inner {
+      max-width: 1700px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem 0;
+    }
+    .back-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #1A3A6A;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: #B8920A; }
+    .back-link::before { content: '←'; font-size: 1rem; }
+    .header-badge {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #7A7060;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ── PAGE HERO ─────────────────────────────────────────────── */
+    .page-hero {
+      max-width: 900px;
+      margin: 3rem auto 2rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .page-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.9rem);
+      font-weight: 700;
+      color: #14100C;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .page-hero p {
+      font-size: 1.05rem;
+      color: #7A7060;
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .page-hero .time-range {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #1A3A6A;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid #D8D4CC;
+      border-radius: 2rem;
+      padding: 0.25rem 1rem;
+      background: #FBF8F0;
+    }
+
+    /* ── ERA NAV ────────────────────────────────────────────────── */
+    .era-nav-wrap {
+      max-width: 1700px;
+      margin: 0 auto 1.5rem;
+      padding: 0 2rem;
+    }
+    .era-nav {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .era-nav-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #7A7060;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-right: 0.5rem;
+      white-space: nowrap;
+    }
+    .era-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #7A7060;
+      background: #FBF8F0;
+      border: 1px solid #D8D4CC;
+      border-radius: 2rem;
+      padding: 0.35rem 0.9rem;
+      cursor: pointer;
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+    .era-btn:hover {
+      background: #EDE5CC;
+      border-color: #1A3A6A;
+      color: #14100C;
+    }
+    .era-btn.active {
+      background: #1A3A6A;
+      border-color: #1A3A6A;
+      color: #FBF8F0;
+      font-weight: 600;
+    }
+    .era-btn.reset-btn {
+      background: transparent;
+      border-color: #B89F70;
+      color: #7A7060;
+    }
+    .era-btn.reset-btn:hover {
+      background: #EDE5CC;
+      color: #14100C;
+    }
+
+    /* ── NARRATIVE PANEL ────────────────────────────────────────── */
+    .narrative-panel {
+      max-width: 1700px;
+      margin: 0 auto 1.5rem;
+      padding: 0 2rem;
+    }
+    .narrative-inner {
+      background: #FBF8F0;
+      border: 1px solid #D8D4CC;
+      border-radius: 8px;
+      padding: 1rem 1.4rem;
+      min-height: 72px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+    .narrative-inner .era-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #14100C;
+      margin-bottom: 0.3rem;
+    }
+    .narrative-inner .era-period {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #1A3A6A;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .narrative-inner p {
+      font-size: 0.9rem;
+      color: #7A7060;
+      line-height: 1.65;
+    }
+    .narrative-content {
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    .narrative-content.fade-out {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+
+    /* ── CONTROLS BAR ───────────────────────────────────────────── */
+    .controls-bar {
+      max-width: 1700px;
+      margin: 0 auto 0.75rem;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .toggle-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #7A7060;
+      background: #FBF8F0;
+      border: 1px solid #D8D4CC;
+      border-radius: 2rem;
+      padding: 0.35rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.18s;
+    }
+    .toggle-btn:hover { background: #EDE5CC; border-color: #1A3A6A; color: #14100C; }
+    .toggle-btn.on {
+      background: #14100C;
+      border-color: #14100C;
+      color: #FBF8F0;
+    }
+    .toggle-indicator {
+      width: 26px; height: 14px;
+      background: #B89F70;
+      border-radius: 7px;
+      position: relative;
+      transition: background 0.18s;
+    }
+    .toggle-btn.on .toggle-indicator { background: #1A3A6A; }
+    .toggle-indicator::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 10px; height: 10px;
+      background: #FBF8F0;
+      border-radius: 50%;
+      transition: left 0.18s;
+    }
+    .toggle-btn.on .toggle-indicator::after { left: 14px; }
+    .controls-hint {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      color: #B89F70;
+    }
+
+    /* ── SVG WRAPPER ────────────────────────────────────────────── */
+    .svg-scroll-wrap {
+      max-width: 1700px;
+      margin: 0 auto 1.5rem;
+      padding: 0 2rem;
+    }
+    .svg-inner {
+      background: #FBF8F0;
+      border: 1px solid #D8D4CC;
+      border-radius: 8px;
+      overflow-x: auto;
+      overflow-y: visible;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #D8D4CC #F5EDD6;
+    }
+    .svg-inner::-webkit-scrollbar { height: 6px; }
+    .svg-inner::-webkit-scrollbar-track { background: #F5EDD6; border-radius: 3px; }
+    .svg-inner::-webkit-scrollbar-thumb { background: #D8D4CC; border-radius: 3px; }
+    #timeline-svg {
+      display: block;
+      min-width: 900px;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── SVG INTERACTION STYLES (applied via JS classnames & CSS) ── */
+    .figure-dot {
+      cursor: pointer;
+      transition: r 0.15s;
+    }
+    .figure-dot:hover circle { r: 9; }
+    .school-band { transition: opacity 0.2s; }
+    .rel-arrow { transition: opacity 0.25s; }
+    #rel-arrows { transition: opacity 0.25s; }
+    #rel-arrows.hidden { opacity: 0; pointer-events: none; }
+    .figure-dot.dimmed { opacity: 0.18; }
+    .figure-dot.highlighted { opacity: 1; }
+
+    /* ── SVG TOOLTIP ─────────────────────────────────────────────── */
+    #svg-tooltip {
+      position: fixed;
+      background: #14100C;
+      color: #FBF8F0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      padding: 0.45rem 0.75rem;
+      border-radius: 5px;
+      pointer-events: none;
+      z-index: 999;
+      max-width: 220px;
+      opacity: 0;
+      transition: opacity 0.12s;
+      white-space: nowrap;
+      box-shadow: 0 3px 12px rgba(0,0,0,.25);
+    }
+    #svg-tooltip.visible { opacity: 1; }
+    #svg-tooltip .tt-name { font-weight: 600; font-size: 0.82rem; }
+    #svg-tooltip .tt-dates { color: #C8A87A; margin-top: 1px; font-size: 0.72rem; }
+    #svg-tooltip .tt-school { color: #B89F70; font-size: 0.7rem; margin-top: 2px; }
+
+    /* ── DETAIL CARD ─────────────────────────────────────────────── */
+    .detail-card-wrap {
+      max-width: 1700px;
+      margin: 0 auto 1.5rem;
+      padding: 0 2rem;
+    }
+    #detail-card {
+      background: #FBF8F0;
+      border: 1px solid #D8D4CC;
+      border-radius: 10px;
+      padding: 1.5rem 1.8rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+      display: none;
+      animation: slideIn 0.25s ease;
+    }
+    #detail-card.visible { display: block; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .card-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #14100C;
+      line-height: 1.2;
+      flex: 1;
+      min-width: 200px;
+    }
+    .card-dates {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      color: #7A7060;
+      font-weight: 500;
+      margin-top: 0.2rem;
+    }
+    .card-school-chip {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2rem;
+      color: #FBF8F0;
+      white-space: nowrap;
+      align-self: flex-start;
+      margin-top: 0.2rem;
+    }
+    .card-role {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: #1A3A6A;
+      margin-bottom: 0.8rem;
+    }
+    .card-body {
+      font-size: 0.95rem;
+      color: #14100C;
+      line-height: 1.7;
+      margin-bottom: 0.9rem;
+    }
+    .card-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .card-meta-item {
+      flex: 1;
+      min-width: 200px;
+    }
+    .card-meta-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #1A3A6A;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+    .card-meta-text {
+      font-size: 0.88rem;
+      color: #7A7060;
+      line-height: 1.55;
+    }
+    .card-close {
+      float: right;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #7A7060;
+      background: none;
+      border: 1px solid #D8D4CC;
+      border-radius: 2rem;
+      padding: 0.2rem 0.7rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .card-close:hover { background: #EDE5CC; color: #14100C; }
+
+    /* ── LEGEND ──────────────────────────────────────────────────── */
+    .legend-wrap {
+      max-width: 1700px;
+      margin: 0 auto 2rem;
+      padding: 0 2rem;
+    }
+    .legend {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .legend-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #7A7060;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-right: 0.25rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      color: #7A7060;
+    }
+    .legend-swatch {
+      width: 28px; height: 3px;
+      border-radius: 2px;
+    }
+    .legend-swatch.dashed {
+      background: none;
+      border-top: 2px dashed currentColor;
+      color: #888;
+    }
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #1A3A6A;
+    }
+
+    /* ── FOOTER CTA ──────────────────────────────────────────────── */
+    .footer-cta {
+      background: #FBF8F0;
+      border-top: 1px solid #D8D4CC;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      margin-top: 2rem;
+    }
+    .footer-cta p {
+      font-size: 0.9rem;
+      color: #7A7060;
+      margin-bottom: 1rem;
+    }
+    .footer-cta-link {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #FBF8F0;
+      background: #1A3A6A;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.6rem 1.6rem;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .footer-cta-link:hover { background: #B8920A; }
+    .footer-cta-link::after { content: ' →'; }
+    .footer-note {
+      margin-top: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      color: #B89F70;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .page-hero h1 { font-size: 1.6rem; }
+      .era-nav { gap: 0.3rem; }
+      .era-btn { font-size: 0.72rem; padding: 0.28rem 0.65rem; }
+      .controls-hint { display: none; }
+      .card-meta { gap: 0.8rem; }
+    }
+  </style>
+
+<style id="sn-css">
+/* ═══ SITE-WIDE NAV ═══════════════════════════════════════════════ */
+.site-nav,.site-nav *{box-sizing:border-box}
+.site-nav{position:sticky;top:0;z-index:9999;padding:0;background:rgba(14,6,0,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,175,55,.14)}
+.sn-inner{max-width:1340px;margin:0 auto;padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.sn-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
+.sn-om{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:rgba(212,175,55,.4);line-height:1;user-select:none}
+.sn-brand{display:flex;flex-direction:column;line-height:1.15;gap:.02rem}
+.sn-brand-sup{font-family:'Inter',system-ui,sans-serif;font-size:.5rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(154,120,0,.6)}
+.sn-brand-name{font-family:'Playfair Display',Georgia,serif;font-size:.92rem;font-weight:700;font-style:italic;color:#F0E8D4}
+.sn-links{display:flex;align-items:center;gap:.1rem}
+.sn-link{font-family:'Inter',system-ui,sans-serif;font-size:.69rem;font-weight:600;letter-spacing:.02em;color:rgba(195,170,120,.62);padding:.36rem .7rem;border-radius:5px;cursor:pointer;text-decoration:none;white-space:nowrap;border:none;background:transparent;transition:color .16s,background .16s;display:flex;align-items:center;gap:.22rem}
+.sn-link:hover,.sn-link.sn-active{color:#D4AF37}
+.sn-link.sn-active{background:rgba(212,175,55,.08)}
+.sn-caret{font-size:.52rem;opacity:.45;transition:transform .2s}
+.sn-group{position:relative}
+.sn-group:hover>.sn-link .sn-caret,.sn-group:focus-within>.sn-link .sn-caret{transform:rotate(90deg);opacity:.75}
+.sn-drop{position:absolute;top:calc(100% + .35rem);left:50%;transform:translateX(-50%) translateY(-5px);opacity:0;pointer-events:none;transition:opacity .17s,transform .17s;z-index:10000}
+.sn-group:hover>.sn-drop,.sn-group:focus-within>.sn-drop{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.sn-drop-inner{background:#130700;border:1px solid rgba(212,175,55,.18);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.75);min-width:248px;padding:.35rem}
+.sdi{display:flex;align-items:center;gap:.72rem;padding:.54rem .68rem;border-radius:7px;text-decoration:none;transition:background .13s;color:inherit}
+.sdi:hover,.sdi.sn-active{background:rgba(212,175,55,.08)}
+.sdi-num{font-family:'Inter',system-ui,sans-serif;font-size:.58rem;font-weight:700;color:rgba(154,120,0,.45);width:16px;flex-shrink:0;text-align:center}
+.sdi-tag{font-family:'Inter',system-ui,sans-serif;font-size:.54rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:rgba(212,175,55,.1);color:rgba(212,175,55,.7);border:1px solid rgba(212,175,55,.18);border-radius:3px;padding:.08rem .36rem;flex-shrink:0;white-space:nowrap}
+.sdi-text{display:flex;flex-direction:column;gap:.03rem}
+.sdi-title{font-family:'Playfair Display',Georgia,serif;font-size:.83rem;font-weight:700;font-style:italic;color:#EDE5C8}
+.sdi-sub{font-family:'Inter',system-ui,sans-serif;font-size:.62rem;color:rgba(154,120,0,.55)}
+.sn-drop-div{height:1px;background:rgba(212,175,55,.1);margin:.3rem .4rem}
+.sn-ham{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:.45rem;flex-shrink:0}
+.sn-ham span{display:block;width:20px;height:1.5px;background:rgba(195,170,120,.72);border-radius:2px;transition:all .25s}
+.sn-ham.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.sn-ham.open span:nth-child(2){opacity:0;width:0}
+.sn-ham.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:860px){
+  .sn-ham{display:flex}
+  .sn-links{display:none;position:fixed;inset:56px 0 0;background:rgba(12,5,0,.99);flex-direction:column;align-items:stretch;padding:1rem;gap:.1rem;overflow-y:auto;z-index:9998;border-top:1px solid rgba(212,175,55,.1)}
+  .sn-links.mob-open{display:flex}
+  .sn-group>.sn-drop{position:static;opacity:1;pointer-events:all;transform:none;max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .sn-group.mob-open>.sn-drop{max-height:500px}
+  .sn-drop-inner{background:rgba(255,255,255,.03);border-color:rgba(212,175,55,.1);box-shadow:none;border-radius:8px;margin:.1rem 0 .1rem 1rem;padding:.2rem}
+  .sn-link{font-size:.8rem;padding:.62rem .85rem}
+  .sn-caret{margin-left:auto;font-size:.65rem}
+}
+</style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <nav class="site-nav" id="site-nav">
+<div class="sn-inner">
+  <a class="sn-logo" href="index.html">
+    <span class="sn-om">ॐ</span>
+    <span class="sn-brand">
+      <span class="sn-brand-sup">Next Gen Education</span>
+      <span class="sn-brand-name">Hindu Studies</span>
+    </span>
+  </a>
+  <div class="sn-links" id="sn-links">
+    <a class="sn-link" href="index.html"   data-sn="index.html">Home</a>
+    <a class="sn-link" href="map.html"     data-sn="map.html">Start Here</a>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Essays <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="vedas.html"          data-sn="vedas.html"><span class="sdi-num">01</span><span class="sdi-text"><span class="sdi-title">The Vedas</span><span class="sdi-sub">Origins · Sanskrit · Upaniṣads</span></span></a>
+        <a class="sdi" href="darshanas.html"       data-sn="darshanas.html"><span class="sdi-num">02</span><span class="sdi-text"><span class="sdi-title">The Six Darśanas</span><span class="sdi-sub">Philosophy · Schools · Logic</span></span></a>
+        <a class="sdi" href="history.html"         data-sn="history.html"><span class="sdi-num">03</span><span class="sdi-text"><span class="sdi-title">A Historical Timeline</span><span class="sdi-sub">2600 BCE → 1400 CE</span></span></a>
+        <a class="sdi" href="veda-traditions.html" data-sn="veda-traditions.html"><span class="sdi-num">04</span><span class="sdi-text"><span class="sdi-title">What is Śāstra?</span><span class="sdi-sub">18 Traditions · 8 Categories</span></span></a>
+        <a class="sdi" href="vedic-sacrifice.html" data-sn="vedic-sacrifice.html"><span class="sdi-num">05</span><span class="sdi-text"><span class="sdi-title">The Sacred Fire</span><span class="sdi-sub">Yajña · Ritual · Agni</span></span></a>
+      </div></div>
+    </div>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Karma <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="karma.html"          data-sn="karma.html"><span class="sdi-tag">Essay</span><span class="sdi-text"><span class="sdi-title">Karma</span><span class="sdi-sub">Visual essay · All techniques</span></span></a>
+        <div class="sn-drop-div"></div>
+        <a class="sdi" href="karma-full.html"     data-sn="karma-full.html"><span class="sdi-tag">Exam</span><span class="sdi-text"><span class="sdi-title">Karma + Exam Mode</span><span class="sdi-sub">Board-specific overlay</span></span></a>
+        <a class="sdi" href="karma-revision.html" data-sn="karma-revision.html"><span class="sdi-tag">Study</span><span class="sdi-text"><span class="sdi-title">A Level Revision</span><span class="sdi-sub">OCR · AQA · Edexcel · WJEC</span></span></a>
+      </div></div>
+    </div>
+    <a class="sn-link" href="overview.html" data-sn="overview.html">Overview</a>
+  </div>
+  <button class="sn-ham" id="sn-ham" aria-label="Menu" onclick="snHam()"><span></span><span></span><span></span></button>
+</div>
+</nav>
+
+  <!-- TOOLTIP (fixed position, moved by JS) -->
+  <div id="svg-tooltip">
+    <div class="tt-name" id="tt-name"></div>
+    <div class="tt-dates" id="tt-dates"></div>
+    <div class="tt-school" id="tt-school"></div>
+  </div>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <h1>How the Six Schools Came to Be</h1>
+    <p>An interactive timeline tracing the historical development of the six Hindu philosophical traditions — from the Upaniṣadic soil to the great medieval syntheses.</p>
+    <span class="time-range">650 BCE – 1400 CE · approx. 2,050 years</span>
+  </section>
+
+  <!-- ERA NAVIGATION -->
+  <div class="era-nav-wrap">
+    <div class="era-nav">
+      <span class="era-nav-label">Era:</span>
+      <button class="era-btn" data-era="0">The Foundation</button>
+      <button class="era-btn" data-era="1">Challenge &amp; Response</button>
+      <button class="era-btn" data-era="2">Great Systematisers</button>
+      <button class="era-btn" data-era="3">Logic &amp; Debate</button>
+      <button class="era-btn" data-era="4">Synthesis &amp; Legacy</button>
+      <button class="era-btn reset-btn" data-era="all">Show all eras</button>
+    </div>
+  </div>
+
+  <!-- NARRATIVE PANEL -->
+  <div class="narrative-panel">
+    <div class="narrative-inner">
+      <div class="narrative-content" id="narrative-content">
+        <div class="era-period">All Eras · 650 BCE – 1400 CE</div>
+        <div class="era-title">The Historical Development of the Six Darśanas</div>
+        <p>Select an era above to focus the timeline and read its narrative. Click any dot on the timeline to learn about a key figure. Toggle "Show connections" to see how the schools influenced and reacted to one another.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls-bar">
+    <button class="toggle-btn" id="rel-toggle">
+      <span class="toggle-indicator"></span>
+      Show connections
+    </button>
+    <span class="controls-hint">Click any dot on the timeline for a detailed biography</span>
+  </div>
+
+  <!-- SVG TIMELINE -->
+  <div class="svg-scroll-wrap">
+    <div class="svg-inner">
+      <svg id="timeline-svg" viewBox="0 0 1700 540" xmlns="http://www.w3.org/2000/svg"
+           aria-label="Interactive timeline of the six Hindu philosophical schools">
+        <defs id="svg-defs"></defs>
+        <!-- built entirely by buildTimeline() -->
+      </svg>
+    </div>
+  </div>
+
+  <!-- DETAIL CARD -->
+  <div class="detail-card-wrap">
+    <div id="detail-card">
+      <button class="card-close" id="card-close">✕ close</button>
+      <div class="card-header">
+        <div>
+          <div class="card-name" id="card-name"></div>
+          <div class="card-dates" id="card-dates"></div>
+        </div>
+        <div class="card-school-chip" id="card-school-chip"></div>
+      </div>
+      <div class="card-role" id="card-role"></div>
+      <div class="card-body" id="card-body"></div>
+      <div class="card-meta">
+        <div class="card-meta-item" id="card-meta-responded-wrap">
+          <div class="card-meta-label">Responded to</div>
+          <div class="card-meta-text" id="card-meta-responded"></div>
+        </div>
+        <div class="card-meta-item" id="card-meta-influenced-wrap">
+          <div class="card-meta-label">Key contribution</div>
+          <div class="card-meta-text" id="card-meta-influenced"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend-wrap">
+    <div class="legend">
+      <span class="legend-label">Schools:</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#5C28B0"></span>Sāṃkhya</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#B85C08"></span>Yoga</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#A82020"></span>Mīmāṃsā</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#1A58B0"></span>Nyāya</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#157A42"></span>Vaiśeṣika</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#7A6000"></span>Vedānta</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#666"></span>Buddhism (external)</span>
+      <span class="legend-item" style="margin-left:1rem">
+        <svg width="28" height="10" viewBox="0 0 28 10"><line x1="0" y1="5" x2="28" y2="5" stroke="#555" stroke-width="1.5" stroke-dasharray="4,3"/></svg>
+        Reacted against
+      </span>
+      <span class="legend-item">
+        <svg width="28" height="10" viewBox="0 0 28 10"><line x1="0" y1="5" x2="28" y2="5" stroke="#555" stroke-width="1.5"/></svg>
+        Influenced / adopted
+      </span>
+      <span class="legend-item">
+        <svg width="28" height="10" viewBox="0 0 28 10"><line x1="0" y1="5" x2="28" y2="5" stroke="#555" stroke-width="2" stroke-dasharray="2,2"/></svg>
+        Synthesis
+      </span>
+    </div>
+  </div>
+
+  <!-- FOOTER CTA -->
+  <footer class="footer-cta">
+    <p>Now that you understand how the schools developed, explore their core teachings in depth.</p>
+    <a href="darshanas.html" class="footer-cta-link">Explore the Six Darśanas</a>
+    <div class="footer-note">Oxford Centre for Hindu Studies · A-Level Hinduism Resource</div>
+  </footer>
+
+  <script>
+  /* ═══════════════════════════════════════════════════════════════
+     DATA
+  ═══════════════════════════════════════════════════════════════ */
+
+  const ERAS = [
+    {
+      id: 0,
+      name: "The Foundation",
+      period: "1500 – 500 BCE",
+      startYear: -1500, endYear: -500,
+      color: "#C8A87A",
+      narrative: "Vedic texts are composed; the Upaniṣads probe the nature of Brahman (ultimate reality) and Ātman (the self). Sāṃkhya's legendary founder Kapila is associated with this period. This is the philosophical soil — the vast inherited vocabulary of ṛta, karma, ātman, and brahman — from which all six schools will eventually grow."
+    },
+    {
+      id: 1,
+      name: "Challenge & Response",
+      period: "600 – 100 BCE",
+      startYear: -600, endYear: -100,
+      color: "#B0C8A0",
+      narrative: "Buddhism (~500 BCE) and Jainism challenge Vedic authority with the doctrines of anātman (no-self) and ahiṃsā. Mīmāṃsā and Vaiśeṣika begin to take shape as defences of Vedic truth. This is the age when heterodox challenges force the āstika schools to clarify and sharpen their arguments — and to begin composing their foundational sūtra texts."
+    },
+    {
+      id: 2,
+      name: "The Great Systematisers",
+      period: "100 BCE – 400 CE",
+      startYear: -100, endYear: 400,
+      color: "#A8B8D0",
+      narrative: "The founding sūtra texts are composed in rapid succession: Mīmāṃsā Sūtra (Jaimini), Vaiśeṣika Sūtra (Kaṇāda), Yoga Sūtra (Patañjali), Nyāya Sūtra (Gautama Akṣapāda), Brahma Sūtra (Bādarāyaṇa). These dense, aphoristic texts define the terms, problems, and methods of each school. The darśanas become formal, transmissible traditions."
+    },
+    {
+      id: 3,
+      name: "Logic, Debate & Commentary",
+      period: "400 – 800 CE",
+      startYear: 400, endYear: 800,
+      color: "#D0C0A0",
+      narrative: "Sāṃkhya Kārikā (Īśvarakṛṣṇa) crystallises Sāṃkhya. Buddhist logic reaches its apex with Dignāga and Dharmakīrti, posing the most technically demanding challenge to Nyāya and Mīmāṃsā. Uddyotakara defends Nyāya. Kumārila Bhaṭṭa marshals Mīmāṃsā against Buddhist epistemology. Gauḍapāda composes the first systematic Advaita text. This is the age of vigorous inter-school debate."
+    },
+    {
+      id: 4,
+      name: "Synthesis & Legacy",
+      period: "800 – 1400 CE",
+      startYear: 800, endYear: 1400,
+      color: "#C8A0A0",
+      narrative: "Adi Śaṅkara's Advaita Vedānta (~800 CE) becomes the dominant synthesis, reading all of Vedic scripture through the lens of Brahman-as-sole-reality. Rāmānuja's Viśiṣṭādvaita (~1100 CE) and Madhva's Dvaita (~1270 CE) offer rival Vedānta readings. Gaṅgeśa founds Navya-Nyāya (~1320 CE), transforming Indian logic. The darśanas achieve their classical, authoritative form."
+    }
+  ];
+
+  const SCHOOLS = [
+    { id: "samkhya",    name: "Sāṃkhya",              abbr: "Sā",  laneY: 155, color: "#5C28B0", foundYear: -600 },
+    { id: "yoga",       name: "Yoga",                  abbr: "Yo",  laneY: 210, color: "#B85C08", foundYear: -300 },
+    { id: "mimamsa",    name: "Mīmāṃsā",               abbr: "Mī",  laneY: 265, color: "#A82020", foundYear: -600 },
+    { id: "nyaya",      name: "Nyāya",                 abbr: "Ny",  laneY: 320, color: "#1A58B0", foundYear: -300 },
+    { id: "vaisheshika",name: "Vaiśeṣika",             abbr: "Va",  laneY: 375, color: "#157A42", foundYear: -300 },
+    { id: "vedanta",    name: "Vedānta",               abbr: "Ve",  laneY: 430, color: "#7A6000", foundYear: -200 },
+    { id: "buddhism",   name: "Buddhism — external challenge", abbr: "Bu", laneY: 490, color: "#666666", foundYear: -500, dashed: true }
+  ];
+
+  const FIGURES = [
+    /* SĀṂKHYA */
+    {
+      id: "kapila", school: "samkhya", name: "Kapila", year: -600,
+      role: "Legendary founder of Sāṃkhya",
+      contribution: "Credited with originating the core Sāṃkhya insight: suffering arises from confusing Puruṣa (pure consciousness) with Prakṛti (matter). No surviving text bears his name, but the tradition traces itself directly to him. His teaching implies a universe that runs without any creator-God — a radical departure from Vedic theism.",
+      respondedTo: "Upaniṣadic monism — he proposed dualism instead, separating pure consciousness from matter as irreducibly distinct principles.",
+      influenced: "Founded the most ancient of the six schools; Yoga, Vedānta, and virtually every subsequent system engages with Sāṃkhya metaphysics."
+    },
+    {
+      id: "ishvarakrishna", school: "samkhya", name: "Īśvarakṛṣṇa", year: 350,
+      role: "Author of the Sāṃkhya Kārikā",
+      contribution: "Composed the definitive 72-verse Sāṃkhya Kārikā, systematising the 25 tattvas (categories of reality), the theory of the three guṇas (sattva, rajas, tamas), and the process by which Prakṛti evolves the manifest world. The school's atheism is explicit: liberation is Puruṣa's recognition that it was never actually entangled with Prakṛti.",
+      respondedTo: "Buddhism's no-self (anātman) doctrine — he defended the reality of a plurality of distinct, eternal selves (Puruṣas).",
+      influenced: "The Sāṃkhya Kārikā became the canonical text of the school; studied across all traditions including Yoga and Vedānta."
+    },
+    {
+      id: "vacaspati", school: "samkhya", name: "Vācaspati Miśra", year: 840,
+      role: "Polymath commentator across all darśanas",
+      contribution: "Wrote authoritative commentaries on nearly every darśana — Sāṃkhya, Yoga, Nyāya, and Vedānta — in a single career. His Sāṃkhya Tattva Kaumudī remains a standard study text. His ability to inhabit and expound multiple, often contradictory, philosophical frameworks simultaneously is unmatched in the tradition.",
+      respondedTo: "Each school's internal debates — he clarified and refined, rather than founding a new position.",
+      influenced: "His cross-school expertise helped codify each darśana's 'classical' form and is indispensable for understanding how these schools related to one another."
+    },
+    /* YOGA */
+    {
+      id: "patanjali", school: "yoga", name: "Patañjali", year: 100,
+      role: "Author of the Yoga Sūtra",
+      contribution: "Compiled (or composed) the 196 sūtras that define classical Yoga. Accepts Sāṃkhya's 25 tattvas but crucially adds Īśvara — a special Puruṣa untouched by afflictions — as an object of meditation. The eight-limbed path (aṣṭāṅga-yoga) gives liberation through disciplined practice, not merely philosophical analysis. The Yoga Sūtra's influence extends into Buddhism, Tantra, and modern global yoga.",
+      respondedTo: "Sāṃkhya's purely theoretical framework — he added theism (Īśvara) and an embodied, systematic practice path.",
+      influenced: "All subsequent yoga traditions; Vyāsa's commentary made the text foundational for all of Indian philosophy."
+    },
+    {
+      id: "vyasa", school: "yoga", name: "Vyāsa", year: 400,
+      role: "First commentator on the Yoga Sūtra",
+      contribution: "His Yoga Bhāṣya is treated as almost inseparable from the sūtras themselves, so foundational is his interpretation. Connects Yoga's psychology of mental modifications (vṛttis) to the liberation goal, and elaborates the Sāṃkhya-derived cosmological framework. Subsequent commentators comment on Vyāsa as much as on Patañjali.",
+      respondedTo: "The cryptic brevity of Patañjali's sūtras, which required systematic unpacking to be intelligible.",
+      influenced: "Defined the 'standard' Yoga philosophical framework; all later Yoga commentators work within or against his framework."
+    },
+    /* MĪMĀṂSĀ */
+    {
+      id: "jaimini", school: "mimamsa", name: "Jaimini", year: -200,
+      role: "Author of the Mīmāṃsā Sūtra",
+      contribution: "Composed the enormous Mīmāṃsā Sūtra (~2,700 sūtras) to establish a rigorous hermeneutics of Vedic injunction. Core claim: the Vedas are eternal, unauthored (apauruṣeya), and self-validating. Dharma is what the Veda commands. Ritual action, correctly performed, automatically produces its unseen potency (apūrva) — no God is required as intermediary.",
+      respondedTo: "Buddhist rejection of Vedic authority (apaśabda doctrine) — Mīmāṃsā is partly a philosophical defence of Vedic validity.",
+      influenced: "All subsequent Mīmāṃsā thinkers; the theory of apauruṣeya Veda became a cornerstone of Hindu orthodoxy."
+    },
+    {
+      id: "kumarila", school: "mimamsa", name: "Kumārila Bhaṭṭa", year: 700,
+      role: "The Defender of the Veda",
+      contribution: "One of the most formidable polemicists in Indian philosophy. His Ślokavārttika launched a systematic refutation of Buddhist epistemology and philosophy of language. Legend says he debated Adi Śaṅkara and acknowledged defeat on the Vedānta argument — dying on a pyre of burning husks as penance for having studied Buddhist texts incognito. Historically, his defence of Vedic śabda (testimony) as a pramāṇa is foundational.",
+      respondedTo: "The Buddhist logic of Dignāga and Dharmakīrti, which had undermined the Vedic pramāṇa of śabda (testimony).",
+      influenced: "Maṇḍana Miśra, later Mīmāṃsā thinkers; his polemics forced Buddhist logicians to sharpen their own positions."
+    },
+    {
+      id: "mandana", school: "mimamsa", name: "Maṇḍana Miśra", year: 780,
+      role: "Bridge figure: Mīmāṃsā to Vedānta",
+      contribution: "A brilliant Mīmāṃsā philosopher whom legend identifies as Śaṅkara's great debate opponent — and eventual disciple (under the name Sureśvara). His Brahmasiddhi is the most sophisticated pre-Śaṅkara Advaita text, demonstrating how Mīmāṃsā's concern with Vedic ritual and Vedānta's concern with liberating knowledge could be reconciled.",
+      respondedTo: "The perceived tension between ritual duty (karma-kāṇḍa) and knowledge as the path to liberation (jñāna-kāṇḍa).",
+      influenced: "Adi Śaṅkara's synthesis — the legendary debate between them is a founding narrative of Advaita Vedānta."
+    },
+    /* NYĀYA */
+    {
+      id: "gautama", school: "nyaya", name: "Gautama Akṣapāda", year: 150,
+      role: "Author of the Nyāya Sūtra",
+      contribution: "Composed the Nyāya Sūtra, establishing the school's four valid means of knowledge (pramāṇas): perception, inference, comparison, and testimony. The five-membered syllogism — arguably Indian philosophy's most developed formal inferential structure — appears here. The text also addresses liberation as the removal of false knowledge through correct philosophical reasoning.",
+      respondedTo: "The lack of a systematic Indian epistemology — earlier traditions assumed Vedic authority without arguing for it philosophically.",
+      influenced: "All subsequent epistemology in Indian philosophy; the Nyāya pramāṇa theory became the standard framework for debate."
+    },
+    {
+      id: "vatsyayana", school: "nyaya", name: "Vātsyāyana", year: 400,
+      role: "First commentator on the Nyāya Sūtra",
+      contribution: "His Nyāya Bhāṣya is the first and most influential commentary on the sūtras, establishing the standard reading. Clarifies the theory of pramāṇas and addresses early Buddhist objections. Later Nyāya thinkers engage primarily with Vātsyāyana's formulations rather than the bare sūtras themselves.",
+      respondedTo: "Early Buddhist critiques of the Nyāya categories and pramāṇa theory.",
+      influenced: "Defined the 'classical' Nyāya framework that Uddyotakara and Udayana would defend."
+    },
+    {
+      id: "uddyotakara", school: "nyaya", name: "Uddyotakara", year: 600,
+      role: "Answered the Buddhist challenge to Nyāya",
+      contribution: "His Nyāya Vārttika is a direct response to Dignāga's Buddhist epistemology, which had challenged the Nyāya theory of perception and inference. Uddyotakara defends the reality of universals and the validity of Vedic testimony as a fourth pramāṇa — against Buddhist nominalism and anti-realism. A key text in the history of Indian logic.",
+      respondedTo: "Dignāga's Buddhist logic, which threatened to reduce valid knowledge to just two sources (perception and inference).",
+      influenced: "Later Nyāya logicians; his responses shaped the terms of debate for centuries."
+    },
+    {
+      id: "udayana", school: "nyaya", name: "Udayana", year: 1000,
+      role: "The great Nyāya theist",
+      contribution: "His Nyāyakusumāñjali is the culminating statement of Nyāya theism — a sustained, rigorous philosophical proof of God's existence through inference. God (Īśvara) is posited as the necessary cause of atomic combination (since atoms alone cannot organise into the complex world) and the authority behind the Vedas. Udayana's arguments against Buddhist philosophy are also strategically decisive.",
+      respondedTo: "Buddhist denial of God's existence and Mīmāṃsā's ritual atheism — both rejected Īśvara as philosophically unnecessary.",
+      influenced: "The standard Nyāya theistic framework; his arguments influenced all subsequent Indian natural theology."
+    },
+    {
+      id: "gangesa", school: "nyaya", name: "Gaṅgeśa", year: 1320,
+      role: "Founder of Navya-Nyāya (New Logic)",
+      contribution: "His Tattva Cintāmaṇi revolutionised Indian logic by developing a highly precise technical language for analysing inference and perceptual cognition. Navya-Nyāya (New Logic) became the dominant philosophical idiom in Bengal and Mithilā for centuries, influencing every subsequent school including Vedānta, Mīmāṃsā, and eventually Jainism.",
+      respondedTo: "The limitations of classical Nyāya's informal inferential terminology when confronted with sophisticated Buddhist and Mīmāṃsā challenges.",
+      influenced: "All subsequent Indian philosophical analysis; Navya-Nyāya's technical vocabulary is still used in traditional Sanskrit scholarship."
+    },
+    /* VAIŚEṢIKA */
+    {
+      id: "kanada", school: "vaisheshika", name: "Kaṇāda", year: -200,
+      role: "Author of the Vaiśeṣika Sūtra",
+      contribution: "Composed the Vaiśeṣika Sūtra, proposing a pluralist ontology built around seven categories (padārthas): substance, quality, action, universal, particular, inherence, and absence. Crucially, he proposed that the physical world is composed of eternal, indivisible atoms (paramāṇus) — one of the earliest atomic theories anywhere. Unlike Buddhist atoms (momentary), Kaṇāda's atoms are eternal.",
+      respondedTo: "Sāṃkhya's monist evolutionary metaphysics — he proposed irreducible atomic plurality instead of a single primal matter evolving.",
+      influenced: "Atomic theory in Indian philosophy; the Vaiśeṣika ontological categories became the standard for realist metaphysics."
+    },
+    {
+      id: "prashastapada", school: "vaisheshika", name: "Praśastapāda", year: 450,
+      role: "The great systematiser of Vaiśeṣika",
+      contribution: "His Padārtha Dharma Saṃgraha is treated as nearly more authoritative than the original sūtras. He refined the atomic theory, clarified the relationship between universals and particulars, and began harmonising Vaiśeṣika metaphysics with Nyāya epistemology — pointing toward the eventual Nyāya-Vaiśeṣika synthesis that would dominate Indian realist philosophy.",
+      respondedTo: "The need to systematise and clarify Kaṇāda's terse sūtras into a coherent, teachable philosophical system.",
+      influenced: "The Nyāya-Vaiśeṣika synthesis; his refinements of atomic theory were the standard target for both Buddhist and Vedānta critiques."
+    },
+    /* VEDĀNTA */
+    {
+      id: "badarayana", school: "vedanta", name: "Bādarāyaṇa", year: 0,
+      role: "Author of the Brahma Sūtra",
+      contribution: "Compiled the Brahma Sūtra (~555 terse aphorisms) as a systematic interpretation of the Upaniṣads. The text is so condensed as to be nearly unreadable without commentary — meaning its meaning is effectively determined by the great commentators (Śaṅkara, Rāmānuja, Madhva) who interpret it to support radically different philosophical conclusions. It forms one leg of the prasthānatrayī (triple canon) alongside the Upaniṣads and Bhagavad Gītā.",
+      respondedTo: "The apparent contradictions between different Upaniṣadic texts on the nature of Brahman and the self.",
+      influenced: "All of Vedānta — every Vedānta school is constituted by its commentarial interpretation of the Brahma Sūtra."
+    },
+    {
+      id: "gaudapada", school: "vedanta", name: "Gauḍapāda", year: 700,
+      role: "Pre-Śaṅkara Advaita",
+      contribution: "His commentary on the Māṇḍūkya Upaniṣad (the Māṇḍūkya Kārikā) is the first systematic exposition of Advaita Vedānta — the doctrine that Brahman alone is real and the phenomenal world is māyā (appearance). Gauḍapāda was Śaṅkara's teacher's teacher. His striking use of Buddhist Mādhyamaka logical arguments to argue for Brahman was celebrated and later criticised.",
+      respondedTo: "Buddhist śūnyatā (emptiness) philosophy — he engaged with it dialectically, using its logic to argue for Brahman rather than Śūnya.",
+      influenced: "Adi Śaṅkara directly — the Māṇḍūkya Kārikā is the proximate source of classical Advaita philosophy."
+    },
+    {
+      id: "shankara", school: "vedanta", name: "Adi Śaṅkara", year: 800,
+      role: "Advaita Vedānta — the great synthesiser",
+      contribution: "India's most celebrated philosophical synthesiser. In a life traditionally dated to just 32 years (~788–820 CE), Śaṅkara wrote major commentaries on the ten principal Upaniṣads, the Bhagavad Gītā, and the Brahma Sūtra. Core claim: Brahman alone is ultimately real; apparent multiplicity of selves and world is due to māyā (cosmic illusion) and avidyā (individual ignorance). Liberation is the recognition that ātman = Brahman. Established Advaita Vedānta as the dominant school of Indian philosophy.",
+      respondedTo: "Mīmāṃsā (ritual vs. knowledge as liberation path), Buddhist Mādhyamaka (absorbed some arguments while vigorously refuting the school), Nyāya-Vaiśeṣika (critiqued atomism and theistic inference).",
+      influenced: "All subsequent Indian philosophy — every major tradition defines itself partly in relation to Śaṅkara's Advaita."
+    },
+    {
+      id: "ramanuja", school: "vedanta", name: "Rāmānuja", year: 1077,
+      role: "Viśiṣṭādvaita — qualified non-dualism",
+      contribution: "Rāmānuja challenged Śaṅkara's radical non-dualism from within the Vedānta tradition. In his Śrī Bhāṣya (commentary on the Brahma Sūtra), he argued that Brahman has real attributes — individual selves and the world constitute Brahman's 'body'. Liberation is loving union with God (Viṣṇu-Nārāyaṇa), not dissolution of personal identity. His Viśiṣṭādvaita became the philosophical foundation for the Śrī Vaiṣṇava devotional tradition.",
+      respondedTo: "Śaṅkara's māyā doctrine — Rāmānuja argued that a Brahman which depends on māyā for its appearance as world cannot be truly absolute.",
+      influenced: "The entire Vaiṣṇava Vedānta tradition; his devotional theism remains deeply influential in South Indian Hinduism."
+    },
+    {
+      id: "madhva", school: "vedanta", name: "Madhva", year: 1270,
+      role: "Dvaita Vedānta — strict dualism",
+      contribution: "Madhva proposed the most thoroughgoing dualism in Vedānta: God (Viṣṇu) and individual selves (jīvas) are eternally, irreducibly distinct. The world is real. Liberation is eternal loving dependence on God — not identity with Brahman. His Dvaita tradition (centred in Udupi, Karnataka) remains a major living school. Madhva controversially claimed to be an avatāra of Vāyu.",
+      respondedTo: "Both Śaṅkara's Advaita (identity of ātman and Brahman) and Rāmānuja's Viśiṣṭādvaita (world as Brahman's body) — insisting on absolute ontological difference.",
+      influenced: "The Mādhva (Dvaita) tradition; his radical dualism made subsequent Vedānta debates three-way conversations."
+    },
+    /* BUDDHISM */
+    {
+      id: "buddha", school: "buddhism", name: "The Buddha (Siddhārtha Gautama)", year: -500,
+      role: "The catalyst for Hindu philosophical development",
+      contribution: "The Buddha's teaching (~5th century BCE) was the most significant philosophical challenge to Vedic orthodoxy. The anātman (no-self) doctrine directly contradicted the Upaniṣadic ātman. Dependent origination (pratītyasamutpāda) replaced Vedic cosmology. Rejection of Vedic authority forced the āstika schools to systematise and sharpen their arguments for the next millennium. Every darśana is shaped — partly — in response to Buddhism.",
+      respondedTo: "The Vedic tradition — the Buddha rejected caste hierarchy, Vedic ritual authority, and the concept of a permanent self.",
+      influenced: "Indirectly, every āstika school — by forcing them to articulate what is distinctively Vedic and why it is philosophically defensible."
+    },
+    {
+      id: "nagarjuna", school: "buddhism", name: "Nāgārjuna", year: 200,
+      role: "Founder of Mādhyamaka Buddhist philosophy",
+      contribution: "Nāgārjuna's Mūlamadhyamakakārikā (~200 CE) refined Buddhist philosophy into a rigorous logical system, arguing that all phenomena lack intrinsic nature (svabhāva) — the doctrine of śūnyatā (emptiness). His arguments influenced and provoked Nyāya, Mīmāṃsā, and eventually Śaṅkara's Advaita, which absorbed some Mādhyamaka logical moves while claiming to transcend them.",
+      respondedTo: "Earlier Buddhist Abhidharma philosophy's tendency to posit real dharmas (fundamental elements) — he argued even these are empty.",
+      influenced: "Gauḍapāda's and Śaṅkara's Advaita Vedānta — the Mādhyamaka logical apparatus was redeployed to argue for Brahman."
+    },
+    {
+      id: "dignaga", school: "buddhism", name: "Dignāga", year: 480,
+      role: "Founder of Buddhist epistemology",
+      contribution: "Dignāga's Pramāṇasamuccaya (~480 CE) revolutionised Buddhist epistemology and posed the most sophisticated logical challenge to Nyāya and Mīmāṃsā. He reduced valid knowledge to just two pramāṇas (perception and inference), eliminating Nyāya's comparison and testimony as independent sources. Uddyotakara's Nyāya Vārttika is primarily a sustained response to Dignāga's challenge.",
+      respondedTo: "The Nyāya school's four-pramāṇa theory and Mīmāṃsā's claim that Vedic testimony is a self-validating source of knowledge.",
+      influenced: "Dharmakīrti (his greatest student), Uddyotakara (his greatest opponent), and all subsequent Indian epistemology."
+    },
+    {
+      id: "dharmakirti", school: "buddhism", name: "Dharmakīrti", year: 600,
+      role: "Peak of Buddhist logical sophistication",
+      contribution: "Dharmakīrti's Pramāṇavārttika (~600 CE) is possibly the most technically sophisticated work in all of classical Indian philosophy. His two-pramāṇa epistemology, his apoha theory of universals (meaning arises from exclusion, not positive essence), and his logic of inference defined the terms of debate for all subsequent Indian philosophy — including Nyāya, Mīmāṃsā, Vedānta, and Jain epistemology.",
+      respondedTo: "Dignāga's framework, which he refined and vastly extended; and the Nyāya-Mīmāṃsā challenges.",
+      influenced: "Every subsequent school — the apoha theory of meaning became unavoidable for any Hindu or Jain thinker working on language and universals."
+    }
+  ];
+
+  const RELATIONS = [
+    {
+      from: "samkhya", to: "yoga",
+      label: "Yoga adopts Sāṃkhya's 25 tattvas and guṇa theory, then adds Īśvara and an eightfold practice path",
+      type: "influenced"
+    },
+    {
+      from: "buddhism", to: "mimamsa",
+      label: "Mīmāṃsā defends Vedic authority directly against Buddhist rejection of śruti as unauthoritative",
+      type: "reacted"
+    },
+    {
+      from: "buddhism", to: "nyaya",
+      label: "Nyāya develops systematic epistemology partly to answer Buddhist logic (especially Dignāga and Dharmakīrti)",
+      type: "reacted"
+    },
+    {
+      from: "nyaya", to: "vaisheshika",
+      label: "Nyāya and Vaiśeṣika are complementary: Vaiśeṣika provides metaphysics, Nyāya provides epistemology — they eventually merge into one school",
+      type: "synthesis"
+    },
+    {
+      from: "mimamsa", to: "vedanta",
+      label: "Both interpret the Vedas: Mīmāṃsā prioritises ritual injunctions (karma-kāṇḍa), Vedānta prioritises knowledge passages (jñāna-kāṇḍa)",
+      type: "reacted"
+    },
+    {
+      from: "buddhism", to: "vedanta",
+      label: "Śaṅkara engages deeply with Buddhist Mādhyamaka, absorbing some arguments while insisting on Brahman as the real",
+      type: "reacted"
+    },
+    {
+      from: "nyaya", to: "vedanta",
+      label: "Śaṅkara critiques Nyāya-Vaiśeṣika atomism and theistic inference as failing to reach the non-dual Brahman",
+      type: "reacted"
+    }
+  ];
+
+  /* ═══════════════════════════════════════════════════════════════
+     HELPERS
+  ═══════════════════════════════════════════════════════════════ */
+
+  const SVG_W = 1700, SVG_H = 540;
+  const X_START = 140, X_END = 1660, YEAR_START = -650, YEAR_END = 1400;
+  const X_RANGE = X_END - X_START, YEAR_RANGE = YEAR_END - YEAR_START;
+
+  function yearToX(y) {
+    return X_START + (y - YEAR_START) * (X_RANGE / YEAR_RANGE);
+  }
+
+  function fmtYear(y) {
+    if (y < 0) return Math.abs(y) + " BCE";
+    if (y === 0) return "~1 CE";
+    return y + " CE";
+  }
+
+  const NS = "http://www.w3.org/2000/svg";
+  function svgEl(tag, attrs, parent) {
+    const el = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs || {})) el.setAttribute(k, v);
+    if (parent) parent.appendChild(el);
+    return el;
+  }
+  function svgText(txt, attrs, parent) {
+    const el = svgEl("text", attrs, parent);
+    el.textContent = txt;
+    return el;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     BUILD TIMELINE
+  ═══════════════════════════════════════════════════════════════ */
+
+  function buildTimeline() {
+    const svg = document.getElementById("timeline-svg");
+    const defs = document.getElementById("svg-defs");
+
+    /* arrowhead markers */
+    const markerAttrs = (id, color) => {
+      const m = svgEl("marker", { id, markerWidth:"8", markerHeight:"6",
+        refX:"7", refY:"3", orient:"auto" }, defs);
+      svgEl("polygon", { points:"0 0, 8 3, 0 6", fill: color, opacity:"0.7" }, m);
+    };
+    markerAttrs("arrow-influenced", "#1A3A6A");
+    markerAttrs("arrow-reacted", "#A82020");
+    markerAttrs("arrow-synthesis", "#1A58B0");
+
+    /* ── 1. ERA SHADING ─── */
+    const eraGroup = svgEl("g", { id:"era-shading" }, svg);
+    ERAS.forEach(era => {
+      const x1 = yearToX(Math.max(era.startYear, YEAR_START));
+      const x2 = yearToX(Math.min(era.endYear, YEAR_END));
+      svgEl("rect", {
+        x: x1, y: 80, width: Math.max(0, x2-x1), height: 430,
+        fill: era.color, opacity: "0.10",
+        "data-era": era.id,
+        class: "era-shade"
+      }, eraGroup);
+    });
+
+    /* ── 2. SCHOOL BANDS ─── */
+    const bandGroup = svgEl("g", { id:"school-bands" }, svg);
+    SCHOOLS.forEach(school => {
+      const bx = yearToX(school.foundYear);
+      const bw = yearToX(YEAR_END) - bx;
+      const rect = svgEl("rect", {
+        x: bx, y: school.laneY - 11,
+        width: bw, height: 22,
+        fill: school.color, opacity: "0.18",
+        rx: "4",
+        class: "school-band",
+        "data-school": school.id,
+        ...(school.dashed ? { "stroke-dasharray":"6,4", stroke: school.color, "stroke-width":"1.2", fill:"none", opacity:"1" } : {})
+      }, bandGroup);
+      if (school.dashed) {
+        svgEl("rect", {
+          x: bx, y: school.laneY - 11,
+          width: bw, height: 22,
+          fill: school.color, opacity: "0.06",
+          rx: "4"
+        }, bandGroup);
+      }
+
+      /* band hover — increase opacity */
+      rect.addEventListener("mouseenter", () => {
+        document.querySelectorAll(".school-band").forEach(b => {
+          if (b.getAttribute("data-school") === school.id) b.setAttribute("opacity","0.35");
+          else b.setAttribute("opacity","0.08");
+        });
+      });
+      rect.addEventListener("mouseleave", () => {
+        document.querySelectorAll(".school-band").forEach(b => b.setAttribute("opacity","0.18"));
+      });
+    });
+
+    /* ── 3. SCHOOL LABELS (left side) ─── */
+    const labelGroup = svgEl("g", { id:"school-labels" }, svg);
+    SCHOOLS.forEach(school => {
+      const fullLabel = school.name.length > 20 ? school.abbr : school.name;
+      svgText(fullLabel, {
+        x: X_START - 12, y: school.laneY + 5,
+        "text-anchor":"end",
+        "font-family":"Inter, sans-serif",
+        "font-size":"11",
+        "font-weight":"600",
+        fill: school.color,
+        "letter-spacing":"0.01em"
+      }, labelGroup);
+    });
+
+    /* ── 4. X-AXIS ─── */
+    const axisY = 520;
+    const axisGroup = svgEl("g", { id:"x-axis" }, svg);
+    svgEl("line", { x1: X_START, y1: axisY, x2: X_END, y2: axisY,
+      stroke:"#D8D4CC", "stroke-width":"1" }, axisGroup);
+
+    const centuries = [-600,-400,-200,0,200,400,600,800,1000,1200,1400];
+    centuries.forEach(yr => {
+      const cx = yearToX(yr);
+      svgEl("line", { x1:cx, y1: axisY-2, x2:cx, y2: axisY+6,
+        stroke:"#B89F70", "stroke-width":"1" }, axisGroup);
+      const label = yr < 0 ? Math.abs(yr)+" BCE" : yr === 0 ? "1 CE" : yr+" CE";
+      svgText(label, {
+        x: cx, y: axisY + 18,
+        "text-anchor":"middle",
+        "font-family":"Inter, sans-serif",
+        "font-size":"9.5",
+        fill:"#7A7060"
+      }, axisGroup);
+    });
+
+    /* ── 5. RELATIONSHIP ARROWS ─── */
+    const relGroup = svgEl("g", { id:"rel-arrows", class:"hidden" }, svg);
+    RELATIONS.forEach((rel, i) => {
+      const fromSchool = SCHOOLS.find(s => s.id === rel.from);
+      const toSchool   = SCHOOLS.find(s => s.id === rel.to);
+      if (!fromSchool || !toSchool) return;
+
+      /* find a representative year for the midpoint of the arrow */
+      const fromFigs = FIGURES.filter(f => f.school === rel.from);
+      const toFigs   = FIGURES.filter(f => f.school === rel.to);
+      const midYear  = (Math.min(...fromFigs.map(f=>f.year)) + Math.max(...toFigs.map(f=>f.year))) / 2;
+      const clampedY = Math.max(YEAR_START + 200, Math.min(YEAR_END - 100, midYear));
+
+      const x1 = yearToX(clampedY);
+      const y1 = fromSchool.laneY;
+      const y2 = toSchool.laneY;
+      const midY = (y1 + y2) / 2;
+      const cpx = x1 + (Math.abs(y2 - y1) * 0.6);
+
+      let color, dash, markerEnd;
+      if (rel.type === "influenced") {
+        color = "#1A3A6A"; dash = "none"; markerEnd = "url(#arrow-influenced)";
+      } else if (rel.type === "synthesis") {
+        color = "#1A58B0"; dash = "3,3"; markerEnd = "url(#arrow-synthesis)";
+      } else {
+        color = "#A82020"; dash = "6,4"; markerEnd = "url(#arrow-reacted)";
+      }
+
+      const path = svgEl("path", {
+        d: `M ${x1} ${y1} Q ${cpx} ${midY} ${x1} ${y2}`,
+        stroke: color, "stroke-width":"1.5", fill:"none",
+        opacity:"0.6",
+        "stroke-dasharray": dash,
+        "marker-end": markerEnd,
+        class: "rel-arrow",
+        "data-rel": i
+      }, relGroup);
+
+      /* hover tooltip for relation */
+      path.addEventListener("mouseenter", (e) => {
+        showTooltip(e, rel.label, "", "");
+      });
+      path.addEventListener("mousemove", (e) => {
+        positionTooltip(e);
+      });
+      path.addEventListener("mouseleave", hideTooltip);
+    });
+
+    /* ── 6. FIGURE DOTS ─── */
+    const figGroup = svgEl("g", { id:"figure-dots" }, svg);
+    FIGURES.forEach(fig => {
+      const school = SCHOOLS.find(s => s.id === fig.school);
+      if (!school) return;
+      const cx = yearToX(fig.year);
+      const cy = school.laneY;
+
+      const g = svgEl("g", {
+        class:"figure-dot",
+        "data-id": fig.id,
+        "data-school": fig.school,
+        tabindex:"0",
+        role:"button",
+        "aria-label": fig.name + ", " + fmtYear(fig.year)
+      }, figGroup);
+
+      /* outer glow circle */
+      svgEl("circle", {
+        cx, cy, r:"10",
+        fill: school.color, opacity:"0.15"
+      }, g);
+
+      /* main dot */
+      svgEl("circle", {
+        cx, cy, r:"6.5",
+        fill: school.color,
+        stroke:"#FBF8F0",
+        "stroke-width":"1.5"
+      }, g);
+
+      /* label — alternate above/below to reduce clashes */
+      const figIdx = FIGURES.filter(f=>f.school===fig.school).indexOf(fig);
+      const labelAbove = figIdx % 2 === 0;
+      const labelY = labelAbove ? cy - 15 : cy + 22;
+      svgText(fig.name, {
+        x: cx, y: labelY,
+        "text-anchor":"middle",
+        "font-family":"Inter, sans-serif",
+        "font-size":"9",
+        "font-weight":"500",
+        fill: school.color,
+        "paint-order":"stroke",
+        stroke:"#FBF8F0",
+        "stroke-width":"2.5"
+      }, g);
+
+      /* interactions */
+      g.addEventListener("mouseenter", (e) => {
+        showTooltip(e, fig.name, fmtYear(fig.year), school.name.split("—")[0].trim());
+      });
+      g.addEventListener("mousemove", positionTooltip);
+      g.addEventListener("mouseleave", hideTooltip);
+      g.addEventListener("click", () => showDetailCard(fig));
+      g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") showDetailCard(fig); });
+    });
+
+    /* ── 7. ERA LABELS at top of shading ─── */
+    const eraLabelGroup = svgEl("g", { id:"era-labels" }, svg);
+    ERAS.forEach(era => {
+      const x1 = yearToX(Math.max(era.startYear, YEAR_START));
+      const x2 = yearToX(Math.min(era.endYear, YEAR_END));
+      const midX = (x1 + x2) / 2;
+      svgText(era.name, {
+        x: midX, y: 96,
+        "text-anchor":"middle",
+        "font-family":"Inter, sans-serif",
+        "font-size":"9",
+        "font-weight":"700",
+        "letter-spacing":"0.04em",
+        fill:"#7A7060",
+        opacity:"0.7"
+      }, eraLabelGroup);
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     TOOLTIP
+  ═══════════════════════════════════════════════════════════════ */
+  const tooltip = document.getElementById("svg-tooltip");
+  const ttName  = document.getElementById("tt-name");
+  const ttDates = document.getElementById("tt-dates");
+  const ttSchool= document.getElementById("tt-school");
+
+  function showTooltip(e, name, dates, school) {
+    ttName.textContent  = name;
+    ttDates.textContent = dates;
+    ttSchool.textContent = school;
+    tooltip.classList.add("visible");
+    positionTooltip(e);
+  }
+  function positionTooltip(e) {
+    const pad = 14;
+    let x = e.clientX + pad;
+    let y = e.clientY + pad;
+    const tw = tooltip.offsetWidth;
+    const th = tooltip.offsetHeight;
+    if (x + tw > window.innerWidth - 10) x = e.clientX - tw - pad;
+    if (y + th > window.innerHeight - 10) y = e.clientY - th - pad;
+    tooltip.style.left = x + "px";
+    tooltip.style.top  = y + "px";
+  }
+  function hideTooltip() {
+    tooltip.classList.remove("visible");
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     DETAIL CARD
+  ═══════════════════════════════════════════════════════════════ */
+  const detailCard = document.getElementById("detail-card");
+
+  function showDetailCard(fig) {
+    const school = SCHOOLS.find(s => s.id === fig.school);
+    document.getElementById("card-name").textContent   = fig.name;
+    document.getElementById("card-dates").textContent  = fmtYear(fig.year);
+    document.getElementById("card-role").textContent   = fig.role;
+    document.getElementById("card-body").textContent   = fig.contribution;
+
+    const chip = document.getElementById("card-school-chip");
+    chip.textContent    = school.name.split("—")[0].trim();
+    chip.style.background = school.color;
+
+    const responded = document.getElementById("card-meta-responded");
+    const respondedWrap = document.getElementById("card-meta-responded-wrap");
+    if (fig.respondedTo) {
+      responded.textContent = fig.respondedTo;
+      respondedWrap.style.display = "";
+    } else {
+      respondedWrap.style.display = "none";
+    }
+    document.getElementById("card-meta-influenced").textContent = fig.influenced || "—";
+
+    detailCard.classList.add("visible");
+    detailCard.scrollIntoView({ behavior:"smooth", block:"nearest" });
+
+    /* highlight this dot */
+    document.querySelectorAll(".figure-dot").forEach(dot => {
+      dot.classList.toggle("dimmed", dot.getAttribute("data-id") !== fig.id);
+      dot.classList.toggle("highlighted", dot.getAttribute("data-id") === fig.id);
+    });
+  }
+
+  document.getElementById("card-close").addEventListener("click", () => {
+    detailCard.classList.remove("visible");
+    document.querySelectorAll(".figure-dot").forEach(dot => {
+      dot.classList.remove("dimmed","highlighted");
+    });
+  });
+
+  /* ═══════════════════════════════════════════════════════════════
+     RELATIONSHIP TOGGLE
+  ═══════════════════════════════════════════════════════════════ */
+  const relToggle = document.getElementById("rel-toggle");
+  let relVisible = false;
+
+  function getToggleTextNode() {
+    /* Find the text node child that holds the label */
+    for (let i = relToggle.childNodes.length - 1; i >= 0; i--) {
+      const n = relToggle.childNodes[i];
+      if (n.nodeType === 3 && n.textContent.trim()) return n;
+    }
+    return null;
+  }
+
+  relToggle.addEventListener("click", () => {
+    relVisible = !relVisible;
+    const relGroup = document.getElementById("rel-arrows");
+    const tn = getToggleTextNode();
+    if (relVisible) {
+      relGroup.classList.remove("hidden");
+      relToggle.classList.add("on");
+      if (tn) tn.textContent = " Hide connections";
+    } else {
+      relGroup.classList.add("hidden");
+      relToggle.classList.remove("on");
+      if (tn) tn.textContent = " Show connections";
+    }
+  });
+
+  /* ═══════════════════════════════════════════════════════════════
+     ERA NAVIGATION
+  ═══════════════════════════════════════════════════════════════ */
+  let activeEra = "all";
+
+  const narrativeContent = document.getElementById("narrative-content");
+
+  function setEra(eraId) {
+    activeEra = eraId;
+
+    /* update button states */
+    document.querySelectorAll(".era-btn").forEach(btn => {
+      btn.classList.toggle("active",
+        btn.getAttribute("data-era") == eraId && eraId !== "all"
+      );
+    });
+
+    /* update era shading opacity */
+    document.querySelectorAll(".era-shade").forEach(rect => {
+      const id = parseInt(rect.getAttribute("data-era"));
+      if (eraId === "all") {
+        rect.setAttribute("opacity", "0.10");
+      } else {
+        rect.setAttribute("opacity", id == eraId ? "0.22" : "0.04");
+      }
+    });
+
+    /* fade out + update narrative */
+    narrativeContent.classList.add("fade-out");
+    setTimeout(() => {
+      if (eraId === "all") {
+        narrativeContent.innerHTML = `
+          <div class="era-period">All Eras · 650 BCE – 1400 CE</div>
+          <div class="era-title">The Historical Development of the Six Darśanas</div>
+          <p>Select an era above to focus the timeline and read its narrative. Click any dot on the timeline to learn about a key figure. Toggle "Show connections" to see how the schools influenced and reacted to one another.</p>`;
+      } else {
+        const era = ERAS[eraId];
+        narrativeContent.innerHTML = `
+          <div class="era-period">${era.name} · ${era.period}</div>
+          <div class="era-title">${era.name}</div>
+          <p>${era.narrative}</p>`;
+      }
+      narrativeContent.classList.remove("fade-out");
+    }, 200);
+
+    /* dim/highlight figure dots */
+    if (eraId === "all") {
+      document.querySelectorAll(".figure-dot").forEach(dot => {
+        dot.classList.remove("dimmed","highlighted");
+      });
+    } else {
+      const era = ERAS[eraId];
+      document.querySelectorAll(".figure-dot").forEach(dot => {
+        const figId = dot.getAttribute("data-id");
+        const fig = FIGURES.find(f => f.id === figId);
+        if (!fig) return;
+        const inEra = fig.year >= era.startYear && fig.year <= era.endYear;
+        dot.classList.toggle("dimmed", !inEra);
+        dot.classList.toggle("highlighted", inEra);
+      });
+    }
+  }
+
+  document.querySelectorAll(".era-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const era = btn.getAttribute("data-era");
+      setEra(era === "all" ? "all" : parseInt(era));
+    });
+  });
+
+  /* ═══════════════════════════════════════════════════════════════
+     INIT
+  ═══════════════════════════════════════════════════════════════ */
+  buildTimeline();
+
+  /* SVG element CSS for dimmed/highlighted dot states */
+  const dimStyle = document.createElement("style");
+  dimStyle.textContent = `
+    .figure-dot.dimmed { opacity: 0.15; }
+    .figure-dot.highlighted { filter: drop-shadow(0 0 4px currentColor); }
+  `;
+  document.head.appendChild(dimStyle);
+
+  </script>
+<script id="sn-js">
+(function(){var p=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('[data-sn]').forEach(function(e){if(e.getAttribute('data-sn')===p){e.classList.add('sn-active');var g=e.closest('.sn-group');if(g)g.querySelector('.sn-link').classList.add('sn-active');}});})();
+function snHam(){var l=document.getElementById('sn-links'),h=document.getElementById('sn-ham');l.classList.toggle('mob-open');h.classList.toggle('open');}
+document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.sn-group>.sn-link').forEach(function(t){t.addEventListener('click',function(){if(window.innerWidth<=860){t.closest('.sn-group').classList.toggle('mob-open');}});});});
+</script>
+</body>
+</html>

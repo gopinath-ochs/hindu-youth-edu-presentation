@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brand System — Hindu Philosophy Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+
+<style>
+/* ════════════════════════════════════════
+   DESIGN TOKENS
+════════════════════════════════════════ */
+:root {
+  /* Brand anchors — same in both modes */
+  --navy:          #1A3A6A;
+  --navy-deep:     #0F2448;
+  --navy-mid:      #2A5090;
+  --navy-muted:    #4A6A9A;
+  --navy-pale:     #C8D8F0;
+  --copper:        #B87333;
+  --copper-bright: #D4895A;
+  --copper-deep:   #8A5520;
+  --copper-pale:   #F0D8C0;
+
+  /* Type */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+
+  /* Scale */
+  --f-xs:   .68rem;
+  --f-sm:   .82rem;
+  --f-base: 1rem;
+  --f-md:   1.12rem;
+  --f-lg:   1.35rem;
+  --f-xl:   1.8rem;
+  --f-2xl:  2.4rem;
+  --f-3xl:  3.4rem;
+  --f-4xl:  5rem;
+
+  --r-sm:   4px;
+  --r-md:   10px;
+  --r-lg:   16px;
+  --r-xl:   24px;
+  --r-pill: 999px;
+}
+
+/* ════════════════════════════════════════
+   LIGHT MODE — primary experience
+════════════════════════════════════════ */
+[data-mode="light"] {
+  --bg:             #F8F6F2;
+  --bg-2:           #F0EDE6;
+  --bg-card:        #FFFFFF;
+  --bg-card-2:      #F4F2EC;
+  --surface:        #E8E4DC;
+  --border:         #D8D4CC;
+  --border-faint:   #EAE6E0;
+
+  --text-1:         #14100C;
+  --text-2:         #4A4038;
+  --text-3:         #8A8078;
+  --text-inv:       #F8F6F2;
+
+  --accent:         var(--navy);
+  --accent-2:       var(--copper);
+  --accent-hover:   var(--navy-deep);
+  --accent-pale:    var(--navy-pale);
+  --accent-muted:   var(--navy-muted);
+
+  --tag-bg:         rgba(26,58,106,.08);
+  --tag-text:       var(--navy);
+  --tag-bg-2:       rgba(184,115,51,.08);
+  --tag-text-2:     var(--copper-deep);
+
+  --shadow-sm:      0 1px 3px rgba(20,16,12,.06), 0 1px 2px rgba(20,16,12,.04);
+  --shadow-md:      0 4px 16px rgba(20,16,12,.08), 0 2px 6px rgba(20,16,12,.04);
+  --shadow-lg:      0 12px 40px rgba(20,16,12,.10), 0 4px 12px rgba(20,16,12,.06);
+}
+
+/* ════════════════════════════════════════
+   DARK MODE — alternative
+════════════════════════════════════════ */
+[data-mode="dark"] {
+  --bg:             #0C1018;
+  --bg-2:           #101620;
+  --bg-card:        #161E2C;
+  --bg-card-2:      #121828;
+  --surface:        #1E2A3C;
+  --border:         #2A3848;
+  --border-faint:   #1A2434;
+
+  --text-1:         #E8E0D4;
+  --text-2:         #8AAAC8;
+  --text-3:         #4A6080;
+  --text-inv:       #0C1018;
+
+  --accent:         var(--copper);
+  --accent-2:       var(--navy-pale);
+  --accent-hover:   var(--copper-bright);
+  --accent-pale:    rgba(184,115,51,.15);
+  --accent-muted:   var(--copper-deep);
+
+  --tag-bg:         rgba(184,115,51,.12);
+  --tag-text:       var(--copper-bright);
+  --tag-bg-2:       rgba(200,216,240,.08);
+  --tag-text-2:     var(--navy-pale);
+
+  --shadow-sm:      0 1px 3px rgba(0,0,0,.3);
+  --shadow-md:      0 4px 16px rgba(0,0,0,.35);
+  --shadow-lg:      0 12px 40px rgba(0,0,0,.45);
+}
+
+/* ════════════════════════════════════════
+   RESET & BASE
+════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background .3s, color .2s;
+}
+
+/* ════════════════════════════════════════
+   NAV
+════════════════════════════════════════ */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-faint);
+  padding: 0 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 58px;
+  transition: background .3s;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--text-1);
+  letter-spacing: .01em;
+  display: flex; align-items: center; gap: .3rem;
+}
+.nav-logo-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent);
+  display: inline-block; margin-bottom: 2px;
+  transition: background .3s;
+}
+
+.nav-links {
+  display: flex; align-items: center; gap: .2rem;
+}
+.nav-link {
+  font-size: var(--f-sm); font-weight: 500;
+  color: var(--text-3);
+  padding: .4rem .75rem; border-radius: var(--r-sm);
+  cursor: pointer; transition: color .15s, background .15s;
+  white-space: nowrap;
+}
+.nav-link:hover { color: var(--text-1); background: var(--surface); }
+.nav-link.active { color: var(--accent); }
+
+.nav-right { display: flex; align-items: center; gap: .75rem; }
+
+.mode-toggle {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .38rem .9rem;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-2);
+  font-family: var(--font-body);
+  font-size: var(--f-xs); font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .2s;
+  box-shadow: var(--shadow-sm);
+}
+.mode-toggle:hover { color: var(--text-1); border-color: var(--accent); }
+.mode-icon { font-size: .9rem; }
+
+
+/* ════════════════════════════════════════
+   LAYOUT
+════════════════════════════════════════ */
+.container { max-width: 1020px; margin: 0 auto; padding: 0 2.5rem; }
+.section { padding: 4rem 0; }
+.section + .section { border-top: 1px solid var(--border-faint); }
+
+.section-eyebrow {
+  font-size: var(--f-xs); font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--accent);
+  display: flex; align-items: center; gap: .75rem;
+  margin-bottom: 2rem;
+}
+.section-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+
+/* ════════════════════════════════════════
+   HERO
+════════════════════════════════════════ */
+.hero {
+  padding: 5.5rem 2.5rem 5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+[data-mode="light"] .hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(26,58,106,.04) 0%, transparent 65%);
+  pointer-events: none;
+}
+[data-mode="dark"] .hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(184,115,51,.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-size: var(--f-xs); font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1.2rem;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, var(--f-4xl));
+  font-weight: 400; line-height: 1.05;
+  color: var(--text-1);
+  max-width: 700px; margin: 0 auto;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  font-size: var(--f-md); font-weight: 300;
+  color: var(--text-2); line-height: 1.7;
+  max-width: 520px; margin: 1.4rem auto 0;
+}
+
+.hero-actions {
+  display: flex; align-items: center; justify-content: center;
+  gap: .75rem; margin-top: 2.5rem; flex-wrap: wrap;
+}
+
+.hero-rule {
+  width: 1px; height: 60px;
+  background: linear-gradient(to bottom, var(--border-faint), var(--border), var(--border-faint));
+  margin: 2.5rem auto 0;
+}
+
+
+/* ════════════════════════════════════════
+   BUTTONS
+════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-body);
+  font-size: var(--f-sm); font-weight: 600;
+  padding: .65rem 1.4rem;
+  border-radius: var(--r-sm);
+  cursor: pointer; border: none;
+  text-decoration: none;
+  transition: all .18s;
+  letter-spacing: .01em;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--text-inv);
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary:hover { background: var(--accent-hover); box-shadow: var(--shadow-md); }
+.btn-ghost {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-2);
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.btn-link {
+  background: transparent;
+  color: var(--accent); padding-left: 0; padding-right: 0;
+  font-weight: 500;
+}
+.btn-link:hover { color: var(--accent-hover); }
+.btn-link::after { content: ' →'; }
+
+/* Copper variant */
+.btn-copper {
+  background: var(--copper);
+  color: #fff;
+}
+.btn-copper:hover { background: var(--copper-deep); }
+
+
+/* ════════════════════════════════════════
+   TYPOGRAPHY SPECIMENS
+════════════════════════════════════════ */
+.type-row { margin-bottom: 2.8rem; }
+.type-meta {
+  font-size: var(--f-xs); font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--text-3);
+  margin-bottom: .65rem;
+  display: flex; align-items: center; gap: .75rem;
+}
+.type-chip {
+  background: var(--tag-bg); color: var(--tag-text);
+  padding: .15rem .5rem; border-radius: var(--r-sm);
+  font-size: .58rem; letter-spacing: .06em;
+}
+
+.t-hero {
+  font-family: var(--font-display);
+  font-size: var(--f-4xl); font-weight: 400;
+  line-height: 1; color: var(--text-1);
+}
+.t-h1 {
+  font-family: var(--font-display);
+  font-size: var(--f-3xl); font-weight: 400;
+  line-height: 1.08; color: var(--text-1);
+}
+.t-h1 em { font-style: italic; color: var(--accent); }
+.t-h2 {
+  font-family: var(--font-display);
+  font-size: var(--f-2xl); font-weight: 400;
+  line-height: 1.15; color: var(--text-1);
+}
+.t-h3 {
+  font-family: var(--font-display);
+  font-size: var(--f-xl); font-weight: 400;
+  line-height: 1.2; color: var(--text-1);
+}
+.t-sub {
+  font-size: var(--f-lg); font-weight: 300;
+  color: var(--text-2); line-height: 1.55;
+}
+.t-body {
+  font-size: var(--f-base); font-weight: 400;
+  color: var(--text-2); line-height: 1.8;
+  max-width: 620px;
+}
+.t-body strong { color: var(--text-1); font-weight: 600; }
+.t-pullquote {
+  font-family: var(--font-display); font-style: italic;
+  font-size: var(--f-xl); font-weight: 400;
+  color: var(--text-1); line-height: 1.45;
+  border-left: 3px solid var(--accent);
+  padding: .5rem 0 .5rem 1.4rem;
+  max-width: 560px;
+}
+.t-label {
+  font-size: var(--f-xs); font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--accent);
+}
+.t-caption {
+  font-size: var(--f-xs); font-weight: 400;
+  color: var(--text-3); line-height: 1.6;
+}
+
+
+/* ════════════════════════════════════════
+   COLOR PALETTE DISPLAY
+════════════════════════════════════════ */
+.palette-block { margin-bottom: 2rem; }
+.palette-title {
+  font-size: var(--f-xs); font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--text-3);
+  margin-bottom: .9rem;
+}
+.swatches {
+  display: flex; gap: .6rem; flex-wrap: wrap;
+}
+.swatch {
+  display: flex; flex-direction: column; align-items: center; gap: .45rem;
+}
+.swatch-box {
+  width: 72px; height: 72px; border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+}
+.swatch-name { font-size: .58rem; font-weight: 600; letter-spacing: .06em; color: var(--text-3); }
+.swatch-hex  { font-size: .6rem; font-family: monospace; color: var(--text-3); }
+
+
+/* ════════════════════════════════════════
+   TAGS
+════════════════════════════════════════ */
+.tag {
+  display: inline-block;
+  font-size: var(--f-xs); font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: .28rem .7rem;
+  border-radius: var(--r-pill);
+  background: var(--tag-bg); color: var(--tag-text);
+}
+.tag-copper {
+  background: var(--tag-bg-2); color: var(--tag-text-2);
+}
+
+
+/* ════════════════════════════════════════
+   CONTENT CARD MOCK
+════════════════════════════════════════ */
+.article-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  max-width: 740px;
+  margin: 0 auto;
+  transition: background .3s, border-color .3s;
+}
+.article-card-band {
+  height: 4px;
+  background: linear-gradient(90deg, var(--navy) 0%, var(--copper) 100%);
+}
+.article-card-header {
+  padding: 2.4rem 2.8rem 2rem;
+  border-bottom: 1px solid var(--border-faint);
+  background: var(--bg-card-2);
+  transition: background .3s;
+}
+.article-eyebrow {
+  font-size: var(--f-xs); font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .9rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.article-eyebrow::before {
+  content: ''; display: inline-block;
+  width: 16px; height: 2px; background: var(--accent);
+  flex-shrink: 0;
+}
+.article-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 400;
+  line-height: 1.12; color: var(--text-1);
+  margin-bottom: .75rem;
+}
+.article-title em { font-style: italic; color: var(--accent); }
+.article-desc {
+  font-size: var(--f-md); font-weight: 300;
+  color: var(--text-2); line-height: 1.65;
+}
+.article-body { padding: 2rem 2.8rem 2.5rem; }
+.article-body p {
+  font-size: var(--f-base); color: var(--text-2);
+  line-height: 1.8; margin-bottom: 1.25rem;
+}
+.article-body p:last-of-type { margin-bottom: 0; }
+.article-body strong { color: var(--text-1); font-weight: 600; }
+.inline-term { font-family: var(--font-display); font-style: italic; color: var(--text-1); }
+.article-pullquote {
+  font-family: var(--font-display); font-style: italic;
+  font-size: var(--f-lg); font-weight: 400;
+  color: var(--text-1); line-height: 1.45;
+  border-left: 3px solid var(--copper);
+  padding: .6rem 0 .6rem 1.4rem;
+  margin: 1.8rem 0;
+}
+.article-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .75rem;
+  padding: 1.4rem 2.8rem;
+  border-top: 1px solid var(--border-faint);
+  background: var(--bg-card-2);
+  transition: background .3s;
+}
+.article-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.article-meta {
+  font-size: var(--f-xs); color: var(--text-3);
+  font-weight: 500; letter-spacing: .04em;
+}
+
+
+/* ════════════════════════════════════════
+   VOICE SECTION
+════════════════════════════════════════ */
+.voice-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+@media (max-width: 600px) { .voice-grid { grid-template-columns: 1fr; } }
+.voice-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 1.4rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: background .3s;
+}
+.voice-label {
+  font-size: var(--f-xs); font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+  margin-bottom: .75rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.voice-label.yes { color: var(--accent); }
+.voice-label.no  { color: #B04030; }
+.voice-label::before {
+  content: ''; display: inline-block;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: currentColor;
+}
+.voice-card p {
+  font-size: var(--f-sm); color: var(--text-2); line-height: 1.65;
+}
+
+.voice-summary {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 1.6rem 1.8rem;
+  margin-top: 1.5rem;
+  display: flex; align-items: center; gap: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: background .3s;
+  max-width: 580px;
+}
+.voice-summary-label {
+  font-size: var(--f-xs); font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: .4rem;
+  white-space: nowrap;
+}
+.voice-words {
+  font-family: var(--font-display);
+  font-size: var(--f-xl);
+  color: var(--text-1); line-height: 1.25;
+}
+
+
+/* ════════════════════════════════════════
+   COMPONENT: NAV SAMPLE
+════════════════════════════════════════ */
+.sample-nav {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 0 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1rem;
+  transition: background .3s;
+}
+.sample-nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.15rem; color: var(--text-1);
+}
+.sample-nav-links {
+  display: flex; gap: 0;
+}
+.sample-nav-link {
+  font-size: var(--f-xs); font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--text-3);
+  padding: .35rem .7rem; border-radius: var(--r-sm);
+  cursor: pointer; transition: color .15s;
+}
+.sample-nav-link:hover,
+.sample-nav-link.on { color: var(--accent); }
+.sample-nav-cta {
+  font-size: var(--f-xs); font-weight: 700;
+  padding: .4rem .9rem; border-radius: var(--r-sm);
+  background: var(--accent); color: var(--text-inv);
+  letter-spacing: .04em;
+}
+
+
+/* ════════════════════════════════════════
+   COMPONENT: CARD GRID SAMPLE
+════════════════════════════════════════ */
+.mini-card-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: .8rem;
+  margin-top: 1rem;
+}
+@media (max-width: 640px) { .mini-card-grid { grid-template-columns: 1fr; } }
+.mini-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.4rem 1.3rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s, transform .2s, background .3s;
+  cursor: pointer;
+}
+.mini-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.mini-card-num {
+  font-size: var(--f-xs); font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: .5rem;
+}
+.mini-card-title {
+  font-family: var(--font-display);
+  font-size: var(--f-lg); line-height: 1.2;
+  color: var(--text-1); margin-bottom: .5rem;
+}
+.mini-card-desc {
+  font-size: var(--f-sm); color: var(--text-3);
+  line-height: 1.6; margin-bottom: .9rem;
+}
+.mini-card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.mini-card-tag { background: var(--tag-bg); color: var(--tag-text); }
+.mini-card-arrow {
+  font-size: .8rem; color: var(--accent); font-weight: 700;
+  transition: transform .15s;
+}
+.mini-card:hover .mini-card-arrow { transform: translateX(3px); }
+
+/* copper accent card */
+.mini-card.copper-accent .mini-card-num { color: var(--copper); }
+.mini-card.copper-accent .mini-card-tag { background: var(--tag-bg-2); color: var(--tag-text-2); }
+.mini-card.copper-accent .mini-card-arrow { color: var(--copper); }
+
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--border-faint);
+  font-size: var(--f-xs); color: var(--text-3);
+  letter-spacing: .06em;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════
+     TOP NAV
+═══════════════════════════════ -->
+<nav>
+  <div class="nav-logo">
+    Tattva<span class="nav-logo-dot"></span>
+  </div>
+  <div class="nav-links">
+    <span class="nav-link active">The Vedas</span>
+    <span class="nav-link">Darśanas</span>
+    <span class="nav-link">History</span>
+    <span class="nav-link">About</span>
+  </div>
+  <div class="nav-right">
+    <button class="mode-toggle" onclick="toggleMode()" id="modeBtn">
+      <span class="mode-icon" id="modeIcon">🌙</span>
+      <span id="modeLabel">Dark mode</span>
+    </button>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════
+     HERO
+═══════════════════════════════ -->
+<div class="hero">
+  <div class="hero-eyebrow">Hindu Philosophy & History</div>
+  <h1 class="hero-title">
+    Six schools.<br>One <em>reality.</em><br>Where do you begin?
+  </h1>
+  <p class="hero-sub">
+    Rigorous, readable explorations of Hindu philosophy and history — built for anyone who wants to actually understand it.
+  </p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="#">Start with the Vedas</a>
+    <a class="btn btn-ghost" href="#">Browse all topics</a>
+  </div>
+  <div class="hero-rule"></div>
+</div>
+
+
+<!-- ═══════════════════════════════
+     SECTION 1 — COLORS
+═══════════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-eyebrow">01 — Color System</div>
+
+    <div class="palette-block">
+      <div class="palette-title">Brand anchors — present in both modes</div>
+      <div class="swatches">
+        <div class="swatch">
+          <div class="swatch-box" style="background:#1A3A6A"></div>
+          <div class="swatch-name">Ink Navy</div>
+          <div class="swatch-hex">#1A3A6A</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-box" style="background:#0F2448"></div>
+          <div class="swatch-name">Navy Deep</div>
+          <div class="swatch-hex">#0F2448</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-box" style="background:#C8D8F0"></div>
+          <div class="swatch-name">Navy Pale</div>
+          <div class="swatch-hex">#C8D8F0</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-box" style="background:#B87333; border: none"></div>
+          <div class="swatch-name">Copper</div>
+          <div class="swatch-hex">#B87333</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-box" style="background:#D4895A"></div>
+          <div class="swatch-name">Copper Bright</div>
+          <div class="swatch-hex">#D4895A</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-box" style="background:#F0D8C0"></div>
+          <div class="swatch-name">Copper Pale</div>
+          <div class="swatch-hex">#F0D8C0</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;flex-wrap:wrap;">
+
+      <div class="palette-block">
+        <div class="palette-title">Light mode — primary</div>
+        <div class="swatches">
+          <div class="swatch">
+            <div class="swatch-box" style="background:#F8F6F2;border:1px solid #D8D4CC"></div>
+            <div class="swatch-name">BG Ivory</div>
+            <div class="swatch-hex">#F8F6F2</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#FFFFFF;border:1px solid #D8D4CC"></div>
+            <div class="swatch-name">Card White</div>
+            <div class="swatch-hex">#FFFFFF</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#14100C"></div>
+            <div class="swatch-name">Text Primary</div>
+            <div class="swatch-hex">#14100C</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#4A4038"></div>
+            <div class="swatch-name">Text Secondary</div>
+            <div class="swatch-hex">#4A4038</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="palette-block">
+        <div class="palette-title">Dark mode — alternative</div>
+        <div class="swatches">
+          <div class="swatch">
+            <div class="swatch-box" style="background:#0C1018;border:1px solid #2A3848"></div>
+            <div class="swatch-name">BG Slate</div>
+            <div class="swatch-hex">#0C1018</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#161E2C;border:1px solid #2A3848"></div>
+            <div class="swatch-name">Card Slate</div>
+            <div class="swatch-hex">#161E2C</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#E8E0D4"></div>
+            <div class="swatch-name">Text Primary</div>
+            <div class="swatch-hex">#E8E0D4</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#8AAAC8"></div>
+            <div class="swatch-name">Text Secondary</div>
+            <div class="swatch-hex">#8AAAC8</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Gradient bar showing how the two accents work together -->
+    <div style="margin-top:1.5rem;">
+      <div class="palette-title">Accent gradient — navy → copper (used for card bands, highlights)</div>
+      <div style="height:10px;border-radius:999px;background:linear-gradient(90deg,#1A3A6A,#B87333);margin-top:.5rem;"></div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════
+     SECTION 2 — TYPOGRAPHY
+═══════════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-eyebrow">02 — Typography · DM Serif Display + DM Sans</div>
+
+    <div class="type-row">
+      <div class="type-meta">Hero Display <span class="type-chip">DM Serif Display · 400</span></div>
+      <div class="t-hero">Six Schools.<br>One Reality.</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">H1 with italic accent <span class="type-chip">DM Serif Display · italic em</span></div>
+      <div class="t-h1">The <em>Upanishads</em> didn't just ask big questions.<br>They built a system.</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">H2 <span class="type-chip">DM Serif Display · 400</span></div>
+      <div class="t-h2">What is Advaita Vedānta?</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">H3 <span class="type-chip">DM Serif Display · 400</span></div>
+      <div class="t-h3">The Nyāya school and the problem of inference</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">Subhead <span class="type-chip">DM Sans · 300</span></div>
+      <div class="t-sub">A guide to the non-dual philosophy of Śaṅkarācārya — from the Upanishads to the present day.</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">Body <span class="type-chip">DM Sans · 400</span></div>
+      <div class="t-body">The six darśanas are often called the "orthodox schools" of Hindu philosophy. But that label misses something. These weren't dogmas handed down from on high — they were <strong>competing research programs</strong>, each starting from the Vedas and arriving somewhere radically different. Sāṃkhya says consciousness and matter are two eternal principles. Advaita says they're not even real distinctions. Both cite the same texts.</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">Pull Quote <span class="type-chip">DM Serif Display · italic · copper border</span></div>
+      <div class="t-pullquote" style="border-color:var(--copper)">"The question isn't whether Brahman exists. The question is whether you and Brahman are the same thing."</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">Labels & Tags <span class="type-chip">DM Sans · 700 · caps</span></div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;">
+        <span class="tag">Vedānta</span>
+        <span class="tag">Darśana</span>
+        <span class="tag copper-accent tag-copper">12 min read</span>
+        <span class="tag copper-accent tag-copper">Essay</span>
+        <span class="t-label" style="margin-left:.5rem;">Section Label →</span>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;">
+      <a class="btn btn-primary" href="#">Primary — Navy</a>
+      <a class="btn btn-copper" href="#">Secondary — Copper</a>
+      <a class="btn btn-ghost" href="#">Ghost</a>
+      <a class="btn btn-link" href="#">Text link</a>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════
+     SECTION 3 — COMPONENTS
+═══════════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-eyebrow">03 — Components in Context</div>
+
+    <!-- Nav sample -->
+    <div class="sample-nav">
+      <div class="sample-nav-logo">Tattva</div>
+      <div class="sample-nav-links">
+        <span class="sample-nav-link on">Vedas</span>
+        <span class="sample-nav-link">Darśanas</span>
+        <span class="sample-nav-link">History</span>
+        <span class="sample-nav-link">About</span>
+      </div>
+      <div class="sample-nav-cta">Explore →</div>
+    </div>
+
+    <!-- Mini card grid -->
+    <div class="mini-card-grid">
+      <div class="mini-card">
+        <div class="mini-card-num">Essay · 01</div>
+        <div class="mini-card-title">The Vedas & Upanishads</div>
+        <div class="mini-card-desc">Where Hindu philosophy begins — and what it's actually trying to answer.</div>
+        <div class="mini-card-footer">
+          <span class="tag mini-card-tag">Śruti</span>
+          <span class="mini-card-arrow">→</span>
+        </div>
+      </div>
+      <div class="mini-card copper-accent">
+        <div class="mini-card-num">Essay · 02</div>
+        <div class="mini-card-title">The Six Darśanas</div>
+        <div class="mini-card-desc">Six schools, one shared source. How they diverge — and why that matters.</div>
+        <div class="mini-card-footer">
+          <span class="tag tag-copper mini-card-tag">Philosophy</span>
+          <span class="mini-card-arrow">→</span>
+        </div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-card-num">Explorer · 03</div>
+        <div class="mini-card-title">Historical Timeline</div>
+        <div class="mini-card-desc">3000 years from the Indus Valley to the medieval period — interactive.</div>
+        <div class="mini-card-footer">
+          <span class="tag mini-card-tag">History</span>
+          <span class="mini-card-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full article card -->
+    <div style="margin-top:2.5rem;">
+      <div class="palette-title" style="margin-bottom:1rem;">Full article card</div>
+      <div class="article-card">
+        <div class="article-card-band"></div>
+        <div class="article-card-header">
+          <div class="article-eyebrow">The Six Darśanas · Essay 03 of 06</div>
+          <div class="article-title">Nyāya: the school that built <em>logic itself</em></div>
+          <div class="article-desc">How ancient Indian philosophers created a rigorous epistemology — and why it still matters for anyone who wants to think clearly.</div>
+        </div>
+        <div class="article-body">
+          <p>
+            Most people encounter Indian philosophy through its mystical side — the <span class="inline-term">Upanishads</span>, meditation, the nature of consciousness. Nyāya comes from the other direction. It asks: <strong>before we talk about reality, can we agree on what counts as good reasoning?</strong>
+          </p>
+          <div class="article-pullquote">
+            "The Naiyāyikas weren't interested in transcendence. They wanted a philosophy you could argue with."
+          </div>
+          <p>
+            The Nyāya school developed a system of <span class="inline-term">pramāṇas</span> — valid sources of knowledge. Four of them: perception, inference, comparison, and testimony. Aristotle was working on similar problems in Greece at roughly the same time. Neither knew the other existed.
+          </p>
+        </div>
+        <div class="article-footer">
+          <div class="article-tags">
+            <span class="tag">Nyāya</span>
+            <span class="tag">Epistemology</span>
+            <span class="tag tag-copper">12 min read</span>
+          </div>
+          <div class="article-meta">Essay 03 of 06</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════
+     SECTION 4 — VOICE
+═══════════════════════════════ -->
+<div class="section">
+  <div class="container">
+    <div class="section-eyebrow">04 — Voice & Tone</div>
+
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-label yes">This</div>
+        <p>"The Upanishads didn't just ask big questions — they built a systematic answer. That's the part most people miss."</p>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label no">Not this</div>
+        <p>"Welcome to our amazing deep dive into the beautiful wisdom traditions of ancient India! 🙏 Let's explore together!"</p>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label yes">This</div>
+        <p>"Śaṅkara's move here is almost unfair. He takes the problem his opponents built and turns it into evidence for his own position."</p>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label no">Not this</div>
+        <p>"The great philosopher Adi Shankaracharya was a very important historical figure who contributed much to Indian philosophy."</p>
+      </div>
+    </div>
+
+    <div class="voice-summary">
+      <div>
+        <div class="voice-summary-label">The brand voice</div>
+        <div class="voice-words">Sharp. Warm.<br>Earned. Alive.</div>
+      </div>
+      <div style="width:1px;height:60px;background:var(--border);flex-shrink:0;"></div>
+      <div style="font-size:var(--f-sm);color:var(--text-2);line-height:1.7;">
+        A brilliant older friend who knows this stuff cold and genuinely wants you to get it. Not a textbook. Not a guru. Not a tour guide.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<footer>
+  Brand system — DM Serif Display + DM Sans · Ink Navy + Copper · Ivory (light) / Slate (dark)
+  &nbsp;·&nbsp; Toggle dark mode above
+</footer>
+
+
+<script>
+function toggleMode() {
+  const html = document.documentElement;
+  const label = document.getElementById('modeLabel');
+  const icon = document.getElementById('modeIcon');
+  if (html.getAttribute('data-mode') === 'light') {
+    html.setAttribute('data-mode', 'dark');
+    label.textContent = 'Light mode';
+    icon.textContent = '☀️';
+  } else {
+    html.setAttribute('data-mode', 'light');
+    label.textContent = 'Dark mode';
+    icon.textContent = '🌙';
+  }
+}
+</script>
+
+</body>
+</html>

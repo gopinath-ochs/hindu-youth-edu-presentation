@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Karma — A Level Revision · Next Gen Education</title>
+<meta name="description" content="A Level Hinduism revision guide for Karma — select your exam board to highlight what matters, with curated readings, videos, and podcasts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#F4F6F9;color:#0F1B35;font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh}
+:root{--board:#1F4EBE;--board-rgb:31,78,190;--board-light:#EEF3FF;--board-mid:#3B6AE8}
+
+/* ── Layout ── */
+.app-wrap{display:grid;grid-template-columns:280px 1fr;min-height:100vh;max-width:1280px;margin:0 auto}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:#fff;border-right:1px solid #E4E8EF;display:flex;flex-direction:column;padding:0}
+.main-col{min-width:0;padding:2.5rem 3rem 5rem}
+
+/* ── Sidebar: header ── */
+.sb-header{padding:1.2rem 1.4rem;border-bottom:1px solid #E4E8EF}
+.sb-back{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8090A8;display:flex;align-items:center;gap:.35rem;margin-bottom:.6rem;cursor:pointer;text-decoration:none}
+.sb-back:hover{color:var(--board)}
+.sb-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;font-style:italic;color:#0F1B35;line-height:1.2}
+.sb-sub{font-size:.72rem;color:#8090A8;margin-top:.15rem}
+
+/* ── Board Selector ── */
+.sb-board-wrap{padding:1rem 1.4rem;border-bottom:1px solid #E4E8EF}
+.sb-board-label{font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#8090A8;margin-bottom:.5rem}
+.board-select{width:100%;padding:.6rem .9rem;border-radius:8px;border:1.5px solid #E4E8EF;background:#fff;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:500;color:#0F1B35;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238090A8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .8rem center;padding-right:2.2rem;transition:border-color .18s}
+.board-select:focus{outline:none;border-color:var(--board)}
+
+/* Board info panel (hidden until board selected) */
+.board-info{display:none;padding:1rem 1.4rem;border-bottom:1px solid #E4E8EF;background:var(--board-light);border-left:3px solid var(--board)}
+.board-info.show{display:block}
+.bi-name{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--board);margin-bottom:.3rem}
+.bi-code{font-size:.76rem;font-weight:600;color:#0F1B35;margin-bottom:.6rem}
+.bi-tip{font-size:.78rem;color:#3A4A5E;line-height:1.6;margin-bottom:.6rem}
+.bi-style{font-size:.74rem;color:#5A6A7E;line-height:1.55;padding:.55rem .7rem;background:rgba(255,255,255,.7);border-radius:6px;font-style:italic}
+
+/* ── Nav links ── */
+.sb-nav{padding:.8rem 1.4rem;flex:1}
+.sb-nav-label{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#C0C8D4;margin-bottom:.5rem}
+.nav-link{display:flex;align-items:center;justify-content:space-between;padding:.42rem .6rem;border-radius:6px;font-size:.78rem;color:#5A6A7E;cursor:pointer;transition:all .15s;text-decoration:none;margin-bottom:.06rem}
+.nav-link:hover{background:#F4F6F9;color:#0F1B35}
+.nav-link.active{background:var(--board-light);color:var(--board);font-weight:600}
+.nav-badge{font-size:.58rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.12rem .38rem;border-radius:3px;white-space:nowrap}
+.nb-essential{background:var(--board);color:#fff}
+.nb-important{background:var(--board-light);color:var(--board);border:1px solid rgba(var(--board-rgb),.25)}
+.nb-helpful{color:#8090A8;font-size:.56rem}
+.nb-none{display:none}
+
+/* ── Main col: page header ── */
+.page-header{margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid #E4E8EF}
+.ph-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--board);margin-bottom:.5rem}
+.ph-h1{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;font-style:italic;color:#0F1B35;line-height:1.1;margin-bottom:.4rem}
+.ph-san{font-size:1.5rem;color:#8090A8;display:block;font-family:'Playfair Display',serif;font-weight:400}
+.ph-sub{font-size:.9rem;color:#5A6A7E;max-width:560px;line-height:1.72;margin-top:.5rem}
+.ph-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+.ph-tag{font-size:.65rem;font-weight:600;letter-spacing:.06em;padding:.24rem .6rem;border-radius:4px;background:#EEF3FF;color:var(--board);border:1px solid rgba(var(--board-rgb),.2)}
+
+/* ── Content blocks ── */
+.block{background:#fff;border-radius:12px;border:1.5px solid #E4E8EF;padding:1.8rem 2rem;margin-bottom:1.2rem;transition:border-color .3s,background .3s,opacity .3s,box-shadow .3s;position:relative;scroll-margin-top:1.5rem}
+.block.highlighted{border-color:var(--board);box-shadow:0 0 0 4px rgba(var(--board-rgb),.07);background:var(--board-light)}
+.block.dimmed{opacity:.38;pointer-events:none}
+.block-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--board);margin-bottom:.4rem}
+.block-title{font-size:1.2rem;font-weight:700;color:#0F1B35;margin-bottom:.8rem;line-height:1.25}
+.block-body{font-size:.9rem;color:#3A4A5E;line-height:1.78}
+.block-body p{margin-bottom:.9rem}
+.block-body p:last-child{margin-bottom:0}
+
+/* Relevance indicator (shown when board selected) */
+.rel-badge{display:none;position:absolute;top:1rem;right:1rem}
+.rel-badge.show{display:flex;align-items:center;gap:.3rem;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .6rem;border-radius:20px}
+.rb-essential{background:var(--board);color:#fff}
+.rb-important{background:var(--board-light);color:var(--board);border:1px solid rgba(var(--board-rgb),.3)}
+.rb-helpful{background:#F4F6F9;color:#8090A8;border:1px solid #E4E8EF}
+
+/* Quote block */
+.quote-block{border-left:3px solid var(--board);background:var(--board-light);border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:1rem 0;font-family:'Playfair Display',serif;font-style:italic;font-size:.98rem;color:#0F1B35;line-height:1.7}
+.quote-source{font-family:'Inter',sans-serif;font-style:normal;font-size:.7rem;color:#8090A8;margin-top:.3rem;display:block}
+
+/* Key terms */
+.key-terms{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:1rem}
+.kterm{background:#F4F6F9;border-radius:8px;padding:.7rem .9rem;border:1px solid #E4E8EF}
+.kterm-word{font-family:'Playfair Display',serif;font-style:italic;font-size:.94rem;font-weight:700;color:#0F1B35;margin-bottom:.18rem}
+.kterm-def{font-size:.76rem;color:#5A6A7E;line-height:1.55}
+
+/* Exam tips */
+.exam-tip{background:#FFFBEE;border:1px solid #E8D888;border-left:3px solid #C8A000;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:.82rem;color:#4A3800;line-height:1.65;margin-top:1rem}
+.exam-tip::before{content:'📝 Exam tip: ';font-weight:700}
+.common-mistake{background:#FFF2F2;border:1px solid #ECC8C8;border-left:3px solid #C02020;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:.82rem;color:#4A1818;line-height:1.65;margin-top:.65rem}
+.common-mistake::before{content:'⚠ Common mistake: ';font-weight:700}
+
+/* Traditions mini grid */
+.trad-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1rem}
+.trad-mini-card{border-radius:8px;padding:.9rem;border:1.5px solid #E4E8EF;background:#F4F6F9}
+.tmc-name{font-size:.72rem;font-weight:700;color:#0F1B35;margin-bottom:.25rem}
+.tmc-claim{font-size:.76rem;color:#5A6A7E;line-height:1.55;margin-bottom:.4rem}
+.tmc-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:.74rem;color:#3A4A5E;border-top:1px solid #E4E8EF;padding-top:.35rem}
+
+/* Eval grid */
+.eval-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:1rem}
+.eval-card{border-radius:8px;padding:.9rem;border:1.5px solid #E4E8EF}
+.eval-card.strength{background:#F0FAF5;border-color:#A8DFC0}
+.eval-card.weakness{background:#FDF2F2;border-color:#E8BBBB}
+.ec-label{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
+.eval-card.strength .ec-label{color:#276749}
+.eval-card.weakness .ec-label{color:#8B1A1A}
+.ec-point{font-size:.8rem;color:#3A4A5E;line-height:1.6}
+
+/* ── Resources section ── */
+.resources-section{background:#0F1B35;border-radius:12px;padding:2rem 2.2rem;margin-top:1.2rem;color:#F4F6F9}
+.res-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--board-mid);margin-bottom:.4rem}
+.res-title{font-size:1.3rem;font-weight:700;font-family:'Playfair Display',serif;font-style:italic;color:#F4F6F9;margin-bottom:.3rem}
+.res-board-name{font-size:.78rem;color:#8090A8;margin-bottom:1.5rem}
+.res-tabs{display:flex;gap:.4rem;margin-bottom:1.2rem}
+.res-tab{padding:.38rem .9rem;border-radius:6px;border:1px solid #2A3A55;background:transparent;color:#8090A8;font-family:'Inter',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:all .18s}
+.res-tab.active{background:var(--board);color:#fff;border-color:var(--board)}
+.res-list{display:none;flex-direction:column;gap:.75rem}
+.res-list.show{display:flex}
+.res-item{display:flex;flex-direction:column;gap:.22rem;padding:.85rem 1rem;background:#1A2A45;border-radius:8px;border:1px solid #2A3A55;transition:border-color .18s}
+.res-item:hover{border-color:var(--board)}
+.res-item-title{font-size:.86rem;font-weight:600;color:#F4F6F9}
+.res-item-note{font-size:.76rem;color:#8090A8;line-height:1.5}
+.res-item-link{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;font-weight:600;color:var(--board-mid);margin-top:.1rem;text-decoration:none}
+.res-item-link:hover{color:#7FA8FF}
+.res-empty{display:none;font-size:.86rem;color:#8090A8;padding:1rem;text-align:center}
+.res-empty.show{display:block}
+
+/* ── Footer ── */
+footer{background:#fff;border-top:1px solid #E4E8EF;text-align:center;padding:1.5rem 2rem;font-size:.74rem;color:#8090A8;grid-column:1/-1}
+footer a{color:var(--board)}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .app-wrap{grid-template-columns:1fr}
+  .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid #E4E8EF}
+  .main-col{padding:1.5rem 1.2rem 4rem}
+  .key-terms,.trad-mini,.eval-grid{grid-template-columns:1fr}
+}
+</style>
+
+<style id="sn-css">
+/* ═══ SITE-WIDE NAV ═══════════════════════════════════════════════ */
+.site-nav,.site-nav *{box-sizing:border-box}
+.site-nav{position:sticky;top:0;z-index:9999;padding:0;background:rgba(14,6,0,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,175,55,.14)}
+.sn-inner{max-width:1340px;margin:0 auto;padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.sn-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
+.sn-om{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:rgba(212,175,55,.4);line-height:1;user-select:none}
+.sn-brand{display:flex;flex-direction:column;line-height:1.15;gap:.02rem}
+.sn-brand-sup{font-family:'Inter',system-ui,sans-serif;font-size:.5rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(154,120,0,.6)}
+.sn-brand-name{font-family:'Playfair Display',Georgia,serif;font-size:.92rem;font-weight:700;font-style:italic;color:#F0E8D4}
+.sn-links{display:flex;align-items:center;gap:.1rem}
+.sn-link{font-family:'Inter',system-ui,sans-serif;font-size:.69rem;font-weight:600;letter-spacing:.02em;color:rgba(195,170,120,.62);padding:.36rem .7rem;border-radius:5px;cursor:pointer;text-decoration:none;white-space:nowrap;border:none;background:transparent;transition:color .16s,background .16s;display:flex;align-items:center;gap:.22rem}
+.sn-link:hover,.sn-link.sn-active{color:#D4AF37}
+.sn-link.sn-active{background:rgba(212,175,55,.08)}
+.sn-caret{font-size:.52rem;opacity:.45;transition:transform .2s}
+.sn-group{position:relative}
+.sn-group:hover>.sn-link .sn-caret,.sn-group:focus-within>.sn-link .sn-caret{transform:rotate(90deg);opacity:.75}
+.sn-drop{position:absolute;top:calc(100% + .35rem);left:50%;transform:translateX(-50%) translateY(-5px);opacity:0;pointer-events:none;transition:opacity .17s,transform .17s;z-index:10000}
+.sn-group:hover>.sn-drop,.sn-group:focus-within>.sn-drop{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.sn-drop-inner{background:#130700;border:1px solid rgba(212,175,55,.18);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.75);min-width:248px;padding:.35rem}
+.sdi{display:flex;align-items:center;gap:.72rem;padding:.54rem .68rem;border-radius:7px;text-decoration:none;transition:background .13s;color:inherit}
+.sdi:hover,.sdi.sn-active{background:rgba(212,175,55,.08)}
+.sdi-num{font-family:'Inter',system-ui,sans-serif;font-size:.58rem;font-weight:700;color:rgba(154,120,0,.45);width:16px;flex-shrink:0;text-align:center}
+.sdi-tag{font-family:'Inter',system-ui,sans-serif;font-size:.54rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:rgba(212,175,55,.1);color:rgba(212,175,55,.7);border:1px solid rgba(212,175,55,.18);border-radius:3px;padding:.08rem .36rem;flex-shrink:0;white-space:nowrap}
+.sdi-text{display:flex;flex-direction:column;gap:.03rem}
+.sdi-title{font-family:'Playfair Display',Georgia,serif;font-size:.83rem;font-weight:700;font-style:italic;color:#EDE5C8}
+.sdi-sub{font-family:'Inter',system-ui,sans-serif;font-size:.62rem;color:rgba(154,120,0,.55)}
+.sn-drop-div{height:1px;background:rgba(212,175,55,.1);margin:.3rem .4rem}
+.sn-ham{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:.45rem;flex-shrink:0}
+.sn-ham span{display:block;width:20px;height:1.5px;background:rgba(195,170,120,.72);border-radius:2px;transition:all .25s}
+.sn-ham.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.sn-ham.open span:nth-child(2){opacity:0;width:0}
+.sn-ham.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:860px){
+  .sn-ham{display:flex}
+  .sn-links{display:none;position:fixed;inset:56px 0 0;background:rgba(12,5,0,.99);flex-direction:column;align-items:stretch;padding:1rem;gap:.1rem;overflow-y:auto;z-index:9998;border-top:1px solid rgba(212,175,55,.1)}
+  .sn-links.mob-open{display:flex}
+  .sn-group>.sn-drop{position:static;opacity:1;pointer-events:all;transform:none;max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .sn-group.mob-open>.sn-drop{max-height:500px}
+  .sn-drop-inner{background:rgba(255,255,255,.03);border-color:rgba(212,175,55,.1);box-shadow:none;border-radius:8px;margin:.1rem 0 .1rem 1rem;padding:.2rem}
+  .sn-link{font-size:.8rem;padding:.62rem .85rem}
+  .sn-caret{margin-left:auto;font-size:.65rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="site-nav">
+<div class="sn-inner">
+  <a class="sn-logo" href="index.html">
+    <span class="sn-om">ॐ</span>
+    <span class="sn-brand">
+      <span class="sn-brand-sup">Next Gen Education</span>
+      <span class="sn-brand-name">Hindu Studies</span>
+    </span>
+  </a>
+  <div class="sn-links" id="sn-links">
+    <a class="sn-link" href="index.html"   data-sn="index.html">Home</a>
+    <a class="sn-link" href="map.html"     data-sn="map.html">Start Here</a>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Essays <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="vedas.html"          data-sn="vedas.html"><span class="sdi-num">01</span><span class="sdi-text"><span class="sdi-title">The Vedas</span><span class="sdi-sub">Origins · Sanskrit · Upaniṣads</span></span></a>
+        <a class="sdi" href="darshanas.html"       data-sn="darshanas.html"><span class="sdi-num">02</span><span class="sdi-text"><span class="sdi-title">The Six Darśanas</span><span class="sdi-sub">Philosophy · Schools · Logic</span></span></a>
+        <a class="sdi" href="history.html"         data-sn="history.html"><span class="sdi-num">03</span><span class="sdi-text"><span class="sdi-title">A Historical Timeline</span><span class="sdi-sub">2600 BCE → 1400 CE</span></span></a>
+        <a class="sdi" href="veda-traditions.html" data-sn="veda-traditions.html"><span class="sdi-num">04</span><span class="sdi-text"><span class="sdi-title">What is Śāstra?</span><span class="sdi-sub">18 Traditions · 8 Categories</span></span></a>
+        <a class="sdi" href="vedic-sacrifice.html" data-sn="vedic-sacrifice.html"><span class="sdi-num">05</span><span class="sdi-text"><span class="sdi-title">The Sacred Fire</span><span class="sdi-sub">Yajña · Ritual · Agni</span></span></a>
+      </div></div>
+    </div>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Karma <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="karma.html"          data-sn="karma.html"><span class="sdi-tag">Essay</span><span class="sdi-text"><span class="sdi-title">Karma</span><span class="sdi-sub">Visual essay · All techniques</span></span></a>
+        <div class="sn-drop-div"></div>
+        <a class="sdi" href="karma-full.html"     data-sn="karma-full.html"><span class="sdi-tag">Exam</span><span class="sdi-text"><span class="sdi-title">Karma + Exam Mode</span><span class="sdi-sub">Board-specific overlay</span></span></a>
+        <a class="sdi" href="karma-revision.html" data-sn="karma-revision.html"><span class="sdi-tag">Study</span><span class="sdi-text"><span class="sdi-title">A Level Revision</span><span class="sdi-sub">OCR · AQA · Edexcel · WJEC</span></span></a>
+      </div></div>
+    </div>
+    <a class="sn-link" href="overview.html" data-sn="overview.html">Overview</a>
+  </div>
+  <button class="sn-ham" id="sn-ham" aria-label="Menu" onclick="snHam()"><span></span><span></span><span></span></button>
+</div>
+</nav>
+<div class="app-wrap">
+
+<!-- ══════════════════════════════════
+     SIDEBAR
+══════════════════════════════════ -->
+<aside class="sidebar">
+
+  <div class="sb-header">
+    <a class="sb-back" href="karma.html">← Visual Essay</a>
+    <div class="sb-title">Karma</div>
+    <div class="sb-sub">A Level Revision Guide</div>
+  </div>
+
+  <!-- Board selector -->
+  <div class="sb-board-wrap">
+    <div class="sb-board-label">Select your exam board</div>
+    <select class="board-select" id="board-select" onchange="selectBoard(this.value)">
+      <option value="">— No board selected —</option>
+      <option value="ocr">OCR (H573/07 Hinduism)</option>
+      <option value="aqa">AQA (7062 World Religions)</option>
+      <option value="edexcel">Edexcel / Pearson</option>
+      <option value="wjec">WJEC / Eduqas</option>
+    </select>
+  </div>
+
+  <!-- Board info -->
+  <div class="board-info" id="board-info">
+    <div class="bi-name" id="bi-name"></div>
+    <div class="bi-code" id="bi-code"></div>
+    <div class="bi-tip" id="bi-tip"></div>
+    <div class="bi-style" id="bi-style"></div>
+  </div>
+
+  <!-- Nav -->
+  <div class="sb-nav">
+    <div class="sb-nav-label">Sections</div>
+    <a class="nav-link" href="#overview"    onclick="setActive(this)"><span>What is Karma?</span>        <span class="nav-badge nb-none" id="nb-overview"></span></a>
+    <a class="nav-link" href="#mechanism"   onclick="setActive(this)"><span>The Mechanism</span>         <span class="nav-badge nb-none" id="nb-mechanism"></span></a>
+    <a class="nav-link" href="#samsara"     onclick="setActive(this)"><span>Karma & Saṃsāra</span>       <span class="nav-badge nb-none" id="nb-samsara"></span></a>
+    <a class="nav-link" href="#moksha"      onclick="setActive(this)"><span>Karma & Mokṣa</span>         <span class="nav-badge nb-none" id="nb-moksha"></span></a>
+    <a class="nav-link" href="#dharma"      onclick="setActive(this)"><span>Karma & Dharma</span>        <span class="nav-badge nb-none" id="nb-dharma"></span></a>
+    <a class="nav-link" href="#bg247"       onclick="setActive(this)"><span>Key Text: BG 2.47</span>     <span class="nav-badge nb-none" id="nb-bg247"></span></a>
+    <a class="nav-link" href="#nishkama"    onclick="setActive(this)"><span>Niṣkāma Karma</span>         <span class="nav-badge nb-none" id="nb-nishkama"></span></a>
+    <a class="nav-link" href="#traditions"  onclick="setActive(this)"><span>Three Traditions</span>      <span class="nav-badge nb-none" id="nb-traditions"></span></a>
+    <a class="nav-link" href="#evaluations" onclick="setActive(this)"><span>Evaluation Points</span>     <span class="nav-badge nb-none" id="nb-evaluations"></span></a>
+    <a class="nav-link" href="#connections" onclick="setActive(this)"><span>Connections</span>           <span class="nav-badge nb-none" id="nb-connections"></span></a>
+    <a class="nav-link" href="#resources"   onclick="setActive(this)"><span>Resources</span>             <span class="nav-badge nb-none"></span></a>
+  </div>
+
+</aside>
+
+<!-- ══════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════ -->
+<main class="main-col">
+
+  <div class="page-header">
+    <div class="ph-eyebrow">Soteriology & Ethics · A Level Hindu Studies</div>
+    <h1 class="ph-h1">Karma <span class="ph-san">कर्म</span></h1>
+    <p class="ph-sub">A complete revision guide. Select your exam board in the sidebar to highlight the sections that matter most for your paper — and get curated resources.</p>
+    <div class="ph-tags">
+      <span class="ph-tag">Action</span>
+      <span class="ph-tag">Saṃskāra</span>
+      <span class="ph-tag">Saṃsāra</span>
+      <span class="ph-tag">Mokṣa</span>
+      <span class="ph-tag">Niṣkāma Karma</span>
+      <span class="ph-tag">BG 2.47</span>
+      <span class="ph-tag">Bhagavad-gītā</span>
+    </div>
+  </div>
+
+  <!-- §1 Overview -->
+  <div class="block" id="overview">
+    <div class="rel-badge" id="rb-overview"></div>
+    <div class="block-eyebrow">Section 01</div>
+    <div class="block-title">What is Karma?</div>
+    <div class="block-body">
+      <p>The Sanskrit word <em>karma</em> derives from the root <em>kṛ</em> — to do, to act, to make. In its simplest sense, karma means <strong>action</strong>. In its philosophical sense, it means action and the residue action leaves in the agent who performs it.</p>
+      <p>Karma is not fate. It is not a cosmic reward-and-punishment system. It is not "what goes around comes around." These are popular Western readings that appear in no classical Hindu text. The tradition's claim is more precise — and more demanding: every intentional action shapes the person who performs it, and the accumulated shape of a person determines their future choices and circumstances.</p>
+      <div class="key-terms">
+        <div class="kterm"><div class="kterm-word">karma</div><div class="kterm-def">Action; intentional deed; from the root kṛ — to do</div></div>
+        <div class="kterm"><div class="kterm-word">saṃskāra</div><div class="kterm-def">Mental impression left by action; a "refining" trace in the mind</div></div>
+        <div class="kterm"><div class="kterm-word">vāsanā</div><div class="kterm-def">Deep tendency accumulated from saṃskāras; literally "perfume"</div></div>
+        <div class="kterm"><div class="kterm-word">phala</div><div class="kterm-def">Fruit / result of action — the Gītā says this is not your domain</div></div>
+      </div>
+      <div class="exam-tip">The etymology matters. Always define karma as "action" before developing its philosophical significance. Examiners reward precise starting definitions.</div>
+      <div class="common-mistake">Karma does NOT mean "fate" or "destiny." Confusing karma with determinism is one of the most common errors — karma is specifically about the freedom and responsibility to act rightly, not passively accept what comes.</div>
+    </div>
+  </div>
+
+  <!-- §2 Mechanism -->
+  <div class="block" id="mechanism">
+    <div class="rel-badge" id="rb-mechanism"></div>
+    <div class="block-eyebrow">Section 02</div>
+    <div class="block-title">The Karma Mechanism: Action → Impression → Tendency → Action</div>
+    <div class="block-body">
+      <p>The karma cycle operates through three stages:</p>
+      <p><strong>1. Action (karma)</strong> — Every intentional act, word, or thought leaves a trace. Not involuntary acts (reflex, accident) — but chosen, motivated actions.</p>
+      <p><strong>2. Saṃskāra (impression)</strong> — Each intentional act deposits an impression in the mind-stuff (<em>citta</em>). Like a groove worn by water, repeated actions deepen these grooves. The mind becomes predisposed.</p>
+      <p><strong>3. Vāsanā (tendency)</strong> — Accumulated saṃskāras crystallise into vāsanās: deep, below-conscious tendencies that generate future desires, fears, and motivations — which generate further actions.</p>
+      <div class="quote-block">
+        "The mind is the cause of bondage and the cause of liberation." — Maitri Upaniṣad 6.34
+        <span class="quote-source">Key implication: liberation requires transforming the mind at the level of vāsanās, not merely changing outward behaviour</span>
+      </div>
+      <div class="exam-tip">Being able to trace the chain Action → Saṃskāra → Vāsanā → Action demonstrates high-level AO1 knowledge. It's the mechanism behind saṃsāra — essential for explaining why liberation is difficult.</div>
+    </div>
+  </div>
+
+  <!-- §3 Karma & Samsara -->
+  <div class="block" id="samsara">
+    <div class="rel-badge" id="rb-samsara"></div>
+    <div class="block-eyebrow">Section 03</div>
+    <div class="block-title">Karma and Saṃsāra: The Cycle of Rebirth</div>
+    <div class="block-body">
+      <p><strong>Saṃsāra</strong> (literally "flowing through") is the ongoing cycle of birth, death, and rebirth. Karma is its engine. At death, the accumulated karma of a life shapes the conditions of the next — not as punishment, but as consequence. The tradition describes this in terms of <em>punarjanman</em> (rebirth) driven by unspent karma and unresolved vāsanās.</p>
+      <p>The form of rebirth — human, animal, divine, infernal — depends on the quality and quantity of karmic residue. Traditions vary: some describe a literal chain of births; others (especially Advaita) treat saṃsāra as ultimately an appearance driven by ignorance (<em>avidyā</em>).</p>
+      <div class="quote-block">
+        "As a person puts on new garments, giving up old ones, similarly, the soul accepts new material bodies, giving up the old and useless ones." — Bhagavad-gītā 2.22
+        <span class="quote-source">The most commonly cited verse for rebirth — context is Kṛṣṇa explaining why death of the body is not death of the ātman</span>
+      </div>
+      <div class="key-terms">
+        <div class="kterm"><div class="kterm-word">saṃsāra</div><div class="kterm-def">The cycle of birth, death, and rebirth; literally "flowing together"</div></div>
+        <div class="kterm"><div class="kterm-word">punarjanman</div><div class="kterm-def">Rebirth; the continuation of the ātman in a new body shaped by karma</div></div>
+      </div>
+      <div class="exam-tip">Link karma directly to saṃsāra — they are almost always examined together. Show the mechanism: unspent karma → conditions of next birth → further action → more karma → cycle perpetuates.</div>
+    </div>
+  </div>
+
+  <!-- §4 Karma & Moksha -->
+  <div class="block" id="moksha">
+    <div class="rel-badge" id="rb-moksha"></div>
+    <div class="block-eyebrow">Section 04</div>
+    <div class="block-title">Karma and Mokṣa: The Way Out</div>
+    <div class="block-body">
+      <p><strong>Mokṣa</strong> (liberation, release) is freedom from the karma-saṃsāra cycle. What it means varies by tradition:</p>
+      <p><strong>Advaita Vedānta:</strong> Mokṣa is the realisation that Ātman = Brahman and that saṃsāra was never ultimately real. Karma dissolves when the false ego (the agent who accumulates it) is seen through. <em>Jīvanmukti</em> — liberation while living — is possible.</p>
+      <p><strong>Gauḍīya Vaiṣṇavism:</strong> Mokṣa is eternal relationship with Kṛṣṇa in a transcendent realm. Bhakti (devotional love) does not produce karma at all — it transcends the karma system entirely. The devotee acts for Kṛṣṇa's pleasure, leaving no karmic residue.</p>
+      <p><strong>Mīmāṃsā:</strong> Correct ritual action does not bind but liberates through its prescribed fruits — the tradition is less focused on mokṣa and more on the correctness of action itself.</p>
+      <div class="quote-block">
+        "When a wise person sees no other agent than the Self, and when he realises the unity of the Self, there is no more karma for him." — Bṛhadāraṇyaka Upaniṣad 4.4.23
+        <span class="quote-source">Advaita reading: karma ceases when the illusion of separate agency dissolves</span>
+      </div>
+      <div class="exam-tip">Mokṣa is the evaluative hinge of most karma questions. A strong AO2 argument will compare different traditions' definitions of what liberation from karma actually means.</div>
+    </div>
+  </div>
+
+  <!-- §5 Karma & Dharma -->
+  <div class="block" id="dharma">
+    <div class="rel-badge" id="rb-dharma"></div>
+    <div class="block-eyebrow">Section 05</div>
+    <div class="block-title">Karma and Dharma: Action and Right Order</div>
+    <div class="block-body">
+      <p><strong>Dharma</strong> (right order, duty, law) and karma are inseparable: karma is the mechanism; dharma is the standard by which action is judged. Actions in accord with dharma tend toward liberation; actions against dharma reinforce unfavourable karma.</p>
+      <p>The Bhagavad-gītā's central crisis is precisely a conflict of dharmas: Arjuna's warrior-dharma (<em>kṣatriya dharma</em>) commands him to fight; his relational dharma as a son and student commands him not to. Kṛṣṇa's answer reframes the question: act according to your <em>svadharma</em> (own nature and duty), without ego-attachment to the outcome.</p>
+      <div class="quote-block">
+        "Better is one's own dharma, though imperfectly performed, than the dharma of another well performed." — Bhagavad-gītā 3.35
+        <span class="quote-source">svadharma — the dharma specific to your nature and social position</span>
+      </div>
+      <div class="exam-tip">The karma-dharma link is essential for ethics questions. Dharma provides the content (what to do); karma provides the mechanism (how action binds or liberates). Don't treat them as synonyms.</div>
+    </div>
+  </div>
+
+  <!-- §6 BG 2.47 -->
+  <div class="block" id="bg247">
+    <div class="rel-badge" id="rb-bg247"></div>
+    <div class="block-eyebrow">Section 06 · Key Primary Text</div>
+    <div class="block-title">Bhagavad-gītā 2.47 — The Central Karma Verse</div>
+    <div class="block-body">
+      <div class="quote-block" style="font-size:1.05rem">
+        "You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions. Never consider yourself the cause of the results of your activities, and never be attached to not doing your duty."
+        <span class="quote-source">Bhagavad-gītā 2.47 — Kṛṣṇa to Arjuna, on the battlefield of Kurukṣetra</span>
+      </div>
+      <div style="font-family:monospace;background:#F4F6F9;border-radius:8px;padding:.9rem 1.1rem;margin:.8rem 0;font-size:.82rem;color:#3A4A5E;letter-spacing:.02em">
+        karmaṇy evādhikāras te mā phaleṣu kadācana |<br>
+        mā karmaphalahetur bhūr mā te saṅgo 'stv akarmaṇi ||
+      </div>
+      <p><strong>Line by line:</strong></p>
+      <p><em>karmaṇy evādhikāras te</em> — Your authority/jurisdiction is in action alone. You are not authorised over the fruits.</p>
+      <p><em>mā phaleṣu kadācana</em> — Never, at any time, in the fruits. This is absolute.</p>
+      <p><em>mā karmaphalahetur bhūḥ</em> — Do not let desire for results be your motive for acting.</p>
+      <p><em>mā te saṅgo 'stv akarmaṇi</em> — Do not be attached to inaction either. Retreat is not an option.</p>
+      <div class="exam-tip">This verse must be memorised in translation and ideally in transliteration. It appears in almost every karma question at every board level. Ability to break it down word by word demonstrates top-band AO1.</div>
+      <div class="common-mistake">Do not cite this verse as simply "do your duty." The argument is more specific: perform action without attachment to outcomes. The Gītā is arguing against both desire-driven action AND against inaction.</div>
+    </div>
+  </div>
+
+  <!-- §7 Nishkama Karma -->
+  <div class="block" id="nishkama">
+    <div class="rel-badge" id="rb-nishkama"></div>
+    <div class="block-eyebrow">Section 07</div>
+    <div class="block-title">Niṣkāma Karma: Desireless Action</div>
+    <div class="block-body">
+      <p><strong>Niṣkāma karma</strong> (from <em>niṣkāma</em> — without desire) is the Bhagavad-gītā's solution to the karma problem. Act, but act without ego-attachment to the outcome. Perform your duty because it is your duty — not because of what you will gain or lose by it.</p>
+      <p>This is demanding because it does not mean acting without effort or care — it means acting with full engagement while remaining psychologically detached from the result. Kṛṣṇa's model is the expert craftsman who works with complete attention but does not define themselves by whether the project succeeds.</p>
+      <p>The philosophical implication: niṣkāma karma does not accumulate karmic residue because there is no ego-agent investing in the outcome. The vāsanā system is broken at its source — the desire that generates impressions.</p>
+      <div class="quote-block">
+        "Therefore, without attachment, always perform the action that should be done — for by performing action without attachment, one attains the Supreme." — Bhagavad-gītā 3.19
+        <span class="quote-source">tasmād asaktaḥ satataṃ kāryaṃ karma samācara</span>
+      </div>
+      <div class="exam-tip">Niṣkāma karma is specifically OCR's most-examined karma concept. Know the argument: (1) you cannot avoid action; (2) action with ego-desire creates karma; (3) therefore act without desire for results.</div>
+    </div>
+  </div>
+
+  <!-- §8 Traditions -->
+  <div class="block" id="traditions">
+    <div class="rel-badge" id="rb-traditions"></div>
+    <div class="block-eyebrow">Section 08</div>
+    <div class="block-title">Three Interpretations: How Traditions Read Karma Differently</div>
+    <div class="block-body">
+      <div class="trad-mini">
+        <div class="trad-mini-card">
+          <div class="tmc-name">Mīmāṃsā</div>
+          <div class="tmc-claim">Karma = ritual action. Correct performance of the Vedic injunction produces its prescribed result. Inner motivation is less relevant than outward correctness.</div>
+          <div class="tmc-quote">"The Vedic injunction alone has the force of dharma." — Jaimini, Mīmāṃsā Sūtras 1.1.2</div>
+        </div>
+        <div class="trad-mini-card">
+          <div class="tmc-name">Advaita Vedānta</div>
+          <div class="tmc-claim">Karma is bondage arising from avidyā (ignorance). Jñāna (direct knowledge of Ātman = Brahman) dissolves karma at its root. Niṣkāma karma is preparatory, not final.</div>
+          <div class="tmc-quote">"The knower of Brahman becomes Brahman." — Muṇḍaka Upaniṣad 3.2.9</div>
+        </div>
+        <div class="trad-mini-card">
+          <div class="tmc-name">Gauḍīya Vaiṣṇavism</div>
+          <div class="tmc-claim">Bhakti (devoted love for Kṛṣṇa) transcends karma entirely. The devotee acts only for Kṛṣṇa's pleasure — this generates no karmic residue. Karma yoga is preparation for bhakti.</div>
+          <div class="tmc-quote">"One who acts devotionally for Viṣṇu is freed from all karma." — Bhāgavata Purāṇa 3.33.6</div>
+        </div>
+      </div>
+      <div class="exam-tip">When comparing traditions, always show what they <em>agree</em> on (karma binds; liberation is possible) before showing what they disagree on (the mechanism and route of liberation). Examiners reward structured comparison, not just listing differences.</div>
+    </div>
+  </div>
+
+  <!-- §9 Evaluations -->
+  <div class="block" id="evaluations">
+    <div class="rel-badge" id="rb-evaluations"></div>
+    <div class="block-eyebrow">Section 09 · AO2</div>
+    <div class="block-title">Evaluation: Strengths and Weaknesses of Karma as a Moral Framework</div>
+    <div class="block-body">
+      <div class="eval-grid">
+        <div class="eval-card strength">
+          <div class="ec-label">Strengths</div>
+          <div class="ec-point"><strong>Moral responsibility</strong> — karma locates ethical consequences within the agent, not an external judge. It encourages personal accountability.</div>
+        </div>
+        <div class="eval-card weakness">
+          <div class="ec-label">Weaknesses</div>
+          <div class="ec-point"><strong>Social quietism</strong> — karma can be used to justify existing inequalities (caste, poverty) as the "deserved" result of past lives.</div>
+        </div>
+        <div class="eval-card strength">
+          <div class="ec-label">Strengths</div>
+          <div class="ec-point"><strong>Long-term ethics</strong> — the karmic framework takes a broader view of moral time than single-life consequentialism. Actions have consequences beyond the visible horizon.</div>
+        </div>
+        <div class="eval-card weakness">
+          <div class="ec-label">Weaknesses</div>
+          <div class="ec-point"><strong>Empirical unverifiability</strong> — the claim that actions in this life affect the next is not empirically testable. Critics (e.g. B.R. Ambedkar) rejected karma as ideologically convenient for upper castes.</div>
+        </div>
+        <div class="eval-card strength">
+          <div class="ec-label">Strengths</div>
+          <div class="ec-point"><strong>Motivation for reform</strong> — the doctrine of saṃskāra implies that character is changeable. You are not fixed; practice can reshape the deepest tendencies. Psychologically sophisticated.</div>
+        </div>
+        <div class="eval-card weakness">
+          <div class="ec-label">Weaknesses</div>
+          <div class="ec-point"><strong>Determinism tension</strong> — if future lives are shaped by past karma, how much freedom does the agent actually have? The tradition responds, but the tension is real and worth exploring.</div>
+        </div>
+      </div>
+      <div style="margin-top:1rem;padding:.9rem 1.1rem;background:#F4F6F9;border-radius:8px;border:1px solid #E4E8EF">
+        <div style="font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8090A8;margin-bottom:.4rem">Scholar voices for AO2</div>
+        <div style="font-size:.82rem;color:#3A4A5E;line-height:1.65"><strong>Wendy Doniger</strong> — argues karma functions more as a narrative and meaning-making device than a verifiable metaphysical claim. <strong>B.R. Ambedkar</strong> — viewed karma theology as a tool of Brahminical oppression; converted to Buddhism in 1956 as an explicit rejection of the doctrine. <strong>Alasdair MacIntyre</strong> — comparative point: karma shares the virtue-ethics emphasis on character over isolated acts.</div>
+      </div>
+      <div class="exam-tip">Top-band AO2 requires evaluating both the internal consistency of the argument AND its external plausibility. Show you can argue from multiple positions — not just "karma is good because..." or "karma is wrong because..."</div>
+    </div>
+  </div>
+
+  <!-- §10 Connections -->
+  <div class="block" id="connections">
+    <div class="rel-badge" id="rb-connections"></div>
+    <div class="block-eyebrow">Section 10</div>
+    <div class="block-title">Connections: How Karma Links to Other Specification Topics</div>
+    <div class="block-body">
+      <div class="key-terms">
+        <div class="kterm"><div class="kterm-word">Karma → Dharma</div><div class="kterm-def">Dharma determines what right action looks like; karma is the mechanism by which acting well or badly shapes the agent</div></div>
+        <div class="kterm"><div class="kterm-word">Karma → Mokṣa</div><div class="kterm-def">Liberation is defined, in all schools, as freedom from the karma-saṃsāra cycle — the goal shapes how karma is understood</div></div>
+        <div class="kterm"><div class="kterm-word">Karma → Ahiṃsā</div><div class="kterm-def">Non-violence is partly justified through karma: violence creates violent saṃskāras and harmful karma for the agent</div></div>
+        <div class="kterm"><div class="kterm-word">Karma → Varṇa/Caste</div><div class="kterm-def">Caste has been theologically justified as the result of karma from previous lives — one of the doctrine's most contested applications</div></div>
+        <div class="kterm"><div class="kterm-word">Karma → Reform</div><div class="kterm-def">Reform movements (Ārya Samāj, Ambedkar) specifically challenged karma theology as a barrier to social equality</div></div>
+        <div class="kterm"><div class="kterm-word">Karma → Gender</div><div class="kterm-def">Traditional texts attributed birth as a woman to past karma — contested by contemporary Hindu feminists</div></div>
+      </div>
+      <div class="exam-tip">Karma rarely appears as an isolated topic in exam questions. It is almost always linked to at least one other concept — dharma, mokṣa, or social ethics. Practise connecting these in your revision essays.</div>
+    </div>
+  </div>
+
+  <!-- §11 Resources -->
+  <div class="resources-section" id="resources">
+    <div class="res-eyebrow">Curated Resources</div>
+    <div class="res-title" id="res-title">Select your exam board to see tailored resources</div>
+    <div class="res-board-name" id="res-board-name">Readings, videos, and podcasts matched to your specification</div>
+
+    <div class="res-tabs" id="res-tabs">
+      <button class="res-tab active" onclick="showResTab('reading',this)">📖 Reading</button>
+      <button class="res-tab" onclick="showResTab('video',this)">🎥 Video</button>
+      <button class="res-tab" onclick="showResTab('podcast',this)">🎙 Podcast</button>
+    </div>
+
+    <div class="res-list show" id="res-reading"></div>
+    <div class="res-list" id="res-video"></div>
+    <div class="res-list" id="res-podcast"></div>
+    <div class="res-empty show" id="res-empty">Choose an exam board in the sidebar to see resources tailored to your specification.</div>
+  </div>
+
+</main>
+
+<footer>
+  Next Gen Education · Hindu Studies &nbsp;·&nbsp;
+  <a href="karma.html">Visual Essay: Karma</a> &nbsp;·&nbsp;
+  <a href="map.html">The Map of Hinduism</a> &nbsp;·&nbsp;
+  <a href="index.html">All Essays</a>
+</footer>
+
+</div><!-- .app-wrap -->
+
+<script>
+/* ─── BOARD DATA ──────────────────────────────────────────────── */
+const BOARDS = {
+  ocr: {
+    name:'OCR A Level Religious Studies', code:'H573/07 — Hinduism',
+    color:'#005EB8', rgb:'0,94,184', light:'#EBF4FF',
+    tip:'OCR requires AO1 (knowledge) and AO2 (evaluation) in roughly equal measure. Practice arguing both for and against every claim about karma.',
+    style:'Two compulsory essays in 1.5 hours. Expect: "Critically assess the view that karma is purely about moral responsibility" or "Is niṣkāma karma an achievable ideal?"',
+    relevance:{ overview:'important', mechanism:'essential', samsara:'essential', moksha:'essential', dharma:'essential', bg247:'essential', nishkama:'essential', traditions:'essential', evaluations:'essential', connections:'important' },
+    resources:{
+      reading:[
+        { title:'Klostermaier: A Survey of Hinduism', url:'https://www.worldcat.org/title/survey-of-hinduism', note:'The standard academic textbook — chapters on karma are directly specification-relevant' },
+        { title:'Vedabase: Bhagavad-gītā 2.47 (primary text)', url:'https://vedabase.io/en/library/bg/2/47/', note:'Primary source with four classical commentaries — essential for OCR textual analysis questions' },
+        { title:'Internet Encyclopedia of Philosophy: Karma', url:'https://iep.utm.edu/karma/', note:'Free, peer-reviewed academic article — good source for AO2 evaluation arguments and scholar voices' }
+      ],
+      video:[
+        { title:'Oxford Centre for Hindu Studies: Free Lectures', url:'https://www.ochs.org.uk/lectures/', note:'Academic lectures from OCHS scholars — directly relevant to OCR\'s philosophical approach' },
+        { title:'Crash Course World History: Hinduism & Buddhism', url:'https://www.youtube.com/watch?v=8Nn5uqE3C9w', note:'Quick conceptual overview — useful for initial revision, not primary source work' },
+        { title:'BBC Four: The Story of India', url:'https://www.bbc.co.uk/programmes/b00kq0fr', note:'Michael Wood documentary — strong historical and philosophical context' }
+      ],
+      podcast:[
+        { title:'The Bhagavata Podcast', url:'https://www.youtube.com/@TheBhagavataPodcast', note:'Deep Gauḍīya Vaiṣṇava perspective on karma and bhakti — essential for the Traditions section' },
+        { title:'Philosophize This! — Hindu Philosophy', url:'https://www.philosophizethis.org/', note:'Episodes on Vedānta and karma — excellent AO2 preparation, comparative philosophy' },
+        { title:'History of India Podcast (Kit Patrick)', url:'https://historyofindiapodcast.libsyn.com/', note:'Historical development of karma across traditions — good context for evaluation questions' }
+      ]
+    }
+  },
+  aqa: {
+    name:'AQA A Level Religious Studies', code:'7062 — World Religions: Hinduism',
+    color:'#CC0033', rgb:'204,0,51', light:'#FFF0F3',
+    tip:'AQA rewards accurate use of technical vocabulary and precise textual reference. Always cite your source (Bhagavad-gītā, Upaniṣads) when making a knowledge claim.',
+    style:'Section A: 15-mark analytical question. Section B/C: 30-mark essay. AO1 and AO2 both rewarded. Questions often ask "examine" (AO1) or "evaluate" (AO2) — identify the command word first.',
+    relevance:{ overview:'important', mechanism:'important', samsara:'essential', moksha:'essential', dharma:'essential', bg247:'essential', nishkama:'important', traditions:'important', evaluations:'essential', connections:'helpful' },
+    resources:{
+      reading:[
+        { title:'BBC Bitesize — A Level Hinduism', url:'https://www.bbc.co.uk/bitesize/examspecs/zjgmn9q', note:'AQA-aligned revision notes — reliable starting point for specification coverage' },
+        { title:'Kim Knott: Hinduism — A Very Short Introduction', url:'https://global.oup.com/academic/product/hinduism-a-very-short-introduction-9780198745549', note:'Compact, academically reliable — good AQA-level overview of all major themes' },
+        { title:'Bhagavad-gītā As It Is (Vedabase)', url:'https://vedabase.io/en/library/bg/', note:'Full primary text — essential for any textual reference questions on the AQA paper' }
+      ],
+      video:[
+        { title:'In Our Time: Hinduism (BBC Radio 4)', url:'https://www.bbc.co.uk/programmes/p00548m6', note:'Melvyn Bragg with three academic specialists — excellent AQA-level discussion of core concepts' },
+        { title:'National Geographic: Hinduism', url:'https://www.nationalgeographic.com/religion/article/hinduism', note:'Contemporary context for the tradition — useful for application questions' },
+        { title:'YouTube search: A Level RS karma Hinduism', url:'https://www.youtube.com/results?search_query=a+level+religious+studies+karma+hinduism', note:'Search for board-specific revision videos — filter by AQA content' }
+      ],
+      podcast:[
+        { title:'The Bhagavata Podcast', url:'https://www.youtube.com/@TheBhagavataPodcast', note:'Primary tradition voice — excellent for "what does a practitioner actually believe?" questions' },
+        { title:'In Our Time: Vedas (BBC Radio 4)', url:'https://www.bbc.co.uk/programmes/b01n1zwq', note:'Historical context for where karma first appears — background for AQA knowledge questions' },
+        { title:'Thinking Allowed (BBC Radio 4)', url:'https://www.bbc.co.uk/programmes/b006qy05', note:'Sociological and philosophical discussions — relevant to AQA\'s contemporary application questions' }
+      ]
+    }
+  },
+  edexcel: {
+    name:'Edexcel / Pearson A Level', code:'Religious Studies — Hindu Ethics component',
+    color:'#5C2D91', rgb:'92,45,145', light:'#F5F0FF',
+    tip:'Edexcel essays reward structured argument. Use: claim → textual support → philosophical challenge → evaluative conclusion. Karma questions here often invite comparison with Western ethical frameworks.',
+    style:'Component-based. Karma appears primarily in the Ethics component. Expect: "How does karma compare to consequentialist ethics?" or "Assess the view that karma is an adequate basis for moral decision-making."',
+    relevance:{ overview:'important', mechanism:'helpful', samsara:'essential', moksha:'essential', dharma:'important', bg247:'essential', nishkama:'important', traditions:'helpful', evaluations:'essential', connections:'essential' },
+    resources:{
+      reading:[
+        { title:'Stanford Encyclopedia of Philosophy: Karma', url:'https://plato.stanford.edu/entries/karma/', note:'Rigorous philosophical treatment — essential for Edexcel AO2 evaluation arguments and comparative ethics' },
+        { title:'Edexcel A Level RS Specification', url:'https://qualifications.pearson.com/en/qualifications/edexcel-a-levels/religious-studies-2016.html', note:'Check which karma topics appear in your specific component — specification mapping is essential' },
+        { title:'Internet Encyclopedia of Philosophy: Hindu Ethics', url:'https://iep.utm.edu/hind-eth/', note:'Free academic entry — covers karma alongside dharma and ahimsa for Edexcel ethics questions' }
+      ],
+      video:[
+        { title:'Philosophy Tube', url:'https://www.youtube.com/c/PhilosophyTube', note:'Strong philosophical analysis — Edexcel essay framework preparation, good AO2 depth' },
+        { title:'The School of Life: Eastern Philosophy', url:'https://www.youtube.com/results?search_query=school+of+life+karma+hinduism', note:'Accessible philosophical framing — useful for comparative ethics arguments' },
+        { title:'Open University 60-Second Adventures in Religion', url:'https://www.youtube.com/results?search_query=open+university+karma', note:'Quick revision of karma concept — good for initial understanding before deeper work' }
+      ],
+      podcast:[
+        { title:'The Bhagavata Podcast', url:'https://www.youtube.com/@TheBhagavataPodcast', note:'Practitioner perspective on karma and dharma — useful for tradition-specific analysis in comparative ethics' },
+        { title:'Hi-Phi Nation (ethics podcast)', url:'https://hiphination.org/', note:'Philosophical ethics from multiple traditions — excellent Edexcel AO2 preparation for comparison questions' },
+        { title:'Philosophize This! — Karma episodes', url:'https://www.philosophizethis.org/', note:'Comparative philosophical framing of karma — directly useful for Edexcel\'s Western-comparison questions' }
+      ]
+    }
+  },
+  wjec: {
+    name:'WJEC / Eduqas A Level', code:'Religious Studies — Hinduism component',
+    color:'#00704A', rgb:'0,112,74', light:'#F0FAF6',
+    tip:'WJEC questions tend to be broader than OCR. Build strong AO1 foundations before developing AO2 arguments. Karma questions here often connect directly to dharma and social ethics.',
+    style:'Two-paper assessment. Karma typically appears in Beliefs and Practices alongside dharma, moksha, and ahimsa. Extended writing rewards breadth of knowledge alongside clear AO2 argument.',
+    relevance:{ overview:'important', mechanism:'helpful', samsara:'essential', moksha:'essential', dharma:'essential', bg247:'important', nishkama:'helpful', traditions:'helpful', evaluations:'essential', connections:'important' },
+    resources:{
+      reading:[
+        { title:'BBC Bitesize: Hindu Beliefs and Practices', url:'https://www.bbc.co.uk/bitesize/topics/zpcfb9q', note:'Well-aligned with WJEC knowledge requirements — reliable starting point for revision' },
+        { title:'Gavin Flood: An Introduction to Hinduism', url:'https://www.cambridge.org/core/books/introduction-to-hinduism/B5F5A16E4D43B8A6D97D1B26D2E21D5E', note:'Cambridge University Press — the standard academic textbook, widely used for WJEC preparation' },
+        { title:'WJEC/Eduqas Religious Studies Specification', url:'https://www.wjec.co.uk/qualifications/religious-studies-a-level/', note:'Essential — map the specification to these revision sections to confirm what karma content is assessed' }
+      ],
+      video:[
+        { title:'BBC Religions: Karma and Dharma', url:'https://www.bbc.co.uk/religion/religions/hinduism/beliefs/karma_1.shtml', note:'BBC web resource — clear WJEC-level overview of karma in Hindu tradition' },
+        { title:'DW Documentary: Hinduism', url:'https://www.youtube.com/results?search_query=dw+documentary+hinduism', note:'Documentary-style contextual knowledge — good background for WJEC breadth questions' },
+        { title:'YouTube: WJEC Hinduism revision', url:'https://www.youtube.com/results?search_query=wjec+a+level+hinduism', note:'Search for board-specific revision videos tailored to the WJEC specification' }
+      ],
+      podcast:[
+        { title:'The Bhagavata Podcast', url:'https://www.youtube.com/@TheBhagavataPodcast', note:'Academic insight into Vaiṣṇava readings of karma and dharma — relevant to WJEC traditions and ethics questions' },
+        { title:'In Our Time: Vedas (BBC Radio 4)', url:'https://www.bbc.co.uk/programmes/b01n1zwq', note:'Historical context for karma in the Vedic period — useful background for WJEC context questions' },
+        { title:'In Our Time: Hinduism (BBC Radio 4)', url:'https://www.bbc.co.uk/programmes/p00548m6', note:'Three academics on core Hindu beliefs — good general preparation for WJEC breadth-knowledge questions' }
+      ]
+    }
+  }
+};
+
+/* ─── BOARD SELECTION ──────────────────────────────────────────── */
+let activeBoard = null;
+let activeResTab = 'reading';
+
+function selectBoard(id) {
+  activeBoard = id || null;
+  // CSS variable update
+  if (activeBoard) {
+    const b = BOARDS[id];
+    document.documentElement.style.setProperty('--board', b.color);
+    document.documentElement.style.setProperty('--board-rgb', b.rgb);
+    document.documentElement.style.setProperty('--board-light', b.light);
+    document.documentElement.style.setProperty('--board-mid', b.color);
+  } else {
+    document.documentElement.style.setProperty('--board', '#1F4EBE');
+    document.documentElement.style.setProperty('--board-rgb', '31,78,190');
+    document.documentElement.style.setProperty('--board-light', '#EEF3FF');
+    document.documentElement.style.setProperty('--board-mid', '#3B6AE8');
+  }
+  updateBoardInfo();
+  updateHighlights();
+  updateNavBadges();
+  updateResources();
+}
+
+function updateBoardInfo() {
+  const info = document.getElementById('board-info');
+  if (!activeBoard) { info.classList.remove('show'); return; }
+  const b = BOARDS[activeBoard];
+  document.getElementById('bi-name').textContent  = b.name;
+  document.getElementById('bi-code').textContent  = b.code;
+  document.getElementById('bi-tip').textContent   = b.tip;
+  document.getElementById('bi-style').textContent = b.style;
+  info.classList.add('show');
+}
+
+function updateHighlights() {
+  const sections = ['overview','mechanism','samsara','moksha','dharma','bg247','nishkama','traditions','evaluations','connections'];
+  sections.forEach(id => {
+    const block = document.getElementById(id);
+    const badge = document.getElementById('rb-' + id);
+    block.classList.remove('highlighted','dimmed');
+    badge.className = 'rel-badge';
+    if (!activeBoard) return;
+    const rel = BOARDS[activeBoard].relevance[id];
+    if (rel === 'essential') {
+      block.classList.add('highlighted');
+      badge.classList.add('show','rb-essential');
+      badge.textContent = '★ Essential';
+    } else if (rel === 'important') {
+      block.classList.add('highlighted');
+      badge.classList.add('show','rb-important');
+      badge.textContent = '◆ Important';
+    } else if (rel === 'helpful') {
+      badge.classList.add('show','rb-helpful');
+      badge.textContent = 'Helpful';
+    } else {
+      block.classList.add('dimmed');
+    }
+  });
+}
+
+function updateNavBadges() {
+  const sections = ['overview','mechanism','samsara','moksha','dharma','bg247','nishkama','traditions','evaluations','connections'];
+  sections.forEach(id => {
+    const badge = document.getElementById('nb-' + id);
+    if (!badge) return;
+    badge.className = 'nav-badge nb-none';
+    badge.textContent = '';
+    if (!activeBoard) return;
+    const rel = BOARDS[activeBoard].relevance[id];
+    if (rel === 'essential') { badge.className = 'nav-badge nb-essential'; badge.textContent = 'Essential'; }
+    else if (rel === 'important') { badge.className = 'nav-badge nb-important'; badge.textContent = 'Important'; }
+    else if (rel === 'helpful') { badge.className = 'nav-badge nb-helpful'; badge.textContent = 'Helpful'; }
+  });
+}
+
+function updateResources() {
+  const empty = document.getElementById('res-empty');
+  if (!activeBoard) {
+    document.getElementById('res-title').textContent = 'Select your exam board to see tailored resources';
+    document.getElementById('res-board-name').textContent = 'Readings, videos, and podcasts matched to your specification';
+    ['reading','video','podcast'].forEach(t => { document.getElementById('res-'+t).innerHTML = ''; document.getElementById('res-'+t).classList.remove('show'); });
+    empty.classList.add('show'); return;
+  }
+  empty.classList.remove('show');
+  const b = BOARDS[activeBoard];
+  document.getElementById('res-title').textContent = 'Resources for ' + b.name;
+  document.getElementById('res-board-name').textContent = b.code + ' — curated for the karma topic';
+  ['reading','video','podcast'].forEach(type => {
+    const list = document.getElementById('res-' + type);
+    list.innerHTML = b.resources[type].map(r => `
+      <div class="res-item">
+        <div class="res-item-title">${r.title}</div>
+        <div class="res-item-note">${r.note}</div>
+        <a class="res-item-link" href="${r.url}" target="_blank" rel="noopener">Open resource ↗</a>
+      </div>`).join('');
+    list.classList.toggle('show', type === activeResTab);
+  });
+}
+
+/* ─── RESOURCE TABS ────────────────────────────────────────────── */
+function showResTab(type, btn) {
+  activeResTab = type;
+  document.querySelectorAll('.res-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['reading','video','podcast'].forEach(t => document.getElementById('res-'+t).classList.toggle('show', t===type));
+}
+
+/* ─── NAV ACTIVE STATE ─────────────────────────────────────────── */
+function setActive(el) {
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Intersection observer for auto nav highlight
+const navObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      document.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+['overview','mechanism','samsara','moksha','dharma','bg247','nishkama','traditions','evaluations','connections'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) navObserver.observe(el);
+});
+</script>
+<script id="sn-js">
+(function(){var p=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('[data-sn]').forEach(function(e){if(e.getAttribute('data-sn')===p){e.classList.add('sn-active');var g=e.closest('.sn-group');if(g)g.querySelector('.sn-link').classList.add('sn-active');}});})();
+function snHam(){var l=document.getElementById('sn-links'),h=document.getElementById('sn-ham');l.classList.toggle('mob-open');h.classList.toggle('open');}
+document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.sn-group>.sn-link').forEach(function(t){t.addEventListener('click',function(){if(window.innerWidth<=860){t.closest('.sn-group').classList.toggle('mob-open');}});});});
+</script>
+</body>
+</html>

@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vedic Sacrifice — HinduEDU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+
+/* ═══ RESET ═══ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; }
+body { font-family: 'DM Sans', sans-serif; background: #0A0800; }
+
+/* ═══ CANVAS ═══ */
+.canvas { position: fixed; inset: 0; }
+
+.bg-image {
+  position: absolute; inset: 0;
+  background: url('./vedic-sacrifice.jpg') center 40% / cover no-repeat;
+  transition:
+    background-size .9s cubic-bezier(.32,.72,0,1),
+    background-position .9s cubic-bezier(.32,.72,0,1);
+}
+
+/* ═══ ANNOTATION LAYER ═══ */
+.annot-layer {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .45s ease;
+  z-index: 20;
+}
+.annot-layer.visible { opacity: 1; }
+.annot {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  display: flex; flex-direction: column; align-items: center;
+}
+.annot-label {
+  background: rgba(8,5,2,.82);
+  border: 1px solid rgba(240,230,206,.22);
+  backdrop-filter: blur(6px);
+  color: #F0E6CE;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: .28rem .65rem;
+  white-space: nowrap; line-height: 1.35;
+  text-align: center;
+}
+.annot-sub {
+  display: block;
+  font-weight: 400; text-transform: none;
+  letter-spacing: 0; opacity: .65;
+  font-style: italic; font-size: .58rem;
+}
+.annot-line {
+  width: 1px; height: 14px;
+  background: rgba(240,230,206,.3);
+}
+.annot-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: rgba(184,115,51,.8);
+  flex-shrink: 0;
+}
+
+/* Annotate toggle button */
+.annotate-btn {
+  position: absolute; bottom: 4.5rem; right: 2.5rem; z-index: 45;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(240,230,206,.55);
+  background: rgba(6,4,0,.6);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(10px);
+  padding: .48rem 1rem;
+  cursor: pointer; transition: all .2s;
+}
+.annotate-btn:hover { color: #F0E6CE; border-color: rgba(255,255,255,.35); }
+.annotate-btn.active { color: #B87333; border-color: rgba(184,115,51,.5); }
+
+/* Panel bridge — story connector at bottom of each panel */
+.panel-bridge {
+  margin-top: 1.4rem; padding: .75rem 1rem;
+  border-top: 1px solid #D8D4CC;
+  font-size: .72rem; font-weight: 500;
+  color: #7A7060; letter-spacing: .01em;
+  display: flex; align-items: center; gap: .4rem;
+}
+.panel-bridge em { color: #1A3A6A; font-style: italic; }
+
+/* Vignette — edges only, center stays bright */
+.bg-vignette {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, rgba(4,2,0,.6) 100%),
+    linear-gradient(to bottom, rgba(4,2,0,.4) 0%, transparent 18%, transparent 78%, rgba(4,2,0,.55) 100%);
+}
+
+
+/* ═══ NAV ═══ */
+nav {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem; height: 54px;
+  background: rgba(6,4,0,.6);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15rem; color: #F0E6CE; letter-spacing: .02em;
+}
+.nav-links { display: flex; }
+.nav-link {
+  font-size: .62rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: rgba(240,230,206,.45);
+  padding: 0 1rem; height: 54px;
+  display: flex; align-items: center;
+  border-left: 1px solid rgba(255,255,255,.07);
+  text-decoration: none; transition: color .15s;
+}
+.nav-link:last-of-type { border-right: 1px solid rgba(255,255,255,.07); }
+.nav-link:hover { color: rgba(240,230,206,.9); }
+.nav-back {
+  font-size: .62rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(240,230,206,.45);
+  text-decoration: none; transition: color .15s;
+}
+.nav-back:hover { color: #F0E6CE; }
+
+
+/* ═══ TITLE BLOCK ═══ */
+.title-block {
+  position: absolute; bottom: 2.8rem; left: 3rem; z-index: 40;
+  max-width: 460px;
+}
+/* Frosted glass backing */
+.title-block::before {
+  content: '';
+  position: absolute; inset: -1.2rem -1.5rem;
+  background: rgba(4,2,0,.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  mask-image: radial-gradient(ellipse 100% 100% at 0% 100%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0% 100%, black 40%, transparent 100%);
+  pointer-events: none;
+}
+.title-eyebrow {
+  position: relative;
+  font-size: .58rem; font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; color: #B87333;
+  margin-bottom: .6rem;
+  display: flex; align-items: center; gap: .55rem;
+}
+.title-eyebrow::before {
+  content: ''; display: inline-block;
+  width: 18px; height: 2px; background: #B87333;
+}
+.title-main {
+  position: relative;
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.04; color: #F0E6CE;
+  margin-bottom: .7rem;
+}
+.title-main em { font-style: italic; color: #D4895A; }
+.title-sub {
+  position: relative;
+  font-size: .82rem; font-weight: 300;
+  color: rgba(240,230,206,.7); line-height: 1.65;
+  max-width: 340px;
+}
+
+
+/* ═══ PROGRESS TRACKER ═══ */
+.progress-bar {
+  position: absolute; bottom: 2.8rem; right: 3rem; z-index: 40;
+  display: flex; flex-direction: column; align-items: flex-end; gap: .6rem;
+}
+.progress-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: rgba(240,230,206,.35);
+}
+.progress-dots {
+  display: flex; gap: .45rem;
+}
+.prog-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  transition: background .4s, transform .3s;
+}
+.prog-dot.done {
+  background: #B87333;
+  transform: scale(1.2);
+}
+.prog-dot.done.all { background: #1A3A6A; }
+
+
+/* ═══ HOTSPOT DOTS ═══ */
+.dot {
+  position: absolute; z-index: 30;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+/* Ripple */
+.dot-ripple {
+  position: absolute; top: 50%; left: 50%;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,.5);
+  transform: translate(-50%, -50%) scale(1);
+  animation: ripple-out 2.6s ease-out infinite;
+}
+/* Stagger delays */
+.dot[data-q="1"] .dot-ripple { animation-delay: 0s; }
+.dot[data-q="2"] .dot-ripple { animation-delay: .43s; }
+.dot[data-q="3"] .dot-ripple { animation-delay: .86s; }
+.dot[data-q="4"] .dot-ripple { animation-delay: 1.3s; }
+.dot[data-q="5"] .dot-ripple { animation-delay: 1.72s; }
+.dot[data-q="6"] .dot-ripple { animation-delay: 2.15s; }
+
+@keyframes ripple-out {
+  0%   { transform: translate(-50%,-50%) scale(.6);  opacity: .9; }
+  70%  { transform: translate(-50%,-50%) scale(2.2); opacity: 0;  }
+  100% { transform: translate(-50%,-50%) scale(.6);  opacity: 0;  }
+}
+
+/* Core */
+.dot-core {
+  position: relative; z-index: 2;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(184,115,51,.9);
+  border: 2px solid rgba(255,255,255,.9);
+  box-shadow: 0 2px 14px rgba(0,0,0,.6), 0 0 0 3px rgba(184,115,51,.25);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .2s, background .3s, box-shadow .3s;
+}
+.dot-num {
+  font-size: .52rem; font-weight: 800;
+  color: #fff; line-height: 1;
+}
+.dot-check { display: none; font-size: .6rem; }
+
+/* Hover */
+.dot:hover .dot-core { transform: scale(1.2); }
+
+/* Visited */
+.dot.visited .dot-core {
+  background: #1A3A6A;
+  box-shadow: 0 2px 14px rgba(0,0,0,.6), 0 0 0 3px rgba(26,58,106,.35);
+}
+.dot.visited .dot-num { display: none; }
+.dot.visited .dot-check { display: block; }
+
+/* Active */
+.dot.active .dot-core {
+  transform: scale(1.3);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.3), 0 4px 20px rgba(0,0,0,.5);
+}
+.dot.active .dot-num { color: #1A3A6A; }
+.dot.active .dot-check { color: #1A3A6A; }
+
+/* "Start here" nudge — dot 1 only */
+.dot[data-q="1"] .start-nudge {
+  position: absolute;
+  right: calc(100% + 10px); top: 50%;
+  transform: translateY(-50%);
+  display: flex; align-items: center; gap: .4rem;
+  white-space: nowrap;
+  animation: nudge-pulse 2s ease-in-out infinite;
+}
+.nudge-label {
+  font-size: .6rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(240,230,206,.8);
+  background: rgba(4,2,0,.6); backdrop-filter: blur(8px);
+  padding: .28rem .65rem;
+}
+.nudge-arrow {
+  font-size: .8rem; color: rgba(240,230,206,.7);
+}
+@keyframes nudge-pulse {
+  0%, 100% { opacity: .6; transform: translateY(-50%) translateX(0); }
+  50%       { opacity: 1;  transform: translateY(-50%) translateX(3px); }
+}
+/* Hide nudge once any dot is clicked */
+.nudge-hidden .start-nudge { display: none !important; }
+
+/* Tooltip */
+.dot-tip {
+  position: absolute;
+  bottom: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%);
+  background: rgba(6,4,0,.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(184,115,51,.3);
+  color: #F0E6CE;
+  font-size: .66rem; font-weight: 600;
+  white-space: nowrap; padding: .38rem .7rem;
+  pointer-events: none;
+  opacity: 0; transition: opacity .18s;
+}
+.dot-tip::after {
+  content: '';
+  position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(6,4,0,.88);
+}
+.dot:hover .dot-tip { opacity: 1; }
+
+/* DOT POSITIONS — narrative order 1→6 */
+.dot[data-q="1"] { left: 14%;   top: 13%; }  /* sky/cosmos — story opens here */
+.dot[data-q="2"] { left: 50%;   top: 22%; }  /* central deity — the Vedas */
+.dot[data-q="3"] { left: 49%;   top: 57%; }  /* fire — why fire? */
+.dot[data-q="4"] { left: 38%;   top: 74%; }  /* gesturing priest — mantra */
+.dot[data-q="5"] { left: 19%;   top: 41%; }  /* Vishnu — who performed? */
+.dot[data-q="6"] { left: 76%;   top: 46%; }  /* right figure — still alive */
+
+
+/* ═══ PANEL OVERLAY ═══ */
+.overlay {
+  position: fixed; inset: 0; z-index: 60;
+  pointer-events: none;
+}
+.overlay.open { pointer-events: auto; }
+
+.scrim {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(1.5px);
+  opacity: 0; transition: opacity .35s;
+  cursor: pointer;
+}
+.overlay.open .scrim { opacity: 1; }
+
+/* Panel */
+.panel {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: 400px; max-width: 92vw;
+  background: #F8F6F2;
+  border-left: 2px solid #14100C;
+  transform: translateX(100%);
+  transition: transform .44s cubic-bezier(.32,.72,0,1);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.overlay.open .panel { transform: translateX(0); }
+
+/* Gradient band */
+.panel-band {
+  height: 3px; flex-shrink: 0;
+  background: linear-gradient(90deg, #1A3A6A 0%, #B87333 100%);
+}
+
+/* Painting callout — contextual link between image and text */
+.panel-callout {
+  background: #14100C;
+  padding: .8rem 1.4rem;
+  display: flex; align-items: flex-start; gap: .65rem;
+  flex-shrink: 0;
+}
+.callout-icon {
+  font-size: .75rem; flex-shrink: 0; margin-top: .05rem;
+  opacity: .7;
+}
+.callout-text {
+  font-size: .72rem; font-weight: 400;
+  color: rgba(240,230,206,.75); line-height: 1.55;
+  font-style: italic;
+}
+
+/* Header */
+.panel-header {
+  padding: 1.4rem 1.8rem 1.1rem;
+  border-bottom: 1px solid #D8D4CC;
+  flex-shrink: 0;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: .8rem;
+}
+.panel-q-num {
+  font-size: .56rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: #B87333; margin-bottom: .45rem;
+  display: flex; align-items: center; gap: .45rem;
+}
+.panel-q-num::before {
+  content: ''; display: inline-block;
+  width: 12px; height: 2px; background: #B87333;
+}
+.panel-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+  line-height: 1.1; color: #14100C;
+}
+.panel-title em { font-style: italic; color: #1A3A6A; }
+.panel-close {
+  width: 32px; height: 32px; flex-shrink: 0;
+  background: none; border: 1.5px solid #D0CCC4;
+  cursor: pointer; color: #8A8078; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s; border-radius: 0;
+  margin-top: .15rem;
+}
+.panel-close:hover { border-color: #14100C; color: #14100C; }
+
+/* Body */
+.panel-body {
+  flex: 1; overflow-y: auto; padding: 1.5rem 1.8rem;
+  -webkit-overflow-scrolling: touch;
+}
+.panel-body p {
+  font-size: .9rem; color: #3A3028; line-height: 1.82; margin-bottom: 1.1rem;
+}
+.panel-body p:last-child { margin-bottom: 0; }
+.panel-body strong { color: #14100C; font-weight: 600; }
+.panel-body em { font-family: 'DM Serif Display', serif; font-style: italic; color: #1A3A6A; }
+.sk { font-family: 'DM Serif Display', serif; font-style: italic; color: #1A3A6A; }
+
+/* Pull stat */
+.panel-stat {
+  border-left: 3px solid #B87333;
+  padding: .85rem 1.1rem;
+  margin: 1.3rem 0;
+  background: rgba(184,115,51,.05);
+}
+.stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem; color: #B87333; line-height: 1;
+  margin-bottom: .2rem;
+}
+.stat-label {
+  font-size: .68rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: #8A8078;
+}
+
+/* Footer */
+.panel-footer {
+  padding: .9rem 1.8rem;
+  border-top: 1px solid #D8D4CC; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.panel-nav-btn {
+  font-size: .62rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: #7A7060;
+  background: none; border: 1.5px solid #D0CCC4;
+  padding: .38rem .85rem; cursor: pointer; transition: all .15s;
+}
+.panel-nav-btn:hover:not(:disabled) { border-color: #1A3A6A; color: #1A3A6A; }
+.panel-nav-btn:disabled { opacity: .28; cursor: not-allowed; }
+.panel-progress {
+  font-size: .6rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: #B8B0A4;
+}
+.panel-progress .cur { color: #14100C; }
+
+
+/* ═══ COMPLETION SCREEN ═══ */
+.completion {
+  position: fixed; inset: 0; z-index: 80;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none; opacity: 0;
+  transition: opacity .6s;
+}
+.completion.show {
+  pointer-events: auto; opacity: 1;
+}
+.completion-scrim {
+  position: absolute; inset: 0;
+  background: rgba(4,2,0,.82);
+  backdrop-filter: blur(8px);
+}
+.completion-card {
+  position: relative; z-index: 2;
+  background: #F8F6F2;
+  border-top: 3px solid;
+  border-image: linear-gradient(90deg, #1A3A6A, #B87333) 1;
+  padding: 3rem 3.5rem;
+  max-width: 520px; width: 90%;
+  text-align: center;
+  transform: translateY(20px);
+  transition: transform .6s cubic-bezier(.32,.72,0,1);
+}
+.completion.show .completion-card { transform: translateY(0); }
+.completion-mark {
+  font-size: 2.5rem; margin-bottom: 1.2rem;
+}
+.completion-eyebrow {
+  font-size: .6rem; font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; color: #B87333; margin-bottom: .75rem;
+}
+.completion-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.1rem; line-height: 1.1; color: #14100C;
+  margin-bottom: .9rem;
+}
+.completion-title em { font-style: italic; color: #1A3A6A; }
+.completion-body {
+  font-size: .88rem; color: #5A5048; line-height: 1.75;
+  margin-bottom: 2rem;
+}
+.completion-actions {
+  display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap;
+}
+.comp-btn {
+  font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: .6rem 1.3rem;
+  text-decoration: none; transition: all .18s; cursor: pointer;
+  border: none;
+}
+.comp-btn-primary {
+  background: #1A3A6A; color: #F8F6F2;
+}
+.comp-btn-primary:hover { background: #0F2448; }
+.comp-btn-ghost {
+  background: none; color: #7A7060;
+  border: 1.5px solid #D8D4CC;
+}
+.comp-btn-ghost:hover { border-color: #1A3A6A; color: #1A3A6A; }
+
+
+/* ═══ MOBILE ═══ */
+@media (max-width: 640px) {
+  .title-block { bottom: 5rem; left: 1.5rem; right: 1.5rem; max-width: none; }
+  .title-main { font-size: 1.8rem; }
+  nav { padding: 0 1.2rem; }
+  .nav-links { display: none; }
+  .progress-bar { right: 1.5rem; }
+  .panel {
+    width: 100vw; max-width: 100vw; border-left: none;
+    border-top: 2px solid #14100C; top: auto; height: 82vh;
+    transform: translateY(100%);
+    border-radius: 0;
+  }
+  .overlay.open .panel { transform: translateY(0); }
+  .dot[data-q="1"] .start-nudge { display: none; }
+}
+</style>
+
+<style id="sn-css">
+/* ═══ SITE-WIDE NAV ═══════════════════════════════════════════════ */
+.site-nav,.site-nav *{box-sizing:border-box}
+.site-nav{position:sticky;top:0;z-index:9999;padding:0;background:rgba(14,6,0,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,175,55,.14)}
+.sn-inner{max-width:1340px;margin:0 auto;padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.sn-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
+.sn-om{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:rgba(212,175,55,.4);line-height:1;user-select:none}
+.sn-brand{display:flex;flex-direction:column;line-height:1.15;gap:.02rem}
+.sn-brand-sup{font-family:'Inter',system-ui,sans-serif;font-size:.5rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(154,120,0,.6)}
+.sn-brand-name{font-family:'Playfair Display',Georgia,serif;font-size:.92rem;font-weight:700;font-style:italic;color:#F0E8D4}
+.sn-links{display:flex;align-items:center;gap:.1rem}
+.sn-link{font-family:'Inter',system-ui,sans-serif;font-size:.69rem;font-weight:600;letter-spacing:.02em;color:rgba(195,170,120,.62);padding:.36rem .7rem;border-radius:5px;cursor:pointer;text-decoration:none;white-space:nowrap;border:none;background:transparent;transition:color .16s,background .16s;display:flex;align-items:center;gap:.22rem}
+.sn-link:hover,.sn-link.sn-active{color:#D4AF37}
+.sn-link.sn-active{background:rgba(212,175,55,.08)}
+.sn-caret{font-size:.52rem;opacity:.45;transition:transform .2s}
+.sn-group{position:relative}
+.sn-group:hover>.sn-link .sn-caret,.sn-group:focus-within>.sn-link .sn-caret{transform:rotate(90deg);opacity:.75}
+.sn-drop{position:absolute;top:calc(100% + .35rem);left:50%;transform:translateX(-50%) translateY(-5px);opacity:0;pointer-events:none;transition:opacity .17s,transform .17s;z-index:10000}
+.sn-group:hover>.sn-drop,.sn-group:focus-within>.sn-drop{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.sn-drop-inner{background:#130700;border:1px solid rgba(212,175,55,.18);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.75);min-width:248px;padding:.35rem}
+.sdi{display:flex;align-items:center;gap:.72rem;padding:.54rem .68rem;border-radius:7px;text-decoration:none;transition:background .13s;color:inherit}
+.sdi:hover,.sdi.sn-active{background:rgba(212,175,55,.08)}
+.sdi-num{font-family:'Inter',system-ui,sans-serif;font-size:.58rem;font-weight:700;color:rgba(154,120,0,.45);width:16px;flex-shrink:0;text-align:center}
+.sdi-tag{font-family:'Inter',system-ui,sans-serif;font-size:.54rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:rgba(212,175,55,.1);color:rgba(212,175,55,.7);border:1px solid rgba(212,175,55,.18);border-radius:3px;padding:.08rem .36rem;flex-shrink:0;white-space:nowrap}
+.sdi-text{display:flex;flex-direction:column;gap:.03rem}
+.sdi-title{font-family:'Playfair Display',Georgia,serif;font-size:.83rem;font-weight:700;font-style:italic;color:#EDE5C8}
+.sdi-sub{font-family:'Inter',system-ui,sans-serif;font-size:.62rem;color:rgba(154,120,0,.55)}
+.sn-drop-div{height:1px;background:rgba(212,175,55,.1);margin:.3rem .4rem}
+.sn-ham{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:.45rem;flex-shrink:0}
+.sn-ham span{display:block;width:20px;height:1.5px;background:rgba(195,170,120,.72);border-radius:2px;transition:all .25s}
+.sn-ham.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.sn-ham.open span:nth-child(2){opacity:0;width:0}
+.sn-ham.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:860px){
+  .sn-ham{display:flex}
+  .sn-links{display:none;position:fixed;inset:56px 0 0;background:rgba(12,5,0,.99);flex-direction:column;align-items:stretch;padding:1rem;gap:.1rem;overflow-y:auto;z-index:9998;border-top:1px solid rgba(212,175,55,.1)}
+  .sn-links.mob-open{display:flex}
+  .sn-group>.sn-drop{position:static;opacity:1;pointer-events:all;transform:none;max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .sn-group.mob-open>.sn-drop{max-height:500px}
+  .sn-drop-inner{background:rgba(255,255,255,.03);border-color:rgba(212,175,55,.1);box-shadow:none;border-radius:8px;margin:.1rem 0 .1rem 1rem;padding:.2rem}
+  .sn-link{font-size:.8rem;padding:.62rem .85rem}
+  .sn-caret{margin-left:auto;font-size:.65rem}
+}
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <div class="bg-image"></div>
+  <div class="bg-vignette"></div>
+
+  <!-- ═══ FIRE FX ═══ -->
+
+  <!-- ═══ NAV ═══ -->
+  <nav class="site-nav" id="site-nav">
+<div class="sn-inner">
+  <a class="sn-logo" href="index.html">
+    <span class="sn-om">ॐ</span>
+    <span class="sn-brand">
+      <span class="sn-brand-sup">Next Gen Education</span>
+      <span class="sn-brand-name">Hindu Studies</span>
+    </span>
+  </a>
+  <div class="sn-links" id="sn-links">
+    <a class="sn-link" href="index.html"   data-sn="index.html">Home</a>
+    <a class="sn-link" href="map.html"     data-sn="map.html">Start Here</a>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Essays <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="vedas.html"          data-sn="vedas.html"><span class="sdi-num">01</span><span class="sdi-text"><span class="sdi-title">The Vedas</span><span class="sdi-sub">Origins · Sanskrit · Upaniṣads</span></span></a>
+        <a class="sdi" href="darshanas.html"       data-sn="darshanas.html"><span class="sdi-num">02</span><span class="sdi-text"><span class="sdi-title">The Six Darśanas</span><span class="sdi-sub">Philosophy · Schools · Logic</span></span></a>
+        <a class="sdi" href="history.html"         data-sn="history.html"><span class="sdi-num">03</span><span class="sdi-text"><span class="sdi-title">A Historical Timeline</span><span class="sdi-sub">2600 BCE → 1400 CE</span></span></a>
+        <a class="sdi" href="veda-traditions.html" data-sn="veda-traditions.html"><span class="sdi-num">04</span><span class="sdi-text"><span class="sdi-title">What is Śāstra?</span><span class="sdi-sub">18 Traditions · 8 Categories</span></span></a>
+        <a class="sdi" href="vedic-sacrifice.html" data-sn="vedic-sacrifice.html"><span class="sdi-num">05</span><span class="sdi-text"><span class="sdi-title">The Sacred Fire</span><span class="sdi-sub">Yajña · Ritual · Agni</span></span></a>
+      </div></div>
+    </div>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Karma <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="karma.html"          data-sn="karma.html"><span class="sdi-tag">Essay</span><span class="sdi-text"><span class="sdi-title">Karma</span><span class="sdi-sub">Visual essay · All techniques</span></span></a>
+        <div class="sn-drop-div"></div>
+        <a class="sdi" href="karma-full.html"     data-sn="karma-full.html"><span class="sdi-tag">Exam</span><span class="sdi-text"><span class="sdi-title">Karma + Exam Mode</span><span class="sdi-sub">Board-specific overlay</span></span></a>
+        <a class="sdi" href="karma-revision.html" data-sn="karma-revision.html"><span class="sdi-tag">Study</span><span class="sdi-text"><span class="sdi-title">A Level Revision</span><span class="sdi-sub">OCR · AQA · Edexcel · WJEC</span></span></a>
+      </div></div>
+    </div>
+    <a class="sn-link" href="overview.html" data-sn="overview.html">Overview</a>
+  </div>
+  <button class="sn-ham" id="sn-ham" aria-label="Menu" onclick="snHam()"><span></span><span></span><span></span></button>
+</div>
+</nav>
+
+  <!-- ═══ DOTS — narrative order ═══ -->
+  <div class="dot" data-q="1">
+    <div class="start-nudge"><span class="nudge-label">Start here</span><span class="nudge-arrow">→</span></div>
+    <div class="dot-ripple"></div>
+    <div class="dot-core"><span class="dot-num">1</span><span class="dot-check">✓</span></div>
+    <div class="dot-tip">What kind of world is this?</div>
+  </div>
+
+  <div class="dot" data-q="2">
+    <div class="dot-ripple"></div>
+    <div class="dot-core"><span class="dot-num">2</span><span class="dot-check">✓</span></div>
+    <div class="dot-tip">What are the Vedas?</div>
+  </div>
+
+  <div class="dot" data-q="3">
+    <div class="dot-ripple"></div>
+    <div class="dot-core"><span class="dot-num">3</span><span class="dot-check">✓</span></div>
+    <div class="dot-tip">Why fire?</div>
+  </div>
+
+  <div class="dot" data-q="4">
+    <div class="dot-ripple"></div>
+    <div class="dot-core"><span class="dot-num">4</span><span class="dot-check">✓</span></div>
+    <div class="dot-tip">What is mantra?</div>
+  </div>
+
+  <div class="dot" data-q="5">
+    <div class="dot-ripple"></div>
+    <div class="dot-core"><span class="dot-num">5</span><span class="dot-check">✓</span></div>
+    <div class="dot-tip">Who performed these rites?</div>
+  </div>
+
+  <div class="dot" data-q="6">
+    <div class="dot-ripple"></div>
+    <div class="dot-core"><span class="dot-num">6</span><span class="dot-check">✓</span></div>
+    <div class="dot-tip">Still alive today?</div>
+  </div>
+
+  <!-- ═══ ANNOTATION LAYER ═══ -->
+  <div class="annot-layer" id="annotLayer">
+    <div class="annot" style="left:50%;top:40%">
+      <div class="annot-label">Agni<span class="annot-sub">fire god & divine messenger</span></div>
+      <div class="annot-line"></div><div class="annot-dot"></div>
+    </div>
+    <div class="annot" style="left:50%;top:62%">
+      <div class="annot-label">Kunda<span class="annot-sub">the sacred fire pit</span></div>
+      <div class="annot-line"></div><div class="annot-dot"></div>
+    </div>
+    <div class="annot" style="left:51%;top:13%">
+      <div class="annot-label">Central Deity<span class="annot-sub">seated beneath the parasol</span></div>
+      <div class="annot-line"></div><div class="annot-dot"></div>
+    </div>
+    <div class="annot" style="left:17%;top:28%">
+      <div class="annot-label">Viṣṇu<span class="annot-sub">blue-skinned preserver</span></div>
+      <div class="annot-line"></div><div class="annot-dot"></div>
+    </div>
+    <div class="annot" style="left:77%;top:22%">
+      <div class="annot-label">Divine Figure<span class="annot-sub">attendant deity</span></div>
+      <div class="annot-line"></div><div class="annot-dot"></div>
+    </div>
+    <div class="annot" style="left:36%;top:63%">
+      <div class="annot-label">Ṛtvij<span class="annot-sub">officiating priest</span></div>
+      <div class="annot-line"></div><div class="annot-dot"></div>
+    </div>
+    <div class="annot" style="left:43%;top:52%">
+      <div class="annot-label">Sruk<span class="annot-sub">ritual ladle for ghee</span></div>
+      <div class="annot-line"></div><div class="annot-dot"></div>
+    </div>
+    <div class="annot" style="left:63%;top:60%">
+      <div class="annot-label">Bali<span class="annot-sub">ritual offerings</span></div>
+      <div class="annot-line"></div><div class="annot-dot"></div>
+    </div>
+  </div>
+
+  <!-- Annotate toggle -->
+  <button class="annotate-btn" id="annotateBtn">Annotate painting</button>
+
+  <!-- ═══ TITLE ═══ -->
+  <div class="title-block">
+    <div class="title-eyebrow">Interactive · Vedic Religion</div>
+    <div class="title-main">The Sacred<br><em>Fire Sacrifice</em></div>
+    <div class="title-sub">Click the glowing points to explore the questions this painting raises — and the answers that shaped a tradition.</div>
+  </div>
+
+  <!-- ═══ PROGRESS ═══ -->
+  <div class="progress-bar">
+    <div class="progress-label" id="progressLabel">0 of 6 explored</div>
+    <div class="progress-dots">
+      <div class="prog-dot" data-pi="0"></div>
+      <div class="prog-dot" data-pi="1"></div>
+      <div class="prog-dot" data-pi="2"></div>
+      <div class="prog-dot" data-pi="3"></div>
+      <div class="prog-dot" data-pi="4"></div>
+      <div class="prog-dot" data-pi="5"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ PANEL ═══ -->
+<div class="overlay" id="overlay">
+  <div class="scrim" id="scrim"></div>
+  <div class="panel" id="panel">
+    <div class="panel-band"></div>
+    <div class="panel-callout" id="panelCallout">
+      <span class="callout-icon">👁</span>
+      <span class="callout-text" id="calloutText"></span>
+    </div>
+    <div class="panel-header">
+      <div>
+        <div class="panel-q-num" id="panelNum"></div>
+        <div class="panel-title" id="panelTitle"></div>
+      </div>
+      <button class="panel-close" id="closeBtn" aria-label="Close">✕</button>
+    </div>
+    <div class="panel-body" id="panelBody"></div>
+    <div class="panel-footer">
+      <button class="panel-nav-btn" id="prevBtn">← Prev</button>
+      <span class="panel-progress"><span class="cur" id="progCur">1</span> / 6</span>
+      <button class="panel-nav-btn" id="nextBtn">Next →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ COMPLETION ═══ -->
+<div class="completion" id="completion">
+  <div class="completion-scrim"></div>
+  <div class="completion-card">
+    <div class="completion-mark">🔥</div>
+    <div class="completion-eyebrow">All six explored</div>
+    <div class="completion-title">The fire is still<br><em>burning</em></div>
+    <div class="completion-body">
+      You've covered the foundation: what the Vedas are, why fire was sacred, who performed the rites, what mantra does, how the tradition survives, and how it shaped the entire philosophical tradition that followed. That's not a small thing.
+      <br><br>
+      The next step is the Vedas essay — where these ideas are worked through in full.
+    </div>
+    <div class="completion-actions">
+      <a class="comp-btn comp-btn-primary" href="vedas.html">Read: The Vedas →</a>
+      <button class="comp-btn comp-btn-ghost" id="compDismiss">Back to the painting</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+
+/* ══════════════════════════════════════
+   CONTENT
+══════════════════════════════════════ */
+const questions = [
+
+  /* ─── 1 of 6 — Cosmology / worldview — dot at sky top-left ─── */
+  {
+    num: '1 of 6',
+    title: 'A world held together<br>by <em>ritual</em>',
+    callout: 'Look at the full composition before you read a word. Human figures at the edges, divine figures in a ring above, fire connecting both at the center. This arrangement wasn\'t decorative. It was cosmology made visible.',
+    bgFocus: { pos: '18% 14%', size: '142%' },
+    body: `
+      <p>This painting shows you a world. Not one invented by an artist — one that was believed, lived in, and maintained through action for over three thousand years.</p>
+      <p>In the Vedic understanding, the cosmos was not a passive backdrop for human life. It was a <strong>living system of exchanges</strong>: between humans and gods, between earth and sky, between the seen and unseen. That system required maintenance. Its name was <span class="sk">yajña</span> — sacrifice.</p>
+      <div class="panel-stat">
+        <div class="stat-num">ṛta</div>
+        <div class="stat-label">The Vedic word for cosmic order — the pattern that holds the universe together</div>
+      </div>
+      <p>Every figure in this painting is here because the order must be upheld. The fire is the mechanism. The priests are the technicians. The gods are the recipients — and the guarantors of the return.</p>
+      <div class="panel-bridge">Next → <em>What are the Vedas?</em></div>
+    `
+  },
+
+  /* ─── 2 of 6 — Vedas — dot at central deity top-center ─── */
+  {
+    num: '2 of 6',
+    title: 'What are the <em>Vedas</em>?',
+    callout: 'The central deity, seated beneath the white parasol, represents the divine knowledge the Vedas are said to embody — not invented by humans, but received by seers in deep meditation.',
+    bgFocus: { pos: '50% 24%', size: '132%' },
+    body: `
+      <p>The Vedas are the oldest surviving body of religious literature on earth — composed in Sanskrit between roughly 1500 and 500 BCE, though their oral transmission is far older. The word <span class="sk">veda</span> simply means "knowledge."</p>
+      <p>There are four: the <strong>Ṛgveda</strong> (hymns of praise), the <strong>Sāmaveda</strong> (chants), the <strong>Yajurveda</strong> (ritual formulas), and the <strong>Atharvaveda</strong> (spells, healing, everyday life). Together they form the <span class="sk">śruti</span> — "that which was heard."</p>
+      <div class="panel-stat">
+        <div class="stat-num">10,552</div>
+        <div class="stat-label">Verses in the Ṛgveda alone — memorized, never written, for over a thousand years</div>
+      </div>
+      <p>The ancient seers — the <span class="sk">ṛṣis</span> — are said to have <em>perceived</em> the Vedas in deep meditation, not composed them. They transmitted this revealed, eternal sound in an unbroken oral lineage for thousands of years before a single word was written down.</p>
+      <div class="panel-bridge">Next → <em>Why fire?</em></div>
+    `
+  },
+
+  /* ─── 3 of 6 — Why fire — dot at the fire center ─── */
+  {
+    num: '3 of 6',
+    title: 'Why <em>fire</em>?',
+    callout: 'The fire at the center isn\'t decoration — it\'s the entire point. Every figure, every gesture, every offering is directed toward it. Agni is the reason they are all here.',
+    bgFocus: { pos: '50% 56%', size: '148%' },
+    body: `
+      <p>Fire — <span class="sk">Agni</span> — was not just a tool. It was a god, a messenger, and a medium. The Vedic <span class="sk">yajña</span> worked on one profound principle: <strong>fire transforms.</strong></p>
+      <p>Whatever you offer — grain, clarified butter (<span class="sk">ghee</span>), soma, prayer — doesn't disappear. It <em>travels</em>. Agni carries the offering upward from the human world to the world of the gods. In return, the gods sustain the cosmos: rains fall, crops grow, the sun rises.</p>
+      <p>The sacrifice was understood as the <strong>engine that kept the universe running</strong>. Stop sacrificing, and the cosmic order — <span class="sk">ṛta</span> — would unravel. This wasn't devotion. It was maintenance.</p>
+      <div class="panel-stat">
+        <div class="stat-num">250+</div>
+        <div class="stat-label">Hymns addressed to Agni in the Ṛgveda — more than any other deity</div>
+      </div>
+      <div class="panel-bridge">Next → <em>What is mantra?</em></div>
+    `
+  },
+
+  /* ─── 4 of 6 — Mantra — dot at gesturing priest bottom-center ─── */
+  {
+    num: '4 of 6',
+    title: 'What is <em>mantra</em>?',
+    callout: 'The figure at the bottom, arm extended mid-pour — this is a priest at the exact moment of offering. The mantra must be spoken now, at this instant. Sound and action are one.',
+    bgFocus: { pos: '40% 74%', size: '145%' },
+    body: `
+      <p>A <span class="sk">mantra</span> is not a meditation aid in the modern sense. It is a verbal formula with specific sonic power — the right syllables, in the right sequence, at the right moment, producing a real effect in the world.</p>
+      <p>The Ṛgveda's hymns are addressed directly to the gods: Agni, Indra, Varuṇa, Soma. They praise, they petition, they celebrate. The Yajurveda contains whispered formulas spoken during the sacrifice itself — technical, precise, operative speech.</p>
+      <div class="panel-stat">
+        <div class="stat-num">ॐ</div>
+        <div class="stat-label">AUM — the primordial sound from which all other sound arises</div>
+      </div>
+      <p>The Vedic understanding is radical: <strong>sound is not arbitrary</strong>. The universe was <em>spoken</em> into existence. The Sanskrit word <span class="sk">vāk</span> — speech — was itself a goddess. To chant correctly is to participate in that original act of creation.</p>
+      <div class="panel-bridge">Next → <em>Who performed these rites?</em></div>
+    `
+  },
+
+  /* ─── 5 of 6 — Who performed — dot at Vishnu left ─── */
+  {
+    num: '5 of 6',
+    title: 'Who performed<br>these rites?',
+    callout: 'The blue-skinned figure on the left is Viṣṇu. His presence signals the scale of this ritual — the gods themselves have gathered as participants, not merely recipients.',
+    bgFocus: { pos: '22% 42%', size: '138%' },
+    body: `
+      <p>At the highest level, the <span class="sk">yajña</span> was the domain of Brahmin priests — specialists who memorized thousands of verses and performed rituals with exact precision. A single mispronounced syllable could invalidate the entire sacrifice.</p>
+      <p>But the <span class="sk">yajamāna</span> — the patron who commissioned the ritual — was equally essential. The sacrifice required both technical knowledge and worldly resources working together.</p>
+      <div class="panel-stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Priests required for the major Soma sacrifice — each with a distinct, irreplaceable role</div>
+      </div>
+      <p><strong>Kings</strong> performed great sacrifices like the <span class="sk">Aśvamedha</span> to assert sovereignty. <strong>Householders</strong> performed the <span class="sk">agnihotra</span> — a daily fire offering — twice a day, every day of their adult life. Priests, kings, householders, and gods: bound in a web of mutual obligation.</p>
+      <div class="panel-bridge">Next → <em>Still alive today?</em></div>
+    `
+  },
+
+  /* ─── 6 of 6 — Still alive — dot at right figure ─── */
+  {
+    num: '6 of 6',
+    title: 'Still alive <em>today</em>?',
+    callout: 'The arrangement in this painting — deities in a ring, fire at center, offerings placed around it — matches how Vedic fire rituals are arranged to this day. The composition is not invention. It\'s documentation.',
+    bgFocus: { pos: '76% 46%', size: '138%' },
+    body: `
+      <p><strong>Yes.</strong> The <span class="sk">agnihotra</span> — the twice-daily fire offering at sunrise and sunset — is still performed by Brahmin householders across India. Large public <span class="sk">yajñas</span> continue to be sponsored by temples, families, and communities.</p>
+      <p>In <strong>Kerala</strong>, the Nambudiri Brahmins have preserved some of the most ancient and elaborate Vedic rituals in the world — including the <span class="sk">Agnicayana</span>, a 12-day fire ritual of extraordinary complexity.</p>
+      <div class="panel-stat">
+        <div class="stat-num">2003</div>
+        <div class="stat-label">First year a complete Agnicayana was filmed in full — UNESCO Intangible Cultural Heritage</div>
+      </div>
+      <p>The tradition has survived 3,500 years of political upheaval, colonial disruption, and cultural transformation. It endures not because it hasn't changed — but because every generation finds in it something worth keeping.</p>
+    `
+  }
+
+];
+
+
+/* ══════════════════════════════════════
+   STATE & DOM
+══════════════════════════════════════ */
+let currentQ  = null;
+const opened  = new Set();
+const bgImage = document.querySelector('.bg-image');
+
+const overlay    = document.getElementById('overlay');
+const scrim      = document.getElementById('scrim');
+const panelNum   = document.getElementById('panelNum');
+const panelTitle = document.getElementById('panelTitle');
+const panelBody  = document.getElementById('panelBody');
+const calloutTxt = document.getElementById('calloutText');
+const closeBtn   = document.getElementById('closeBtn');
+const prevBtn    = document.getElementById('prevBtn');
+const nextBtn    = document.getElementById('nextBtn');
+const progCur    = document.getElementById('progCur');
+const progressLabel = document.getElementById('progressLabel');
+const completion = document.getElementById('completion');
+const compDismiss = document.getElementById('compDismiss');
+const progDots   = document.querySelectorAll('.prog-dot');
+
+
+/* ══════════════════════════════════════
+   OPEN / CLOSE
+══════════════════════════════════════ */
+function openPanel(qIndex) {
+  currentQ = qIndex;
+  const q  = questions[qIndex];
+
+  panelNum.textContent   = q.num;
+  panelTitle.innerHTML   = q.title;
+  panelBody.innerHTML    = q.body;
+  calloutTxt.textContent = q.callout;
+  progCur.textContent    = qIndex + 1;
+  prevBtn.disabled       = qIndex === 0;
+  nextBtn.disabled       = qIndex === questions.length - 1;
+
+  // Mark dot active + visited
+  document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+  const thisDot = document.querySelector(`.dot[data-q="${qIndex + 1}"]`);
+  thisDot.classList.add('active', 'visited');
+
+  // Track progress
+  opened.add(qIndex);
+  updateProgress();
+
+  // Hide "start here" nudge once any dot clicked
+  document.querySelector('.canvas').classList.add('nudge-hidden');
+
+  // Zoom painting to focal point
+  if (q.bgFocus) {
+    bgImage.style.backgroundPosition = q.bgFocus.pos;
+    bgImage.style.backgroundSize     = q.bgFocus.size;
+  }
+
+  overlay.classList.add('open');
+  panelBody.scrollTop = 0;
+}
+
+function closePanel() {
+  overlay.classList.remove('open');
+  document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+  currentQ = null;
+
+  // Reset painting to default view
+  bgImage.style.backgroundPosition = 'center 40%';
+  bgImage.style.backgroundSize     = 'cover';
+
+  // Show completion if all done
+  if (opened.size === questions.length) {
+    setTimeout(() => completion.classList.add('show'), 400);
+  }
+}
+
+function updateProgress() {
+  progressLabel.textContent = `${opened.size} of 6 explored`;
+  progDots.forEach((d, i) => {
+    if (opened.has(i)) {
+      d.classList.add('done');
+      if (opened.size === questions.length) d.classList.add('all');
+    }
+  });
+}
+
+
+
+
+/* ══════════════════════════════════════
+   EVENTS
+══════════════════════════════════════ */
+document.querySelectorAll('.dot').forEach(dot => {
+  dot.addEventListener('click', () => {
+    const q = parseInt(dot.dataset.q) - 1;
+    if (currentQ === q) { closePanel(); return; }
+    openPanel(q);
+  });
+});
+
+closeBtn.addEventListener('click', closePanel);
+scrim.addEventListener('click', closePanel);
+prevBtn.addEventListener('click', () => { if (currentQ > 0) openPanel(currentQ - 1); });
+nextBtn.addEventListener('click', () => { if (currentQ < questions.length - 1) openPanel(currentQ + 1); });
+
+compDismiss.addEventListener('click', () => completion.classList.remove('show'));
+document.querySelector('.completion-scrim').addEventListener('click', () => completion.classList.remove('show'));
+
+/* ── Annotation toggle ───────────────────────────────────────── */
+const annotateBtn = document.getElementById('annotateBtn');
+const annotLayer  = document.getElementById('annotLayer');
+annotateBtn.addEventListener('click', () => {
+  const on = annotLayer.classList.toggle('visible');
+  annotateBtn.classList.toggle('active', on);
+  annotateBtn.textContent = on ? 'Hide annotations' : 'Annotate painting';
+});
+
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closePanel();
+    completion.classList.remove('show');
+  }
+  if (overlay.classList.contains('open')) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      if (currentQ < questions.length - 1) openPanel(currentQ + 1);
+    }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      if (currentQ > 0) openPanel(currentQ - 1);
+    }
+  }
+});
+</script>
+<script id="sn-js">
+(function(){var p=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('[data-sn]').forEach(function(e){if(e.getAttribute('data-sn')===p){e.classList.add('sn-active');var g=e.closest('.sn-group');if(g)g.querySelector('.sn-link').classList.add('sn-active');}});})();
+function snHam(){var l=document.getElementById('sn-links'),h=document.getElementById('sn-ham');l.classList.toggle('mob-open');h.classList.toggle('open');}
+document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.sn-group>.sn-link').forEach(function(t){t.addEventListener('click',function(){if(window.innerWidth<=860){t.closest('.sn-group').classList.toggle('mob-open');}});});});
+</script>
+</body>
+</html>

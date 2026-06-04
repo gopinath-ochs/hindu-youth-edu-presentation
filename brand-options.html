@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Font & Color Options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300;1,9..144,700&family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,600;1,300;1,600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Outfit:wght@300;400;500;600;700&family=Work+Sans:ital,wght@0,300;0,400;0,600;1,300&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: #111;
+  color: #eee;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+}
+
+/* ── PAGE CHROME ── */
+.page-header {
+  background: #0A0A0A;
+  border-bottom: 1px solid #222;
+  padding: 1.1rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.page-title { font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #888; }
+.tab-row {
+  display: flex; gap: .4rem;
+  background: #0A0A0A;
+  padding: 1.2rem 2rem .8rem;
+  border-bottom: 1px solid #1E1E1E;
+  position: sticky; top: 55px; z-index: 99;
+}
+.tab {
+  font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: .45rem 1rem; border-radius: 999px;
+  border: 1px solid #333; color: #666;
+  cursor: pointer; transition: all .18s;
+  background: none;
+}
+.tab.active { background: #fff; color: #000; border-color: #fff; }
+.tab:hover:not(.active) { color: #ccc; border-color: #555; }
+
+.section-wrap { padding: 2.5rem 2rem 4rem; }
+.section-wrap.hidden { display: none; }
+
+.grid-label {
+  font-size: .62rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  color: #555; margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: .75rem;
+}
+.grid-label::after { content: ''; flex: 1; height: 1px; background: #222; }
+
+
+/* ──────────────────────────────────────────
+   FONT SPECIMENS
+   Each card shows the same content in a diff font pair
+─────────────────────────────────────────── */
+.font-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.5rem;
+}
+
+.font-card {
+  background: #1A1000;
+  border: 1px solid #2A1E08;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color .2s, transform .2s;
+}
+.font-card:hover { border-color: #C89A1C; transform: translateY(-2px); }
+.font-card.selected { border-color: #C89A1C; outline: 2px solid rgba(200,154,28,.3); }
+
+.font-card-header {
+  background: #120D00;
+  padding: 1.1rem 1.5rem;
+  border-bottom: 1px solid #2A1E08;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.font-card-name { font-size: .62rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: #C89A1C; }
+.font-card-stack { font-size: .6rem; color: #5A4020; }
+
+.font-card-body { padding: 1.6rem 1.5rem; }
+
+.fc-label {
+  font-size: .58rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: #7A5C1A; margin-bottom: .5rem;
+}
+.fc-display { color: #F0E6CE; line-height: 1.08; margin-bottom: 1.2rem; }
+.fc-subhead { color: #A08860; line-height: 1.5; margin-bottom: 1.2rem; }
+.fc-body { color: #8A7050; line-height: 1.75; font-size: .88rem; margin-bottom: 1.2rem; }
+.fc-tag {
+  display: inline-block;
+  font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: .25rem .65rem; border-radius: 999px;
+  background: rgba(200,154,28,.12); color: #C89A1C;
+  margin-right: .35rem;
+}
+.fc-cta {
+  display: inline-block; margin-top: 1rem;
+  font-size: .75rem; font-weight: 600; letter-spacing: .04em;
+  padding: .5rem 1rem; border-radius: 5px;
+  background: #C89A1C; color: #0E0800;
+}
+.fc-divider { height: 1px; background: #2A1E08; margin: 1rem 0; }
+
+/* FONT OPTION 1 — Cormorant + Inter (current) */
+.f1-display { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; }
+.f1-display em { font-style: italic; color: #D4AF37; }
+.f1-sub { font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 300; }
+.f1-body { font-family: 'Inter', sans-serif; }
+.f1-tag { font-family: 'Inter', sans-serif; }
+.f1-cta { font-family: 'Inter', sans-serif; }
+
+/* FONT OPTION 2 — Fraunces + Plus Jakarta Sans */
+.f2-display { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 300; letter-spacing: -.01em; }
+.f2-display em { font-style: italic; color: #D4AF37; }
+.f2-sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: .9rem; font-weight: 300; }
+.f2-body { font-family: 'Plus Jakarta Sans', sans-serif; }
+.f2-tag { font-family: 'Plus Jakarta Sans', sans-serif; }
+.f2-cta { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+/* FONT OPTION 3 — DM Serif Display + DM Sans */
+.f3-display { font-family: 'DM Serif Display', serif; font-size: 2.2rem; }
+.f3-display em { font-style: italic; color: #D4AF37; }
+.f3-sub { font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 300; }
+.f3-body { font-family: 'DM Sans', sans-serif; }
+.f3-tag { font-family: 'DM Sans', sans-serif; }
+.f3-cta { font-family: 'DM Sans', sans-serif; }
+
+/* FONT OPTION 4 — Libre Baskerville + Outfit */
+.f4-display { font-family: 'Libre Baskerville', serif; font-size: 1.85rem; font-weight: 700; line-height: 1.12; }
+.f4-display em { font-style: italic; color: #D4AF37; }
+.f4-sub { font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 300; }
+.f4-body { font-family: 'Outfit', sans-serif; }
+.f4-tag { font-family: 'Outfit', sans-serif; }
+.f4-cta { font-family: 'Outfit', sans-serif; }
+
+/* FONT OPTION 5 — Playfair Display + Inter */
+.f5-display { font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 400; }
+.f5-display em { font-style: italic; color: #D4AF37; }
+.f5-sub { font-family: 'Inter', sans-serif; font-size: .9rem; font-weight: 300; }
+.f5-body { font-family: 'Inter', sans-serif; }
+.f5-tag { font-family: 'Inter', sans-serif; }
+.f5-cta { font-family: 'Inter', sans-serif; }
+
+/* FONT OPTION 6 — Crimson Pro + Work Sans */
+.f6-display { font-family: 'Crimson Pro', serif; font-size: 2.5rem; font-weight: 300; letter-spacing: .01em; }
+.f6-display em { font-style: italic; color: #D4AF37; }
+.f6-sub { font-family: 'Work Sans', sans-serif; font-size: .9rem; font-weight: 300; }
+.f6-body { font-family: 'Work Sans', sans-serif; }
+.f6-tag { font-family: 'Work Sans', sans-serif; }
+.f6-cta { font-family: 'Work Sans', sans-serif; }
+
+
+/* ──────────────────────────────────────────
+   COLOR PALETTES
+─────────────────────────────────────────── */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+
+.color-card {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color .2s, transform .2s;
+}
+.color-card:hover { transform: translateY(-2px); }
+.color-card.selected { border-color: white; }
+
+/* The mock-up inside each color card */
+.cc-preview {
+  padding: 2rem 1.8rem 1.5rem;
+}
+.cc-eyebrow {
+  font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  margin-bottom: .7rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.cc-eyebrow::before { content: ''; display: inline-block; width: 14px; height: 2px; }
+.cc-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem; font-weight: 400; line-height: 1.1;
+  margin-bottom: .7rem;
+}
+.cc-headline em { font-style: italic; }
+.cc-body-text {
+  font-family: 'Inter', sans-serif;
+  font-size: .82rem; line-height: 1.7;
+  margin-bottom: 1rem; opacity: .75;
+}
+.cc-tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.cc-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: .58rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: .22rem .6rem; border-radius: 999px;
+}
+.cc-btn {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: .72rem; font-weight: 600; letter-spacing: .04em;
+  padding: .5rem 1.1rem; border-radius: 5px;
+}
+
+.cc-footer {
+  padding: .8rem 1.8rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.cc-name {
+  font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+}
+.cc-swatches { display: flex; gap: .35rem; }
+.cc-swatch {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+/* PALETTE 1 — Warm Umber (current) */
+.p1 { background: #100A00; }
+.p1 .cc-eyebrow { color: #C89A1C; }
+.p1 .cc-eyebrow::before { background: #C89A1C; }
+.p1 .cc-headline { color: #F0E6CE; }
+.p1 .cc-headline em { color: #D4AF37; }
+.p1 .cc-body-text { color: #B8A47C; }
+.p1 .cc-tag { background: rgba(200,154,28,.12); color: #C89A1C; }
+.p1 .cc-btn { background: #C89A1C; color: #0E0800; }
+.p1 .cc-footer { background: #0A0600; }
+.p1 .cc-name { color: #5A4020; }
+
+/* PALETTE 2 — Midnight Navy + Saffron */
+.p2 { background: #04091A; }
+.p2 .cc-eyebrow { color: #E07B20; }
+.p2 .cc-eyebrow::before { background: #E07B20; }
+.p2 .cc-headline { color: #EEE8DC; }
+.p2 .cc-headline em { color: #F09030; }
+.p2 .cc-body-text { color: #8090B0; }
+.p2 .cc-tag { background: rgba(224,123,32,.12); color: #E07B20; }
+.p2 .cc-btn { background: #E07B20; color: #04091A; }
+.p2 .cc-footer { background: #020712; }
+.p2 .cc-name { color: #304060; }
+
+/* PALETTE 3 — Forest + Gold */
+.p3 { background: #051209; }
+.p3 .cc-eyebrow { color: #C4A84A; }
+.p3 .cc-eyebrow::before { background: #C4A84A; }
+.p3 .cc-headline { color: #EAE2CC; }
+.p3 .cc-headline em { color: #D4B840; }
+.p3 .cc-body-text { color: #6A9070; }
+.p3 .cc-tag { background: rgba(196,168,74,.12); color: #C4A84A; }
+.p3 .cc-btn { background: #C4A84A; color: #051209; }
+.p3 .cc-footer { background: #030C06; }
+.p3 .cc-name { color: #2A5030; }
+
+/* PALETTE 4 — Slate + Copper */
+.p4 { background: #0C1018; }
+.p4 .cc-eyebrow { color: #B87333; }
+.p4 .cc-eyebrow::before { background: #B87333; }
+.p4 .cc-headline { color: #E8E0D4; }
+.p4 .cc-headline em { color: #C88040; }
+.p4 .cc-body-text { color: #7090A8; }
+.p4 .cc-tag { background: rgba(184,115,51,.12); color: #B87333; }
+.p4 .cc-btn { background: #B87333; color: #0C1018; }
+.p4 .cc-footer { background: #080C12; }
+.p4 .cc-name { color: #304858; }
+
+/* PALETTE 5 — Deep Maroon + Gold */
+.p5 { background: #110306; }
+.p5 .cc-eyebrow { color: #D4A820; }
+.p5 .cc-eyebrow::before { background: #D4A820; }
+.p5 .cc-headline { color: #F0E4D8; }
+.p5 .cc-headline em { color: #E0B830; }
+.p5 .cc-body-text { color: #A07080; }
+.p5 .cc-tag { background: rgba(212,168,32,.12); color: #D4A820; }
+.p5 .cc-btn { background: #D4A820; color: #110306; }
+.p5 .cc-footer { background: #0A0204; }
+.p5 .cc-name { color: #502030; }
+
+/* PALETTE 6 — Pure Charcoal + Turmeric */
+.p6 { background: #141414; }
+.p6 .cc-eyebrow { color: #E8A020; }
+.p6 .cc-eyebrow::before { background: #E8A020; }
+.p6 .cc-headline { color: #F2EDE6; }
+.p6 .cc-headline em { color: #F0B830; }
+.p6 .cc-body-text { color: #908070; }
+.p6 .cc-tag { background: rgba(232,160,32,.12); color: #E8A020; }
+.p6 .cc-btn { background: #E8A020; color: #141414; }
+.p6 .cc-footer { background: #0E0E0E; }
+.p6 .cc-name { color: #504030; }
+
+
+/* ── LIGHT PALETTES ── */
+/* PALETTE 7 — Warm Paper (light) */
+.p7 { background: #FDFAF4; }
+.p7 .cc-eyebrow { color: #9A7800; }
+.p7 .cc-eyebrow::before { background: #9A7800; }
+.p7 .cc-headline { color: #1A0E00; }
+.p7 .cc-headline em { color: #9A7800; }
+.p7 .cc-body-text { color: #5A4030; opacity: 1; }
+.p7 .cc-tag { background: rgba(154,120,0,.1); color: #9A7800; }
+.p7 .cc-btn { background: #9A7800; color: #FDFAF4; }
+.p7 .cc-footer { background: #F0E8D0; }
+.p7 .cc-name { color: #A09070; }
+
+/* PALETTE 8 — Ivory + Navy */
+.p8 { background: #F8F6F2; }
+.p8 .cc-eyebrow { color: #1A3A6A; }
+.p8 .cc-eyebrow::before { background: #1A3A6A; }
+.p8 .cc-headline { color: #14100C; }
+.p8 .cc-headline em { color: #1A3A6A; }
+.p8 .cc-body-text { color: #4A4038; opacity: 1; }
+.p8 .cc-tag { background: rgba(26,58,106,.1); color: #1A3A6A; }
+.p8 .cc-btn { background: #1A3A6A; color: #F8F6F2; }
+.p8 .cc-footer { background: #ECEAE4; }
+.p8 .cc-name { color: #908880; }
+
+/* PALETTE 9 — Cream + Saffron pop */
+.p9 { background: #FEFCF8; }
+.p9 .cc-eyebrow { color: #C05A00; }
+.p9 .cc-eyebrow::before { background: #C05A00; }
+.p9 .cc-headline { color: #1E0C00; }
+.p9 .cc-headline em { color: #C05A00; }
+.p9 .cc-body-text { color: #604830; opacity: 1; }
+.p9 .cc-tag { background: rgba(192,90,0,.1); color: #C05A00; }
+.p9 .cc-btn { background: #C05A00; color: #FEFCF8; }
+.p9 .cc-footer { background: #F2EAD8; }
+.p9 .cc-name { color: #A08860; }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-title">Brand Options — Fonts & Colors</div>
+</div>
+
+<div class="tab-row">
+  <button class="tab active" onclick="showSection('fonts', this)">Fonts</button>
+  <button class="tab" onclick="showSection('colors-dark', this)">Colors — Dark</button>
+  <button class="tab" onclick="showSection('colors-light', this)">Colors — Light</button>
+</div>
+
+
+<!-- ═══════════════ FONTS ═══════════════ -->
+<div class="section-wrap" id="sec-fonts">
+  <div class="grid-label">6 font pairings — same content, different personality</div>
+
+  <div class="font-grid">
+
+    <!-- F1: Cormorant + Inter (current) -->
+    <div class="font-card" onclick="selectFont(this)">
+      <div class="font-card-header">
+        <span class="font-card-name">① Cormorant + Inter <span style="color:#5A4020;margin-left:.5rem;font-size:.55rem;">CURRENT</span></span>
+        <span class="font-card-stack">Classical editorial · very refined</span>
+      </div>
+      <div class="font-card-body">
+        <div class="fc-label">Display heading</div>
+        <div class="fc-display f1-display">The Six Schools<br>of <em>Hindu Philosophy</em></div>
+        <div class="fc-subhead f1-sub">An introduction to the darśanas — six competing visions of what reality is and how we know it.</div>
+        <div class="fc-divider"></div>
+        <div class="fc-label">Body text</div>
+        <div class="fc-body f1-body">These weren't handed-down dogmas. They were competing research programs, each starting from the Vedas and arriving somewhere radically different.</div>
+        <span class="fc-tag f1-tag">Darśana</span>
+        <span class="fc-tag f1-tag">Philosophy</span>
+        <div class="fc-cta f1-cta">Start Exploring →</div>
+      </div>
+    </div>
+
+    <!-- F2: Fraunces + Plus Jakarta Sans -->
+    <div class="font-card" onclick="selectFont(this)">
+      <div class="font-card-header">
+        <span class="font-card-name">② Fraunces + Jakarta Sans</span>
+        <span class="font-card-stack">Expressive & contemporary · Gen Z energy</span>
+      </div>
+      <div class="font-card-body">
+        <div class="fc-label">Display heading</div>
+        <div class="fc-display f2-display">The Six Schools<br>of <em>Hindu Philosophy</em></div>
+        <div class="fc-subhead f2-sub">An introduction to the darśanas — six competing visions of what reality is and how we know it.</div>
+        <div class="fc-divider"></div>
+        <div class="fc-label">Body text</div>
+        <div class="fc-body f2-body">These weren't handed-down dogmas. They were competing research programs, each starting from the Vedas and arriving somewhere radically different.</div>
+        <span class="fc-tag f2-tag">Darśana</span>
+        <span class="fc-tag f2-tag">Philosophy</span>
+        <div class="fc-cta f2-cta">Start Exploring →</div>
+      </div>
+    </div>
+
+    <!-- F3: DM Serif Display + DM Sans -->
+    <div class="font-card" onclick="selectFont(this)">
+      <div class="font-card-header">
+        <span class="font-card-name">③ DM Serif + DM Sans</span>
+        <span class="font-card-stack">Clean modern editorial · premium app feel</span>
+      </div>
+      <div class="font-card-body">
+        <div class="fc-label">Display heading</div>
+        <div class="fc-display f3-display">The Six Schools<br>of <em>Hindu Philosophy</em></div>
+        <div class="fc-subhead f3-sub">An introduction to the darśanas — six competing visions of what reality is and how we know it.</div>
+        <div class="fc-divider"></div>
+        <div class="fc-label">Body text</div>
+        <div class="fc-body f3-body">These weren't handed-down dogmas. They were competing research programs, each starting from the Vedas and arriving somewhere radically different.</div>
+        <span class="fc-tag f3-tag">Darśana</span>
+        <span class="fc-tag f3-tag">Philosophy</span>
+        <div class="fc-cta f3-cta">Start Exploring →</div>
+      </div>
+    </div>
+
+    <!-- F4: Libre Baskerville + Outfit -->
+    <div class="font-card" onclick="selectFont(this)">
+      <div class="font-card-header">
+        <span class="font-card-name">④ Libre Baskerville + Outfit</span>
+        <span class="font-card-stack">Bold scholarly · confident & punchy</span>
+      </div>
+      <div class="font-card-body">
+        <div class="fc-label">Display heading</div>
+        <div class="fc-display f4-display">The Six Schools of <em>Hindu Philosophy</em></div>
+        <div class="fc-subhead f4-sub">An introduction to the darśanas — six competing visions of what reality is and how we know it.</div>
+        <div class="fc-divider"></div>
+        <div class="fc-label">Body text</div>
+        <div class="fc-body f4-body">These weren't handed-down dogmas. They were competing research programs, each starting from the Vedas and arriving somewhere radically different.</div>
+        <span class="fc-tag f4-tag">Darśana</span>
+        <span class="fc-tag f4-tag">Philosophy</span>
+        <div class="fc-cta f4-cta">Start Exploring →</div>
+      </div>
+    </div>
+
+    <!-- F5: Playfair + Inter -->
+    <div class="font-card" onclick="selectFont(this)">
+      <div class="font-card-header">
+        <span class="font-card-name">⑤ Playfair Display + Inter</span>
+        <span class="font-card-stack">Magazine-classic · familiar & editorial</span>
+      </div>
+      <div class="font-card-body">
+        <div class="fc-label">Display heading</div>
+        <div class="fc-display f5-display">The Six Schools<br>of <em>Hindu Philosophy</em></div>
+        <div class="fc-subhead f5-sub">An introduction to the darśanas — six competing visions of what reality is and how we know it.</div>
+        <div class="fc-divider"></div>
+        <div class="fc-label">Body text</div>
+        <div class="fc-body f5-body">These weren't handed-down dogmas. They were competing research programs, each starting from the Vedas and arriving somewhere radically different.</div>
+        <span class="fc-tag f5-tag">Darśana</span>
+        <span class="fc-tag f5-tag">Philosophy</span>
+        <div class="fc-cta f5-cta">Start Exploring →</div>
+      </div>
+    </div>
+
+    <!-- F6: Crimson Pro + Work Sans -->
+    <div class="font-card" onclick="selectFont(this)">
+      <div class="font-card-header">
+        <span class="font-card-name">⑥ Crimson Pro + Work Sans</span>
+        <span class="font-card-stack">Humanist & airy · warm, open, inviting</span>
+      </div>
+      <div class="font-card-body">
+        <div class="fc-label">Display heading</div>
+        <div class="fc-display f6-display">The Six Schools<br>of <em>Hindu Philosophy</em></div>
+        <div class="fc-subhead f6-sub">An introduction to the darśanas — six competing visions of what reality is and how we know it.</div>
+        <div class="fc-divider"></div>
+        <div class="fc-label">Body text</div>
+        <div class="fc-body f6-body">These weren't handed-down dogmas. They were competing research programs, each starting from the Vedas and arriving somewhere radically different.</div>
+        <span class="fc-tag f6-tag">Darśana</span>
+        <span class="fc-tag f6-tag">Philosophy</span>
+        <div class="fc-cta f6-cta">Start Exploring →</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════ COLORS DARK ═══════════════ -->
+<div class="section-wrap hidden" id="sec-colors-dark">
+  <div class="grid-label">6 dark palettes — same layout, different mood</div>
+
+  <div class="color-grid">
+
+    <div class="color-card p1" onclick="selectColor(this)">
+      <div class="cc-preview">
+        <div class="cc-eyebrow">The Six Darśanas · Essay 01</div>
+        <div class="cc-headline">Hindu Philosophy's<br><em>six great schools</em></div>
+        <div class="cc-body-text">Competing research programs, each starting from the Vedas and arriving somewhere radically different. This is what makes them worth studying.</div>
+        <div class="cc-tags">
+          <span class="cc-tag">Darśana</span>
+          <span class="cc-tag">Philosophy</span>
+          <span class="cc-tag">12 min</span>
+        </div>
+        <span class="cc-btn">Start Reading →</span>
+      </div>
+      <div class="cc-footer">
+        <span class="cc-name">① Warm Umber — current</span>
+        <div class="cc-swatches">
+          <div class="cc-swatch" style="background:#100A00"></div>
+          <div class="cc-swatch" style="background:#C89A1C"></div>
+          <div class="cc-swatch" style="background:#F0E6CE"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card p2" onclick="selectColor(this)">
+      <div class="cc-preview">
+        <div class="cc-eyebrow">The Six Darśanas · Essay 01</div>
+        <div class="cc-headline">Hindu Philosophy's<br><em>six great schools</em></div>
+        <div class="cc-body-text">Competing research programs, each starting from the Vedas and arriving somewhere radically different. This is what makes them worth studying.</div>
+        <div class="cc-tags">
+          <span class="cc-tag">Darśana</span>
+          <span class="cc-tag">Philosophy</span>
+          <span class="cc-tag">12 min</span>
+        </div>
+        <span class="cc-btn">Start Reading →</span>
+      </div>
+      <div class="cc-footer">
+        <span class="cc-name">② Midnight Navy + Saffron</span>
+        <div class="cc-swatches">
+          <div class="cc-swatch" style="background:#04091A"></div>
+          <div class="cc-swatch" style="background:#E07B20"></div>
+          <div class="cc-swatch" style="background:#EEE8DC"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card p3" onclick="selectColor(this)">
+      <div class="cc-preview">
+        <div class="cc-eyebrow">The Six Darśanas · Essay 01</div>
+        <div class="cc-headline">Hindu Philosophy's<br><em>six great schools</em></div>
+        <div class="cc-body-text">Competing research programs, each starting from the Vedas and arriving somewhere radically different. This is what makes them worth studying.</div>
+        <div class="cc-tags">
+          <span class="cc-tag">Darśana</span>
+          <span class="cc-tag">Philosophy</span>
+          <span class="cc-tag">12 min</span>
+        </div>
+        <span class="cc-btn">Start Reading →</span>
+      </div>
+      <div class="cc-footer">
+        <span class="cc-name">③ Deep Forest + Gold</span>
+        <div class="cc-swatches">
+          <div class="cc-swatch" style="background:#051209"></div>
+          <div class="cc-swatch" style="background:#C4A84A"></div>
+          <div class="cc-swatch" style="background:#EAE2CC"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card p4" onclick="selectColor(this)">
+      <div class="cc-preview">
+        <div class="cc-eyebrow">The Six Darśanas · Essay 01</div>
+        <div class="cc-headline">Hindu Philosophy's<br><em>six great schools</em></div>
+        <div class="cc-body-text">Competing research programs, each starting from the Vedas and arriving somewhere radically different. This is what makes them worth studying.</div>
+        <div class="cc-tags">
+          <span class="cc-tag">Darśana</span>
+          <span class="cc-tag">Philosophy</span>
+          <span class="cc-tag">12 min</span>
+        </div>
+        <span class="cc-btn">Start Reading →</span>
+      </div>
+      <div class="cc-footer">
+        <span class="cc-name">④ Slate + Copper</span>
+        <div class="cc-swatches">
+          <div class="cc-swatch" style="background:#0C1018"></div>
+          <div class="cc-swatch" style="background:#B87333"></div>
+          <div class="cc-swatch" style="background:#E8E0D4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card p5" onclick="selectColor(this)">
+      <div class="cc-preview">
+        <div class="cc-eyebrow">The Six Darśanas · Essay 01</div>
+        <div class="cc-headline">Hindu Philosophy's<br><em>six great schools</em></div>
+        <div class="cc-body-text">Competing research programs, each starting from the Vedas and arriving somewhere radically different. This is what makes them worth studying.</div>
+        <div class="cc-tags">
+          <span class="cc-tag">Darśana</span>
+          <span class="cc-tag">Philosophy</span>
+          <span class="cc-tag">12 min</span>
+        </div>
+        <span class="cc-btn">Start Reading →</span>
+      </div>
+      <div class="cc-footer">
+        <span class="cc-name">⑤ Deep Maroon + Gold</span>
+        <div class="cc-swatches">
+          <div class="cc-swatch" style="background:#110306"></div>
+          <div class="cc-swatch" style="background:#D4A820"></div>
+          <div class="cc-swatch" style="background:#F0E4D8"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card p6" onclick="selectColor(this)">
+      <div class="cc-preview">
+        <div class="cc-eyebrow">The Six Darśanas · Essay 01</div>
+        <div class="cc-headline">Hindu Philosophy's<br><em>six great schools</em></div>
+        <div class="cc-body-text">Competing research programs, each starting from the Vedas and arriving somewhere radically different. This is what makes them worth studying.</div>
+        <div class="cc-tags">
+          <span class="cc-tag">Darśana</span>
+          <span class="cc-tag">Philosophy</span>
+          <span class="cc-tag">12 min</span>
+        </div>
+        <span class="cc-btn">Start Reading →</span>
+      </div>
+      <div class="cc-footer">
+        <span class="cc-name">⑥ Pure Charcoal + Turmeric</span>
+        <div class="cc-swatches">
+          <div class="cc-swatch" style="background:#141414"></div>
+          <div class="cc-swatch" style="background:#E8A020"></div>
+          <div class="cc-swatch" style="background:#F2EDE6"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════ COLORS LIGHT ═══════════════ -->
+<div class="section-wrap hidden" id="sec-colors-light">
+  <div class="grid-label">3 light palettes — for reference pages & navigation</div>
+
+  <div class="color-grid">
+
+    <div class="color-card p7" onclick="selectColor(this)" style="border-color:#E0D8C0">
+      <div class="cc-preview">
+        <div class="cc-eyebrow">The Six Darśanas · Essay 01</div>
+        <div class="cc-headline">Hindu Philosophy's<br><em>six great schools</em></div>
+        <div class="cc-body-text">Competing research programs, each starting from the Vedas and arriving somewhere radically different. This is what makes them worth studying.</div>
+        <div class="cc-tags">
+          <span class="cc-tag">Darśana</span>
+          <span class="cc-tag">Philosophy</span>
+          <span class="cc-tag">12 min</span>
+        </div>
+        <span class="cc-btn">Start Reading →</span>
+      </div>
+      <div class="cc-footer" style="border-color:#E0D8C0">
+        <span class="cc-name">① Warm Paper + Saffron Gold</span>
+        <div class="cc-swatches" style="border-color:#E0D8C0">
+          <div class="cc-swatch" style="background:#FDFAF4; border-color:#DDD0B0"></div>
+          <div class="cc-swatch" style="background:#9A7800; border-color:#DDD0B0"></div>
+          <div class="cc-swatch" style="background:#1A0E00; border-color:#DDD0B0"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card p8" onclick="selectColor(this)" style="border-color:#DEDAD4">
+      <div class="cc-preview">
+        <div class="cc-eyebrow">The Six Darśanas · Essay 01</div>
+        <div class="cc-headline">Hindu Philosophy's<br><em>six great schools</em></div>
+        <div class="cc-body-text">Competing research programs, each starting from the Vedas and arriving somewhere radically different. This is what makes them worth studying.</div>
+        <div class="cc-tags">
+          <span class="cc-tag">Darśana</span>
+          <span class="cc-tag">Philosophy</span>
+          <span class="cc-tag">12 min</span>
+        </div>
+        <span class="cc-btn">Start Reading →</span>
+      </div>
+      <div class="cc-footer" style="border-color:#DEDAD4">
+        <span class="cc-name">② Ivory + Ink Navy</span>
+        <div class="cc-swatches">
+          <div class="cc-swatch" style="background:#F8F6F2; border-color:#DEDAD4"></div>
+          <div class="cc-swatch" style="background:#1A3A6A; border-color:#DEDAD4"></div>
+          <div class="cc-swatch" style="background:#14100C; border-color:#DEDAD4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card p9" onclick="selectColor(this)" style="border-color:#EAE2D0">
+      <div class="cc-preview">
+        <div class="cc-eyebrow">The Six Darśanas · Essay 01</div>
+        <div class="cc-headline">Hindu Philosophy's<br><em>six great schools</em></div>
+        <div class="cc-body-text">Competing research programs, each starting from the Vedas and arriving somewhere radically different. This is what makes them worth studying.</div>
+        <div class="cc-tags">
+          <span class="cc-tag">Darśana</span>
+          <span class="cc-tag">Philosophy</span>
+          <span class="cc-tag">12 min</span>
+        </div>
+        <span class="cc-btn">Start Reading →</span>
+      </div>
+      <div class="cc-footer" style="border-color:#EAE2D0">
+        <span class="cc-name">③ Cream + Burnt Saffron</span>
+        <div class="cc-swatches">
+          <div class="cc-swatch" style="background:#FEFCF8; border-color:#EAE2D0"></div>
+          <div class="cc-swatch" style="background:#C05A00; border-color:#EAE2D0"></div>
+          <div class="cc-swatch" style="background:#1E0C00; border-color:#EAE2D0"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+function showSection(key, btn) {
+  document.querySelectorAll('.section-wrap').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('sec-' + key).classList.remove('hidden');
+  btn.classList.add('active');
+}
+function selectFont(card) {
+  document.querySelectorAll('.font-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+}
+function selectColor(card) {
+  document.querySelectorAll('.color-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+}
+</script>
+</body>
+</html>

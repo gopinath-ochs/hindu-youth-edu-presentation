@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Karma — Next Gen Education · Hindu Studies</title>
+<meta name="description" content="An interactive visual essay on karma — the mechanism of action, its misreadings, the Bhagavad-gītā's real argument, and what three traditions say about it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#FAF6EE;color:#2C1F08;font-family:'Source Sans 3',sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+:root{--karma:#C85000;--karma-light:#FFF4EE;--karma-dark:#8A3800;--ink:#1A0E00;--parch:#FAF6EE;--mid:#7A6040;--rule:#E2D6B8}
+
+/* ── Nav ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(250,246,238,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:.75rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.nav-back{font-family:'Inter',sans-serif;font-size:.75rem;font-weight:600;color:var(--karma);display:flex;align-items:center;gap:.4rem;transition:color .15s}
+.nav-back:hover{color:var(--ink)}
+.nav-chapter{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;font-style:italic;color:var(--ink)}
+.nav-pill{font-family:'Inter',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#FFF4EE;border:1px solid #E8C8A0;border-radius:20px;padding:.25rem .7rem;color:var(--karma)}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#100700}
+.hero-bg{position:absolute;inset:0;background-image:url('https://upload.wikimedia.org/wikipedia/commons/3/37/Krishna_and_Arjun_on_the_chariot%2C_Mahabharata%2C_18th-19th_century%2C_India.jpg');background-size:cover;background-position:center 30%;filter:brightness(.28) saturate(.7);transition:filter 1s}
+.hero-content{position:relative;z-index:2;padding:2rem}
+.hero-eye{font-family:'Inter',sans-serif;font-size:.67rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--karma);margin-bottom:1rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(4rem,10vw,9rem);font-weight:700;color:#F5EDD6;line-height:.95;letter-spacing:-.02em;margin-bottom:1.2rem}
+.hero-san{display:block;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.4rem,3vw,2.2rem);color:#D4AF37;font-weight:400;margin-bottom:.8rem;letter-spacing:.04em}
+.hero-sub{font-size:1.1rem;color:#9A8060;max-width:520px;margin:0 auto 2.5rem;line-height:1.8}
+.hero-scroll{display:flex;align-items:center;gap:.5rem;font-family:'Inter',sans-serif;font-size:.75rem;color:rgba(154,120,0,.7);letter-spacing:.1em;justify-content:center;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.hero-technique-label{position:absolute;bottom:1.5rem;right:2rem;font-family:'Inter',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(154,120,0,.5);z-index:2}
+
+/* ── Section chrome ── */
+.section-wrap{max-width:1100px;margin:0 auto;padding:0 2rem}
+.section-eyebrow{font-family:'Inter',sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--karma);margin-bottom:.5rem}
+.section-hl{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:.6rem}
+.section-hl em{color:var(--karma);font-style:italic}
+.section-sub{font-size:.95rem;color:var(--mid);line-height:1.75;max-width:580px;margin-bottom:2rem}
+.technique-tag{display:inline-flex;align-items:center;gap:.35rem;font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(200,80,0,.6);border:1px dashed rgba(200,80,0,.25);border-radius:20px;padding:.22rem .65rem;margin-bottom:1.2rem}
+
+/* ─────────────────────────────────────────────
+   §1  MISCONCEPTION REVEAL
+───────────────────────────────────────────── */
+.misconception{padding:5rem 0 4rem;background:var(--parch);border-bottom:1px solid var(--rule)}
+.mc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1.5rem}
+.mc-opt{background:#fff;border:2px solid var(--rule);border-radius:12px;padding:1.2rem 1.3rem;cursor:pointer;transition:all .2s;text-align:left}
+.mc-opt:hover:not(.revealed){border-color:var(--karma);box-shadow:0 4px 16px rgba(200,80,0,.1)}
+.mc-opt.selected{border-color:var(--karma);background:var(--karma-light)}
+.mc-opt-q{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.3rem;line-height:1.3}
+.mc-opt-sub{font-family:'Inter',sans-serif;font-size:.76rem;color:var(--mid)}
+.mc-verdict{display:none;margin-top:.9rem;padding:.75rem 1rem;border-radius:8px;font-family:'Inter',sans-serif;font-size:.82rem;line-height:1.65}
+.mc-verdict.wrong{background:#FDF2F2;border-left:3px solid #C0404040;color:#5A2020}
+.mc-verdict.right{background:#F2FAF5;border-left:3px solid #276749;color:#1A4030}
+.mc-verdict.close{background:#FEF9E7;border-left:3px solid #D4AF37;color:#5A4010}
+.mc-opt.revealed .mc-verdict{display:block}
+.mc-verdict-label{font-weight:700;margin-bottom:.2rem}
+.mc-result-note{display:none;background:var(--ink);color:#F5EDD6;border-radius:12px;padding:1.5rem 1.8rem;margin-top:1.2rem;font-size:.9rem;line-height:1.75}
+.mc-result-note strong{color:#D4AF37}
+.mc-result-note.show{display:block;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─────────────────────────────────────────────
+   §2  SCROLLYTELLING
+───────────────────────────────────────────── */
+.scrolly-section{background:#FDFAF5;border-bottom:1px solid var(--rule);padding:4rem 0}
+.scrolly-wrap{max-width:1100px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.scrolly-diagram{position:sticky;top:12vh;align-self:start}
+.scrolly-diagram svg{width:100%;height:auto;display:block}
+.scrolly-steps{padding-top:5vh}
+.scrolly-step{min-height:70vh;display:flex;align-items:center;padding:2rem 0}
+.scrolly-step-inner{background:#fff;border:1.5px solid var(--rule);border-radius:14px;padding:1.8rem;border-left:4px solid transparent;transition:border-color .3s,box-shadow .3s}
+.scrolly-step-inner.active{border-left-color:var(--karma);box-shadow:0 6px 24px rgba(200,80,0,.1)}
+.step-num{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--karma);margin-bottom:.4rem}
+.step-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--ink);margin-bottom:.55rem}
+.step-body{font-size:.9rem;color:#5A4020;line-height:1.75}
+.step-san{font-family:'Playfair Display',serif;font-style:italic;color:var(--karma);font-size:1rem;display:block;margin-top:.6rem}
+
+/* SVG diagram elements */
+#kd-ring{opacity:0;transition:opacity .6s}
+#kd-ring.show{opacity:1}
+.kd-node{opacity:0;transition:opacity .5s,transform .5s}
+.kd-node.show{opacity:1}
+.kd-node circle.pulse{animation:none}
+.kd-node.active circle.pulse{animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{r:46;opacity:.6}50%{r:54;opacity:.15}}
+.kd-arrow{opacity:0;transition:opacity .5s .2s}
+.kd-arrow.show{opacity:1}
+.kd-label{opacity:0;transition:opacity .4s .3s}
+.kd-label.show{opacity:1}
+
+/* ─────────────────────────────────────────────
+   §3  GĪTĀ VERSE ANNOTATION
+───────────────────────────────────────────── */
+.verse-section{background:#F0E8D4;border-bottom:1px solid var(--rule);padding:5rem 0}
+.verse-box{background:#1A0E00;border-radius:16px;padding:2.5rem 2.8rem;margin:2rem 0;position:relative;overflow:hidden}
+.verse-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(200,80,0,.08),transparent 60%)}
+.verse-san{font-family:'Playfair Display',serif;font-size:1.35rem;font-style:italic;color:#D4AF37;line-height:1.9;margin-bottom:1.2rem}
+.verse-line{display:block}
+.verse-transliteration{font-family:'Source Sans 3',sans-serif;font-size:.88rem;color:#9A8060;line-height:1.8;margin-bottom:.5rem}
+.verse-source{font-family:'Inter',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7A6040}
+
+/* Word annotation */
+.word-row{display:flex;flex-wrap:wrap;gap:.5rem 1rem;margin:2rem 0}
+.wrd{position:relative;display:inline-flex;flex-direction:column;align-items:center;cursor:pointer}
+.wrd-san{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;color:var(--ink);padding:.3rem .6rem;border-radius:6px;border:1.5px solid var(--rule);background:#fff;transition:all .2s;white-space:nowrap}
+.wrd-en{font-family:'Inter',sans-serif;font-size:.66rem;font-weight:600;color:var(--mid);text-align:center;margin-top:.2rem;letter-spacing:.03em;opacity:.7}
+.wrd:hover .wrd-san,.wrd.lit .wrd-san{background:var(--karma-light);border-color:var(--karma);color:var(--karma-dark)}
+.wrd:hover .wrd-en,.wrd.lit .wrd-en{color:var(--karma);opacity:1}
+.wrd-tooltip{display:none;position:absolute;bottom:calc(100% + .5rem);left:50%;transform:translateX(-50%);background:#1A0E00;color:#F5EDD6;border-radius:8px;padding:.65rem .9rem;font-family:'Inter',sans-serif;font-size:.76rem;line-height:1.55;width:220px;text-align:left;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.wrd-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#1A0E00}
+.wrd:hover .wrd-tooltip{display:block}
+.tour-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1.2rem;background:var(--karma);color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;transition:background .18s;margin-bottom:1rem}
+.tour-btn:hover{background:var(--karma-dark)}
+.tour-progress{font-family:'Inter',sans-serif;font-size:.74rem;color:var(--mid);margin-left:.8rem}
+
+/* ─────────────────────────────────────────────
+   §4  THREE TRADITIONS TOGGLE
+───────────────────────────────────────────── */
+.traditions-section{background:var(--parch);border-bottom:1px solid var(--rule);padding:5rem 0}
+.tab-row{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.tab-btn{padding:.55rem 1.3rem;border-radius:8px;border:1.5px solid var(--rule);background:#fff;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .18s;color:var(--mid)}
+.tab-btn.active{background:var(--karma);border-color:var(--karma);color:#fff}
+.tradition-panel{display:none;animation:fadeUp .3s ease}
+.tradition-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.trad-card{background:#fff;border-radius:12px;padding:1.5rem;border:1.5px solid var(--rule)}
+.trad-card-label{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--karma);margin-bottom:.4rem}
+.trad-card-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.55rem}
+.trad-card-body{font-size:.88rem;color:#5A4020;line-height:1.72}
+.trad-highlight{background:var(--karma-light);border:1.5px solid rgba(200,80,0,.25);border-left:4px solid var(--karma)}
+.trad-meter{margin-top:1rem}
+.trad-meter-label{font-family:'Inter',sans-serif;font-size:.68rem;color:var(--mid);margin-bottom:.3rem;display:flex;justify-content:space-between}
+.trad-bar-wrap{background:#EDE5CC;border-radius:4px;height:6px;overflow:hidden}
+.trad-bar{height:100%;border-radius:4px;background:var(--karma);transition:width .6s cubic-bezier(.4,0,.2,1)}
+
+/* ─────────────────────────────────────────────
+   §5  SIMULATION
+───────────────────────────────────────────── */
+.simulation-section{background:#FDFAF5;border-bottom:1px solid var(--rule);padding:5rem 0}
+.sim-layout{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;margin-top:2rem}
+.sim-controls{background:#fff;border-radius:14px;padding:1.8rem;border:1.5px solid var(--rule)}
+.sim-ctrl-label{font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.06em;color:var(--ink);margin-bottom:.35rem;display:flex;justify-content:space-between;align-items:center}
+.sim-ctrl-label span{color:var(--karma);font-size:.9rem}
+.sim-slider{width:100%;-webkit-appearance:none;height:5px;border-radius:3px;background:var(--rule);outline:none;margin-bottom:1.2rem;cursor:pointer}
+.sim-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--karma);cursor:pointer;box-shadow:0 2px 6px rgba(200,80,0,.3)}
+.sim-stat{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-top:1px solid var(--rule)}
+.sim-stat-label{font-family:'Inter',sans-serif;font-size:.78rem;color:var(--mid)}
+.sim-stat-val{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--karma)}
+.sim-insight{font-family:'Inter',sans-serif;font-size:.82rem;color:#5A4020;line-height:1.65;margin-top:1rem;padding:.75rem;background:var(--karma-light);border-radius:8px;border-left:3px solid var(--karma);transition:all .3s}
+
+/* Seed garden */
+.sim-visual{background:#1A0E00;border-radius:14px;overflow:hidden;padding:1.5rem;min-height:260px;display:flex;flex-direction:column}
+.sim-visual-label{font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7A6040;margin-bottom:1rem}
+.seed-garden{flex:1;display:flex;flex-wrap:wrap;align-content:flex-start;gap:.35rem;min-height:180px}
+.seed{width:10px;height:10px;border-radius:50%;transition:background .3s,transform .2s}
+.seed.karma{background:var(--karma)}
+.seed.free{background:#276749;opacity:.35}
+
+/* ─────────────────────────────────────────────
+   §6  FULL-BLEED PULL QUOTE
+───────────────────────────────────────────── */
+.pullquote-section{background:#1A0E00;padding:6rem 2rem;text-align:center;position:relative;overflow:hidden}
+.pullquote-section::before{content:'कर्म';position:absolute;font-family:'Playfair Display',serif;font-size:28rem;color:rgba(200,80,0,.04);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none}
+.pq-eyebrow{font-family:'Inter',sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--karma);margin-bottom:1.2rem}
+.pq-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.3rem,3vw,2.1rem);color:#F5EDD6;max-width:760px;margin:0 auto;line-height:1.65}
+.pq-san{display:block;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(.9rem,2vw,1.3rem);color:var(--karma);margin-top:1.2rem}
+.pq-source{font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7A6040;margin-top:1rem}
+
+/* ─────────────────────────────────────────────
+   §7  FURTHER READING
+───────────────────────────────────────────── */
+.further-section{background:#F0E8D4;padding:4rem 0}
+.further-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.further-card{background:#fff;border-radius:12px;padding:1.4rem;border:1.5px solid var(--rule);transition:transform .2s,box-shadow .2s}
+.further-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(44,31,8,.1)}
+.fc-label{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--karma);margin-bottom:.4rem}
+.fc-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.45rem}
+.fc-desc{font-size:.83rem;color:#5A4020;line-height:1.6;margin-bottom:.9rem}
+.fc-link{font-family:'Inter',sans-serif;font-size:.74rem;font-weight:700;color:var(--karma);display:flex;align-items:center;gap:.3rem}
+
+/* ── Footer ── */
+footer{background:var(--parch);border-top:1px solid var(--rule);text-align:center;padding:2.5rem 2rem;font-family:'Inter',sans-serif;font-size:.74rem;color:#7A6040}
+footer a{color:var(--karma)}
+
+/* ── Responsive ── */
+@media(max-width:800px){
+  .scrolly-wrap,.tradition-panel.active,.sim-layout,.further-grid{grid-template-columns:1fr}
+  .scrolly-diagram{position:relative;top:auto;margin-bottom:2rem}
+  .scrolly-step{min-height:auto;padding:1rem 0}
+  .mc-grid{grid-template-columns:1fr}
+  nav{padding:.65rem 1.2rem}
+  .hero h1{font-size:clamp(3rem,14vw,7rem)}
+}
+</style>
+
+<style id="sn-css">
+/* ═══ SITE-WIDE NAV ═══════════════════════════════════════════════ */
+.site-nav,.site-nav *{box-sizing:border-box}
+.site-nav{position:sticky;top:0;z-index:9999;padding:0;background:rgba(14,6,0,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,175,55,.14)}
+.sn-inner{max-width:1340px;margin:0 auto;padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.sn-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
+.sn-om{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:rgba(212,175,55,.4);line-height:1;user-select:none}
+.sn-brand{display:flex;flex-direction:column;line-height:1.15;gap:.02rem}
+.sn-brand-sup{font-family:'Inter',system-ui,sans-serif;font-size:.5rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(154,120,0,.6)}
+.sn-brand-name{font-family:'Playfair Display',Georgia,serif;font-size:.92rem;font-weight:700;font-style:italic;color:#F0E8D4}
+.sn-links{display:flex;align-items:center;gap:.1rem}
+.sn-link{font-family:'Inter',system-ui,sans-serif;font-size:.69rem;font-weight:600;letter-spacing:.02em;color:rgba(195,170,120,.62);padding:.36rem .7rem;border-radius:5px;cursor:pointer;text-decoration:none;white-space:nowrap;border:none;background:transparent;transition:color .16s,background .16s;display:flex;align-items:center;gap:.22rem}
+.sn-link:hover,.sn-link.sn-active{color:#D4AF37}
+.sn-link.sn-active{background:rgba(212,175,55,.08)}
+.sn-caret{font-size:.52rem;opacity:.45;transition:transform .2s}
+.sn-group{position:relative}
+.sn-group:hover>.sn-link .sn-caret,.sn-group:focus-within>.sn-link .sn-caret{transform:rotate(90deg);opacity:.75}
+.sn-drop{position:absolute;top:calc(100% + .35rem);left:50%;transform:translateX(-50%) translateY(-5px);opacity:0;pointer-events:none;transition:opacity .17s,transform .17s;z-index:10000}
+.sn-group:hover>.sn-drop,.sn-group:focus-within>.sn-drop{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.sn-drop-inner{background:#130700;border:1px solid rgba(212,175,55,.18);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.75);min-width:248px;padding:.35rem}
+.sdi{display:flex;align-items:center;gap:.72rem;padding:.54rem .68rem;border-radius:7px;text-decoration:none;transition:background .13s;color:inherit}
+.sdi:hover,.sdi.sn-active{background:rgba(212,175,55,.08)}
+.sdi-num{font-family:'Inter',system-ui,sans-serif;font-size:.58rem;font-weight:700;color:rgba(154,120,0,.45);width:16px;flex-shrink:0;text-align:center}
+.sdi-tag{font-family:'Inter',system-ui,sans-serif;font-size:.54rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:rgba(212,175,55,.1);color:rgba(212,175,55,.7);border:1px solid rgba(212,175,55,.18);border-radius:3px;padding:.08rem .36rem;flex-shrink:0;white-space:nowrap}
+.sdi-text{display:flex;flex-direction:column;gap:.03rem}
+.sdi-title{font-family:'Playfair Display',Georgia,serif;font-size:.83rem;font-weight:700;font-style:italic;color:#EDE5C8}
+.sdi-sub{font-family:'Inter',system-ui,sans-serif;font-size:.62rem;color:rgba(154,120,0,.55)}
+.sn-drop-div{height:1px;background:rgba(212,175,55,.1);margin:.3rem .4rem}
+.sn-ham{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:.45rem;flex-shrink:0}
+.sn-ham span{display:block;width:20px;height:1.5px;background:rgba(195,170,120,.72);border-radius:2px;transition:all .25s}
+.sn-ham.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.sn-ham.open span:nth-child(2){opacity:0;width:0}
+.sn-ham.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:860px){
+  .sn-ham{display:flex}
+  .sn-links{display:none;position:fixed;inset:56px 0 0;background:rgba(12,5,0,.99);flex-direction:column;align-items:stretch;padding:1rem;gap:.1rem;overflow-y:auto;z-index:9998;border-top:1px solid rgba(212,175,55,.1)}
+  .sn-links.mob-open{display:flex}
+  .sn-group>.sn-drop{position:static;opacity:1;pointer-events:all;transform:none;max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .sn-group.mob-open>.sn-drop{max-height:500px}
+  .sn-drop-inner{background:rgba(255,255,255,.03);border-color:rgba(212,175,55,.1);box-shadow:none;border-radius:8px;margin:.1rem 0 .1rem 1rem;padding:.2rem}
+  .sn-link{font-size:.8rem;padding:.62rem .85rem}
+  .sn-caret{margin-left:auto;font-size:.65rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="site-nav" id="site-nav">
+<div class="sn-inner">
+  <a class="sn-logo" href="index.html">
+    <span class="sn-om">ॐ</span>
+    <span class="sn-brand">
+      <span class="sn-brand-sup">Next Gen Education</span>
+      <span class="sn-brand-name">Hindu Studies</span>
+    </span>
+  </a>
+  <div class="sn-links" id="sn-links">
+    <a class="sn-link" href="index.html"   data-sn="index.html">Home</a>
+    <a class="sn-link" href="map.html"     data-sn="map.html">Start Here</a>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Essays <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="vedas.html"          data-sn="vedas.html"><span class="sdi-num">01</span><span class="sdi-text"><span class="sdi-title">The Vedas</span><span class="sdi-sub">Origins · Sanskrit · Upaniṣads</span></span></a>
+        <a class="sdi" href="darshanas.html"       data-sn="darshanas.html"><span class="sdi-num">02</span><span class="sdi-text"><span class="sdi-title">The Six Darśanas</span><span class="sdi-sub">Philosophy · Schools · Logic</span></span></a>
+        <a class="sdi" href="history.html"         data-sn="history.html"><span class="sdi-num">03</span><span class="sdi-text"><span class="sdi-title">A Historical Timeline</span><span class="sdi-sub">2600 BCE → 1400 CE</span></span></a>
+        <a class="sdi" href="veda-traditions.html" data-sn="veda-traditions.html"><span class="sdi-num">04</span><span class="sdi-text"><span class="sdi-title">What is Śāstra?</span><span class="sdi-sub">18 Traditions · 8 Categories</span></span></a>
+        <a class="sdi" href="vedic-sacrifice.html" data-sn="vedic-sacrifice.html"><span class="sdi-num">05</span><span class="sdi-text"><span class="sdi-title">The Sacred Fire</span><span class="sdi-sub">Yajña · Ritual · Agni</span></span></a>
+      </div></div>
+    </div>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Karma <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="karma.html"          data-sn="karma.html"><span class="sdi-tag">Essay</span><span class="sdi-text"><span class="sdi-title">Karma</span><span class="sdi-sub">Visual essay · All techniques</span></span></a>
+        <div class="sn-drop-div"></div>
+        <a class="sdi" href="karma-full.html"     data-sn="karma-full.html"><span class="sdi-tag">Exam</span><span class="sdi-text"><span class="sdi-title">Karma + Exam Mode</span><span class="sdi-sub">Board-specific overlay</span></span></a>
+        <a class="sdi" href="karma-revision.html" data-sn="karma-revision.html"><span class="sdi-tag">Study</span><span class="sdi-text"><span class="sdi-title">A Level Revision</span><span class="sdi-sub">OCR · AQA · Edexcel · WJEC</span></span></a>
+      </div></div>
+    </div>
+    <a class="sn-link" href="overview.html" data-sn="overview.html">Overview</a>
+  </div>
+  <button class="sn-ham" id="sn-ham" aria-label="Menu" onclick="snHam()"><span></span><span></span><span></span></button>
+</div>
+</nav>
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eye">Visual Essay · Soteriology & Ethics</div>
+    <h1>
+      <span class="hero-san">कर्म</span>
+      Karma
+    </h1>
+    <p class="hero-sub">Not a vending machine. Not fate. Not reward and punishment. Something far more interesting — and far more demanding.</p>
+    <div class="hero-scroll">↓ scroll to begin</div>
+  </div>
+  <div class="hero-technique-label">Technique: full-bleed hero · image overlay</div>
+</div>
+
+<!-- ════════════════════════════════════════
+     §1  MISCONCEPTION — Guess First
+════════════════════════════════════════ -->
+<section class="misconception">
+  <div class="section-wrap">
+    <div class="technique-tag">Technique: guess first · progressive reveal</div>
+    <div class="section-eyebrow">Before we begin</div>
+    <h2 class="section-hl">What does karma <em>actually</em> mean?</h2>
+    <p class="section-sub">Click the definition you think is closest. Then we'll show you what every Hindu philosophical tradition actually says.</p>
+
+    <div class="mc-grid" id="mc-grid">
+      <div class="mc-opt" onclick="revealMC(this,'wrong')">
+        <div class="mc-opt-q">"What goes around comes around."</div>
+        <div class="mc-opt-sub">A cosmic balancing act — good in, good out</div>
+        <div class="mc-verdict wrong">
+          <div class="mc-verdict-label">✗ Not in any classical Hindu text</div>
+          This is the Western popular version — karma as a kind of moral vending machine. It appears nowhere in the Vedas, Upaniṣads, or Bhagavad-gītā in this form. The idea that the universe automatically rewards and punishes is closer to a folk belief than a philosophical doctrine.
+        </div>
+      </div>
+      <div class="mc-opt" onclick="revealMC(this,'wrong')">
+        <div class="mc-opt-q">"Fate — what was always meant to be."</div>
+        <div class="mc-opt-sub">Your destiny, fixed by past lives</div>
+        <div class="mc-verdict wrong">
+          <div class="mc-verdict-label">✗ The opposite of what karma means</div>
+          Karma is emphatically <em>not</em> fate. The entire practical force of the doctrine is that you can change your trajectory through intentional action right now. A fatalistic reading of karma would make the Bhagavad-gītā's central argument — act rightly, act now — incoherent.
+        </div>
+      </div>
+      <div class="mc-opt" onclick="revealMC(this,'close')">
+        <div class="mc-opt-q">"Good deeds bring good results. Bad deeds bring suffering."</div>
+        <div class="mc-opt-sub">A moral law of cause and effect</div>
+        <div class="mc-verdict close">
+          <div class="mc-verdict-label">≈ Closer — but it misses the point</div>
+          This captures part of the Mīmāṃsā reading (ritual action brings correct results). But the Bhagavad-gītā — the most influential karma text — specifically argues that attachment to results is the problem. The question isn't what the action produces; it's what the action does to the person who performs it.
+        </div>
+      </div>
+      <div class="mc-opt" onclick="revealMC(this,'right')">
+        <div class="mc-opt-q">"Every intentional action leaves an impression that shapes who you become."</div>
+        <div class="mc-opt-sub">Action as a force that moulds the agent</div>
+        <div class="mc-verdict right">
+          <div class="mc-verdict-label">✓ This is the original philosophical claim</div>
+          Karma (from the Sanskrit root <em>kṛ</em>, "to do") refers to action and its residue. Every intentional act leaves a saṃskāra — an impression in the mind. Saṃskāras accumulate into vāsanās, deep tendencies that shape future choices. You don't just do karma; karma does you.
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-result-note" id="mc-result-note">
+      The word <strong>karma</strong> simply means <strong>action</strong>. Its power as a philosophical concept comes from what action leaves behind — not in the world, but in the person who acts. This is what the next section explores.
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §2  SCROLLYTELLING — The Mechanism
+════════════════════════════════════════ -->
+<section class="scrolly-section">
+  <div class="section-wrap" style="margin-bottom:2.5rem">
+    <div class="technique-tag">Technique: scrollytelling · sticky diagram · waypoint triggers</div>
+    <div class="section-eyebrow">The mechanism</div>
+    <h2 class="section-hl">How karma actually <em>works</em></h2>
+    <p class="section-sub">Scroll through the steps. The diagram builds as you go.</p>
+  </div>
+  <div class="scrolly-wrap">
+
+    <!-- Sticky diagram -->
+    <div class="scrolly-diagram">
+      <svg id="karma-diagram-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,1 L10,5 L0,9 Z" fill="#C85000" opacity=".7"/>
+          </marker>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="6" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Background ring (shows at step 4) -->
+        <circle id="kd-ring" cx="250" cy="250" r="165" fill="none" stroke="#E8C8A0" stroke-width="1" stroke-dasharray="4 8"/>
+
+        <!-- Centre label (step 5) -->
+        <g id="kd-centre" class="kd-label">
+          <text x="250" y="244" text-anchor="middle" font-family="Playfair Display,serif" font-style="italic" font-size="13" fill="#C85000">Saṃsāra</text>
+          <text x="250" y="262" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#9A8060" font-weight="700" letter-spacing="0.06em">THE CYCLE</text>
+        </g>
+
+        <!-- Arrows -->
+        <path id="arr1" class="kd-arrow" d="M 285,133 Q 400,130 372,218" stroke="#C85000" stroke-width="2" fill="none" marker-end="url(#arr)" opacity=".7"/>
+        <path id="arr2" class="kd-arrow" d="M 373,283 Q 398,398 282,368" stroke="#C85000" stroke-width="2" fill="none" marker-end="url(#arr)" opacity=".7"/>
+        <path id="arr3" class="kd-arrow" d="M 218,368 Q 100,398 127,283" stroke="#C85000" stroke-width="2" fill="none" marker-end="url(#arr)" opacity=".7"/>
+        <path id="arr4" class="kd-arrow" d="M 128,218 Q 100,100 215,132" stroke="#C85000" stroke-width="2" fill="none" marker-end="url(#arr)" opacity=".7"/>
+
+        <!-- Node: Karma/Action (top) -->
+        <g id="n-karma" class="kd-node" transform="translate(250,100)">
+          <circle class="pulse" cx="0" cy="0" r="54" fill="rgba(200,80,0,.06)"/>
+          <circle cx="0" cy="0" r="44" fill="#FFF4EE" stroke="#C85000" stroke-width="2.5"/>
+          <text x="0" y="-6" text-anchor="middle" font-family="Playfair Display,serif" font-style="italic" font-size="14" fill="#1A0E00">Karma</text>
+          <text x="0" y="11" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="#C85000" font-weight="700" letter-spacing="0.07em">ACTION</text>
+        </g>
+
+        <!-- Node: Saṃskāra (right) -->
+        <g id="n-samskara" class="kd-node" transform="translate(400,250)">
+          <circle class="pulse" cx="0" cy="0" r="54" fill="rgba(200,80,0,.06)"/>
+          <circle cx="0" cy="0" r="44" fill="#FFF4EE" stroke="#C85000" stroke-width="2.5"/>
+          <text x="0" y="-8" text-anchor="middle" font-family="Playfair Display,serif" font-style="italic" font-size="12" fill="#1A0E00">Saṃskāra</text>
+          <text x="0" y="8" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" fill="#C85000" font-weight="700" letter-spacing="0.06em">IMPRESSION</text>
+          <text x="0" y="19" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" fill="#C85000" font-weight="700" letter-spacing="0.06em">/ SEED</text>
+        </g>
+
+        <!-- Node: Vāsanā (bottom) -->
+        <g id="n-vasana" class="kd-node" transform="translate(250,400)">
+          <circle class="pulse" cx="0" cy="0" r="54" fill="rgba(200,80,0,.06)"/>
+          <circle cx="0" cy="0" r="44" fill="#FFF4EE" stroke="#C85000" stroke-width="2.5"/>
+          <text x="0" y="-8" text-anchor="middle" font-family="Playfair Display,serif" font-style="italic" font-size="12" fill="#1A0E00">Vāsanā</text>
+          <text x="0" y="8" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" fill="#C85000" font-weight="700" letter-spacing="0.06em">DEEP</text>
+          <text x="0" y="19" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" fill="#C85000" font-weight="700" letter-spacing="0.06em">TENDENCY</text>
+        </g>
+
+        <!-- Node: Future Action (left) -->
+        <g id="n-future" class="kd-node" transform="translate(100,250)">
+          <circle class="pulse" cx="0" cy="0" r="54" fill="rgba(200,80,0,.06)"/>
+          <circle cx="0" cy="0" r="44" fill="#FFF4EE" stroke="#C85000" stroke-width="2.5"/>
+          <text x="0" y="-8" text-anchor="middle" font-family="Playfair Display,serif" font-style="italic" font-size="12" fill="#1A0E00">Future</text>
+          <text x="0" y="8" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" fill="#C85000" font-weight="700" letter-spacing="0.06em">ACTION</text>
+          <text x="0" y="19" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" fill="#C85000" font-weight="700" letter-spacing="0.06em">TENDENCY</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Steps -->
+    <div class="scrolly-steps">
+      <div class="scrolly-step" data-step="1">
+        <div class="scrolly-step-inner">
+          <div class="step-num">Step 01</div>
+          <div class="step-title">The word means action</div>
+          <p class="step-body">Karma comes from the Sanskrit root <em>kṛ</em> — to do, to make, to act. In the oldest Vedic texts, it referred specifically to ritual action: the correct performance of a yajña (fire sacrifice). The priest's karma was his precise enactment of the rite. The philosophical meaning grew from this: <em>all</em> intentional action is, in this sense, ritual — consequential, shaping the world and the actor alike.</p>
+          <span class="step-san">कर्म (kṛ — to do)</span>
+        </div>
+      </div>
+      <div class="scrolly-step" data-step="2">
+        <div class="scrolly-step-inner">
+          <div class="step-num">Step 02</div>
+          <div class="step-title">Every action leaves a saṃskāra</div>
+          <p class="step-body">The term saṃskāra literally means "putting together perfectly" — a refinement, an impression. Every intentional act deposits a saṃskāra in the mind — a trace, a groove. Like water carving a channel, repeated actions deepen those channels. The mind becomes predisposed. This is why practice — of virtue, of concentration, of devotion — works: you are literally reshaping the substrate of your future choices.</p>
+          <span class="step-san">संस्कार — impression, refinement</span>
+        </div>
+      </div>
+      <div class="scrolly-step" data-step="3">
+        <div class="scrolly-step-inner">
+          <div class="step-num">Step 03</div>
+          <div class="step-title">Saṃskāras become vāsanās</div>
+          <p class="step-body">Vāsanā means "perfume" — the scent that clings after the flower is gone. Accumulated saṃskāras crystallise into vāsanās: deep-seated tendencies that operate below the level of conscious choice. They generate desires, fears, and compulsions. You don't choose to crave what you crave; your vāsanās do. This is why liberation in most Hindu traditions requires addressing not just actions, but the deepest conditioning of the mind.</p>
+          <span class="step-san">वासना — subtle tendency, perfume</span>
+        </div>
+      </div>
+      <div class="scrolly-step" data-step="4">
+        <div class="scrolly-step-inner">
+          <div class="step-num">Step 04</div>
+          <div class="step-title">Vāsanās generate future action</div>
+          <p class="step-body">Vāsanās surface as desires, which generate further actions, which lay down new saṃskāras — and the cycle perpetuates itself. This is why simply willing yourself to behave differently rarely works: you are trying to change the surface while the deep currents run unchanged. The tradition's insight is radical: you cannot think your way out of karma. You have to act your way out — and act differently, from a different motivation.</p>
+          <span class="step-san">वासना → कर्म → संस्कार</span>
+        </div>
+      </div>
+      <div class="scrolly-step" data-step="5">
+        <div class="scrolly-step-inner">
+          <div class="step-num">Step 05</div>
+          <div class="step-title">This is saṃsāra — not punishment, but physics</div>
+          <p class="step-body">The cycle — action, impression, tendency, action — drives saṃsāra, the ongoing round of existence. The tradition does not call this evil. It calls it the nature of conditioned existence. The way out is not to stop acting (the Bhagavad-gītā explicitly rules this out) but to act without ego-attachment — <em>niṣkāma karma</em>, action free of craving for its fruits. This is the Gītā's central argument. Scroll on to read the exact verse.</p>
+          <span class="step-san">निष्काम कर्म — desireless action</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §3  GĪTĀ VERSE ANNOTATION
+════════════════════════════════════════ -->
+<section class="verse-section">
+  <div class="section-wrap">
+    <div class="technique-tag">Technique: word-level annotation · guided tour · hover tooltip</div>
+    <div class="section-eyebrow">Bhagavad-gītā 2.47</div>
+    <h2 class="section-hl">The most important <em>sentence</em> in karma philosophy</h2>
+    <p class="section-sub">Kṛṣṇa has one answer to Arjuna's paralysis. It is six words in Sanskrit. Hover over each word — or take the guided tour.</p>
+
+    <div class="verse-box">
+      <span class="verse-san">
+        <span class="verse-line">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन ।</span>
+        <span class="verse-line">मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि ॥</span>
+      </span>
+      <div class="verse-transliteration">karmaṇy evādhikāras te mā phaleṣu kadācana | mā karmaphalahetur bhūr mā te saṅgo 'stv akarmaṇi ||</div>
+      <div class="verse-source">Bhagavad-gītā 2.47 — Kṛṣṇa to Arjuna</div>
+    </div>
+
+    <button class="tour-btn" id="tour-btn" onclick="nextTourStep()">
+      ▶ Guided word tour
+      <span class="tour-progress" id="tour-progress"></span>
+    </button>
+
+    <div class="word-row" id="word-row">
+      <div class="wrd" data-tour="1">
+        <div class="wrd-san">karmaṇi</div>
+        <div class="wrd-en">in action</div>
+        <div class="wrd-tooltip"><strong>karmaṇi</strong> — locative case of karma. "In the field of action." The verse locates you firmly in the domain of doing — inaction is not offered as an option.</div>
+      </div>
+      <div class="wrd" data-tour="2">
+        <div class="wrd-san">eva</div>
+        <div class="wrd-en">only / alone</div>
+        <div class="wrd-tooltip"><strong>eva</strong> — an emphatic particle. "In action alone." This is not a suggestion. Kṛṣṇa is ruling out any alternative. Action is your field, full stop.</div>
+      </div>
+      <div class="wrd" data-tour="3">
+        <div class="wrd-san">adhikāras</div>
+        <div class="wrd-en">right / authority</div>
+        <div class="wrd-tooltip"><strong>adhikāras</strong> — right, entitlement, authority, jurisdiction. You have jurisdiction over your actions. You do not have jurisdiction over their outcomes.</div>
+      </div>
+      <div class="wrd" data-tour="4">
+        <div class="wrd-san">te</div>
+        <div class="wrd-en">your</div>
+        <div class="wrd-tooltip"><strong>te</strong> — yours, belonging to you. This is personal, direct. Kṛṣṇa is speaking to Arjuna specifically — and, by extension, to the reader specifically.</div>
+      </div>
+      <div class="wrd" data-tour="5">
+        <div class="wrd-san">mā phaleṣu</div>
+        <div class="wrd-en">not in fruits</div>
+        <div class="wrd-tooltip"><strong>mā phaleṣu</strong> — "not in the fruits." The fruits (phala) are the results — victory, wealth, reputation, success. These are categorically not your domain. You do not control them.</div>
+      </div>
+      <div class="wrd" data-tour="6">
+        <div class="wrd-san">kadācana</div>
+        <div class="wrd-en">ever / at any time</div>
+        <div class="wrd-tooltip"><strong>kadācana</strong> — ever, at any time, under any circumstances. This is absolute. Not "mostly avoid attachment to results" — never, at any time, attach your identity to outcomes.</div>
+      </div>
+      <div class="wrd" data-tour="7">
+        <div class="wrd-san">mā karmaphala-hetur bhūḥ</div>
+        <div class="wrd-en">don't be the cause of results</div>
+        <div class="wrd-tooltip"><strong>mā karmaphala-hetur bhūḥ</strong> — "do not let the fruits of action be your motive." Don't perform actions because of what they will get you. This is the core of niṣkāma karma — action without desire for its results.</div>
+      </div>
+      <div class="wrd" data-tour="8">
+        <div class="wrd-san">mā te saṅgo 'stv akarmaṇi</div>
+        <div class="wrd-en">no attachment to inaction</div>
+        <div class="wrd-tooltip"><strong>mā te saṅgo 'stv akarmaṇi</strong> — "let there be no attachment to inaction." The verse closes the escape route. You cannot retreat into passivity. Act — but act without clinging to the outcome.</div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1.5px solid var(--rule);border-radius:12px;padding:1.4rem 1.6rem;margin-top:1.5rem">
+      <div style="font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--karma);margin-bottom:.4rem">Full translation</div>
+      <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;color:var(--ink);line-height:1.7">"You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions. Never consider yourself the cause of the results of your activities, and never be attached to not doing your duty."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §4  THREE TRADITIONS
+════════════════════════════════════════ -->
+<section class="traditions-section">
+  <div class="section-wrap">
+    <div class="technique-tag">Technique: toggle tabs · comparative panels</div>
+    <div class="section-eyebrow">Three readings</div>
+    <h2 class="section-hl">How different traditions <em>interpret</em> karma</h2>
+    <p class="section-sub">The word is shared. The meaning is not. Select a school to see how its framework changes everything.</p>
+
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="showTrad('mimamsa',this)">Mīmāṃsā</button>
+      <button class="tab-btn" onclick="showTrad('advaita',this)">Advaita Vedānta</button>
+      <button class="tab-btn" onclick="showTrad('gaudiya',this)">Gauḍīya Vaiṣṇavism</button>
+    </div>
+
+    <div class="tradition-panel active" id="trad-mimamsa">
+      <div class="trad-card trad-highlight">
+        <div class="trad-card-label">Core claim</div>
+        <div class="trad-card-title">Karma is ritual performance</div>
+        <div class="trad-card-body">For Mīmāṃsā, karma means the Vedic injunction — the command to perform a ritual correctly. Dharma is defined as that which is enjoined by the Veda. The fruits of action (svarga, heaven) are guaranteed if the ritual is performed precisely. This is the most "literal" reading: karma as correct action producing its mandated result.</div>
+        <div class="trad-meter">
+          <div class="trad-meter-label"><span>Emphasis on correct performance</span><span>Very high</span></div>
+          <div class="trad-bar-wrap"><div class="trad-bar" style="width:95%"></div></div>
+        </div>
+        <div class="trad-meter" style="margin-top:.6rem">
+          <div class="trad-meter-label"><span>Emphasis on inner motivation</span><span>Very low</span></div>
+          <div class="trad-bar-wrap"><div class="trad-bar" style="width:8%"></div></div>
+        </div>
+      </div>
+      <div class="trad-card">
+        <div class="trad-card-label">Key implication</div>
+        <div class="trad-card-title">What matters is what you do, not why</div>
+        <div class="trad-card-body">Mīmāṃsā holds the Vedas as eternally authorless — and the rituals they prescribe are the mechanism by which the universe maintains itself. The agent's inner state is largely irrelevant; the act's correctness is everything. This position is directly challenged by the Bhagavad-gītā, which puts motivation at the centre.</div>
+        <div style="margin-top:1rem;padding:.7rem;background:#FEF9E7;border-radius:8px;font-family:'Inter',sans-serif;font-size:.8rem;color:#5A4010">
+          <strong>A Level relevance:</strong> Mīmāṃsā's framework underlies the debate between "act ethics" and "motivational ethics" in Hindu thought — and maps onto similar debates in Western moral philosophy.
+        </div>
+      </div>
+    </div>
+
+    <div class="tradition-panel" id="trad-advaita">
+      <div class="trad-card trad-highlight">
+        <div class="trad-card-label">Core claim</div>
+        <div class="trad-card-title">Karma is bondage — niṣkāma karma is the door</div>
+        <div class="trad-card-body">For Advaita, the ultimate reality is Brahman — pure, non-dual consciousness. The individual self (jīva) appears separate only because of avidyā (ignorance). Karma is the mechanism of that ignorance: action driven by ego-attachment generates saṃskāras that reinforce the illusion of a separate self. The solution is jñāna — direct knowledge of the self's non-difference from Brahman.</div>
+        <div class="trad-meter">
+          <div class="trad-meter-label"><span>Karma as the problem</span><span>High</span></div>
+          <div class="trad-bar-wrap"><div class="trad-bar" style="width:80%"></div></div>
+        </div>
+        <div class="trad-meter" style="margin-top:.6rem">
+          <div class="trad-meter-label"><span>Jñāna (knowledge) as solution</span><span>Supreme</span></div>
+          <div class="trad-bar-wrap"><div class="trad-bar" style="width:98%"></div></div>
+        </div>
+      </div>
+      <div class="trad-card">
+        <div class="trad-card-label">Key implication</div>
+        <div class="trad-card-title">You transcend karma by realising there is no separate "you"</div>
+        <div class="trad-card-body">Śaṅkara reads the Bhagavad-gītā as a provisional teaching: karma yoga is appropriate for those not yet ready for jñāna. The truly liberated act freely — because for them, there is no agent, no action, and no fruit. "The knower of Brahman does not act, because in Brahman there is no becoming."</div>
+        <div style="margin-top:1rem;padding:.7rem;background:#F2FAF5;border-radius:8px;font-family:'Inter',sans-serif;font-size:.8rem;color:#1A4030">
+          <strong>A Level relevance:</strong> This position is central to debates about free will, agency, and moral responsibility in Hindu ethics.
+        </div>
+      </div>
+    </div>
+
+    <div class="tradition-panel" id="trad-gaudiya">
+      <div class="trad-card trad-highlight">
+        <div class="trad-card-label">Core claim</div>
+        <div class="trad-card-title">Karma is transcended by bhakti — devotional action</div>
+        <div class="trad-card-body">For Gauḍīya Vaiṣṇavism, both karma (duty-action) and jñāna (knowledge-path) are limited. Bhakti — pure, unmotivated devotion to Kṛṣṇa — is not subject to the law of karma at all. The devotee acts entirely for Kṛṣṇa's pleasure, with no self-interest. This action generates no karmic residue because the ego-agent has been replaced by the devotee-servant.</div>
+        <div class="trad-meter">
+          <div class="trad-meter-label"><span>Bhakti as transcending karma</span><span>Supreme</span></div>
+          <div class="trad-bar-wrap"><div class="trad-bar" style="width:98%"></div></div>
+        </div>
+        <div class="trad-meter" style="margin-top:.6rem">
+          <div class="trad-meter-label"><span>Relationship with God</span><span>Central</span></div>
+          <div class="trad-bar-wrap"><div class="trad-bar" style="width:95%"></div></div>
+        </div>
+      </div>
+      <div class="trad-card">
+        <div class="trad-card-label">Key implication</div>
+        <div class="trad-card-title">Love makes karma irrelevant</div>
+        <div class="trad-card-body">Jīva Gosvāmī argues that the Bhagavad-gītā's karma yoga is not the destination but the preparation — purifying the mind for bhakti. Once bhakti is established, the practitioner is "beyond the Vedas" (vedātīta). The Bhāgavata Purāṇa puts it simply: "One who acts devotionally for Viṣṇu is released from all karma."</div>
+        <div style="margin-top:1rem;padding:.7rem;background:#F8F0FF;border-radius:8px;font-family:'Inter',sans-serif;font-size:.8rem;color:#3A1A5A">
+          <strong>A Level relevance:</strong> This maps onto debates about whether ethics (doing right) or religion (loving God) is the deeper category — a question that appears across Hindu, Christian, and Islamic ethics.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §5  SIMULATION
+════════════════════════════════════════ -->
+<section class="simulation-section">
+  <div class="section-wrap">
+    <div class="technique-tag">Technique: direct manipulation · live simulation · slider</div>
+    <div class="section-eyebrow">Try it yourself</div>
+    <h2 class="section-hl">The karma <em>accumulator</em></h2>
+    <p class="section-sub">Every action either plants a karmic seed or doesn't — depending on the ego-attachment behind it. Adjust the sliders and watch what accumulates.</p>
+
+    <div class="sim-layout">
+      <div class="sim-controls">
+        <div class="sim-ctrl-label">Actions performed today <span id="act-count-lbl">40</span></div>
+        <input class="sim-slider" id="act-count" type="range" min="10" max="100" value="40" oninput="updateSim()">
+
+        <div class="sim-ctrl-label">Ego-attachment per action <span id="attach-lbl">60%</span></div>
+        <input class="sim-slider" id="attach-pct" type="range" min="0" max="100" value="60" oninput="updateSim()">
+
+        <div class="sim-stat">
+          <span class="sim-stat-label">Karmic seeds planted</span>
+          <span class="sim-stat-val" id="seeds-val">24</span>
+        </div>
+        <div class="sim-stat">
+          <span class="sim-stat-label">Actions leaving no residue</span>
+          <span class="sim-stat-val" id="free-val" style="color:#276749">16</span>
+        </div>
+        <div class="sim-insight" id="sim-insight">
+          At 60% attachment, you are planting karma with most of your actions. The vāsanās accumulate. The Gītā's prescription: reduce attachment, not activity.
+        </div>
+      </div>
+      <div class="sim-visual">
+        <div class="sim-visual-label">Karmic seeds (orange = bound · green = free)</div>
+        <div class="seed-garden" id="seed-garden"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     §6  FULL-BLEED PULL QUOTE
+════════════════════════════════════════ -->
+<div class="pullquote-section">
+  <div class="technique-tag" style="color:rgba(200,80,0,.5);border-color:rgba(200,80,0,.2);margin-bottom:1.5rem">Technique: full-bleed pull quote · typographic moment</div>
+  <div class="pq-eyebrow">Bhagavad-gītā 3.19</div>
+  <p class="pq-quote">"Therefore, without attachment, always perform the action which should be done — for by performing action without attachment, one attains the Supreme."</p>
+  <span class="pq-san">tasmād asaktaḥ satataṃ kāryaṃ karma samācara</span>
+  <div class="pq-source">Bhagavad-gītā 3.19</div>
+</div>
+
+<!-- ════════════════════════════════════════
+     FURTHER READING
+════════════════════════════════════════ -->
+<section class="further-section">
+  <div class="section-wrap">
+    <div class="section-eyebrow">Go deeper</div>
+    <h2 class="section-hl">Where karma lives in the wider tradition</h2>
+    <div class="further-grid">
+      <a class="further-card" href="vedas.html">
+        <div class="fc-label">Interactive Essay</div>
+        <div class="fc-title">The Vedas & Upaniṣads</div>
+        <div class="fc-desc">How karma appears in the earliest Vedic ritual context — and how the Upaniṣads transform it into a philosophical doctrine.</div>
+        <div class="fc-link">Read essay →</div>
+      </a>
+      <a class="further-card" href="darshanas.html">
+        <div class="fc-label">Interactive Essay</div>
+        <div class="fc-title">The Six Darśanas</div>
+        <div class="fc-desc">How Mīmāṃsā, Vedānta, and Yoga Sūtras each develop a distinct theory of karma — and where they collide.</div>
+        <div class="fc-link">Read essay →</div>
+      </a>
+      <a class="further-card" href="veda-traditions.html">
+        <div class="fc-label">Interactive Explorer</div>
+        <div class="fc-title">What is Śāstra?</div>
+        <div class="fc-desc">See how the traditions covered in §4 above position the Bhagavad-gītā — their primary karma text — within their broader scriptural canon.</div>
+        <div class="fc-link">Explore →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Next Gen Education · Hindu Studies &nbsp;·&nbsp; <a href="map.html">← The Map of Hinduism</a> &nbsp;·&nbsp; <a href="index.html">All essays</a>
+</footer>
+
+<!-- ════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
+<script>
+
+/* ─── §1 MISCONCEPTION ──────────────────────── */
+let mcCount = 0;
+function revealMC(el, type) {
+  if (el.classList.contains('revealed')) return;
+  el.classList.add('revealed', 'selected');
+  mcCount++;
+  if (mcCount >= 2) {
+    setTimeout(() => {
+      document.getElementById('mc-result-note').classList.add('show');
+    }, 600);
+  }
+}
+
+/* ─── §2 SCROLLYTELLING ─────────────────────── */
+const STEP_NODES = {
+  1: { show: ['n-karma'],                         active: ['n-karma'],   arrows: [],                            ring: false },
+  2: { show: ['n-karma','n-samskara'],             active: ['n-samskara'], arrows: ['arr1'],                     ring: false },
+  3: { show: ['n-karma','n-samskara','n-vasana'],  active: ['n-vasana'],  arrows: ['arr1','arr2'],               ring: false },
+  4: { show: ['n-karma','n-samskara','n-vasana','n-future'], active: ['n-future'], arrows: ['arr1','arr2','arr3'], ring: true },
+  5: { show: ['n-karma','n-samskara','n-vasana','n-future'], active: [], arrows: ['arr1','arr2','arr3','arr4'],   ring: true, centre: true }
+};
+
+function updateDiagram(step) {
+  const s = STEP_NODES[step];
+  if (!s) return;
+  const svg = document.getElementById('karma-diagram-svg');
+  // Nodes
+  svg.querySelectorAll('.kd-node').forEach(n => {
+    n.classList.remove('show','active');
+    if (s.show.includes(n.id)) n.classList.add('show');
+    if (s.active.includes(n.id)) n.classList.add('active');
+  });
+  // Arrows
+  svg.querySelectorAll('.kd-arrow').forEach(a => {
+    a.classList.remove('show');
+    if (s.arrows.includes(a.id)) a.classList.add('show');
+  });
+  // Ring
+  document.getElementById('kd-ring').classList.toggle('show', !!s.ring);
+  // Centre
+  const centre = document.getElementById('kd-centre');
+  if (centre) centre.classList.toggle('show', !!s.centre);
+  // Active step card
+  document.querySelectorAll('.scrolly-step-inner').forEach(el => el.classList.remove('active'));
+  const activeStep = document.querySelector(`.scrolly-step[data-step="${step}"] .scrolly-step-inner`);
+  if (activeStep) activeStep.classList.add('active');
+}
+
+// Show step 1 immediately on load
+updateDiagram(1);
+
+const stepObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) updateDiagram(parseInt(e.target.dataset.step));
+  });
+}, { threshold: 0.55 });
+document.querySelectorAll('.scrolly-step').forEach(el => stepObserver.observe(el));
+
+/* ─── §3 GUIDED WORD TOUR ───────────────────── */
+let tourStep = 0;
+const words = document.querySelectorAll('.wrd');
+function nextTourStep() {
+  words.forEach(w => w.classList.remove('lit'));
+  if (tourStep < words.length) {
+    words[tourStep].classList.add('lit');
+    words[tourStep].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    document.getElementById('tour-progress').textContent = `${tourStep + 1} / ${words.length}`;
+    tourStep++;
+    document.getElementById('tour-btn').textContent = tourStep < words.length ? '▶ Next word' : '↺ Restart';
+    if (tourStep === words.length) {
+      document.getElementById('tour-progress').textContent = `${words.length} / ${words.length}`;
+    }
+  } else {
+    tourStep = 0;
+    words.forEach(w => w.classList.remove('lit'));
+    document.getElementById('tour-btn').innerHTML = '▶ Guided word tour <span class="tour-progress" id="tour-progress"></span>';
+  }
+}
+
+/* ─── §4 TRADITIONS TOGGLE ──────────────────── */
+function showTrad(id, btn) {
+  document.querySelectorAll('.tradition-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('trad-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ─── §5 SIMULATION ─────────────────────────── */
+function updateSim() {
+  const acts = parseInt(document.getElementById('act-count').value);
+  const pct  = parseInt(document.getElementById('attach-pct').value);
+  const seeds = Math.round(acts * pct / 100);
+  const free  = acts - seeds;
+  document.getElementById('act-count-lbl').textContent = acts;
+  document.getElementById('attach-lbl').textContent    = pct + '%';
+  document.getElementById('seeds-val').textContent = seeds;
+  document.getElementById('free-val').textContent  = free;
+
+  // Insight text
+  let insight;
+  if (pct === 0) insight = "Zero ego-attachment. Every action is niṣkāma karma — performed as pure duty. No karmic seeds planted. This is the Gītā's ideal.";
+  else if (pct < 25) insight = "Low attachment: most actions leave no residue. The Gītā calls this the beginning of liberation — act, but don't cling.";
+  else if (pct < 60) insight = "Moderate attachment: about half your actions plant seeds. The vāsanās accumulate slowly. The tradition says: this is the average person, capable of improvement.";
+  else if (pct < 85) insight = `At ${pct}% attachment, you are planting karma with most of your actions. The vāsanās accumulate. The Gītā's prescription: reduce attachment, not activity.`;
+  else insight = "High attachment: nearly all actions bind you further. Śaṅkara would say this is avidyā (ignorance) operating at full strength. The solution: enquiry, not more activity.";
+  document.getElementById('sim-insight').textContent = insight;
+
+  // Seeds garden
+  const garden = document.getElementById('seed-garden');
+  garden.innerHTML = '';
+  for (let i = 0; i < acts; i++) {
+    const s = document.createElement('div');
+    s.className = 'seed ' + (i < seeds ? 'karma' : 'free');
+    garden.appendChild(s);
+  }
+}
+updateSim();
+
+</script>
+<script id="sn-js">
+(function(){var p=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('[data-sn]').forEach(function(e){if(e.getAttribute('data-sn')===p){e.classList.add('sn-active');var g=e.closest('.sn-group');if(g)g.querySelector('.sn-link').classList.add('sn-active');}});})();
+function snHam(){var l=document.getElementById('sn-links'),h=document.getElementById('sn-ham');l.classList.toggle('mob-open');h.classList.toggle('open');}
+document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.sn-group>.sn-link').forEach(function(t){t.addEventListener('click',function(){if(window.innerWidth<=860){t.closest('.sn-group').classList.toggle('mob-open');}});});});
+</script>
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Map of Hinduism — Next Gen Education</title>
+<meta name="description" content="An interactive map of Hindu philosophy — eight core concepts from Brahman to Mokṣa — with a guided quiz to find your entry point.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#FAF6EE;color:#2C1F08;font-family:'Source Sans 3',sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+
+/* ── Nav ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(250,246,238,.96);backdrop-filter:blur(12px);border-bottom:1px solid #E2D6B8;padding:.75rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.nav-back{font-family:'Inter',sans-serif;font-size:.75rem;font-weight:600;color:#9A7800;display:flex;align-items:center;gap:.4rem}
+.nav-back:hover{color:#2C1F08}
+.nav-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#1A0E00;font-style:italic}
+.nav-pill{font-family:'Inter',sans-serif;font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#F0E8D4;border:1px solid #DDD0B0;border-radius:20px;padding:.25rem .7rem;color:#7A6340}
+
+/* ── Hero ── */
+.hero{background:linear-gradient(160deg,#1A0E00 0%,#2A1600 60%,#1A0E00 100%);padding:6rem 2.5rem 5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'ॐ';position:absolute;font-family:'Playfair Display',serif;font-size:32rem;color:rgba(212,175,55,.04);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none;line-height:1}
+.hero-eye{font-family:'Inter',sans-serif;font-size:.67rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#9A7800;margin-bottom:.9rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5.5vw,4.4rem);font-weight:700;color:#F5EDD6;line-height:1.06;margin-bottom:1.1rem}
+.hero h1 em{color:#D4AF37;font-style:italic}
+.hero-sub{font-size:1.08rem;color:#9A8060;max-width:580px;margin:0 auto 1.8rem;line-height:1.85}
+.hero-hint{display:inline-flex;align-items:center;gap:.5rem;font-family:'Inter',sans-serif;font-size:.78rem;color:#7A6040;border:1px solid rgba(154,120,0,.25);border-radius:20px;padding:.35rem .9rem}
+.hero-hint span{color:#D4AF37}
+
+/* ── Quiz section ── */
+.quiz-section{background:#F0E8D4;border-bottom:1px solid #E2D6B8;padding:4rem 2rem}
+.quiz-inner{max-width:860px;margin:0 auto}
+.quiz-step{transition:opacity .35s,transform .35s}
+.quiz-step.hidden{opacity:0;pointer-events:none;position:absolute;transform:translateY(12px)}
+.quiz-step.visible{opacity:1;pointer-events:all;position:relative;transform:translateY(0)}
+.quiz-eyebrow{font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#9A7800;margin-bottom:.5rem}
+.quiz-q{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#1A0E00;margin-bottom:.4rem;line-height:1.2}
+.quiz-q-sub{font-size:.9rem;color:#7A6040;margin-bottom:1.8rem}
+.quiz-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem}
+.qopt{background:#FFFFFF;border:2px solid #E6DBCA;border-radius:12px;padding:1.1rem 1.2rem;cursor:pointer;transition:all .18s;display:flex;align-items:flex-start;gap:.9rem;text-align:left}
+.qopt:hover{border-color:#9A7800;box-shadow:0 4px 16px rgba(154,120,0,.1)}
+.qopt.selected{border-color:#9A7800;background:#FFFBEE;box-shadow:0 0 0 3px rgba(154,120,0,.12)}
+.qopt-icon{font-size:1.5rem;line-height:1;flex-shrink:0;margin-top:.1rem}
+.qopt-label{font-family:'Playfair Display',serif;font-size:1.02rem;font-weight:700;color:#1A0E00;margin-bottom:.18rem}
+.qopt-sub{font-family:'Inter',sans-serif;font-size:.77rem;color:#7A6040;line-height:1.5}
+
+/* Quiz step counter */
+.quiz-steps-indicator{display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem}
+.qstep-dot{width:8px;height:8px;border-radius:50%;background:#DDD0B0;transition:background .25s}
+.qstep-dot.active{background:#9A7800}
+.qstep-dot.done{background:#C8A060}
+.qstep-label{font-family:'Inter',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9A8060}
+
+/* Quiz result card */
+.quiz-result{display:none;background:#1A0E00;border-radius:14px;padding:2rem 2.2rem;color:#F5EDD6;position:relative;overflow:hidden}
+.quiz-result::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(212,175,55,.08) 0%,transparent 65%);pointer-events:none}
+.quiz-result.show{display:block;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.qr-tag{font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#9A7800;margin-bottom:.5rem}
+.qr-heading{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#F5EDD6;margin-bottom:.55rem;line-height:1.25}
+.qr-body{font-size:.92rem;color:#A09070;line-height:1.78;margin-bottom:1.3rem}
+.qr-btn{display:inline-flex;align-items:center;gap:.5rem;background:#9A7800;color:#fff;border:none;border-radius:8px;padding:.65rem 1.4rem;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:background .18s}
+.qr-btn:hover{background:#C8A040}
+.qr-btn svg{transition:transform .2s}
+.qr-btn:hover svg{transform:translateY(3px)}
+
+/* ── Mandala section ── */
+.mandala-section{padding:4.5rem 1.5rem 5rem;text-align:center;background:#FDFAF5}
+.mandala-label{font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#9A7800;margin-bottom:.5rem}
+.mandala-heading{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:#1A0E00;margin-bottom:.5rem}
+.mandala-sub{font-size:.92rem;color:#7A6040;margin-bottom:2.5rem;max-width:480px;margin-left:auto;margin-right:auto}
+.mandala-wrap{max-width:620px;margin:0 auto;position:relative}
+.mandala-svg{width:100%;height:auto;display:block}
+
+/* SVG node interactivity */
+.node{cursor:pointer}
+.node circle.bg{transition:fill .2s,r .2s}
+.node:hover circle.bg{r:46}
+.node text{pointer-events:none;user-select:none}
+.node.active circle.bg{stroke-width:3}
+
+/* ── Overlay ── */
+.overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(10,5,0,.88);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s;padding:1rem}
+.overlay.active{opacity:1;pointer-events:all}
+.overlay-card{background:#FFFFFF;border-radius:18px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;position:relative;transform:scale(.96);transition:transform .3s;box-shadow:0 32px 80px rgba(0,0,0,.5)}
+.overlay.active .overlay-card{transform:scale(1)}
+.overlay-accent{height:5px;border-radius:18px 18px 0 0}
+.overlay-body{padding:2rem 2.2rem 2.4rem}
+.overlay-close{position:absolute;top:1rem;right:1.1rem;background:none;border:none;font-size:1.1rem;color:#9A8060;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .18s}
+.overlay-close:hover{background:#F0E8D4}
+.overlay-num{font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#9A8060;margin-bottom:.3rem}
+.overlay-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#1A0E00;line-height:1.1;margin-bottom:.2rem}
+.overlay-sub{font-family:'Inter',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.06em;margin-bottom:1.1rem}
+.overlay-desc{font-size:.95rem;color:#3A2A10;line-height:1.82;margin-bottom:1.3rem}
+.overlay-quote{border-left:3px solid #DDD0B0;padding:.65rem 1rem;font-family:'Playfair Display',serif;font-style:italic;font-size:.96rem;color:#5A4020;margin-bottom:.4rem;background:#FAF6EE;border-radius:0 6px 6px 0}
+.overlay-source{font-family:'Inter',sans-serif;font-size:.72rem;color:#9A8060;margin-bottom:1.4rem;padding-left:1rem}
+.overlay-link{display:inline-flex;align-items:center;gap:.45rem;padding:.52rem 1.1rem;border-radius:8px;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:700;color:#fff;transition:opacity .18s}
+.overlay-link:hover{opacity:.85}
+
+/* ── Essay section ── */
+.essay-section{background:#F5EDD6;border-top:1px solid #E2D6B8}
+.essay-inner{max-width:720px;margin:0 auto;padding:5rem 2rem 6rem}
+.essay-eyebrow{font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#9A7800;margin-bottom:.6rem}
+.essay-h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:700;color:#1A0E00;line-height:1.12;margin-bottom:1.8rem}
+.essay-h1 em{color:#9A7800;font-style:italic}
+.essay-body p{font-size:1.05rem;color:#3A2A10;line-height:1.88;margin-bottom:1.5rem}
+.essay-pull{background:#1A0E00;border-radius:12px;padding:2rem 2.2rem;margin:2.5rem 0;text-align:center}
+.essay-pull blockquote{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:#D4AF37;line-height:1.7;margin-bottom:.6rem}
+.essay-pull cite{font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7A6040;font-style:normal}
+.essay-section-head{font-family:'Playfair Display',serif;font-size:1.32rem;font-weight:700;color:#1A0E00;margin:2.5rem 0 .7rem}
+.essay-ctas{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.8rem;padding-top:2rem;border-top:1px solid #E2D6B8}
+.essay-cta{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.2rem;border-radius:8px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;background:#2C1F08;color:#F5EDD6;transition:background .18s}
+.essay-cta:hover{background:#9A7800}
+.essay-cta-ghost{background:transparent;border:1.5px solid #DDD0B0;color:#5A4020}
+.essay-cta-ghost:hover{background:#EDE5CC;border-color:#9A7800}
+
+/* ── Footer ── */
+footer{background:#F0E8D4;border-top:1px solid #E2D6B8;text-align:center;padding:2.5rem 2rem;font-family:'Inter',sans-serif;font-size:.75rem;color:#7A6040}
+footer a{color:#9A7800}
+footer a:hover{text-decoration:underline}
+
+/* ── Responsive ── */
+@media(max-width:640px){
+  .hero{padding:4.5rem 1.2rem 4rem}
+  .quiz-opts{grid-template-columns:1fr}
+  .quiz-inner{padding:0}
+  nav{padding:.65rem 1.2rem}
+  .essay-inner{padding:3.5rem 1.2rem 4.5rem}
+}
+</style>
+
+<style id="sn-css">
+/* ═══ SITE-WIDE NAV ═══════════════════════════════════════════════ */
+.site-nav,.site-nav *{box-sizing:border-box}
+.site-nav{position:sticky;top:0;z-index:9999;padding:0;background:rgba(14,6,0,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,175,55,.14)}
+.sn-inner{max-width:1340px;margin:0 auto;padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.sn-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
+.sn-om{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:rgba(212,175,55,.4);line-height:1;user-select:none}
+.sn-brand{display:flex;flex-direction:column;line-height:1.15;gap:.02rem}
+.sn-brand-sup{font-family:'Inter',system-ui,sans-serif;font-size:.5rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(154,120,0,.6)}
+.sn-brand-name{font-family:'Playfair Display',Georgia,serif;font-size:.92rem;font-weight:700;font-style:italic;color:#F0E8D4}
+.sn-links{display:flex;align-items:center;gap:.1rem}
+.sn-link{font-family:'Inter',system-ui,sans-serif;font-size:.69rem;font-weight:600;letter-spacing:.02em;color:rgba(195,170,120,.62);padding:.36rem .7rem;border-radius:5px;cursor:pointer;text-decoration:none;white-space:nowrap;border:none;background:transparent;transition:color .16s,background .16s;display:flex;align-items:center;gap:.22rem}
+.sn-link:hover,.sn-link.sn-active{color:#D4AF37}
+.sn-link.sn-active{background:rgba(212,175,55,.08)}
+.sn-caret{font-size:.52rem;opacity:.45;transition:transform .2s}
+.sn-group{position:relative}
+.sn-group:hover>.sn-link .sn-caret,.sn-group:focus-within>.sn-link .sn-caret{transform:rotate(90deg);opacity:.75}
+.sn-drop{position:absolute;top:calc(100% + .35rem);left:50%;transform:translateX(-50%) translateY(-5px);opacity:0;pointer-events:none;transition:opacity .17s,transform .17s;z-index:10000}
+.sn-group:hover>.sn-drop,.sn-group:focus-within>.sn-drop{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.sn-drop-inner{background:#130700;border:1px solid rgba(212,175,55,.18);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.75);min-width:248px;padding:.35rem}
+.sdi{display:flex;align-items:center;gap:.72rem;padding:.54rem .68rem;border-radius:7px;text-decoration:none;transition:background .13s;color:inherit}
+.sdi:hover,.sdi.sn-active{background:rgba(212,175,55,.08)}
+.sdi-num{font-family:'Inter',system-ui,sans-serif;font-size:.58rem;font-weight:700;color:rgba(154,120,0,.45);width:16px;flex-shrink:0;text-align:center}
+.sdi-tag{font-family:'Inter',system-ui,sans-serif;font-size:.54rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:rgba(212,175,55,.1);color:rgba(212,175,55,.7);border:1px solid rgba(212,175,55,.18);border-radius:3px;padding:.08rem .36rem;flex-shrink:0;white-space:nowrap}
+.sdi-text{display:flex;flex-direction:column;gap:.03rem}
+.sdi-title{font-family:'Playfair Display',Georgia,serif;font-size:.83rem;font-weight:700;font-style:italic;color:#EDE5C8}
+.sdi-sub{font-family:'Inter',system-ui,sans-serif;font-size:.62rem;color:rgba(154,120,0,.55)}
+.sn-drop-div{height:1px;background:rgba(212,175,55,.1);margin:.3rem .4rem}
+.sn-ham{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:.45rem;flex-shrink:0}
+.sn-ham span{display:block;width:20px;height:1.5px;background:rgba(195,170,120,.72);border-radius:2px;transition:all .25s}
+.sn-ham.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.sn-ham.open span:nth-child(2){opacity:0;width:0}
+.sn-ham.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:860px){
+  .sn-ham{display:flex}
+  .sn-links{display:none;position:fixed;inset:56px 0 0;background:rgba(12,5,0,.99);flex-direction:column;align-items:stretch;padding:1rem;gap:.1rem;overflow-y:auto;z-index:9998;border-top:1px solid rgba(212,175,55,.1)}
+  .sn-links.mob-open{display:flex}
+  .sn-group>.sn-drop{position:static;opacity:1;pointer-events:all;transform:none;max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .sn-group.mob-open>.sn-drop{max-height:500px}
+  .sn-drop-inner{background:rgba(255,255,255,.03);border-color:rgba(212,175,55,.1);box-shadow:none;border-radius:8px;margin:.1rem 0 .1rem 1rem;padding:.2rem}
+  .sn-link{font-size:.8rem;padding:.62rem .85rem}
+  .sn-caret{margin-left:auto;font-size:.65rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="site-nav" id="site-nav">
+<div class="sn-inner">
+  <a class="sn-logo" href="index.html">
+    <span class="sn-om">ॐ</span>
+    <span class="sn-brand">
+      <span class="sn-brand-sup">Next Gen Education</span>
+      <span class="sn-brand-name">Hindu Studies</span>
+    </span>
+  </a>
+  <div class="sn-links" id="sn-links">
+    <a class="sn-link" href="index.html"   data-sn="index.html">Home</a>
+    <a class="sn-link" href="map.html"     data-sn="map.html">Start Here</a>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Essays <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="vedas.html"          data-sn="vedas.html"><span class="sdi-num">01</span><span class="sdi-text"><span class="sdi-title">The Vedas</span><span class="sdi-sub">Origins · Sanskrit · Upaniṣads</span></span></a>
+        <a class="sdi" href="darshanas.html"       data-sn="darshanas.html"><span class="sdi-num">02</span><span class="sdi-text"><span class="sdi-title">The Six Darśanas</span><span class="sdi-sub">Philosophy · Schools · Logic</span></span></a>
+        <a class="sdi" href="history.html"         data-sn="history.html"><span class="sdi-num">03</span><span class="sdi-text"><span class="sdi-title">A Historical Timeline</span><span class="sdi-sub">2600 BCE → 1400 CE</span></span></a>
+        <a class="sdi" href="veda-traditions.html" data-sn="veda-traditions.html"><span class="sdi-num">04</span><span class="sdi-text"><span class="sdi-title">What is Śāstra?</span><span class="sdi-sub">18 Traditions · 8 Categories</span></span></a>
+        <a class="sdi" href="vedic-sacrifice.html" data-sn="vedic-sacrifice.html"><span class="sdi-num">05</span><span class="sdi-text"><span class="sdi-title">The Sacred Fire</span><span class="sdi-sub">Yajña · Ritual · Agni</span></span></a>
+      </div></div>
+    </div>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Karma <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="karma.html"          data-sn="karma.html"><span class="sdi-tag">Essay</span><span class="sdi-text"><span class="sdi-title">Karma</span><span class="sdi-sub">Visual essay · All techniques</span></span></a>
+        <div class="sn-drop-div"></div>
+        <a class="sdi" href="karma-full.html"     data-sn="karma-full.html"><span class="sdi-tag">Exam</span><span class="sdi-text"><span class="sdi-title">Karma + Exam Mode</span><span class="sdi-sub">Board-specific overlay</span></span></a>
+        <a class="sdi" href="karma-revision.html" data-sn="karma-revision.html"><span class="sdi-tag">Study</span><span class="sdi-text"><span class="sdi-title">A Level Revision</span><span class="sdi-sub">OCR · AQA · Edexcel · WJEC</span></span></a>
+      </div></div>
+    </div>
+    <a class="sn-link" href="overview.html" data-sn="overview.html">Overview</a>
+  </div>
+  <button class="sn-ham" id="sn-ham" aria-label="Menu" onclick="snHam()"><span></span><span></span><span></span></button>
+</div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-eye">Hindu Studies · Interactive Guide</div>
+  <h1>The Map of<br><em>Hinduism</em></h1>
+  <p class="hero-sub">One of the world's oldest living traditions — explored through eight core concepts that every school, every text, and every tradition returns to. Find your way in.</p>
+  <div class="hero-hint"><span>↓</span> A short quiz, then an interactive map, then an essay</div>
+</div>
+
+<!-- ── Quiz ── -->
+<section class="quiz-section" id="quiz">
+  <div class="quiz-inner">
+
+    <!-- Step indicator -->
+    <div class="quiz-steps-indicator">
+      <div class="qstep-dot active" id="dot1"></div>
+      <div class="qstep-dot" id="dot2"></div>
+      <span class="qstep-label" id="step-label">Step 1 of 2</span>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="quiz-step visible" id="step1">
+      <div class="quiz-eyebrow">Quick orientation</div>
+      <div class="quiz-q">Who are you?</div>
+      <div class="quiz-q-sub">This shapes which entry point we suggest. No right answer.</div>
+      <div class="quiz-opts">
+        <div class="qopt" data-val="student" onclick="pickStep1(this)">
+          <div class="qopt-icon">🎓</div>
+          <div><div class="qopt-label">A student</div><div class="qopt-sub">Studying Hinduism for school or university</div></div>
+        </div>
+        <div class="qopt" data-val="curious" onclick="pickStep1(this)">
+          <div class="qopt-icon">🔍</div>
+          <div><div class="qopt-label">Just curious</div><div class="qopt-sub">Heard about it and want to understand it better</div></div>
+        </div>
+        <div class="qopt" data-val="heritage" onclick="pickStep1(this)">
+          <div class="qopt-icon">🕉</div>
+          <div><div class="qopt-label">Hindu heritage</div><div class="qopt-sub">Exploring or reconnecting with your tradition</div></div>
+        </div>
+        <div class="qopt" data-val="teacher" onclick="pickStep1(this)">
+          <div class="qopt-icon">📚</div>
+          <div><div class="qopt-label">A teacher</div><div class="qopt-sub">Looking for classroom depth and resources</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="quiz-step hidden" id="step2">
+      <div class="quiz-eyebrow">One more</div>
+      <div class="quiz-q">What draws you here?</div>
+      <div class="quiz-q-sub">Pick whatever feels most true right now.</div>
+      <div class="quiz-opts">
+        <div class="qopt" data-val="concepts" onclick="pickStep2(this)">
+          <div class="qopt-icon">💭</div>
+          <div><div class="qopt-label">The big ideas</div><div class="qopt-sub">Karma, dharma, mokṣa — what do they really mean?</div></div>
+        </div>
+        <div class="qopt" data-val="traditions" onclick="pickStep2(this)">
+          <div class="qopt-icon">🏛</div>
+          <div><div class="qopt-label">The traditions</div><div class="qopt-sub">Vaishnavism, Shaivism — who believes what</div></div>
+        </div>
+        <div class="qopt" data-val="texts" onclick="pickStep2(this)">
+          <div class="qopt-icon">📜</div>
+          <div><div class="qopt-label">The texts</div><div class="qopt-sub">Vedas, Upaniṣads, Bhagavad-gītā</div></div>
+        </div>
+        <div class="qopt" data-val="start" onclick="pickStep2(this)">
+          <div class="qopt-icon">👣</div>
+          <div><div class="qopt-label">Just starting</div><div class="qopt-sub">I don't know yet — just orient me</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="quiz-result" id="quiz-result">
+      <div class="qr-tag">Your entry point</div>
+      <div class="qr-heading" id="qr-heading"></div>
+      <div class="qr-body" id="qr-body"></div>
+      <button class="qr-btn" onclick="scrollToMandala()">
+        Explore the Map
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 2v10M3 8l4 4 4-4"/></svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Mandala ── -->
+<section class="mandala-section" id="mandala">
+  <div class="mandala-label">Eight Core Concepts</div>
+  <h2 class="mandala-heading">The Concept Map</h2>
+  <p class="mandala-sub">Click any concept to open a full explanation — what it means, why it matters, and where to go deeper.</p>
+  <div class="mandala-wrap">
+    <svg class="mandala-svg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="centreGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.18"/>
+          <stop offset="55%" stop-color="#9A7800" stop-opacity="0.06"/>
+          <stop offset="100%" stop-color="#9A7800" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="nodeGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Decorative rings -->
+      <circle cx="300" cy="300" r="245" fill="none" stroke="#E8DEBB" stroke-width="1" stroke-dasharray="3 9"/>
+      <circle cx="300" cy="300" r="195" fill="none" stroke="#E2D6B8" stroke-width="0.5" opacity="0.6"/>
+      <circle cx="300" cy="300" r="60"  fill="none" stroke="#E2D6B8" stroke-width="0.8" opacity="0.5"/>
+
+      <!-- Centre glow (animated) -->
+      <circle cx="300" cy="300" r="58" fill="url(#centreGlow)">
+        <animate attributeName="r" values="52;64;52" dur="5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.65;1;0.65" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Centre void ring -->
+      <circle cx="300" cy="300" r="22" fill="none" stroke="rgba(212,175,55,0.28)" stroke-width="1.2"/>
+
+      <!-- Connection lines (drawn before nodes so they appear behind) -->
+      <g stroke="#C8B888" stroke-width="1" stroke-dasharray="3 6" opacity="0.38" fill="none">
+        <!-- Brahman — Ātman -->      <line x1="300" y1="105" x2="438" y2="162"/>
+        <!-- Brahman — Māyā -->       <line x1="300" y1="105" x2="162" y2="438"/>
+        <!-- Brahman — Mokṣa -->      <line x1="300" y1="105" x2="105" y2="300"/>
+        <!-- Ātman  — Mokṣa -->       <line x1="438" y1="162" x2="105" y2="300"/>
+        <!-- Ātman  — Yoga -->         <line x1="438" y1="162" x2="495" y2="300"/>
+        <!-- Yoga   — Mokṣa -->        <line x1="495" y1="300" x2="105" y2="300"/>
+        <!-- Dharma — Karma -->        <line x1="162" y1="162" x2="438" y2="438"/>
+        <!-- Karma  — Saṃsāra -->      <line x1="438" y1="438" x2="300" y2="495"/>
+        <!-- Saṃsāra— Māyā -->         <line x1="300" y1="495" x2="162" y2="438"/>
+        <!-- Mokṣa  — Yoga -->         <line x1="105" y1="300" x2="495" y2="300"/>
+      </g>
+
+      <!-- ── Nodes ── -->
+      <!-- Brahman (top, 270°) -->
+      <g class="node" data-concept="brahman" onclick="openOverlay('brahman')">
+        <circle class="bg" cx="300" cy="105" r="42" fill="#FFFBEE" stroke="#9A7800" stroke-width="2"/>
+        <text x="300" y="99" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-style="italic" fill="#2C1F08">Brahman</text>
+        <text x="300" y="115" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#9A7800" font-weight="700" letter-spacing="0.08em">ULTIMATE REALITY</text>
+      </g>
+
+      <!-- Ātman (top-right, 315°) -->
+      <g class="node" data-concept="atman" onclick="openOverlay('atman')">
+        <circle class="bg" cx="438" cy="162" r="42" fill="#F8F4FF" stroke="#7B4FBF" stroke-width="2"/>
+        <text x="438" y="156" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-style="italic" fill="#2C1F08">Ātman</text>
+        <text x="438" y="172" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#7B4FBF" font-weight="700" letter-spacing="0.08em">THE SELF</text>
+      </g>
+
+      <!-- Yoga (right, 0°) -->
+      <g class="node" data-concept="yoga" onclick="openOverlay('yoga')">
+        <circle class="bg" cx="495" cy="300" r="42" fill="#F0F9FA" stroke="#2A7A8A" stroke-width="2"/>
+        <text x="495" y="294" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-style="italic" fill="#2C1F08">Yoga</text>
+        <text x="495" y="310" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#2A7A8A" font-weight="700" letter-spacing="0.08em">UNION</text>
+      </g>
+
+      <!-- Karma (bottom-right, 45°) -->
+      <g class="node" data-concept="karma" onclick="openOverlay('karma')">
+        <circle class="bg" cx="438" cy="438" r="42" fill="#FFF4EE" stroke="#C85000" stroke-width="2"/>
+        <text x="438" y="432" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-style="italic" fill="#2C1F08">Karma</text>
+        <text x="438" y="448" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#C85000" font-weight="700" letter-spacing="0.08em">ACTION</text>
+      </g>
+
+      <!-- Saṃsāra (bottom, 90°) -->
+      <g class="node" data-concept="samsara" onclick="openOverlay('samsara')">
+        <circle class="bg" cx="300" cy="495" r="42" fill="#F2F5F8" stroke="#4A6480" stroke-width="2"/>
+        <text x="300" y="489" text-anchor="middle" font-family="Playfair Display, serif" font-size="12" font-style="italic" fill="#2C1F08">Saṃsāra</text>
+        <text x="300" y="505" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#4A6480" font-weight="700" letter-spacing="0.08em">THE CYCLE</text>
+      </g>
+
+      <!-- Māyā (bottom-left, 135°) -->
+      <g class="node" data-concept="maya" onclick="openOverlay('maya')">
+        <circle class="bg" cx="162" cy="438" r="42" fill="#FDF2F2" stroke="#8B1A1A" stroke-width="2"/>
+        <text x="162" y="432" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-style="italic" fill="#2C1F08">Māyā</text>
+        <text x="162" y="448" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#8B1A1A" font-weight="700" letter-spacing="0.08em">APPEARANCE</text>
+      </g>
+
+      <!-- Mokṣa (left, 180°) -->
+      <g class="node" data-concept="moksha" onclick="openOverlay('moksha')">
+        <circle class="bg" cx="105" cy="300" r="42" fill="#F2FAF5" stroke="#276749" stroke-width="2"/>
+        <text x="105" y="294" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-style="italic" fill="#2C1F08">Mokṣa</text>
+        <text x="105" y="310" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#276749" font-weight="700" letter-spacing="0.08em">LIBERATION</text>
+      </g>
+
+      <!-- Dharma (top-left, 225°) -->
+      <g class="node" data-concept="dharma" onclick="openOverlay('dharma')">
+        <circle class="bg" cx="162" cy="162" r="42" fill="#EEF4FF" stroke="#2B6CB0" stroke-width="2"/>
+        <text x="162" y="156" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-style="italic" fill="#2C1F08">Dharma</text>
+        <text x="162" y="172" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#2B6CB0" font-weight="700" letter-spacing="0.08em">RIGHT ORDER</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- ── Essay ── -->
+<section class="essay-section" id="essay">
+  <div class="essay-inner">
+    <div class="essay-eyebrow">What is Hinduism?</div>
+    <h2 class="essay-h1">Not one thing —<br>a <em>civilisation</em> of religions</h2>
+    <div class="essay-body">
+      <p>The word arrives first in Persian and then in Arabic, used to describe the people living beyond the Sindhu — the Indus river. It was, at the start, a geographical term, not a religious one. The people it described had no single name for themselves, no single founder, no single creed. What they shared was something stranger and more interesting: a civilisation.</p>
+      <p>Today, over a billion people identify as Hindu, making it the world's third-largest religion. But calling it a religion understates it. Hinduism encompasses dozens of philosophical schools, hundreds of sects, thousands of deities, and an entire civilisation of art, music, mathematics, and law — all without a pope, a single sacred text, or a founding moment. Where Christianity has the Sermon on the Mount and Islam has the first revelation to Muḥammad, Hinduism has no such origin point. It simply… arose.</p>
+
+      <div class="essay-pull">
+        <blockquote>"Ekam sad viprā bahudhā vadanti — Reality is one; the wise speak of it in many ways."</blockquote>
+        <cite>Ṛg Veda 1.164.46 — written c. 1500–1200 BCE</cite>
+      </div>
+
+      <div class="essay-section-head">Why it resists definition — and why that's the point</div>
+      <p>Every religion contains diversity within it; Hinduism is unusual in naming and celebrating that diversity rather than suppressing it. The line above, written perhaps 3,500 years ago, functions as a kind of constitutional principle: there is one truth, and many legitimate ways of approaching it. The result is not one religion but a conversation — sometimes harmonious, sometimes fierce — that has been going on for millennia without resolution. And without needing resolution.</p>
+      <p>This is not vagueness. It is a specific philosophical position: that ultimate reality is too large to be captured by any single description, and that the human project is to approach it from the angle your nature and your circumstances allow. A scholar approaches through inquiry. A devotee through love. A contemplative through stillness. A person of action through service. The tradition holds all four as equally valid paths to the same destination.</p>
+
+      <div class="essay-section-head">What the eight concepts on the map are for</div>
+      <p>The concepts on the mandala above are the vocabulary of this conversation. They are not beliefs you must hold to be Hindu — Hinduism has no creed. They are the ideas the conversation keeps returning to: the nature of reality (Brahman), the nature of the self (Ātman), the veil between them (Māyā), how to act rightly (Dharma), the mechanism of cause and consequence (Karma), the cycle of existence (Saṃsāra), the paths of practice (Yoga), and the goal of liberation (Mokṣa). Start anywhere. Follow what resonates. The tradition is old enough, and wide enough, to hold your question.</p>
+    </div>
+
+    <div class="essay-ctas">
+      <a class="essay-cta" href="vedas.html">The Vedas — Deep Essay ↗</a>
+      <a class="essay-cta" href="darshanas.html">The Six Darśanas ↗</a>
+      <a class="essay-cta essay-cta-ghost" href="veda-traditions.html">What is Śāstra? ↗</a>
+      <a class="essay-cta essay-cta-ghost" href="index.html">All Essays ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Next Gen Education · Hindu Studies &nbsp;·&nbsp; <a href="index.html">Back to all essays</a> &nbsp;·&nbsp; <a href="overview.html">Project overview</a>
+</footer>
+
+<!-- ── Concept Overlay ── -->
+<div class="overlay" id="overlay" onclick="closeOverlayOutside(event)">
+  <div class="overlay-card" id="overlay-card">
+    <div class="overlay-accent" id="ov-accent"></div>
+    <div class="overlay-body">
+      <button class="overlay-close" onclick="closeOverlay()">✕</button>
+      <div class="overlay-num"  id="ov-num"></div>
+      <div class="overlay-title" id="ov-title"></div>
+      <div class="overlay-sub"  id="ov-sub"></div>
+      <p  class="overlay-desc"  id="ov-desc"></p>
+      <blockquote class="overlay-quote" id="ov-quote"></blockquote>
+      <div class="overlay-source" id="ov-source"></div>
+      <a  class="overlay-link"  id="ov-link" href="#">Read the full essay ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─── QUIZ DATA ─────────────────────────────────────────────────── */
+const MESSAGES = {
+  'student-concepts':   { h:'A student of ideas — welcome.',         b:'Start with Ātman and Brahman at the top of the mandala. They\'re the philosophical foundation everything else flows from. From there, Dharma and Karma show you how those ideas become a way of living.' },
+  'student-traditions': { h:'Studying the traditions.',               b:'The mandala gives you the conceptual vocabulary. The essays on the Six Darśanas show you how different schools built distinct philosophies from the same raw material — and where they disagree.' },
+  'student-texts':      { h:'Texts first — a scholar\'s instinct.',   b:'Every concept on this map has a textual home. Brahman and Ātman in the Upaniṣads. Dharma and Karma in the Bhagavad-gītā. Mokṣa across all of them. Click any node to find its primary text.' },
+  'student-start':      { h:'Starting from the beginning — right.',   b:'Begin at Brahman at the top of the mandala. Move clockwise through each concept. By the time you complete the wheel you\'ll have a working map of the whole tradition.' },
+  'curious-concepts':   { h:'Drawn to the ideas — good.',             b:'You\'ve probably heard of karma. Maybe yoga. The mandala shows how those words fit into a much larger picture — and why the popular versions are usually a fraction of the real meaning.' },
+  'curious-traditions': { h:'Curious about the traditions.',          b:'Short answer: there isn\'t one tradition. There are dozens, and some disagree quite fundamentally. The concepts on this map are the shared vocabulary; the traditions are the arguments about what they mean.' },
+  'curious-texts':      { h:'Curious about the texts.',               b:'There are thousands — but most of Hindu thought flows from a small handful of sources. The eight concepts on this map are the key to unlocking all of them. Start here, then follow the links.' },
+  'curious-start':      { h:'Just curious — the best kind.',          b:'Follow what resonates. Click any concept that you\'ve heard of, or one that sounds interesting. There\'s no wrong order in a tradition that celebrates multiple paths to the same destination.' },
+  'heritage-concepts':  { h:'From the inside, with fresh eyes.',      b:'These concepts might be familiar as words — you may have heard them growing up. This map tries to show the shape of what you already know intuitively, laid out as a coherent whole.' },
+  'heritage-traditions':{ h:'Heritage and living tradition.',         b:'Your tradition has a specific relationship to these concepts — emphasising some, interpreting others differently. The Śāstra explorer shows that contrast across 18 traditions side by side.' },
+  'heritage-texts':     { h:'The texts of your heritage.',            b:'The texts you may have heard at home fit somewhere on this map. Click any concept to find its textual context, and the essays that go into them in depth.' },
+  'heritage-start':     { h:'Returning to the beginning.',            b:'Many people with Hindu heritage know pieces of this deeply but have never seen the whole map. Start anywhere — you\'ll recognise more than you expect.' },
+  'teacher-concepts':   { h:'Teaching the core concepts.',            b:'The mandala is designed to be projected in a classroom. Each overlay gives you the philosophical depth for that concept; the essays below provide extended reading and discussion prompts.' },
+  'teacher-traditions': { h:'Teaching the traditions.',               b:'The Śāstra explorer was built for exactly this — showing students how 18 traditions differ at the level of scriptural authority. A powerful tool for comparative study.' },
+  'teacher-texts':      { h:'Teaching through texts.',                b:'Each concept links to the essays where its key texts are explored in depth. The Vedas essay covers Brahman and Ātman; the Darśanas essay covers the philosophical schools in full.' },
+  'teacher-start':      { h:'Starting a new unit.',                   b:'This map is designed to be shown at the start of a unit — it gives students a framework before the detail arrives. Walk through it once in class; let them explore independently after.' }
+};
+
+let ans1 = null;
+
+function pickStep1(el) {
+  document.querySelectorAll('#step1 .qopt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  ans1 = el.dataset.val;
+  setTimeout(() => {
+    document.getElementById('step1').classList.replace('visible','hidden');
+    document.getElementById('step2').classList.replace('hidden','visible');
+    document.getElementById('dot1').classList.replace('active','done');
+    document.getElementById('dot2').classList.add('active');
+    document.getElementById('step-label').textContent = 'Step 2 of 2';
+  }, 280);
+}
+
+function pickStep2(el) {
+  document.querySelectorAll('#step2 .qopt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  const ans2 = el.dataset.val;
+  const key = ans1 + '-' + ans2;
+  const msg = MESSAGES[key] || { h:'Welcome.', b:'Click any concept on the map to begin.' };
+  setTimeout(() => {
+    document.getElementById('step2').classList.replace('visible','hidden');
+    document.getElementById('dot2').classList.replace('active','done');
+    document.getElementById('step-label').textContent = 'Done';
+    const res = document.getElementById('quiz-result');
+    document.getElementById('qr-heading').textContent = msg.h;
+    document.getElementById('qr-body').textContent = msg.b;
+    res.classList.add('show');
+  }, 280);
+}
+
+function scrollToMandala() {
+  document.getElementById('mandala').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ─── CONCEPT DATA ──────────────────────────────────────────────── */
+const CONCEPTS = {
+  brahman: {
+    num:'01 / 08', title:'Brahman', sub:'Ultimate Reality', color:'#9A7800',
+    desc:'The word most inadequately translated as "God." Brahman is not a person in the sky but the ground of all being — the one reality out of which everything arises and into which everything returns. Some texts describe Brahman as personal: Viṣṇu, Śiva, or the Goddess — a being you can love and who responds to you. Others describe it as entirely impersonal: the silent absolute, before language, before thought, beyond all description. The Upaniṣads name it sat-cit-ānanda — pure being, pure consciousness, pure bliss. The question of Brahman\'s nature — personal or impersonal, one or many, related to or identical with the world — is the central question of Indian philosophy, debated for three thousand years without a single agreed answer. That debate produced some of the most sophisticated philosophical writing in human history.',
+    quote:'"Sarvam khalv idaṃ Brahma — All of this is indeed Brahman."',
+    source:'Chāndogya Upaniṣad 3.14.1',
+    link:'vedas.html', linkText:'The Vedas — Upaniṣads & philosophy'
+  },
+  atman: {
+    num:'02 / 08', title:'Ātman', sub:'The Self', color:'#7B4FBF',
+    desc:'At the core of Hindu philosophy sits a radical claim: within every living being there is a self that was never born and will never die. This is Ātman — not the personality, not the mind, not even the body, but the pure, unchanging awareness beneath them all. The most influential thinkers in Hinduism disagree sharply on what exactly Ātman is. For Śaṅkara (Advaita), Ātman simply is Brahman — you are already the infinite reality, and the feeling of being a separate "you" is the deepest illusion. For Rāmānuja, Ātman is real and distinct but belongs to God as a body belongs to a soul. For Madhva, Ātman is eternally separate from God. Three great philosophers, one question, three incompatible answers. This disagreement defines almost everything else in Hindu thought.',
+    quote:'"Tat tvam asi — That thou art."',
+    source:'Chāndogya Upaniṣad 6.8.7',
+    link:'vedas.html', linkText:'The Vedas — Upaniṣads & philosophy'
+  },
+  dharma: {
+    num:'03 / 08', title:'Dharma', sub:'Right Order', color:'#2B6CB0',
+    desc:'There is no single English word for dharma. Duty, law, ethics, virtue, religion, cosmic order — it means all of these, and their relationship to each other. At its broadest, dharma is the principle that keeps the universe functioning: the orbit of planets, the seasons, the role of fire in burning. At its most personal, it is your specific duty — shaped by your family, your stage of life, your social position, your deepest nature. The Bhagavad-gītā is largely a crisis of dharma: Arjuna cannot decide whether his duty as a warrior outweighs his duty as a son and brother. Kṛṣṇa\'s answer is subtle: dharma is not simply following a rule, but acting from your deepest nature, without attachment to the result. Not "what should I do?" but "who should I be — and then act from that?"',
+    quote:'"Better is one\'s own dharma, though imperfectly performed, than the dharma of another well performed."',
+    source:'Bhagavad-gītā 3.35',
+    link:'vedas.html', linkText:'The Vedas — Bhagavad-gītā'
+  },
+  karma: {
+    num:'04 / 08', title:'Karma', sub:'Action & Consequence', color:'#C85000',
+    desc:'Karma is perhaps the most misunderstood Hindu concept in popular culture. It is not simply "what goes around comes around" — a moral luck machine that rewards and punishes automatically. Karma is the doctrine that every intentional action leaves a residue in the agent: not a cosmic punishment system, but a shaping force. You become what you repeatedly do. Each action (karma literally means "action") plants a seed — a saṃskāra — that shapes future states of mind, future circumstances, future births. The goal of practice, in many traditions, is not to accumulate good karma but to act without ego-attachment — niṣkāma karma, desireless action — so that no seed is planted at all. This is the central practical teaching of the Bhagavad-gītā, and it is more demanding, and more interesting, than the popular version.',
+    quote:'"Let right deeds be thy motive, not the fruit which comes from them."',
+    source:'Bhagavad-gītā 2.47',
+    link:'vedas.html', linkText:'The Vedas — Bhagavad-gītā'
+  },
+  samsara: {
+    num:'05 / 08', title:'Saṃsāra', sub:'The Cycle', color:'#4A6480',
+    desc:'Saṃsāra is the ocean of existence — the continuous cycle of birth, death, and rebirth that every conscious being is caught in. Driven by karma and sustained by desire, consciousness moves through forms: human, animal, divine, infernal — shaped by the accumulated weight of previous actions and choices. The cycle is not, in most Hindu thought, intrinsically evil. It has joys. But it is ultimately unsatisfying, because nothing in it lasts. Every attachment will be broken. Every pleasure will fade. Every relationship will end. This is not pessimism but precision — and it is the motivating insight behind the entire Hindu philosophical project: find the way out. Saṃsāra unifies three other concepts on this map: karma is the engine, māyā is the veil, and mokṣa is the exit.',
+    quote:'"As a person casts off worn-out garments and puts on others that are new, so the embodied self casts off worn-out bodies and takes on others that are new."',
+    source:'Bhagavad-gītā 2.22',
+    link:'history.html', linkText:'A Historical Timeline'
+  },
+  maya: {
+    num:'06 / 08', title:'Māyā', sub:'Appearance', color:'#8B1A1A',
+    desc:'Māyā is one of Hinduism\'s most nuanced — and most misused — concepts. Often translated as "illusion," it does not mean the world is unreal in the sense of being fake. It means something closer to: the world as ordinarily experienced is not what it appears to be. In Advaita Vedānta, māyā is the creative power of Brahman — the principle by which the one appears as many, the formless takes form. The world is not wrong; your identification with a fragment of it as "you" is what causes suffering. In goddess traditions, māyā is also Śakti — the creative energy that makes existence possible. Seeing through māyā doesn\'t mean rejecting the world; it means perceiving it correctly. And that, the tradition insists, changes everything.',
+    quote:'"Brahman alone is real, the world is appearance, the self is not different from Brahman."',
+    source:'Śaṅkara, Vivekacūḍāmaṇi (paraphrase)',
+    link:'darshanas.html', linkText:'The Six Darśanas'
+  },
+  moksha: {
+    num:'07 / 08', title:'Mokṣa', sub:'Liberation', color:'#276749',
+    desc:'If karma binds and saṃsāra cycles, mokṣa is the door that swings open. Liberation: freedom from the cycle of birth, death, and rebirth. But what it looks like depends entirely on who you ask. For Advaita Vedānta, mokṣa is the recognition that you were never truly in bondage — Ātman is Brahman, and the sense of being a separate self caught in the world is the illusion that dissolves at the moment of realisation. For Vaiṣṇava traditions, mokṣa is not absorption but eternal relationship — living in joyful, devoted love with God, distinct from God forever. For some Tantric traditions, mokṣa is liberation while living, in the body, now. Every tradition agrees the goal exists; they disagree, sometimes fiercely, on what it is.',
+    quote:'"There is no greater attainment than liberation; there is no greater bondage than ignorance."',
+    source:'Traditional Vedāntic teaching',
+    link:'darshanas.html', linkText:'The Six Darśanas'
+  },
+  yoga: {
+    num:'08 / 08', title:'Yoga', sub:'Union', color:'#2A7A8A',
+    desc:'Before it was a global wellness industry, yoga was a complete philosophical system. The word means "union" — the joining of individual consciousness with ultimate reality. What most Western practitioners know as yoga (physical postures, or āsana) is one small branch of the Haṭha tradition, which is itself one branch of a much larger forest. The Bhagavad-gītā outlines three primary paths: Karma Yoga, the yoga of right action; Jñāna Yoga, the yoga of knowledge and inquiry; and Bhakti Yoga, the yoga of love and devotion. Patañjali\'s Yoga Sūtras defines the goal as "the stilling of the fluctuations of the mind" — nothing to do with posture, everything to do with consciousness. Yoga is not a type of exercise. It is a method of liberation.',
+    quote:'"Yogaś citta-vṛtti-nirodhaḥ — Yoga is the stilling of the fluctuations of the mind."',
+    source:'Yoga Sūtras 1.2 (Patañjali)',
+    link:'darshanas.html', linkText:'The Six Darśanas'
+  }
+};
+
+/* ─── OVERLAY ───────────────────────────────────────────────────── */
+function openOverlay(key) {
+  const c = CONCEPTS[key];
+  if (!c) return;
+  document.getElementById('ov-accent').style.background = c.color;
+  document.getElementById('ov-num').textContent   = c.num;
+  document.getElementById('ov-title').textContent = c.title;
+  document.getElementById('ov-sub').textContent   = c.sub;
+  document.getElementById('ov-sub').style.color   = c.color;
+  document.getElementById('ov-desc').textContent  = c.desc;
+  document.getElementById('ov-quote').textContent = c.quote;
+  document.getElementById('ov-source').textContent= c.source;
+  const lnk = document.getElementById('ov-link');
+  lnk.href = c.link;
+  lnk.textContent = c.linkText + ' ↗';
+  lnk.style.background = c.color;
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeOverlay() {
+  document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function closeOverlayOutside(e) {
+  if (e.target === document.getElementById('overlay')) closeOverlay();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
+</script>
+<script id="sn-js">
+(function(){var p=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('[data-sn]').forEach(function(e){if(e.getAttribute('data-sn')===p){e.classList.add('sn-active');var g=e.closest('.sn-group');if(g)g.querySelector('.sn-link').classList.add('sn-active');}});})();
+function snHam(){var l=document.getElementById('sn-links'),h=document.getElementById('sn-ham');l.classList.toggle('mob-open');h.classList.toggle('open');}
+document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.sn-group>.sn-link').forEach(function(t){t.addEventListener('click',function(){if(window.innerWidth<=860){t.closest('.sn-group').classList.toggle('mob-open');}});});});
+</script>
+</body>
+</html>

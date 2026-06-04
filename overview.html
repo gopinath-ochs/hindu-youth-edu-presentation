@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Next Gen Education — Hindu Studies</title>
+<meta name="description" content="Next Gen Education: Hindu Studies — five pillars delivering A Level Hinduism content, Bhumi Spirit curriculum kits, online courses, video explainers, and a podcast.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#FAF6EE;color:#2C1F08;font-family:'Source Sans 3',sans-serif;line-height:1.6;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* ── Nav ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(250,246,238,.96);backdrop-filter:blur(12px);border-bottom:1px solid #E2D6B8;padding:.8rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.nav-wordmark{display:flex;flex-direction:column;gap:.04rem}
+.nav-wordmark-top{font-family:'Inter',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#9A7800}
+.nav-wordmark-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#1A0E00;line-height:1.1}
+.nav-wordmark-name em{color:#9A7800;font-style:italic}
+.nav-right{display:flex;align-items:center;gap:1.2rem}
+.nav-partner{font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.08em;color:#9A8060;border:1px solid #DDD0B0;border-radius:20px;padding:.25rem .7rem}
+.nav-live{display:inline-flex;align-items:center;gap:.35rem;background:#E8F7EF;border:1px solid #A8DFC0;border-radius:20px;padding:.25rem .7rem;font-family:'Inter',sans-serif;font-size:.68rem;font-weight:700;color:#276749;letter-spacing:.06em}
+.nav-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#4CAF82;box-shadow:0 0 5px rgba(76,175,130,.5)}
+
+/* ── Hero ── */
+.hero{background:linear-gradient(160deg,#1A0E00 0%,#2C1800 55%,#3A2200 100%);padding:5.5rem 2.5rem 4.5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'ॐ';position:absolute;font-family:'Playfair Display',serif;font-size:30rem;color:rgba(212,175,55,.05);top:50%;left:50%;transform:translate(-50%,-48%);pointer-events:none;user-select:none}
+.hero-eye{font-family:'Inter',sans-serif;font-size:.67rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#9A7800;margin-bottom:.9rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:700;color:#F5EDD6;line-height:1.08;margin-bottom:1rem}
+.hero h1 em{color:#D4AF37;font-style:italic}
+.hero-sub{font-size:1.08rem;color:#A08060;max-width:620px;margin:0 auto 2rem;line-height:1.82}
+.hero-partners{display:flex;flex-wrap:wrap;justify-content:center;gap:.65rem;margin-bottom:2.5rem}
+.hp{display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .82rem;border-radius:20px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600}
+.hp-a{background:rgba(154,120,0,.15);border:1px solid rgba(212,175,55,.3);color:#D4AF37}
+.hp-b{background:rgba(76,175,130,.1);border:1px solid rgba(76,175,130,.28);color:#7ACCA8}
+.hero-divider{width:52px;height:1px;background:linear-gradient(90deg,transparent,rgba(154,120,0,.6),transparent);margin:0 auto 2rem}
+.hero-stats{display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
+.hstat{text-align:center}
+.hstat-num{font-family:'Playfair Display',serif;font-size:2.4rem;color:#D4AF37;line-height:1}
+.hstat-lbl{font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7A6040;margin-top:.2rem}
+
+/* ── Section strip ── */
+.section-strip{background:#F0E8D4;border-top:1px solid #E2D6B8;border-bottom:1px solid #E2D6B8;padding:.9rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.section-strip h2{font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#9A7800}
+.legend{display:flex;gap:1.4rem;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:.32rem;font-family:'Inter',sans-serif;font-size:.7rem;color:#7A6040}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ── Pillars grid ── */
+.grid{max-width:1240px;margin:0 auto;padding:2.5rem 2rem 5rem;display:grid;gap:1.4rem;grid-template-columns:repeat(3,1fr)}
+
+/* Row 1 = 3 columns. Row 2 = 2 columns centred. */
+.card:nth-child(4){grid-column:1 / span 1}
+.card:nth-child(5){grid-column:2 / span 2}
+
+/* ── Card ── */
+.card{background:#FFFFFF;border-radius:16px;overflow:hidden;border:1.5px solid #E6DBCA;cursor:pointer;transition:transform .22s,box-shadow .22s,border-color .22s;position:relative}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 52px rgba(44,31,8,.12)}
+.card.open{border-color:var(--pc,#9A7800);box-shadow:0 0 0 3px rgba(var(--pcr,154,120,0),.1),0 18px 52px rgba(44,31,8,.14)}
+
+/* Top accent strip */
+.card-accent{height:4px;width:100%}
+.card[data-pillar="textbook"]   {--pc:#9A7800;--pcr:154,120,0} .card[data-pillar="textbook"]   .card-accent{background:linear-gradient(90deg,#D4AF37,#9A7800)}
+.card[data-pillar="hitb"]       {--pc:#2B6CB0;--pcr:43,108,176} .card[data-pillar="hitb"]       .card-accent{background:linear-gradient(90deg,#4A90D9,#2B6CB0)}
+.card[data-pillar="courses"]    {--pc:#C85000;--pcr:200,80,0} .card[data-pillar="courses"]    .card-accent{background:linear-gradient(90deg,#E86B3A,#C85000)}
+.card[data-pillar="explainers"] {--pc:#2A7A8A;--pcr:42,122,138} .card[data-pillar="explainers"] .card-accent{background:linear-gradient(90deg,#4AABB8,#2A7A8A)}
+.card[data-pillar="podcast"]    {--pc:#901050;--pcr:144,16,80} .card[data-pillar="podcast"]    .card-accent{background:linear-gradient(90deg,#D45A8A,#901050)}
+
+.card-inner{padding:1.7rem 1.8rem 1.5rem}
+
+/* Card header row */
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+.card-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;background:#FAF6EE;border:1px solid #E6DBCA}
+.card-status{display:inline-flex;align-items:center;gap:.3rem;padding:.24rem .65rem;border-radius:20px;font-family:'Inter',sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;flex-shrink:0}
+.status-live  {background:#E8F7EF;border:1px solid #A8DFC0;color:#276749}
+.status-dev   {background:#FEF9E7;border:1px solid #F0D98A;color:#8A6A00}
+.status-plan  {background:#F5F5F5;border:1px solid #DDDDDD;color:#888888}
+.status-live::before,.status-dev::before,.status-plan::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+
+.card-num{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--pc,#9A7800);margin-bottom:.32rem}
+.card-title{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:#1A0E00;line-height:1.2;margin-bottom:.22rem}
+.card-subtitle{font-family:'Inter',sans-serif;font-size:.74rem;font-weight:500;color:var(--pc,#9A7800);margin-bottom:.65rem}
+.card-partner{display:inline-flex;align-items:center;gap:.32rem;font-family:'Inter',sans-serif;font-size:.66rem;font-weight:600;color:#7A6040;background:#FAF6EE;border:1px solid #E2D6B8;border-radius:4px;padding:.16rem .5rem;margin-bottom:.7rem}
+.card-partner::before{content:'▸';font-size:.6rem;color:var(--pc,#9A7800)}
+.card-desc{font-size:.9rem;color:#5A4020;line-height:1.75}
+
+/* Expand toggle row */
+.card-toggle{display:flex;align-items:center;gap:.38rem;padding-top:.9rem;margin-top:.85rem;border-top:1px solid #EDE5CC;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;color:var(--pc,#9A7800);transition:opacity .18s}
+.card:hover .card-toggle{opacity:1}
+.toggle-arrow{margin-left:auto;font-size:.85rem;transition:transform .3s}
+.card.open .toggle-arrow{transform:rotate(180deg)}
+
+/* Expanded area */
+.card-detail{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),opacity .32s;opacity:0}
+.card.open .card-detail{max-height:700px;opacity:1}
+.card-detail-inner{border-top:1px solid #EDE5CC;padding-top:1.1rem;margin-top:.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.8rem 1.4rem}
+.card[data-pillar="podcast"] .card-detail-inner{grid-template-columns:1fr}
+.detail-col{}
+.detail-label{font-family:'Inter',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pc,#9A7800);margin-bottom:.42rem;opacity:.85}
+.detail-items{display:flex;flex-direction:column;gap:.32rem;margin-bottom:.6rem}
+.detail-item{display:flex;align-items:flex-start;gap:.5rem;font-size:.84rem;color:#5A4020;line-height:1.55}
+.detail-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--pc,#9A7800);margin-top:.58rem;flex-shrink:0}
+.detail-link{display:inline-flex;align-items:center;gap:.42rem;margin-top:.5rem;padding:.42rem .9rem;border-radius:7px;background:var(--pc,#9A7800);color:#fff;font-family:'Inter',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.03em;transition:opacity .18s}
+.detail-link:hover{opacity:.85}
+
+/* ── Vision strip ── */
+.vision{background:#1A0E00;padding:3.2rem 2.5rem;text-align:center}
+.vision blockquote{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2vw,1.5rem);font-style:italic;color:#D4AF37;max-width:740px;margin:0 auto;line-height:1.75}
+.vision cite{display:block;margin-top:.85rem;font-family:'Inter',sans-serif;font-size:.7rem;font-style:normal;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7A6040}
+
+/* ── Footer ── */
+footer{background:#F0E8D4;border-top:1px solid #E2D6B8;text-align:center;padding:2.5rem 2rem;font-family:'Inter',sans-serif;font-size:.76rem;color:#7A6040}
+footer strong{color:#2C1F08}
+footer a{color:#9A7800}
+footer a:hover{text-decoration:underline}
+
+/* ── Responsive ── */
+@media(max-width:960px){
+  .grid{grid-template-columns:1fr 1fr}
+  .card:nth-child(4),.card:nth-child(5){grid-column:auto}
+  .card-detail-inner{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr;padding:1.5rem 1rem 4rem}
+  .card:nth-child(n){grid-column:auto}
+  nav{padding:.65rem 1.2rem}
+  .nav-partner{display:none}
+  .hero{padding:4rem 1.2rem 3.5rem}
+  .hero-stats{gap:2rem}
+  .section-strip{flex-direction:column;align-items:flex-start;gap:.6rem}
+}
+</style>
+
+<style id="sn-css">
+/* ═══ SITE-WIDE NAV ═══════════════════════════════════════════════ */
+.site-nav,.site-nav *{box-sizing:border-box}
+.site-nav{position:sticky;top:0;z-index:9999;padding:0;background:rgba(14,6,0,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(212,175,55,.14)}
+.sn-inner{max-width:1340px;margin:0 auto;padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.sn-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0}
+.sn-om{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:rgba(212,175,55,.4);line-height:1;user-select:none}
+.sn-brand{display:flex;flex-direction:column;line-height:1.15;gap:.02rem}
+.sn-brand-sup{font-family:'Inter',system-ui,sans-serif;font-size:.5rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(154,120,0,.6)}
+.sn-brand-name{font-family:'Playfair Display',Georgia,serif;font-size:.92rem;font-weight:700;font-style:italic;color:#F0E8D4}
+.sn-links{display:flex;align-items:center;gap:.1rem}
+.sn-link{font-family:'Inter',system-ui,sans-serif;font-size:.69rem;font-weight:600;letter-spacing:.02em;color:rgba(195,170,120,.62);padding:.36rem .7rem;border-radius:5px;cursor:pointer;text-decoration:none;white-space:nowrap;border:none;background:transparent;transition:color .16s,background .16s;display:flex;align-items:center;gap:.22rem}
+.sn-link:hover,.sn-link.sn-active{color:#D4AF37}
+.sn-link.sn-active{background:rgba(212,175,55,.08)}
+.sn-caret{font-size:.52rem;opacity:.45;transition:transform .2s}
+.sn-group{position:relative}
+.sn-group:hover>.sn-link .sn-caret,.sn-group:focus-within>.sn-link .sn-caret{transform:rotate(90deg);opacity:.75}
+.sn-drop{position:absolute;top:calc(100% + .35rem);left:50%;transform:translateX(-50%) translateY(-5px);opacity:0;pointer-events:none;transition:opacity .17s,transform .17s;z-index:10000}
+.sn-group:hover>.sn-drop,.sn-group:focus-within>.sn-drop{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.sn-drop-inner{background:#130700;border:1px solid rgba(212,175,55,.18);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.75);min-width:248px;padding:.35rem}
+.sdi{display:flex;align-items:center;gap:.72rem;padding:.54rem .68rem;border-radius:7px;text-decoration:none;transition:background .13s;color:inherit}
+.sdi:hover,.sdi.sn-active{background:rgba(212,175,55,.08)}
+.sdi-num{font-family:'Inter',system-ui,sans-serif;font-size:.58rem;font-weight:700;color:rgba(154,120,0,.45);width:16px;flex-shrink:0;text-align:center}
+.sdi-tag{font-family:'Inter',system-ui,sans-serif;font-size:.54rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:rgba(212,175,55,.1);color:rgba(212,175,55,.7);border:1px solid rgba(212,175,55,.18);border-radius:3px;padding:.08rem .36rem;flex-shrink:0;white-space:nowrap}
+.sdi-text{display:flex;flex-direction:column;gap:.03rem}
+.sdi-title{font-family:'Playfair Display',Georgia,serif;font-size:.83rem;font-weight:700;font-style:italic;color:#EDE5C8}
+.sdi-sub{font-family:'Inter',system-ui,sans-serif;font-size:.62rem;color:rgba(154,120,0,.55)}
+.sn-drop-div{height:1px;background:rgba(212,175,55,.1);margin:.3rem .4rem}
+.sn-ham{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:.45rem;flex-shrink:0}
+.sn-ham span{display:block;width:20px;height:1.5px;background:rgba(195,170,120,.72);border-radius:2px;transition:all .25s}
+.sn-ham.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.sn-ham.open span:nth-child(2){opacity:0;width:0}
+.sn-ham.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:860px){
+  .sn-ham{display:flex}
+  .sn-links{display:none;position:fixed;inset:56px 0 0;background:rgba(12,5,0,.99);flex-direction:column;align-items:stretch;padding:1rem;gap:.1rem;overflow-y:auto;z-index:9998;border-top:1px solid rgba(212,175,55,.1)}
+  .sn-links.mob-open{display:flex}
+  .sn-group>.sn-drop{position:static;opacity:1;pointer-events:all;transform:none;max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .sn-group.mob-open>.sn-drop{max-height:500px}
+  .sn-drop-inner{background:rgba(255,255,255,.03);border-color:rgba(212,175,55,.1);box-shadow:none;border-radius:8px;margin:.1rem 0 .1rem 1rem;padding:.2rem}
+  .sn-link{font-size:.8rem;padding:.62rem .85rem}
+  .sn-caret{margin-left:auto;font-size:.65rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="site-nav" id="site-nav">
+<div class="sn-inner">
+  <a class="sn-logo" href="index.html">
+    <span class="sn-om">ॐ</span>
+    <span class="sn-brand">
+      <span class="sn-brand-sup">Next Gen Education</span>
+      <span class="sn-brand-name">Hindu Studies</span>
+    </span>
+  </a>
+  <div class="sn-links" id="sn-links">
+    <a class="sn-link" href="index.html"   data-sn="index.html">Home</a>
+    <a class="sn-link" href="map.html"     data-sn="map.html">Start Here</a>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Essays <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="vedas.html"          data-sn="vedas.html"><span class="sdi-num">01</span><span class="sdi-text"><span class="sdi-title">The Vedas</span><span class="sdi-sub">Origins · Sanskrit · Upaniṣads</span></span></a>
+        <a class="sdi" href="darshanas.html"       data-sn="darshanas.html"><span class="sdi-num">02</span><span class="sdi-text"><span class="sdi-title">The Six Darśanas</span><span class="sdi-sub">Philosophy · Schools · Logic</span></span></a>
+        <a class="sdi" href="history.html"         data-sn="history.html"><span class="sdi-num">03</span><span class="sdi-text"><span class="sdi-title">A Historical Timeline</span><span class="sdi-sub">2600 BCE → 1400 CE</span></span></a>
+        <a class="sdi" href="veda-traditions.html" data-sn="veda-traditions.html"><span class="sdi-num">04</span><span class="sdi-text"><span class="sdi-title">What is Śāstra?</span><span class="sdi-sub">18 Traditions · 8 Categories</span></span></a>
+        <a class="sdi" href="vedic-sacrifice.html" data-sn="vedic-sacrifice.html"><span class="sdi-num">05</span><span class="sdi-text"><span class="sdi-title">The Sacred Fire</span><span class="sdi-sub">Yajña · Ritual · Agni</span></span></a>
+      </div></div>
+    </div>
+    <div class="sn-group">
+      <span class="sn-link" tabindex="0">Karma <span class="sn-caret">›</span></span>
+      <div class="sn-drop"><div class="sn-drop-inner">
+        <a class="sdi" href="karma.html"          data-sn="karma.html"><span class="sdi-tag">Essay</span><span class="sdi-text"><span class="sdi-title">Karma</span><span class="sdi-sub">Visual essay · All techniques</span></span></a>
+        <div class="sn-drop-div"></div>
+        <a class="sdi" href="karma-full.html"     data-sn="karma-full.html"><span class="sdi-tag">Exam</span><span class="sdi-text"><span class="sdi-title">Karma + Exam Mode</span><span class="sdi-sub">Board-specific overlay</span></span></a>
+        <a class="sdi" href="karma-revision.html" data-sn="karma-revision.html"><span class="sdi-tag">Study</span><span class="sdi-text"><span class="sdi-title">A Level Revision</span><span class="sdi-sub">OCR · AQA · Edexcel · WJEC</span></span></a>
+      </div></div>
+    </div>
+    <a class="sn-link" href="overview.html" data-sn="overview.html">Overview</a>
+  </div>
+  <button class="sn-ham" id="sn-ham" aria-label="Menu" onclick="snHam()"><span></span><span></span><span></span></button>
+</div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-eye">Project Overview · 2025</div>
+  <h1>Next Gen Education<br><em>Hindu Studies</em></h1>
+  <p class="hero-sub">A full ecosystem delivering rigorous, engaging Hindu Studies content — for A Level students and teachers across the UK, through digital textbooks, curriculum kits, online courses, documentary explainers, and a podcast.</p>
+  <div class="hero-partners">
+    <span class="hp hp-a">A Level Hinduism · UK Curriculum</span>
+    <span class="hp hp-b">In partnership with Bhumi Spirit</span>
+  </div>
+  <div class="hero-divider"></div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-num">5</div><div class="hstat-lbl">Core Pillars</div></div>
+    <div class="hstat"><div class="hstat-num">4</div><div class="hstat-lbl">Essays Live</div></div>
+    <div class="hstat"><div class="hstat-num">18</div><div class="hstat-lbl">Traditions Mapped</div></div>
+    <div class="hstat"><div class="hstat-num">A2</div><div class="hstat-lbl">Level Aligned</div></div>
+  </div>
+</div>
+
+<!-- ── Vision ── -->
+<div class="vision">
+  <blockquote>"One of the world's oldest living traditions — taught with the depth it deserves and the interactivity today's students expect."</blockquote>
+  <cite>Next Gen Education · Hindu Studies</cite>
+</div>
+
+<!-- ── Strip ── -->
+<div class="section-strip">
+  <h2>Five Pillars</h2>
+  <div class="legend">
+    <span class="leg"><span class="leg-dot" style="background:#4CAF82"></span>Live</span>
+    <span class="leg"><span class="leg-dot" style="background:#D4AF37"></span>In Development</span>
+    <span class="leg"><span class="leg-dot" style="background:#BBBBBB"></span>Planned</span>
+  </div>
+</div>
+
+<!-- ── Grid ── -->
+<div class="grid">
+
+  <!-- ① Textbook & Visual Essays -->
+  <div class="card" data-pillar="textbook">
+    <div class="card-accent"></div>
+    <div class="card-inner">
+      <div class="card-head">
+        <div class="card-icon">📖</div>
+        <span class="card-status status-live">✦ Live Now</span>
+      </div>
+      <div class="card-num">Pillar 01</div>
+      <div class="card-title">Textbook &amp; Visual Essays</div>
+      <div class="card-subtitle">Online · Interactive · Scrollytelling</div>
+      <div class="card-partner">A Level Hinduism — UK</div>
+      <p class="card-desc">Long-form interactive essays — the depth of a textbook, the experience of a magazine. Aligned to A Level Hinduism. Separate access tiers for teachers and students.</p>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="detail-col">
+            <div class="detail-label">Essays Live Now</div>
+            <div class="detail-items">
+              <span class="detail-item">The Vedas — origins, oral tradition, Sanskrit, Upaniṣads, Bhagavad-gītā</span>
+              <span class="detail-item">The Six Darśanas — Hindu philosophical schools</span>
+              <span class="detail-item">A Historical Timeline — Indus Valley to 1400 CE</span>
+              <span class="detail-item">What is Śāstra? — 18 traditions × 8 scripture categories</span>
+            </div>
+            <a class="detail-link" href="index.html" target="_blank">Open the Textbook ↗</a>
+          </div>
+          <div class="detail-col">
+            <div class="detail-label">Interactive Features</div>
+            <div class="detail-items">
+              <span class="detail-item">Sanskrit recitation explorer with Web Audio + pronunciation</span>
+              <span class="detail-item">Transmission chain calculator — visual branching tree</span>
+              <span class="detail-item">Phonetic wave explorer — hear and see Sanskrit sounds</span>
+              <span class="detail-item">Animated IVC/Vedic migration map</span>
+              <span class="detail-item">Live scripture canon comparison across traditions</span>
+            </div>
+            <div class="detail-label" style="margin-top:.8rem">Access Levels</div>
+            <div class="detail-items">
+              <span class="detail-item">Student — open access, all content</span>
+              <span class="detail-item">Teacher — lesson context, discussion prompts, curriculum links</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-toggle">Explore <span class="toggle-arrow">▾</span></div>
+    </div>
+  </div>
+
+  <!-- ② Hinduism in a Box -->
+  <div class="card" data-pillar="hitb">
+    <div class="card-accent"></div>
+    <div class="card-inner">
+      <div class="card-head">
+        <div class="card-icon">📦</div>
+        <span class="card-status status-dev">● In Development</span>
+      </div>
+      <div class="card-num">Pillar 02</div>
+      <div class="card-title">Hinduism in a Box</div>
+      <div class="card-subtitle">Complete Curriculum Kit for Schools</div>
+      <div class="card-partner">Bhumi Spirit</div>
+      <p class="card-desc">Everything a non-specialist teacher needs to deliver confident, accurate lessons — curriculum, slides, lesson guides, CPD training, student handouts, and assessment. Packaged and ready to use.</p>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="detail-col">
+            <div class="detail-label">Curriculum &amp; Teaching</div>
+            <div class="detail-items">
+              <span class="detail-item">Scope &amp; sequence — full curriculum structure</span>
+              <span class="detail-item">Slide decks — designed, illustrated, ready to project</span>
+              <span class="detail-item">"How to Teach This Lesson" — pedagogical notes per topic</span>
+              <span class="detail-item">Curated video links — vetted &amp; timestamped</span>
+            </div>
+            <div class="detail-label" style="margin-top:.8rem">Teacher Training</div>
+            <div class="detail-items">
+              <span class="detail-item">CPD Day — in-school subject-knowledge training (day rate)</span>
+              <span class="detail-item">Virtual Continuing Programme — monthly live sessions</span>
+            </div>
+          </div>
+          <div class="detail-col">
+            <div class="detail-label">Student Support</div>
+            <div class="detail-items">
+              <span class="detail-item">Printable handouts — diagrams, timelines, concept summaries</span>
+              <span class="detail-item">Independent project briefs</span>
+              <span class="detail-item">Virtual engagement — live Q&amp;A, guest scholar sessions</span>
+            </div>
+            <div class="detail-label" style="margin-top:.8rem">Assessment</div>
+            <div class="detail-items">
+              <span class="detail-item">End-of-unit exams with mark schemes</span>
+              <span class="detail-item">Homework sets — tiered by difficulty</span>
+              <span class="detail-item">Projects, presentations, exam-board aligned questions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-toggle">Explore <span class="toggle-arrow">▾</span></div>
+    </div>
+  </div>
+
+  <!-- ③ Online Courses -->
+  <div class="card" data-pillar="courses">
+    <div class="card-accent"></div>
+    <div class="card-inner">
+      <div class="card-head">
+        <div class="card-icon">🖥</div>
+        <span class="card-status status-dev">● In Development</span>
+      </div>
+      <div class="card-num">Pillar 03</div>
+      <div class="card-title">Online Courses</div>
+      <div class="card-subtitle">We Teach · Fully Online · Accessible</div>
+      <div class="card-partner">Bhumi Spirit</div>
+      <p class="card-desc">Structured courses taught by our team — expert instruction, not just content. Any Hindu Studies topic available as a complete course for students, teachers, or independent learners.</p>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="detail-col">
+            <div class="detail-label">Every Course Includes</div>
+            <div class="detail-items">
+              <span class="detail-item">Video lectures — filmed and edited to broadcast standard</span>
+              <span class="detail-item">Accompanying handouts and reading packs</span>
+              <span class="detail-item">Project work — applied, creative, or research-based</span>
+              <span class="detail-item">Assessment — formative throughout, certificate on completion</span>
+              <span class="detail-item">Live optional sessions for questions and extension</span>
+            </div>
+          </div>
+          <div class="detail-col">
+            <div class="detail-label">Audience</div>
+            <div class="detail-items">
+              <span class="detail-item">A Level students — supported self-study</span>
+              <span class="detail-item">Independent learners — open to all</span>
+              <span class="detail-item">Teachers — CPD accredited modules</span>
+            </div>
+            <div class="detail-label" style="margin-top:.8rem">Format</div>
+            <div class="detail-items">
+              <span class="detail-item">Fully online — accessible anywhere, self-paced</span>
+              <span class="detail-item">Any Hinduism in a Box topic available as a standalone course</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-toggle">Explore <span class="toggle-arrow">▾</span></div>
+    </div>
+  </div>
+
+  <!-- ④ Explainer Videos -->
+  <div class="card" data-pillar="explainers">
+    <div class="card-accent"></div>
+    <div class="card-inner">
+      <div class="card-head">
+        <div class="card-icon">🎥</div>
+        <span class="card-status status-dev">● In Development</span>
+      </div>
+      <div class="card-num">Pillar 04</div>
+      <div class="card-title">Explainer Videos</div>
+      <div class="card-subtitle">Investigative Style · 15–20 min · High Production</div>
+      <div class="card-partner">A Level Hinduism Topics</div>
+      <p class="card-desc">Short documentary-style explainers — driven by a central question, built like investigative journalism. Each one covers an A Level topic with rigour and visual quality.</p>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="detail-col">
+            <div class="detail-label">Format</div>
+            <div class="detail-items">
+              <span class="detail-item">15–20 minutes per topic — deep enough to matter, concise enough for a lesson</span>
+              <span class="detail-item">Investigative journalism style — one central question, evidence, narrative arc</span>
+              <span class="detail-item">High quality &amp; aesthetically pleasing — visuals, pacing, and voice crafted</span>
+              <span class="detail-item">Each ships with classroom discussion questions</span>
+            </div>
+          </div>
+          <div class="detail-col">
+            <div class="detail-label">Example Topics (A Level)</div>
+            <div class="detail-items">
+              <span class="detail-item">Who wrote the Vedas — and does it matter?</span>
+              <span class="detail-item">Is yoga Hindu?</span>
+              <span class="detail-item">What does Karma actually mean?</span>
+              <span class="detail-item">Why did the Indus Valley Civilisation fall?</span>
+              <span class="detail-item">What is the Self? — Ātman &amp; the Upaniṣads</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-toggle">Explore <span class="toggle-arrow">▾</span></div>
+    </div>
+  </div>
+
+  <!-- ⑤ Podcast -->
+  <div class="card" data-pillar="podcast">
+    <div class="card-accent"></div>
+    <div class="card-inner">
+      <div class="card-head">
+        <div class="card-icon">🎙</div>
+        <span class="card-status status-dev">● In Development</span>
+      </div>
+      <div class="card-num">Pillar 05</div>
+      <div class="card-title">Podcast</div>
+      <div class="card-subtitle">Engaging · Bold · Relevant</div>
+      <p class="card-desc">Conversations about Hinduism that are honest, contemporary, and free of both Western condescension and uncritical piety — connecting ancient ideas to the world students actually live in.</p>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="detail-col">
+            <div class="detail-label">Identity</div>
+            <div class="detail-items">
+              <span class="detail-item">Engaging — genuine conversation, not a lecture</span>
+              <span class="detail-item">Bold — willing to address controversy, diversity, and difficult questions</span>
+              <span class="detail-item">Relevant — connects ancient ideas to contemporary life, politics, and culture</span>
+            </div>
+            <div class="detail-label" style="margin-top:.8rem">Episode Formats</div>
+            <div class="detail-items">
+              <span class="detail-item">Solo explainers — deep dives into a single concept or text</span>
+              <span class="detail-item">Scholar &amp; practitioner interviews</span>
+              <span class="detail-item">Debate episodes — live disagreement on contested questions</span>
+              <span class="detail-item">Student Q&amp;A specials — answering A Level exam questions aloud</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-toggle">Explore <span class="toggle-arrow">▾</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+  <p><strong>Next Gen Education · Hindu Studies</strong> &nbsp;·&nbsp; In partnership with <a href="#">Bhumi Spirit</a> &nbsp;·&nbsp; Aligned to A Level Hinduism, UK &nbsp;·&nbsp; <a href="index.html">View Live Textbook ↗</a></p>
+</footer>
+
+<script>
+document.querySelectorAll('.card').forEach(card => {
+  // Click to expand
+  card.addEventListener('click', e => {
+    if (e.target.closest('a')) return;
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.card.open').forEach(c => { if (c !== card) c.classList.remove('open'); });
+    card.classList.toggle('open', !isOpen);
+  });
+  // Keyboard
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('role', 'button');
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+  });
+});
+</script>
+
+<script id="sn-js">
+(function(){var p=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('[data-sn]').forEach(function(e){if(e.getAttribute('data-sn')===p){e.classList.add('sn-active');var g=e.closest('.sn-group');if(g)g.querySelector('.sn-link').classList.add('sn-active');}});})();
+function snHam(){var l=document.getElementById('sn-links'),h=document.getElementById('sn-ham');l.classList.toggle('mob-open');h.classList.toggle('open');}
+document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.sn-group>.sn-link').forEach(function(t){t.addEventListener('click',function(){if(window.innerWidth<=860){t.closest('.sn-group').classList.toggle('mob-open');}});});});
+</script>
+</body>
+</html>
