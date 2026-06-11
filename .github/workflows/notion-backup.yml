@@ -1,0 +1,33 @@
+name: Notion backup
+
+on:
+  schedule:
+    - cron: "0 6 * * 0" # Sundays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Export Notion databases to CSV
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+        run: python scripts/notion_backup.py
+      - name: Commit backup if changed
+        run: |
+          git config user.name "hive-backup-bot"
+          git config user.email "actions@github.com"
+          git add ochs-hive-notion/backups
+          if ! git diff --cached --quiet; then
+            git commit -m "Weekly Notion backup $(date -u +%F)"
+            git push
+          else
+            echo "No changes since last backup."
+          fi

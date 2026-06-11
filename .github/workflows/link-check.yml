@@ -1,0 +1,40 @@
+name: Hive link check
+
+on:
+  schedule:
+    - cron: "0 7 1 * *" # 1st of each month, 07:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check all Hive links
+        id: linkcheck
+        run: python scripts/check_links.py
+      - name: Commit report
+        run: |
+          git config user.name "hive-link-bot"
+          git config user.email "actions@github.com"
+          git add ochs-hive-notion/link-report.md
+          if ! git diff --cached --quiet; then
+            git commit -m "Monthly link report $(date -u +%F)"
+            git push
+          fi
+      - name: Open issue if links are broken
+        if: steps.linkcheck.outputs.broken != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "Hive link rot: ${{ steps.linkcheck.outputs.broken }} broken link(s) ($(date -u +%F))" \
+            --body-file ochs-hive-notion/link-report.md \
+            --label maintenance || echo "Issue creation failed (label may not exist) — report is committed."
