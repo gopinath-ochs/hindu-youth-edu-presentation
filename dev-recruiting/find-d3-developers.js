@@ -31,7 +31,9 @@ const CONFIG = {
   location:      'india',        // GitHub location filter
   minStars:      10,             // minimum stars to include a D3 repo in search
   minFollowers:  5,              // minimum followers when searching users directly
-  maxCandidates: 60,             // cap on profiles fetched (raises with a token)
+  // With a token the rate limit is 5000/hr so we can afford far more profiles.
+  // Without a token it's 60/hr, so keep the cap low to avoid hitting the wall.
+  maxCandidates: process.env.GITHUB_TOKEN ? 150 : 40,
   updatedAfter:  '2024-01-01',   // only repos pushed after this date
   outputDir:     process.env.OUTPUT_DIR || os.homedir(),
   csvFile:       'developer-candidates.csv',
@@ -141,6 +143,12 @@ function searchIndiaUsers(page = 1) {
   return githubGet(`/search/users?q=${q}&sort=followers&order=desc&per_page=100&page=${page}`);
 }
 
+// Targeted: India users who explicitly mention D3 in their profile/repos
+function searchIndiaD3Users(page = 1) {
+  const q = encodeURIComponent(`location:india d3 language:javascript`);
+  return githubGet(`/search/users?q=${q}&sort=followers&order=desc&per_page=100&page=${page}`);
+}
+
 const getUserProfile = username => githubGet(`/users/${encodeURIComponent(username)}`);
 const getUserRepos   = username =>
   githubGet(`/users/${encodeURIComponent(username)}/repos?sort=stars&per_page=30&type=public`);
@@ -224,48 +232,58 @@ function lastActivity(repos) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 async function collectUsernames() {
-  const found = new Map(); // login → metadata
+  const found = new Map(); // login → { source, priority }
 
-  // ── Phase 1: pull D3 repo owners ─────────────────────────────────────────
-  console.log('\n[1/3] Searching D3.js repositories...');
-  for (let page = 1; page <= 3; page++) {
-    try {
-      const res = await searchD3Repos(page);
-      console.log(`  Page ${page}: ${res.items.length} repos returned (${res.total_count} total matches)`);
-      for (const repo of res.items) {
-        if (repo.owner?.type === 'User') {
-          found.set(repo.owner.login, { source: 'd3-repo' });
+  const searchPages = async (label, fetchFn, source, priority, maxPages = 3) => {
+    console.log(`\n  ${label}...`);
+    for (let page = 1; page <= maxPages; page++) {
+      try {
+        const res = await fetchFn(page);
+        console.log(`    Page ${page}: ${res.items.length} results (${res.total_count} total)`);
+        for (const item of res.items) {
+          const login = item.login || item.owner?.login;
+          const type  = item.type  || item.owner?.type;
+          if (login && type === 'User' && !found.has(login)) {
+            found.set(login, { source, priority });
+          }
         }
+        if (res.items.length < 100) break;
+        await sleep(rl.isAuthenticated ? 500 : 8_000);
+      } catch (err) {
+        if (err instanceof RateLimitError) throw err;
+        console.warn(`    Page ${page} failed: ${err.message}`);
+        break;
       }
-      if (res.items.length < 100) break;
-      // Extra pause between search pages — GitHub's search limit is 10 req/min unauthenticated
-      await sleep(rl.isAuthenticated ? 500 : 8_000);
-    } catch (err) {
-      if (err instanceof RateLimitError) throw err;
-      console.warn(`  Page ${page} failed: ${err.message}`);
-      break;
     }
-  }
-  console.log(`  → ${found.size} unique D3 repo owners collected`);
+  };
 
-  // ── Phase 2: India-specific user search ───────────────────────────────────
-  console.log('\n[2/3] Searching India-based JavaScript developers...');
-  for (let page = 1; page <= 3; page++) {
-    try {
-      const res = await searchIndiaUsers(page);
-      console.log(`  Page ${page}: ${res.items.length} users returned (${res.total_count} total matches)`);
-      for (const u of res.items) {
-        if (!found.has(u.login)) found.set(u.login, { source: 'india-search' });
-      }
-      if (res.items.length < 100) break;
-      await sleep(rl.isAuthenticated ? 500 : 8_000);
-    } catch (err) {
-      if (err instanceof RateLimitError) throw err;
-      console.warn(`  Page ${page} failed: ${err.message}`);
-      break;
-    }
-  }
-  console.log(`  → ${found.size} total unique candidates identified`);
+  console.log('\n[1/3] Collecting candidates via three search strategies:');
+
+  // Priority 1 — India users who explicitly mention D3 in their GitHub profile
+  await searchPages(
+    '[1a] India + D3 targeted user search',
+    searchIndiaD3Users, 'india-d3', 1
+  );
+  console.log(`      → ${found.size} candidates so far`);
+
+  // Priority 2 — Broad India JS developer search (high pass-rate for India filter)
+  await searchPages(
+    '[1b] India JavaScript developers (broad)',
+    searchIndiaUsers, 'india-js', 2
+  );
+  console.log(`      → ${found.size} candidates so far`);
+
+  // Priority 3 — Global D3 repo owners (lower India hit-rate, used as supplement)
+  await searchPages(
+    '[1c] Global D3.js repository owners',
+    page => searchD3Repos(page).then(res => ({
+      total_count: res.total_count,
+      items: res.items.map(r => ({ login: r.owner?.login, type: r.owner?.type })),
+    })),
+    'd3-repo', 3
+  );
+  console.log(`      → ${found.size} total unique candidates identified`);
+
   return found;
 }
 
@@ -275,9 +293,15 @@ async function collectUsernames() {
 
 async function buildProfiles(usernames) {
   const candidates = [];
-  const list = [...usernames.keys()].slice(0, CONFIG.maxCandidates);
 
-  console.log(`\n[3/3] Fetching profiles (up to ${list.length})...`);
+  // Process highest-priority candidates first so the cap is spent wisely:
+  // india-d3 (1) → india-js (2) → d3-repo owners (3)
+  const list = [...usernames.entries()]
+    .sort(([, a], [, b]) => a.priority - b.priority)
+    .map(([login]) => login)
+    .slice(0, CONFIG.maxCandidates);
+
+  console.log(`\n[2/3] Fetching profiles (up to ${list.length}, highest-priority first)...`);
   console.log(`  Rate limit: ${rl.remaining} requests remaining\n`);
 
   for (let i = 0; i < list.length; i++) {
