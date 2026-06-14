@@ -1,0 +1,16 @@
+{
+  "name": "d3-developer-finder",
+  "version": "1.0.0",
+  "description": "Find D3.js developers in India using GitHub's public API",
+  "main": "find-d3-developers.js",
+  "scripts": {
+    "start": "node find-d3-developers.js",
+    "find": "node find-d3-developers.js"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": ["recruiting", "github", "d3", "developers", "india"],
+  "license": "MIT",
+  "dependencies": {}
+}
